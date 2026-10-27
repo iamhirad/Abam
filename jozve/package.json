@@ -1,0 +1,15 @@
+{
+  "name": "jozve-dsa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "pdf": "node build.mjs --pdf"
+  },
+  "dependencies": {
+    "@fontsource-variable/jetbrains-mono": "5.1.1",
+    "@fontsource-variable/vazirmatn": "5.1.1",
+    "@fontsource/lalezar": "5.1.0",
+    "katex": "0.16.11"
+  }
+}

@@ -1,0 +1,133 @@
+<section class="chapter" data-ch="پ" data-color="cA" data-title="پیوست: برگهٔ خلاصه، واژه‌نامه و منابع" id="chA">
+<header class="ch-head">
+  <div class="ch-kicker">پیوست</div>
+  <h1>برگهٔ خلاصه، واژه‌نامه و منابع</h1>
+  <p class="ch-lead">همهٔ فرمول‌ها و زمان‌های اجرایی که در طول جزوه به آن‌ها نیاز داشتیم، در یک جا؛ برای مرور شب امتحان.</p>
+  <div class="ch-big" aria-hidden="true">پ</div>
+</header>
+
+<h2>فرمول‌های پرکاربرد</h2>
+<h3>جمع‌ها</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>نام</th><th>فرمول</th><th>کجا به کار رفت</th></tr></thead>
+  <tbody>
+    <tr><td>جمع حسابی</td><td>\(\displaystyle\sum_{i=1}^{n} i = \frac{n(n+1)}{2}\)</td><td>مرتب‌سازی درجی، حلقه‌های تودرتو</td></tr>
+    <tr><td>جمع مربعات</td><td>\(\displaystyle\sum_{i=1}^{n} i^2 = \frac{n(n+1)(2n+1)}{6}\)</td><td>تحلیل‌های مکعبی</td></tr>
+    <tr><td>سری هندسی متناهی</td><td>\(\displaystyle\sum_{i=0}^{n} r^i = \frac{r^{n+1}-1}{r-1}\quad(r \ne 1)\)</td><td>قضیهٔ اصلی، آرایهٔ پویا</td></tr>
+    <tr><td>سری هندسی نامتناهی</td><td>\(\displaystyle\sum_{i=0}^{\infty} r^i = \frac{1}{1-r}\quad(|r| &lt; 1)\)</td><td>شمارنده (\(\sum 2^{-i} = 2\))، انتخاب تصادفی</td></tr>
+    <tr><td>عدد هارمونیک</td><td>\(\displaystyle H_n = \sum_{i=1}^{n}\frac1i = \ln n + O(1)\)</td><td>مسئلهٔ استخدام، کوئیک‌سورت</td></tr>
+    <tr><td>لگاریتم فاکتوریل</td><td>\(\log(n!) = \Theta(n\log n)\)</td><td>خودآزمایی فصل ۱</td></tr>
+  </tbody>
+</table></div>
+<h3>لگاریتم و توان</h3>
+<div class="tbl-wrap"><table>
+  <tbody>
+    <tr><td>\(\log(ab) = \log a + \log b\)</td><td>\(\log(a/b) = \log a - \log b\)</td></tr>
+    <tr><td>\(\log(a^k) = k\log a\)</td><td>\(\log_b a = \dfrac{\log_c a}{\log_c b}\)</td></tr>
+    <tr><td>\(a^{\log_b n} = n^{\log_b a}\)</td><td>\(2^{\log_2 n} = n\)</td></tr>
+    <tr><td>\(\log_2 3 \approx 1.585\)</td><td>\(\varphi = \frac{1+\sqrt5}{2} \approx 1.618,\;\; \log_2\varphi \approx 0.694\)</td></tr>
+  </tbody>
+</table></div>
+<h3>احتمال</h3>
+<div class="tbl-wrap"><table>
+  <tbody>
+    <tr><td class="start">امید ریاضی</td><td>\(E[X] = \sum_\omega P[\omega]X(\omega) = \sum_r r\,P[X = r]\)</td></tr>
+    <tr><td class="start">خطی بودن (بدون نیاز به استقلال)</td><td>\(E[\sum X_i] = \sum E[X_i],\quad E[aX + b] = aE[X] + b\)</td></tr>
+    <tr><td class="start">متغیر نشانگر</td><td>\(E[I_A] = P[A]\)</td></tr>
+    <tr><td class="start">تعداد تلاش تا اولین موفقیت (احتمال \(p\))</td><td>\(E[Y] = 1/p\)</td></tr>
+    <tr><td class="start">شکست \(c\) تلاش مستقل</td><td>\((1 - p)^c\)</td></tr>
+  </tbody>
+</table></div>
+<h3>قضیهٔ اصلی و رابطه‌های بازگشتی</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>رابطه</th><th>جواب</th><th>مثال</th></tr></thead>
+  <tbody>
+    <tr><td>\(aT(n/b) + O(n^d),\; \log_b a &lt; d\)</td><td>\(O(n^d)\)</td><td>\(T(n/2) + n\)</td></tr>
+    <tr><td>\(aT(n/b) + O(n^d),\; \log_b a = d\)</td><td>\(O(n^d\log n)\)</td><td>مرتب‌سازی ادغامی</td></tr>
+    <tr><td>\(aT(n/b) + O(n^d),\; \log_b a &gt; d\)</td><td>\(O(n^{\log_b a})\)</td><td>کاراتسوبا</td></tr>
+    <tr><td>\(T(an) + T(bn) + O(n),\; a + b &lt; 1\)</td><td>\(O(n)\)</td><td>انتخاب قطعی</td></tr>
+    <tr><td>\(T(an) + T(bn) + O(n),\; a + b = 1\)</td><td>\(O(n\log n)\)</td><td>کوئیک‌سورت با محور خوب</td></tr>
+    <tr><td>\(T(n-1) + O(1)\)</td><td>\(O(n)\)</td><td>—</td></tr>
+    <tr><td>\(T(n-1) + O(n)\)</td><td>\(O(n^2)\)</td><td>بدترین حالت کوئیک‌سورت</td></tr>
+    <tr><td>\(T(n-1) + T(n-2) + O(1)\)</td><td>\(\Theta(\varphi^n)\)</td><td>فیبوناچی بازگشتی</td></tr>
+  </tbody>
+</table></div>
+
+<h2>جدول الگوریتم‌های جزوه</h2>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>مسئله</th><th>الگوریتم</th><th>زمان</th><th>فصل</th></tr></thead>
+  <tbody>
+    <tr><td rowspan="3">مرتب‌سازی</td><td>درجی</td><td>\(\Theta(n^2)\) بدترین، \(\Theta(n)\) بهترین</td><td>۱</td></tr>
+    <tr><td>ادغامی</td><td>\(\Theta(n\log n)\)</td><td>۲</td></tr>
+    <tr><td>کوئیک‌سورت تصادفی</td><td>امید \(O(n\log n)\)، بدترین \(\Theta(n^2)\)</td><td>۳</td></tr>
+    <tr><td rowspan="3">فیبوناچی \(F_n\)</td><td>بازگشتی</td><td>\(\Theta(\varphi^n)\)</td><td>۱</td></tr>
+    <tr><td>حلقه</td><td>\(O(n)\)</td><td>۱</td></tr>
+    <tr><td>توان ماتریس</td><td>\(O(\log n)\)</td><td>۱</td></tr>
+    <tr><td rowspan="4">زیرآرایهٔ بیشینه</td><td>جامع</td><td>\(O(n^3)\)</td><td>۱</td></tr>
+    <tr><td>مجموع پیشوندی</td><td>\(O(n^2)\)</td><td>۱</td></tr>
+    <tr><td>تقسیم و حل</td><td>\(O(n\log n)\)</td><td>۲</td></tr>
+    <tr><td>کادان</td><td>\(O(n)\)</td><td>۱ (تکمیلی)</td></tr>
+    <tr><td rowspan="3">ضرب دو عدد \(n\) بیتی</td><td>دبستانی</td><td>\(\Theta(n^2)\)</td><td>۲</td></tr>
+    <tr><td>تقسیم و حل با ۴ ضرب</td><td>\(\Theta(n^2)\)</td><td>۲</td></tr>
+    <tr><td>کاراتسوبا</td><td>\(O(n^{1.585})\)</td><td>۲</td></tr>
+    <tr><td>جمع دو عدد \(n\) بیتی</td><td>دبستانی (بهینه)</td><td>\(\Theta(n)\)</td><td>۲</td></tr>
+    <tr><td rowspan="3">میانهٔ \(\delta\)-تقریبی</td><td>APPROX-MEDIAN-1 (مونت‌کارلو)</td><td>\(O(n)\)، موفقیت \(\approx 2\delta\)</td><td>۳</td></tr>
+    <tr><td>APPROX-MEDIAN-2</td><td>\(O(cn)\)، موفقیت \(1 - (1-2\delta)^c\)</td><td>۳</td></tr>
+    <tr><td>APPROX-MEDIAN-3 (لاس‌وگاس)</td><td>امید \(O(n/\delta)\)</td><td>۳</td></tr>
+    <tr><td rowspan="2">انتخاب (رتبهٔ \(i\))</td><td>تصادفی</td><td>امید \(O(n)\)، بدترین \(\Theta(n^2)\)</td><td>۳</td></tr>
+    <tr><td>میانهٔ میانه‌ها</td><td>\(O(n)\) بدترین حالت</td><td>۳</td></tr>
+    <tr><td>استخدام</td><td>با جایگشت تصادفی</td><td>امید هزینه \(f\,H_n \approx f\ln n\)</td><td>۳</td></tr>
+    <tr><td>جایگشت تصادفی</td><td>فیشر-ییتس</td><td>\(O(n)\)</td><td>۳</td></tr>
+    <tr><td>پشته با MULTIPOP</td><td>—</td><td>سرشکن \(O(1)\)</td><td>۴</td></tr>
+    <tr><td>شمارندهٔ دودویی</td><td>INCREMENT</td><td>سرشکن \(O(1)\)، بدترین \(O(k)\)</td><td>۴</td></tr>
+    <tr><td>آرایهٔ پویا</td><td>دو برابر کردن</td><td>سرشکن \(O(1)\) برای هر درج</td><td>۴ (تکمیلی)</td></tr>
+  </tbody>
+</table></div>
+
+<h2>واژه‌نامهٔ فارسی–انگلیسی</h2>
+<div class="tbl-wrap"><table>
+  <thead><tr><th class="start">فارسی</th><th class="start">English</th></tr></thead>
+  <tbody>
+    <tr><td class="start">تحلیل مجانبی</td><td class="start" dir="ltr">asymptotic analysis</td></tr>
+    <tr><td class="start">کران بالا / پایین / محکم</td><td class="start" dir="ltr">upper / lower / tight bound</td></tr>
+    <tr><td class="start">بدترین حالت / حالت میانگین / بهترین حالت</td><td class="start" dir="ltr">worst / average / best case</td></tr>
+    <tr><td class="start">ناوردای حلقه</td><td class="start" dir="ltr">loop invariant</td></tr>
+    <tr><td class="start">جست‌وجوی جامع</td><td class="start" dir="ltr">brute force</td></tr>
+    <tr><td class="start">زمان چندجمله‌ای</td><td class="start" dir="ltr">polynomial time</td></tr>
+    <tr><td class="start">تقسیم و حل</td><td class="start" dir="ltr">divide and conquer</td></tr>
+    <tr><td class="start">رابطهٔ بازگشتی</td><td class="start" dir="ltr">recurrence relation</td></tr>
+    <tr><td class="start">درخت بازگشت</td><td class="start" dir="ltr">recursion tree</td></tr>
+    <tr><td class="start">قضیهٔ اصلی</td><td class="start" dir="ltr">master theorem</td></tr>
+    <tr><td class="start">روش حدس و استقرا (جای‌گذاری)</td><td class="start" dir="ltr">guess and induction (substitution method)</td></tr>
+    <tr><td class="start">مرتب‌سازی ادغامی / درجی / سریع</td><td class="start" dir="ltr">mergesort / insertion sort / quicksort</td></tr>
+    <tr><td class="start">زیرآرایه با بیشترین مجموع</td><td class="start" dir="ltr">maximum sum subarray</td></tr>
+    <tr><td class="start">فضای نمونه / پیشامد</td><td class="start" dir="ltr">sample space / event</td></tr>
+    <tr><td class="start">متغیر تصادفی / متغیر نشانگر</td><td class="start" dir="ltr">random variable / indicator random variable</td></tr>
+    <tr><td class="start">امید ریاضی / خطی بودن امید</td><td class="start" dir="ltr">expected value / linearity of expectation</td></tr>
+    <tr><td class="start">به‌طور یکنواخت تصادفی</td><td class="start" dir="ltr">uniformly at random (u.a.r.)</td></tr>
+    <tr><td class="start">جایگشت تصادفی</td><td class="start" dir="ltr">random permutation</td></tr>
+    <tr><td class="start">میانهٔ تقریبی / رتبه</td><td class="start" dir="ltr">approximate median / rank</td></tr>
+    <tr><td class="start">جداکننده / محور</td><td class="start" dir="ltr">splitter / pivot</td></tr>
+    <tr><td class="start">میانهٔ میانه‌ها</td><td class="start" dir="ltr">median of medians</td></tr>
+    <tr><td class="start">تحلیل سرشکنی / هزینهٔ سرشکن‌شده</td><td class="start" dir="ltr">amortized analysis / amortized cost</td></tr>
+    <tr><td class="start">روش انبوهه / حساب‌داری / تابع پتانسیل</td><td class="start" dir="ltr">aggregate / accounting / potential method</td></tr>
+  </tbody>
+</table></div>
+
+<h2>منابع</h2>
+<ol class="refs">
+  <li>{{Jon Kleinberg, Éva Tardos. <i>Algorithm Design</i>. Pearson Addison-Wesley}}؛ بخش‌های ۲٫۱ تا ۲٫۴ (تحلیل و زمان‌های رایج)، ۵٫۱، ۵٫۲، ۵٫۴ و ۵٫۵ (تقسیم و حل) و فصل ۱۳ (الگوریتم‌های تصادفی).</li>
+  <li>{{T. H. Cormen, C. E. Leiserson, R. L. Rivest, C. Stein. <i>Introduction to Algorithms</i>, 3rd ed. MIT Press}}؛ بخش ۲ (مرتب‌سازی درجی)، فصل ۴ (رابطه‌های بازگشتی و قضیهٔ اصلی)، فصل ۵ (مسئلهٔ استخدام) و فصل ۱۷ (تحلیل سرشکنی).</li>
+  <li>{{Udi Manber. <i>Introduction to Algorithms: A Creative Approach</i>. Addison-Wesley, 1989}}؛ بخش ۵٫۸ (زیرآرایهٔ بیشینه).</li>
+  <li>{{Mark de Berg. <i>Lecture notes on Advanced Algorithms</i>}} (میانهٔ تقریبی و الگوریتم‌های مونت‌کارلو و لاس‌وگاس).</li>
+  <li>اسلایدهای انگلیسی درس بر پایهٔ اسلایدهای {{Kevin Wayne}} ({{Pearson Addison-Wesley}}) تهیه شده‌اند.</li>
+  <li>اسلایدهای تحلیل سرشکنی: درس داده‌ساختارها و مبانی الگوریتم‌ها، دانشکدهٔ مهندسی کامپیوتر، محمد قدسی.</li>
+</ol>
+<div class="box note">
+  <div class="bh">دربارهٔ این جزوه</div>
+  <p>
+    ترتیب و محتوای اصلی این جزوه از اسلایدهای درس گرفته شده و توضیحات، اثبات‌های کامل، مثال‌های حل‌شده، شکل‌ها و خودآزمایی‌ها به آن افزوده شده است. هر جا اسلاید خطای کوچکی داشت
+    (مثل اندیس‌های شبه‌کد ادغام و زیرآرایهٔ بیشینه) در متن تذکر داده شده است. مطالب کادرهای «تکمیلی» فراتر از اسلایدهاست.
+  </p>
+</div>
+</section>
