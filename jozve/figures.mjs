@@ -626,3 +626,5 @@ export const FIGS = {
       label: 'زیرآرایهٔ قطع‌کنندهٔ خط وسط',
     }),
 };
+
+export { fa, r1, svg, ml, T, TF, L, R, C, P, ARROW_DEFS };

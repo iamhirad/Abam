@@ -1,0 +1,414 @@
+<section class="chapter" data-ch="7" data-color="c7" data-title="درخت عبارت" id="ch7">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۷</div>
+  <h1>درخت عبارت</h1>
+  <p class="ch-lead">ماشین‌حساب چطور می‌فهمد ۸ − ۵ × (۴ + ۲) / ۳ یعنی چه؟ در این فصل می‌بینیم درخت چه قدرتی به ما می‌دهد: هر عبارت ریاضی را به یک درخت تبدیل می‌کنیم و مقدارش را با یک تابع بازگشتی ساده حساب می‌کنیم.</p>
+  <ul class="ch-topics"><li>عملگر و عملوند</li><li>گرامر عبارت‌ها</li><li>درخت عبارت</li><li>میانوندی، پیشوندی، پسوندی</li><li>ساخت درخت</li></ul>
+  <div class="ch-big" aria-hidden="true">۷</div>
+</header>
+
+<h2>مقدمه: درخت چه قدرتی به ما می‌دهد؟</h2>
+<p>
+  تا این‌جا لیست را گسترش دادیم و درخت را تعریف کردیم. اما درخت چه مسئله‌ای را حل می‌کند که لیست نمی‌کند؟ این مسئله را در نظر بگیرید:
+</p>
+<div class="box def">
+  <div class="bh">صورت مسئله</div>
+  <p>الگوریتمی ارائه دهید که مقدار یک عبارت ریاضی مثل این را حساب کند:</p>
+  \[8 - 5 \times (4 + 2) / 3\]
+</div>
+<p>
+  شما در ذهنتان بلافاصله می‌دانید اول پرانتز (\(4 + 2 = 6\))، بعد ضرب و تقسیم از چپ (\(5 \times 6 = 30\) و \(30 / 3 = 10\)) و در آخر تفریق (\(8 - 10 = -2\)). اما برنامه فقط یک
+  رشته از نویسه‌ها می‌بیند: <code dir="ltr">8-5*(4+2)/3</code>. اگر از چپ به راست حساب کند، \(8 - 5 = 3\)، \(3 \times 6 = 18\)، \(18 / 3 = 6\) به دست می‌آید که <strong>غلط</strong> است.
+</p>
+<div class="box algo">
+  <div class="bh">روش این فصل</div>
+  <ol>
+    <li><strong>ساخت درخت عبارت</strong> از روی رشته؛ درخت تمام اطلاعات «چه چیزی اول حساب شود» را در شکل خود نگه می‌دارد.</li>
+    <li><strong>حل بازگشتی</strong> روی درخت؛ دیگر هیچ قاعدهٔ اولویتی لازم نیست.</li>
+  </ol>
+</div>
+
+<h2>عبارت، عملگر و عملوند</h2>
+<div class="box def">
+  <div class="bh">عبارت</div>
+  <p><strong>عبارت</strong> ({{expression}}) مجموعه‌ای از <strong>عملگرها</strong> ({{operator}}) و <strong>عملوندها</strong> ({{operand}}) است که با نظمی خاص یک مقدار را نشان می‌دهند.</p>
+  <ul>
+    <li><strong>عملگر:</strong> نمادی که یک عمل خاص را انجام می‌دهد (مثل \(+\)، \(\times\)، \(\sin\)).</li>
+    <li><strong>عملوند:</strong> مقداری که عمل روی آن انجام می‌شود (مثل \(a\)، \(5\)).</li>
+  </ul>
+  <p>در عبارت \((a + 5)\)، نماد \(+\) عملگر است و \(a\) و \(5\) عملوندهای آن.</p>
+</div>
+<p>عبارت‌ها می‌توانند خیلی پیچیده باشند؛ مثلاً این فرمول (بسط تیلور با باقی‌ماندهٔ انتگرالی):</p>
+\[f(a) + \sum_{k=1}^{n}\frac{1}{k!}\frac{d^k}{dt^k}\bigg|_{t=0} f(u(t)) + \int_0^1 \frac{(1-t)^n}{n!}\,\frac{d^{n+1}}{dt^{n+1}} f(u(t))\,dt.\]
+<p>با این همه، همهٔ عبارت‌ها از همان دو جزء ساخته شده‌اند: عملگرهایی که روی عملوندها (یا روی عبارت‌های کوچک‌تر) اعمال می‌شوند. همین «ساخته شدن از عبارت‌های کوچک‌تر» است که عبارت را به یک ساختار <em>بازگشتی</em> و در نتیجه به درخت تبدیل می‌کند.</p>
+
+<h2>عملیات جبری: یگانی و دودویی</h2>
+<div class="box def">
+  <div class="bh">عملیات جبری</div>
+  <p>نوعی عمل ریاضی که روی <strong>یک</strong> عملوند (عمل <strong>یگانی</strong>، {{unary}}) یا روی <strong>دو</strong> عملوند (عمل <strong>دودویی</strong>، {{binary}}) انجام می‌شود.</p>
+</div>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>عملیات دودویی</th><th>عملیات یگانی</th></tr></thead>
+  <tbody>
+    <tr><td>\(2 + a\)</td><td>\(-2\)</td></tr>
+    <tr><td>\(b / 7\)</td><td>\(\sin\theta\)</td></tr>
+    <tr><td>\(\textit{false} \lor S\)</td><td>\(\log n\)</td></tr>
+    <tr><td>\(2 \mathbin{\hat{}} m\)</td><td>\(\lnot\,\textit{true}\)</td></tr>
+  </tbody>
+</table></div>
+<div class="box why">
+  <div class="bh">پرسش اسلاید: مقدار \(2 - 5\) چقدر است؟</div>
+  <p>
+    \(-3\). اما نکتهٔ پرسش این است: نماد «\(-\)» در \(2 - 5\) یک عملگر <strong>دودویی</strong> است (تفریق: دو عملوند ۲ و ۵) و در \(-3\) یا \(-2\) یک عملگر <strong>یگانی</strong>
+    (قرینه: یک عملوند). یک نماد، دو نقش! برنامه باید از روی <em>جای</em> نماد تشخیص دهد کدام است: اگر «\(-\)» در ابتدای عبارت یا بلافاصله پس از یک عملگر یا پرانتز باز بیاید، یگانی است؛ وگرنه دودویی.
+  </p>
+</div>
+
+<h2>ترتیب عملیات</h2>
+<p>یک عبارت جبری می‌تواند شامل چندین عمل جبری باشد. مقدار این عبارت چقدر است؟</p>
+\[6 \times 3 + 2 \mathbin{\hat{}} 4\]
+<p>جواب به اینکه <em>کدام عمل اول</em> انجام شود بستگی دارد:</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>ترتیب</th><th>محاسبه</th><th>مقدار</th></tr></thead>
+  <tbody>
+    <tr><td>اولویت‌های ریاضی (توان، ضرب، جمع)</td><td>\((6 \times 3) + (2 \mathbin{\hat{}} 4) = 18 + 16\)</td><td class="good">۳۴</td></tr>
+    <tr><td>جمع اول</td><td>\(6 \times (3 + 2) \mathbin{\hat{}} 4 = 6 \times 625\)</td><td>۳۷۵۰</td></tr>
+    <tr><td>کاملاً از چپ به راست</td><td>\(((6 \times 3) + 2) \mathbin{\hat{}} 4 = 20^4\)</td><td>۱۶۰۰۰۰</td></tr>
+  </tbody>
+</table></div>
+<div class="box def">
+  <div class="bh">ترتیب عملیات جبری</div>
+  <p>در ریاضیات هر عمل <strong>اولویت</strong> متفاوتی دارد: اول توان، سپس ضرب و تقسیم، و در آخر جمع و تفریق. اگر اولویت دو عمل یکسان باشد، از <strong>چپ</strong> محاسبه می‌کنیم. می‌توان این اولویت را با <strong>پرانتز</strong> صریح نمایش داد:</p>
+  \[\big((6 \times 3) + (2 \mathbin{\hat{}} 4)\big) = 34.\]
+</div>
+<div class="box intuit">
+  <div class="bh">پرانتز = ساختار درخت</div>
+  <p>پرانتزبندی کامل دقیقاً می‌گوید کدام عملگر روی کدام دو عبارت اعمال می‌شود. وقتی این اطلاعات را داشته باشیم، دیگر به قاعدهٔ اولویت نیازی نیست. درخت عبارت همین پرانتزبندی است که به شکل شاخه‌ها کشیده شده.</p>
+</div>
+
+<h2>گرامر مستقل از متن (به زبان ساده)</h2>
+<p>
+  برای اینکه دقیق بگوییم «عبارت معتبر» چیست، از <strong>گرامر مستقل از متن</strong> ({{Context-free Grammar}} یا {{CFG}}) استفاده می‌کنیم. جزئیات رسمی آن در درس «نظریهٔ زبان‌ها و ماشین‌ها» می‌آید؛
+  این‌جا به‌طور غیررسمی: <strong>گرامر روشی است برای تولید کلمات (جمله‌های) یک زبان با قواعد مشخص.</strong>
+</p>
+<div class="box ex">
+  <div class="bh">در زبان فارسی</div>
+  <p>«من به دانشگاه می‌روم.» یک جملهٔ معتبر است، چون از قواعد دستور زبان (نهاد + متمم + فعل) پیروی می‌کند. «از دانشگاه را در فردا.» کلمه‌هایش فارسی‌اند ولی جمله <strong>معتبر نیست</strong>، چون هیچ قاعده‌ای چنین ترکیبی را تولید نمی‌کند.</p>
+</div>
+<p>گرامر عبارت‌های جبری (با پرانتزبندی کامل) چند قاعده دارد. علامت «\(\to\)» یعنی «می‌تواند جایگزین شود با» و «\(|\)» یعنی «یا»:</p>
+\[\begin{aligned}
+E &\to \textit{operand}\\
+E &\to (\alpha E), &\qquad \alpha &\to - \mid\; ! \mid \sin \mid \log \mid \dots\\
+E &\to (E \beta E), &\qquad \beta &\to + \mid \times \mid \hat{} \mid \land \mid \dots
+\end{aligned}\]
+<div class="kv">
+  <span>\(E\)</span><span>«یک عبارت». قاعده‌ها می‌گویند یک عبارت از چه چیزهایی ساخته می‌شود.</span>
+  <span>قاعدهٔ ۱</span><span><strong>ساده‌ترین عبارت:</strong> یک عملوند تنها، مثل \(a\) یا \(2\).</span>
+  <span>قاعدهٔ ۲</span><span><strong>عبارت یگانی:</strong> یک عملگر یگانی \(\alpha\) و پس از آن یک عبارت، داخل پرانتز. مثل \((-2)\)، \((!\,(!\,a))\)، \((\sin\theta)\).</span>
+  <span>قاعدهٔ ۳</span><span><strong>عبارت دودویی:</strong> عبارت، عملگر دودویی \(\beta\)، عبارت، داخل پرانتز. مثل \((2 + b)\)، \((c \mathbin{\hat{}} (8 - 4))\)، \((\textit{True} \land S)\).</span>
+</div>
+<div class="box why">
+  <div class="bh">چرا این گرامر «بازگشتی» است؟</div>
+  <p>در سمت راست قاعده‌های ۲ و ۳ دوباره خود \(E\) آمده است: «یک عبارت می‌تواند از عبارت‌های کوچک‌تر ساخته شود». به همین دلیل از چند قاعدهٔ کوتاه، بی‌نهایت عبارت با هر عمقی تولید می‌شود؛ درست مثل تعریف بازگشتی درخت در فصل ۶.</p>
+</div>
+<div class="box ex">
+  <div class="bh">مثال ۱: تولید \(((8 - 5) \times ((4 + 2)/3))\)</div>
+  <p>در هر گام، یک \(E\) را با سمت راست یکی از قاعده‌ها جایگزین می‌کنیم:</p>
+  \[\begin{aligned}
+  E &\Rightarrow (E \times E) && \text{قاعدهٔ ۳}\\
+  &\Rightarrow ((E - E) \times E) && \text{قاعدهٔ ۳}\\
+  &\Rightarrow ((8 - 5) \times E) && \text{قاعدهٔ ۱ دو بار}\\
+  &\Rightarrow ((8 - 5) \times (E / E)) && \text{قاعدهٔ ۳}\\
+  &\Rightarrow ((8 - 5) \times ((E + E) / E)) && \text{قاعدهٔ ۳}\\
+  &\Rightarrow ((8 - 5) \times ((4 + 2) / 3)) && \text{قاعدهٔ ۱ سه بار}
+  \end{aligned}\]
+  <p>پس این رشته یک عبارت معتبر است. مقدارش: \(3 \times 2 = 6\). (دقت کنید این عبارتِ <em>پرانتزبندی‌شده</em> با عبارت مقدمه، \(8 - 5 \times (4+2)/3 = -2\)، فرق دارد.)</p>
+</div>
+<div class="box warn">
+  <div class="bh">مثال ۲: رشته‌هایی که عبارت نیستند</div>
+  <ul>
+    <li>\((a + \times)\): پس از \(+\) باید یک \(E\) بیاید، ولی \(\times\) با هیچ قاعده‌ای یک \(E\) نمی‌سازد.</li>
+    <li>\((a(\): پرانتزها نامتوازن‌اند؛ هر قاعده‌ای که پرانتز باز تولید می‌کند، بسته‌اش را هم تولید می‌کند.</li>
+    <li>\(+\): یک عملگر تنها؛ قاعدهٔ ۳ می‌گوید \(+\) باید بین دو عبارت باشد.</li>
+  </ul>
+</div>
+
+<h2>درخت عبارت</h2>
+<div class="box def">
+  <div class="bh">درخت عبارت</div>
+  <p><strong>درخت عبارت</strong> ({{expression tree}}) نوعی درخت <strong>دودویی</strong> برای نمایش یک عبارت است. چرا دودویی؟ چون هر عملگر یا یگانی است یا دودویی؛ پس هیچ گره‌ای به بیش از دو فرزند نیاز ندارد.</p>
+</div>
+<p>هر قاعدهٔ گرامر دقیقاً به یک نوع گره تبدیل می‌شود:</p>
+<figure>
+  <div class="fig-body"><!--FIG:exprKinds--></div>
+  <figcaption>\(E \to \textit{operand}\): یک <strong>برگ</strong> با مقدار عملوند. \(E \to (\alpha E)\): گرهٔ میانی با <strong>فقط یک فرزند راست</strong> (زیردرخت). \(E \to (E\beta E)\): گرهٔ میانی با <strong>دو فرزند</strong> (زیردرخت).</figcaption>
+</figure>
+<figure>
+  <div class="fig-body"><!--FIG:exprSimple--></div>
+  <figcaption>درخت عبارت \(((4 + 2) \times 3)\). عملگرها در گره‌های داخلی و عملوندها در برگ‌ها هستند. زیر هر گره مقدار زیردرختش نوشته شده است.</figcaption>
+</figure>
+<figure>
+  <div class="fig-body"><!--FIG:exprMain--></div>
+  <figcaption>درخت عبارت \(((8 - 5) \times ((4 + 2) / 3))\). ریشه آخرین عملی است که انجام می‌شود (\(\times\)) و هر زیردرخت یک زیرعبارت پرانتزدار است.</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">پرانتزها کجا رفتند؟</div>
+  <p>در درخت هیچ پرانتزی نیست، چون <strong>شکل درخت</strong> خودش گروه‌بندی را نشان می‌دهد: هر زیردرخت یک واحد مستقل است که باید قبل از عملگر پدرش حساب شود. عمل‌های عمیق‌تر زودتر انجام می‌شوند و ریشه آخر از همه.</p>
+</div>
+
+<h2>مقداریابی بازگشتی</h2>
+<p>وقتی درخت را داریم، پیدا کردن مقدار نهایی یک تابع بازگشتی ساده است:</p>
+<pre class="code" data-title="EVAL(v)">
+if v is a leaf
+    return value(v)                              // E -> operand
+if v has only a right child                      // E -> (αE)
+    return APPLY(v.op, EVAL(v.right))
+return APPLY(v.op, EVAL(v.left), EVAL(v.right))  // E -> (EβE)
+</pre>
+<div class="box ex">
+  <div class="bh">اجرای EVAL روی درخت \(((8-5) \times ((4+2)/3))\)</div>
+  <ol>
+    <li>\(\text{EVAL}(\times)\) اول باید \(\text{EVAL}(-)\) را حساب کند: \(8 - 5 = 3\).</li>
+    <li>سپس \(\text{EVAL}(/)\)، که خودش اول \(\text{EVAL}(+) = 4 + 2 = 6\) و بعد \(6 / 3 = 2\) را حساب می‌کند.</li>
+    <li>در آخر \(3 \times 2 = 6\).</li>
+  </ol>
+</div>
+<div class="box note">
+  <div class="bh">EVAL یک پیمایش پس‌ترتیب است</div>
+  <p>هر گره <em>پس از</em> فرزندانش ارزیابی می‌شود (چون عملگر به مقدار عملوندهایش نیاز دارد). این دقیقاً پیمایش postorder فصل ۶ است. هر گره یک بار ملاقات می‌شود، پس زمان \(\Theta(n)\) است.</p>
+</div>
+
+<h2>سه نگارش: میانوندی، پسوندی و پیشوندی</h2>
+<p>یک درخت عبارت را می‌توان به سه شکل به رشته تبدیل کرد، متناظر با سه پیمایش:</p>
+<figure>
+  <div class="fig-body"><!--FIG:exprABCD--></div>
+  <figcaption>درخت عبارت \(((A \times (B + C)) / D)\) که در هر سه نگارش زیر یکی است.</figcaption>
+</figure>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>نگارش</th><th class="start">جای عملگر</th><th>مثال</th><th>گرامر</th><th>پرانتز</th><th>پیمایش</th></tr></thead>
+  <tbody>
+    <tr><td>میانوندی ({{infix}})</td><td class="start">میان دو عملوند</td><td dir="ltr">\(2 + a\)<br>\(((A \times (B+C))/D)\)</td><td>\(E \to (E\beta E)\)</td><td class="bad">لازم است</td><td>inorder</td></tr>
+    <tr><td>پسوندی ({{postfix}})</td><td class="start">پس از عملوندها</td><td dir="ltr">\(2\,a\,+\)<br>\(A\,B\,C + \times\, D\, /\)</td><td>\(E \to EE\beta\)</td><td class="good">لازم نیست</td><td>postorder</td></tr>
+    <tr><td>پیشوندی ({{prefix}})</td><td class="start">پیش از عملوندها</td><td dir="ltr">\(+\,2\,a\)<br>\(/ \times A + B\,C\,D\)</td><td>\(E \to \beta EE\)</td><td class="good">لازم نیست</td><td>preorder</td></tr>
+  </tbody>
+</table></div>
+<p>(برای عملگر یگانی هم به ترتیب \(E \to (\alpha E)\)، \(E \to E\alpha\) و \(E \to \alpha E\).)</p>
+<div class="box why">
+  <div class="bh">چرا میانوندی پرانتز لازم دارد ولی پسوندی نه؟</div>
+  <p>
+    رشتهٔ میانوندی \(A \times B + C\) بدون پرانتز دو درخت متفاوت می‌تواند داشته باشد: \(((A \times B) + C)\) یا \((A \times (B + C))\). پیمایش inorder این دو درخت، بدون پرانتز، یکسان است. پس یا باید پرانتز بگذاریم یا قاعدهٔ اولویت را بدانیم.
+  </p>
+  <p>
+    اما در پسوندی این دو درخت رشته‌های <em>متفاوتی</em> می‌دهند: \(A\,B \times C\,+\) و \(A\,B\,C + \times\). در پسوندی، هر عملگر روی <strong>دو عبارت کاملی که دقیقاً پیش از آن آمده‌اند</strong> اعمال می‌شود؛ این قاعده هیچ ابهامی ندارد،
+    پس ترتیب نمادها به‌تنهایی کل ساختار درخت را مشخص می‌کند. پیشوندی هم به همین دلیل (به‌صورت قرینه) بدون پرانتز است.
+  </p>
+</div>
+<div class="box extra">
+  <div class="bh">ارزیابی پسوندی با پشته (ماشین‌حساب‌های RPN)</div>
+<pre class="code" data-title="EVAL-POSTFIX(tokens)">
+create empty stack S
+for each token t (left to right)
+    if t is an operand
+        S.push(t)
+    else                         // binary operator
+        y = S.pop()              // the right operand is on top!
+        x = S.pop()
+        S.push(APPLY(t, x, y))
+return S.pop()
+</pre>
+  <p>برای <code dir="ltr">8 5 - 4 2 + 3 / ×</code>: پشته \([8, 5]\) ← \(-\) ← \([3]\) ← \([3, 4, 2]\) ← \(+\) ← \([3, 6]\) ← \([3, 6, 3]\) ← \(/\) ← \([3, 2]\) ← \(\times\) ← \([6]\). جواب ۶ بدون هیچ پرانتز یا قاعدهٔ اولویتی.</p>
+</div>
+
+<h2>مسئلهٔ ۱: ساخت درخت از نگارش میانوندی با پرانتزبندی کامل</h2>
+<p>ورودی: \(((A \times (B + C)) / D)\). هدف: ساختن درخت عبارت. (همین درخت را در نگارش پسوندی <code dir="ltr">ABC+×D/</code> و پیشوندی <code dir="ltr">/×A+BCD</code> هم داریم و در بخش بعد از آن‌ها هم می‌سازیم.)</p>
+<h3>روش بازگشتی: پیدا کردن ریشه</h3>
+<ol class="steps">
+  <li><strong>کدام قاعده؟</strong> رشته با «(» شروع می‌شود، پس قاعدهٔ ۲ یا ۳ است. اگر پس از پرانتز اول یک عملگر یگانی بیاید، قاعدهٔ ۲؛ وگرنه قاعدهٔ ۳: \(E \to (E\beta E)\).</li>
+  <li><strong>پیدا کردن هر بخش با شمردن پرانتزها:</strong> داخل پرانتز بیرونی، از چپ پیش می‌رویم و عمق پرانتز را می‌شماریم (هر «(» یکی اضافه، هر «)» یکی کم). <strong>عملگری که در عمق صفر</strong> (بیرون از همهٔ پرانتزهای داخلی) قرار دارد، \(\beta\) و ریشهٔ درخت است. برای \(((A\times(B+C))/D)\): داخل پرانتز بیرونی، \((A\times(B+C))\) تماماً داخل پرانتز است و اولین عملگر عمق صفر «/» است. پس ریشه «/»، عبارت چپ \((A\times(B+C))\) و عبارت راست \(D\).</li>
+  <li><strong>حل بازگشتی برای هر زیربخش:</strong> همین کار را روی \((A\times(B+C))\) (ریشه \(\times\)) و \(D\) (برگ) تکرار می‌کنیم.</li>
+</ol>
+<div class="box why">
+  <div class="bh">زمان اجرای این روش</div>
+  <p>در هر سطح بازگشت، برای پیدا کردن ریشه کل زیررشته را پیمایش می‌کنیم. عبارت «چپ‌سنگین» زیر را در نظر بگیرید:</p>
+  \[(((((a + b) + c) + d) + e) + f)\]
+  <figure>
+    <div class="fig-body"><!--FIG:exprChain--></div>
+    <figcaption>درخت این عبارت یک زنجیر رو به چپ است.</figcaption>
+  </figure>
+  <p>ریشه (آخرین \(+\)) نزدیک انتهای رشته است، پس برای پیدا کردنش تقریباً کل رشته (\(n\) نویسه) خوانده می‌شود. در سطح بعد تقریباً \(n - 4\) نویسه، بعد \(n - 8\)، ... . جمع این‌ها \(\Theta(n^2)\) است. <strong>پس زمان اجرا \(O(n^2)\).</strong></p>
+</div>
+<h3>پیاده‌سازی در زمان خطی</h3>
+<p>
+  ایده: <strong>به‌جای اینکه اول هر بخش را پیدا کنیم و بعد زیردرختش را بسازیم، همزمان با پیدا کردن هر بخش، زیردرخت مربوطه را می‌سازیم.</strong> یعنی از چپ به راست می‌خوانیم و گرامر به ما می‌گوید
+  نویسهٔ بعدی چه نقشی دارد؛ هیچ‌وقت لازم نیست جلوتر را برای پیدا کردن پرانتز بسته جست‌وجو کنیم.
+</p>
+<pre class="code" data-title="PARSE()    ⊳ reads the next expression from the input, returns its tree">
+t = next token
+if t is an operand
+    return Leaf(t)                         // E -> operand
+// otherwise t = "("
+if the next token is a unary operator α
+    α = next token
+    sub = PARSE()
+    read ")"
+    return Node(α, null, sub)              // E -> (αE)
+left = PARSE()                             // E -> (EβE)
+β = next token
+right = PARSE()
+read ")"
+return Node(β, left, right)
+</pre>
+<div class="box why">
+  <div class="bh">چرا خطی است؟</div>
+  <p>هر نویسهٔ ورودی دقیقاً یک بار توسط \(\text{next token}\) خوانده می‌شود و برای هر نویسه کار ثابتی انجام می‌شود. بازگشت فقط «جای کار» را در پشتهٔ فراخوانی نگه می‌دارد. پس زمان کل \(\Theta(n)\) است. به این روش «تجزیهٔ نزولی بازگشتی» ({{recursive descent}}) می‌گویند و قلب بسیاری از کامپایلرهاست.</p>
+</div>
+
+<h2>ساخت درخت از نگارش پیشوندی و پسوندی</h2>
+<p>ورودی: پسوندی <code dir="ltr">ABC+×D/</code> و پیشوندی <code dir="ltr">/×A+BCD</code> (هر کدام جداگانه کافی است).</p>
+<h3>روش اسلاید: پیدا کردن ریشه و دو عبارت</h3>
+<div class="cols">
+  <div class="box ex"><div class="bh">پیشوندی: \(E \to \beta E E\)</div>
+    <p><strong>ریشه</strong> = اولین نماد: «/». <strong>عبارت اول</strong> بلافاصله پس از آن شروع می‌شود و جایی تمام می‌شود که یک عبارت کامل شده باشد: \(\times A + B C\). <strong>عبارت دوم</strong> = بقیه: \(D\).</p></div>
+  <div class="box ex"><div class="bh">پسوندی: \(E \to E E \beta\)</div>
+    <p><strong>ریشه</strong> = آخرین نماد: «/». <strong>عبارت دوم</strong> درست پیش از ریشه تمام می‌شود: \(D\). <strong>عبارت اول</strong> = بقیه: \(A B C + \times\).</p></div>
+</div>
+<div class="box why">
+  <div class="bh">از کجا بفهمیم یک عبارت کجا تمام می‌شود؟</div>
+  <p>
+    یک «شمارندهٔ نیاز» نگه می‌داریم: تعداد عبارت‌هایی که هنوز کم داریم. در پیشوندی از ۱ شروع می‌کنیم و از چپ می‌خوانیم: هر <strong>عملگر دودویی</strong> یک جای خالی را پر می‌کند ولی دو جای خالی جدید می‌سازد (\(+1\))؛
+    هر <strong>عملوند</strong> یک جای خالی را پر می‌کند (\(-1\)). وقتی شمارنده صفر شد، عبارت تمام است.
+  </p>
+  <p dir="ltr" style="text-align:center">\(\times\,(2)\quad A\,(1)\quad +\,(2)\quad B\,(1)\quad C\,(0)\) ⟵ first expression = \(\times A + B C\)</p>
+  <p>در پسوندی همین کار را از راست به چپ انجام می‌دهیم.</p>
+</div>
+<h3>روش خطی با پشته (پسوندی)</h3>
+<pre class="code" data-title="BUILD-FROM-POSTFIX(tokens)">
+create empty stack S                 // stack of subtrees
+for each token t (left to right)
+    if t is an operand
+        S.push(Leaf(t))
+    else if t is a unary operator
+        S.push(Node(t, null, S.pop()))
+    else                              // binary operator
+        right = S.pop()
+        left = S.pop()
+        S.push(Node(t, left, right))
+return S.pop()                        // exactly one tree remains
+</pre>
+<div class="tbl-wrap"><table class="trace" dir="ltr">
+  <thead><tr><th>token</th><th>action</th><th>stack of subtrees (bottom → top)</th></tr></thead>
+  <tbody>
+    <tr><td>A</td><td>push leaf</td><td>A</td></tr>
+    <tr><td>B</td><td>push leaf</td><td>A, B</td></tr>
+    <tr><td>C</td><td>push leaf</td><td>A, B, C</td></tr>
+    <tr><td>+</td><td>pop C, B → (B+C)</td><td>A, (B+C)</td></tr>
+    <tr><td>×</td><td>pop (B+C), A → (A×(B+C))</td><td>(A×(B+C))</td></tr>
+    <tr><td>D</td><td>push leaf</td><td>(A×(B+C)), D</td></tr>
+    <tr><td>/</td><td>pop D, (A×(B+C)) → ((A×(B+C))/D)</td><td class="done">((A×(B+C))/D)</td></tr>
+  </tbody>
+</table></div>
+<p>هر نماد یک بار خوانده و حداکثر یک بار push و pop می‌شود: \(\Theta(n)\). برای پیشوندی هم تابع بازگشتی <code dir="ltr">build(): t = next; if operand return Leaf(t); left = build(); right = build(); return Node(t, left, right)</code> در \(\Theta(n)\) کار می‌کند.</p>
+
+<h2>مسئلهٔ ۲: ساخت درخت از نگارش میانوندی بدون پرانتز</h2>
+<p>حالا سخت‌ترین حالت: عبارتی بدون پرانتز که فقط با قواعد اولویت معنا دارد. یک مدل ساده‌شده (فقط جمع، تفریق، ضرب، تقسیم و توان):</p>
+\[E \to \textit{operand} \qquad E \to \alpha E,\;\; \alpha \to - \qquad E \to E\beta E,\;\; \beta \to + \mid - \mid \times \mid \div \mid \hat{}\]
+<ul>
+  <li>اولویت عملگرها: اول <strong>توان</strong>، بعد <strong>ضرب و تقسیم</strong> و در نهایت <strong>جمع و تفریق</strong>.</li>
+  <li>اگر اولویت‌ها یکسان باشد، از <strong>سمت چپ</strong> محاسبه می‌کنیم.</li>
+</ul>
+<div class="box intuit">
+  <div class="bh">«تکلیف» یک عملگر کِی معلوم می‌شود؟</div>
+  <p>
+    وقتی در \(a + b \ldots\) به \(+\) می‌رسیم، نمی‌دانیم فرزند راستش فقط \(b\) است یا چیزی بزرگ‌تر مثل \(b \times c\). <strong>تکلیف \(+\) مشخص نیست</strong>، پس آن را کنار می‌گذاریم (در یک پشته).
+    تکلیف یک عملگر وقتی معلوم می‌شود که به عملگری با اولویت <em>کمتر یا مساوی</em> برسیم (یا عبارت تمام شود): در آن لحظه مطمئنیم عملوند راستش کامل شده است.
+  </p>
+</div>
+<p>الگوریتم دو پشته دارد: پشتهٔ <strong>عملگرهای معلق</strong> و پشتهٔ <strong>زیردرخت‌های ساخته‌شده</strong>.</p>
+<pre class="code" data-title="BUILD-FROM-INFIX(tokens)    ⊳ no parentheses, left-associative operators">
+create empty stacks OPS (operators) and TREES (subtrees)
+for each token t (left to right)
+    if t is an operand
+        TREES.push(Leaf(t))
+    else                                         // t is a binary operator
+        while OPS not empty and prec(OPS.top) >= prec(t)
+            COMBINE()                            // OPS.top is now settled
+        OPS.push(t)
+while OPS not empty                              // end of input settles everything
+    COMBINE()
+return TREES.pop()
+
+COMBINE():
+    op = OPS.pop()
+    right = TREES.pop()
+    left = TREES.pop()
+    TREES.push(Node(op, left, right))
+</pre>
+<div class="box ex">
+  <div class="bh">ردگیری \(a + b \times c \div d - e\)</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>token</th><th class="fa">چه اتفاقی می‌افتد</th><th>OPS</th><th>TREES</th></tr></thead>
+    <tbody>
+      <tr><td>a</td><td class="fa">عملوند است: یک برگ می‌سازیم.</td><td>—</td><td>a</td></tr>
+      <tr><td>+</td><td class="fa">جمع دودویی است، ولی فرزند راستش معلوم نیست: به پشته.</td><td>+</td><td>a</td></tr>
+      <tr><td>b</td><td class="fa">برگ.</td><td>+</td><td>a, b</td></tr>
+      <tr><td>×</td><td class="fa">اولویت ضرب از جمع بیشتر است، پس تکلیف جمع هنوز معلوم نیست: × به پشته.</td><td>+, ×</td><td>a, b</td></tr>
+      <tr><td>c</td><td class="fa">برگ.</td><td>+, ×</td><td>a, b, c</td></tr>
+      <tr><td>÷</td><td class="fa">اولویت تقسیم برابر ضرب است و اولویت با چپ‌ترین است: <strong>تکلیف ضرب مشخص شد</strong>. b و c فرزندان × می‌شوند. اولویت ÷ از + بیشتر است، پس + می‌ماند و ÷ به پشته.</td><td>+, ÷</td><td>a, (b×c)</td></tr>
+      <tr><td>d</td><td class="fa">برگ.</td><td>+, ÷</td><td>a, (b×c), d</td></tr>
+      <tr><td>−</td><td class="fa">اولویت تقسیم از تفریق بیشتر است: <strong>تکلیف تقسیم مشخص شد</strong>؛ (b×c) و d فرزندان ÷. اولویت تفریق برابر جمع است و چپ‌ترین مقدم است: <strong>تکلیف جمع هم مشخص شد</strong>؛ a و ((b×c)÷d) فرزندان +. پشته خالی شد: − به پشته.</td><td>−</td><td>(a+((b×c)÷d))</td></tr>
+      <tr><td>e</td><td class="fa">برگ.</td><td>−</td><td>(a+…), e</td></tr>
+      <tr><td>end</td><td class="fa">عبارت تمام شد: تکلیف پشته معلوم است؛ دو زیردرخت آخر فرزندان − می‌شوند.</td><td>—</td><td class="done">((a+((b×c)÷d))−e)</td></tr>
+    </tbody>
+  </table></div>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:exprFinal--></div>
+  <figcaption>درخت نهایی \(a + b \times c \div d - e\): تفریق آخرین عمل است (ریشه)، و \(b \times c\) زودتر از همه (عمیق‌ترین).</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا \(\ge\) و نه \(&gt;\)؟</div>
+  <p>
+    «اولویت یکسان از چپ» یعنی در \(a - b - c\) اول \(a - b\) حساب شود: \(((a - b) - c)\). وقتی به دومین \(-\) می‌رسیم، اولین \(-\) (با اولویت <em>مساوی</em>) باید همان لحظه بسته شود؛ پس شرط \(\ge\) است.
+    اگر \(&gt;\) بگذاریم، اولی منتظر می‌ماند و درخت \((a - (b - c))\) ساخته می‌شود که مقدار دیگری دارد (مثلاً \(5 - 3 - 1\) به‌جای \(1\)، عدد \(3\) می‌شد).
+  </p>
+</div>
+<div class="box note">
+  <div class="bh">زمان اجرا</div>
+  <p>هر عملوند یک بار push می‌شود و هر عملگر یک بار push و یک بار pop. حلقهٔ <code>while</code> داخلی ممکن است گاهی چند بار اجرا شود (مثل خواندن «−» در مثال)، اما با همان استدلال سرشکنی فصل ۴ و ۵، کل کار \(\Theta(n)\) است.</p>
+</div>
+<div class="box extra">
+  <div class="bh">توان و پرانتز</div>
+  <ul>
+    <li><strong>توان از راست شرکت‌پذیر است:</strong> \(2 \mathbin{\hat{}} 3 \mathbin{\hat{}} 2 = 2^{(3^2)} = 512\)، نه \((2^3)^2 = 64\). برای \(\hat{}\) شرط حلقه را \(&gt;\) بگذارید تا توانِ قبلی منتظر بماند.</li>
+    <li><strong>پرانتز:</strong> «(» را مستقیماً push کنید؛ با رسیدن به «)»، تا رسیدن به «(» COMBINE کنید و «(» را دور بریزید. حلقهٔ اولویت هم هرگز از «(» رد نمی‌شود. این الگوریتم کامل «حیاط شنتینگ» ({{shunting-yard}}) دایکسترا است.</li>
+    <li><strong>منفی یگانی:</strong> اگر «−» در ابتدا یا پس از عملگر دیگری بیاید، یگانی است؛ آن را با بالاترین اولویت و فقط یک فرزند (راست) ترکیب کنید.</li>
+  </ul>
+</div>
+<div class="box sum">
+  <div class="bh">فصل ۷ در یک نگاه</div>
+  <ul>
+    <li>عبارت = عملگرها + عملوندها؛ عملگرها یگانی یا دودویی‌اند، پس درخت عبارت دودویی است.</li>
+    <li>گرامر: \(E \to \textit{operand} \mid (\alpha E) \mid (E\beta E)\)؛ هر قاعده یک نوع گره.</li>
+    <li>مقداریابی = پیمایش پس‌ترتیب، \(\Theta(n)\).</li>
+    <li>infix ↔ inorder (پرانتز لازم)، postfix ↔ postorder، prefix ↔ preorder (بی‌پرانتز).</li>
+    <li>ساخت درخت: از infix پرانتزدار با یافتن ریشه \(O(n^2)\)، با تجزیهٔ همزمان \(O(n)\)؛ از postfix با پشته \(O(n)\)؛ از infix بی‌پرانتز با دو پشته و قاعدهٔ اولویت \(O(n)\).</li>
+  </ul>
+</div>
+
+<h2>خودآزمایی فصل ۷</h2>
+<div class="box quiz">
+  <div class="bh"></div>
+  <ol>
+    <li>نگارش پیشوندی و پسوندی \(((8 - 5) \times ((4 + 2) / 3))\) را بنویسید.
+      <div class="ans">پیشوندی: <code dir="ltr">× − 8 5 / + 4 2 3</code>. پسوندی: <code dir="ltr">8 5 − 4 2 + 3 / ×</code>.</div></li>
+    <li>مقدار عبارت پسوندی <code dir="ltr">2 3 4 × + 5 −</code> چیست؟
+      <div class="ans">\(3 \times 4 = 12\)، \(2 + 12 = 14\)، \(14 - 5 = 9\).</div></li>
+    <li>عبارت پیشوندی <code dir="ltr">+ × a b c</code> را به میانوندی با پرانتزبندی کامل تبدیل کنید.
+      <div class="ans">ریشه +، عبارت اول \(\times\,a\,b\) و عبارت دوم \(c\): \(((a \times b) + c)\).</div></li>
+    <li>آیا \((a + b)\,c\) طبق گرامر عبارت معتبر است؟
+      <div class="ans">خیر. پس از یک \(E\) فقط می‌تواند «)» یا یک \(\beta\) بیاید؛ کنار هم گذاشتن دو عبارت بدون عملگر در هیچ قاعده‌ای نیست.</div></li>
+    <li>با الگوریتم مسئلهٔ ۲ درخت \(a \times b + c \times d\) را بسازید.
+      <div class="ans">a؛ × به پشته؛ b؛ با رسیدن + تکلیف × معلوم می‌شود: (a×b)؛ + به پشته؛ c؛ × اولویت بیشتری دارد، به پشته؛ d؛ پایان: (c×d) و سپس ((a×b)+(c×d)).</div></li>
+  </ol>
+</div>
+</section>

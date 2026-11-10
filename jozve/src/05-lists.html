@@ -1,0 +1,740 @@
+<section class="chapter" data-ch="5" data-color="c5" data-title="آرایه، لیست پیوندی، پشته و صف" id="ch5">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۵</div>
+  <h1>آرایه، لیست پیوندی، پشته و صف</h1>
+  <p class="ch-lead">از اینجا وارد دنیای داده‌ساختارها می‌شویم: اینکه داده را <em>چطور بچینیم</em> تا کارهایی که لازم داریم سریع انجام شود. با ساده‌ترین و پرکاربردترین داده‌ساختارها شروع می‌کنیم.</p>
+  <ul class="ch-topics"><li>نوع دادهٔ انتزاعی</li><li>آرایه</li><li>لیست پیوندی</li><li>پشته</li><li>صف حلقوی</li><li>کاربردهای الگوریتمی</li></ul>
+  <div class="ch-big" aria-hidden="true">۵</div>
+</header>
+
+<h2>داده‌ساختار چیست؟</h2>
+<div class="box def">
+  <div class="bh">داده‌ساختار</div>
+  <p>
+    <strong>داده‌ساختار</strong> ({{data structure}}) روشی برای سازمان‌دهی و نمایش داده است، طوری که عملیات مورد نیاز روی آن <em>کارآمد</em> انجام شود.
+    به بیان دقیق‌تر: نمایشی از داده‌ها <strong>به‌همراه روابط میان عناصر آن</strong>. نمونه‌ها: آرایه، لیست پیوندی، پشته، صف، درخت، جدول درهم‌سازی و گراف.
+  </p>
+</div>
+<p>
+  انتخاب داده‌ساختار مستقیماً تعیین می‌کند که <strong>جست‌وجو، درج، حذف و به‌روزرسانی</strong> با چه سرعتی انجام شوند. یک داده‌ساختار برای همهٔ کارها بهترین نیست؛
+  هر کدام بعضی عملیات را ارزان و بعضی را گران می‌کند. هنر طراح این است که بداند کدام عملیات برایش مهم‌تر است.
+</p>
+<div class="box intuit">
+  <div class="bh">فروشگاه</div>
+  <p>
+    فروشگاهی را تصور کنید که همهٔ اجناس را وسط سالن روی هم ریخته است. برای پیدا کردن یک بستهٔ نمک باید <em>تک‌تک</em> اجناس را نگاه کنید. حالا فروشگاهی را تصور کنید که هر جنس را
+    در قفسهٔ مربوط به دسته‌اش گذاشته است: مستقیم به قفسهٔ «ادویه‌ها» می‌روید.
+  </p>
+  <p>
+    <strong>نحوهٔ چیدن اجناس، داده‌ساختار است</strong> (روی هم ریختن یا قفسه‌بندی). <strong>روش پیدا کردن جنس، الگوریتم است</strong> (بررسی تک‌تک اقلام یا جست‌وجو بر اساس دسته).
+    الگوریتم دوم فقط به این دلیل ممکن است که داده‌ساختار مناسبی انتخاب شده است.
+  </p>
+</div>
+<h3>الگوریتم و داده‌ساختار با هم کار می‌کنند</h3>
+<div class="cols">
+  <div class="box note"><div class="bh">الگوریتم</div><p>عملیات و گام‌ها؛ مثلاً «یک کلید را جست‌وجو کن».</p></div>
+  <div class="box note"><div class="bh">داده‌ساختار</div><p>نمایش داده‌ها؛ مثلاً آرایه یا جدول درهم‌سازی.</p></div>
+</div>
+<p>
+  <strong>مثال:</strong> جست‌وجو در یک آرایهٔ مرتب‌نشده \(\Theta(n)\) زمان می‌برد، چون ممکن است مجبور شویم همهٔ خانه‌ها را ببینیم. اما یک جدول درهم‌سازی خوب، جست‌وجو را با
+  <em>امید</em> \(\Theta(1)\) انجام می‌دهد. مسئله یکی است؛ فقط داده‌ساختار عوض شده است. <strong>تحلیل الگوریتم</strong> (فصل ۱) دقیقاً هزینهٔ زمانی و حافظه‌ای همین انتخاب‌ها را می‌سنجد.
+</p>
+
+<h2>نوع دادهٔ انتزاعی</h2>
+<div class="box def">
+  <div class="bh">نوع دادهٔ انتزاعی ({{ADT}})</div>
+  <p>یک نوع دادهٔ انتزاعی ({{Abstract Data Type}}) مشخص می‌کند که یک ساختار <strong>«چه کاری»</strong> انجام می‌دهد، نه <strong>«چگونه»</strong>:</p>
+  <ul>
+    <li>چه <strong>مقادیری</strong> را می‌تواند نگه دارد؛</li>
+    <li>چه <strong>عملیاتی</strong> در اختیار کاربر قرار می‌دهد؛</li>
+    <li><strong>معنا و قواعد</strong> هر عمل چیست؛</li>
+    <li>و جزئیات نمایش داخلی را <strong>پنهان</strong> می‌کند.</li>
+  </ul>
+</div>
+<div class="box ex">
+  <div class="bh">نوع انتزاعی پشته</div>
+  <p>عملیات پشته ({{Stack}}):</p>
+  <ul>
+    <li>\(\text{push}(x)\): \(x\) را روی پشته (بالای آن) بگذار.</li>
+    <li>\(\text{pop}()\): عنصر بالای پشته را بردار و برگردان.</li>
+    <li>\(\text{top}()\): عنصر بالا را بدون برداشتن ببین.</li>
+    <li>\(\text{isEmpty}()\): آیا پشته خالی است؟</li>
+  </ul>
+<pre class="code" data-title="client code: uses only the interface">
+S.push(10)
+S.push(20)
+x = S.pop()          // returns 20
+</pre>
+  <p>
+    کد کاربر لازم نیست بداند \(S\) با آرایه پیاده شده یا با لیست پیوندی. اگر هر دو پیاده‌سازی از قواعد یکسانی پیروی کنند، می‌توان یکی را با دیگری عوض کرد و کد کاربر
+    <strong>بدون تغییر</strong> کار خواهد کرد.
+  </p>
+</div>
+<div class="box intuit">
+  <div class="bh">فرمان و پدال خودرو</div>
+  <p>رابط خودرو (فرمان، پدال گاز و ترمز) یک «نوع انتزاعی» است. راننده نمی‌داند موتور بنزینی است یا برقی؛ فقط می‌داند پدال گاز یعنی «سریع‌تر شو». سازنده می‌تواند موتور را عوض کند بدون اینکه راننده رانندگی را از نو یاد بگیرد.</p>
+</div>
+<h3>سه سطح: نوع انتزاعی، انتخاب مدل، پیاده‌سازی</h3>
+<ol class="steps">
+  <li><strong>نوع انتزاعی:</strong> رابط (مثلاً «درج، حذف، جست‌وجو») به‌همراه معنا و تضمین‌های آن.</li>
+  <li><strong>انتخاب مدل:</strong> کدام داده‌ساختار؟ آرایه، لیست، درخت، جدول درهم‌سازی و ... .</li>
+  <li><strong>پیاده‌سازی:</strong> جزئیات واقعی: اندیس‌ها، اشاره‌گرها، چیدمان حافظه و کد.</li>
+</ol>
+<div class="box warn">
+  <div class="bh">نوع انتزاعی به‌تنهایی کارایی را مشخص نمی‌کند</div>
+  <p>«پشته» فقط می‌گوید push و pop چه کار می‌کنند، نه اینکه چقدر طول می‌کشند. زمان اجرا به <em>پیاده‌سازی</em> بستگی دارد. برای همین در این فصل همیشه دو سؤال می‌پرسیم: «چه کاری؟» و «با چه هزینه‌ای؟».</p>
+</div>
+
+<h2>آرایه: حافظهٔ پیوسته و دسترسی مستقیم</h2>
+<p>آرایه ({{array}}) عناصر را در <strong>خانه‌های پشت سر هم</strong> حافظه ذخیره می‌کند.</p>
+<figure>
+  <div class="fig-body"><!--FIG:arrayMemory--></div>
+  <figcaption>شش عدد در خانه‌های پیوستهٔ حافظه. اگر آرایه از نشانی ۱۰۰۰ شروع شود و هر عنصر ۴ بایت باشد، خانهٔ \(i\) در نشانی \(1000 + 4i\) است.</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا دسترسی به \(arr[i]\) در \(O(1)\) است؟</div>
+  \[\text{Address}(arr[i]) = \text{base} + i \times \text{element\_size}.\]
+  <p>
+    نشانی خانه با یک ضرب و یک جمع <strong>مستقیم محاسبه</strong> می‌شود؛ لازم نیست هیچ خانهٔ دیگری را بخوانیم. این محاسبه برای \(i = 0\) و \(i = 10^9\) به یک اندازه وقت می‌گیرد،
+    پس زمانش به \(n\) بستگی ندارد. این شرط فقط به این دلیل برقرار است که همهٔ عناصر <em>هم‌اندازه</em> و <em>پشت سر هم</em> هستند.
+  </p>
+</div>
+<h3>درج در وسط آرایه</h3>
+<p>فرض کنید آرایه جای خالی دارد و می‌خواهیم ۲۵ را در اندیس ۲ درج کنیم. عناصر اندیس ۲ به بعد باید یک خانه به راست بروند تا جا باز شود.</p>
+<figure>
+  <div class="fig-body"><!--FIG:arrayInsert--></div>
+  <figcaption>برای درج ۲۵ در اندیس ۲، سه عنصر ۳۰، ۴۰ و ۵۰ (آبی) یک خانه جابه‌جا می‌شوند.</figcaption>
+</figure>
+<pre class="code" data-title="INSERT-AT(A, n, i, x)    ⊳ A[0..n-1] holds n items, capacity > n">
+for j = n-1 downto i          // shift the suffix right, starting from the end
+    A[j+1] = A[j]
+A[i] = x
+n = n + 1
+</pre>
+<div class="box why">
+  <div class="bh">چرا جابه‌جایی را از انتها شروع می‌کنیم؟</div>
+  <p>اگر از اندیس \(i\) شروع کنیم، \(A[i+1] = A[i]\) مقدار قبلی \(A[i+1]\) را <em>بازنویسی</em> می‌کند و آن را از دست می‌دهیم. با شروع از انتها، هر خانه قبل از اینکه رویش نوشته شود، به خانهٔ بعدی منتقل شده است.</p>
+</div>
+<p>در بدترین حالت (\(i = 0\)) همهٔ \(n\) عنصر جابه‌جا می‌شوند، پس زمان \(\Theta(n)\) است. اگر آرایه پر باشد، باید آرایهٔ بزرگ‌تری گرفت و همه را کپی کرد (همان آرایهٔ پویای فصل ۴).</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>عمل</th><th>هزینهٔ معمول</th><th class="start">دلیل</th></tr></thead>
+  <tbody>
+    <tr><td>خواندن / نوشتن \(A[i]\)</td><td>\(\Theta(1)\)</td><td class="start">محاسبهٔ مستقیم نشانی</td></tr>
+    <tr><td>جست‌وجو در آرایهٔ نامرتب</td><td>\(\Theta(n)\)</td><td class="start">ممکن است همهٔ عناصر بررسی شوند</td></tr>
+    <tr><td>درج در انتها (با جای خالی)</td><td>\(\Theta(1)\)</td><td class="start">فقط یک خانه نوشته می‌شود</td></tr>
+    <tr><td>درج در اندیس \(i\)</td><td>\(\Theta(n)\)</td><td class="start">پسوند به راست منتقل می‌شود</td></tr>
+    <tr><td>حذف از اندیس \(i\)</td><td>\(\Theta(n)\)</td><td class="start">پسوند به چپ منتقل می‌شود</td></tr>
+    <tr><td>پیمایش همهٔ عناصر</td><td>\(\Theta(n)\)</td><td class="start">هر عنصر یک بار</td></tr>
+  </tbody>
+</table></div>
+
+<h2>لیست پیوندی: گره‌هایی که با اشاره‌گر به هم وصل‌اند</h2>
+<p>
+  مشکل آرایه این بود که عناصر باید <em>کنار هم</em> باشند، پس درج در وسط یعنی جابه‌جا کردن بقیه. ایدهٔ لیست پیوندی ({{linked list}}) این است:
+  <strong>عناصر لازم نیست کنار هم باشند</strong>؛ کافی است هر عنصر بداند عنصر بعدی کجاست.
+</p>
+<figure>
+  <div class="fig-body"><!--FIG:listBasic--></div>
+  <figcaption>هر گره دو بخش دارد: مقدار (رنگی) و اشاره‌گر به گرهٔ بعدی (نقطه). اشاره‌گر آخرین گره NULL است، یعنی «گرهٔ بعدی وجود ندارد».</figcaption>
+</figure>
+<div class="cols">
+  <div class="box def"><div class="bh">گره</div>
+    <p>هر گره ({{node}}) دو چیز نگه می‌دارد: (۱) یک <strong>مقدار</strong> ({{data}} یا {{key}}) و (۲) یک <strong>اشاره‌گر به گرهٔ بعدی</strong> ({{next}}).</p></div>
+  <div class="box warn"><div class="bh">پیامد کلیدی</div>
+    <p>دسترسی با اندیس در زمان ثابت <strong>ممکن نیست</strong>. برای رسیدن به گرهٔ \(i\)ام باید از ابتدا \(i\) پیوند را دنبال کنیم، چون نشانی آن را هیچ‌جا نداریم.</p></div>
+</div>
+<h3>اشاره‌گر چیست؟</h3>
+<p>اشاره‌گر ({{pointer}}) متغیری است که <strong>نشانی</strong> یک گره را نگه می‌دارد؛ مثل کاغذی که آدرس یک خانه رویش نوشته شده، نه خود خانه.</p>
+<pre class="code">
+head = null          // empty list: head points to nothing
+p = new Node(7)      // create a node; p holds its address
+head = p             // now head and p point to the same node
+</pre>
+<figure>
+  <div class="fig-body"><!--FIG:pointerPic--></div>
+  <figcaption>\(head\) و \(p\) دو متغیر جدا هستند که هر دو نشانی <em>یک</em> گره را نگه می‌دارند.</figcaption>
+</figure>
+<ul>
+  <li>\(head\) نشانی اولین گره را نگه می‌دارد.</li>
+  <li>\(p\) و \(head\) می‌توانند به یک گره اشاره کنند.</li>
+  <li><strong>تغییر \(p\) به‌طور خودکار \(head\) را تغییر نمی‌دهد</strong>؛ اگر بنویسیم \(p = \text{null}\)، گره و \(head\) دست‌نخورده می‌مانند. فقط کاغذِ \(p\) پاک شده است.</li>
+  <li>یک اشاره‌گر می‌تواند NULL باشد (به هیچ گره‌ای اشاره نکند). پیش از خواندن \(p.data\) یا \(p.next\) باید مطمئن شویم \(p\) به گرهٔ معتبری اشاره می‌کند؛ وگرنه برنامه خطا می‌دهد.</li>
+</ul>
+<pre class="code" data-title="singly linked-list node">
+Node:
+    data             // the value stored in this node
+    next             // address of the next node (null = end of list)
+
+head = null          // the list is represented by one pointer: head
+</pre>
+<p>کل لیست با <strong>یک</strong> اشاره‌گر نمایش داده می‌شود: \(head\). لیست خالی یعنی \(head = \text{null}\).</p>
+
+<h2>عملیات روی لیست پیوندی</h2>
+<h3>عمل ۱: پیمایش و چاپ</h3>
+<pre class="code" data-title="PRINT-LIST(head)">
+cur = head
+while cur != null
+    output cur.data
+    cur = cur.next           // advance, or the loop never ends
+</pre>
+<p>
+  \(cur\) از \(head\) شروع می‌کند. هر دور حلقه یک گره را ملاقات می‌کند و سپس به گرهٔ بعدی می‌رود. برای لیست \(12 \to 27 \to 19\)، خروجی \(12, 27, 19\) است و پس از گرهٔ ۱۹،
+  \(cur\) برابر null می‌شود و حلقه تمام می‌شود. <strong>زمان:</strong> \(\Theta(n)\) · <strong>حافظهٔ اضافه:</strong> \(\Theta(1)\) (فقط یک متغیر \(cur\)).
+</p>
+<div class="box warn">
+  <div class="bh">فراموش کردن جلو بردن اشاره‌گر</div>
+  <p>اگر خط <code>cur = cur.next</code> را فراموش کنید، \(cur\) همیشه به گرهٔ اول اشاره می‌کند و حلقه هرگز تمام نمی‌شود.</p>
+</div>
+<h3>عمل ۲: جست‌وجوی یک کلید</h3>
+<pre class="code" data-title="FIND(head, key)">
+cur = head
+while cur != null
+    if cur.data = key
+        return cur           // return the node's address
+    cur = cur.next
+return null                  // not found
+</pre>
+<p>مثال \(\text{find}(19)\) روی \(12 \to 27 \to 19\): بررسی ۱۲، بررسی ۲۷، بررسی ۱۹ و برگرداندن نشانی آن. <strong>بدترین حالت:</strong> \(\Theta(n)\)، چون لیست پیوندی دسترسی مستقیم به وسط ندارد (حتی اگر لیست مرتب باشد، جست‌وجوی دودویی ممکن نیست؛ چرا؟ چون رسیدن به «وسط» خودش \(\Theta(n)\) است).</p>
+<h3>عمل ۳: درج در ابتدای لیست</h3>
+<p>برای درج گرهٔ جدید \(x\) در ابتدا: گرهٔ جدید را به head قدیمی وصل کن، سپس head را به‌روز کن.</p>
+<pre class="code" data-title="INSERT-FRONT(head, x)">
+p = new Node(x)
+p.next = head
+return p                     // p is the new head
+</pre>
+<figure>
+  <div class="fig-body"><!--FIG:listInsertFront--></div>
+  <figcaption>درج ۵ در ابتدا: فقط دو انتساب، مستقل از طول لیست.</figcaption>
+</figure>
+<p><strong>زمان:</strong> \(\Theta(1)\). این کد برای لیست خالی هم درست است: اگر \(head = \text{null}\)، آنگاه \(p.next\) هم null می‌شود و \(p\) تنها گرهٔ لیست است.</p>
+<h3>عمل ۴: درج بعد از یک گرهٔ معلوم</h3>
+<pre class="code" data-title="INSERT-AFTER(p, x)">
+if p = null then return
+q = new Node(x)
+q.next = p.next              // 1) new node points to p's old successor
+p.next = q                   // 2) p points to the new node
+</pre>
+<figure>
+  <div class="fig-body"><!--FIG:listInsertAfter--></div>
+  <figcaption>درج ۹۹ بعد از گرهٔ ۲۷ (سبز).</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا ترتیب دو خط آخر مهم است؟</div>
+  <p>
+    اگر اول <code>p.next = q</code> را اجرا کنیم، تنها جایی که نشانی گرهٔ ۴۴ (و بقیهٔ لیست) نگه داشته شده بود، بازنویسی می‌شود. حالا <code>q.next = p.next</code> یعنی
+    <code>q.next = q</code>: گرهٔ جدید به خودش اشاره می‌کند و بقیهٔ لیست برای همیشه گم شده است. <strong>قاعده:</strong> پیش از بازنویسی یک اشاره‌گر، مطمئن شوید چیزی که به آن اشاره می‌کرد را جای دیگری نگه داشته‌اید.
+  </p>
+</div>
+<h3>عمل ۵: حذف گرهٔ بعد از \(p\)</h3>
+<pre class="code" data-title="DELETE-AFTER(p)">
+if p = null or p.next = null then return
+victim = p.next              // save the node to remove
+p.next = victim.next         // link p directly to victim's successor
+delete victim                // free its memory (in C++)
+</pre>
+<figure>
+  <div class="fig-body"><!--FIG:listDeleteAfter--></div>
+  <figcaption>حذف ۲۷ (قرمز) با دور زدن آن: ۱۲ مستقیماً به ۴۴ وصل می‌شود.</figcaption>
+</figure>
+<p>اگر \(p\) از قبل معلوم باشد، حذف \(\Theta(1)\) است. اما اگر اول باید \(p\) را <em>پیدا</em> کنیم، پیدا کردنش ممکن است \(\Theta(n)\) طول بکشد.</p>
+<h3>دام رایج در تحلیل: گره کجاست؟</h3>
+<div class="cols">
+  <div class="box ex"><div class="bh">اشاره‌گر به \(p\) داده شده</div>
+    <p>درج بعد از \(p\): دو اشاره‌گر عوض می‌شود. <strong>زمان \(\Theta(1)\).</strong> گرهٔ هدف از قبل معلوم است.</p></div>
+  <div class="box warn"><div class="bh">فقط مقدار یا اندیس داده شده</div>
+    <p>اول باید گرهٔ هدف را با پیمایش پیدا کنیم: ممکن است \(\Theta(n)\) گره بررسی شود، سپس اشاره‌گرها عوض شوند. <strong>کل زمان \(\Theta(n)\) در بدترین حالت.</strong></p></div>
+</div>
+<div class="box sum"><div class="bh">قاعده</div><p>هنگام تحلیل زمان یک عمل، همیشه بگویید <strong>چه اطلاعاتی به عمل داده شده است</strong>. «درج در لیست پیوندی \(O(1)\) است» فقط وقتی درست است که محل درج از قبل معلوم باشد.</p></div>
+
+<h2>لیست دوپیوندی و مقایسه با آرایه</h2>
+<p>در لیست دوپیوندی ({{doubly linked list}}) هر گره علاوه بر \(next\)، اشاره‌گری به گرهٔ <strong>قبلی</strong> (\(prev\)) هم دارد.</p>
+<figure>
+  <div class="fig-body"><!--FIG:listDoubly--></div>
+  <figcaption>هر گره سه بخش دارد: prev، مقدار و next.</figcaption>
+</figure>
+<div class="cols">
+  <div class="box ex"><div class="bh">مزایا</div><p>می‌توان به جلو <em>و</em> عقب حرکت کرد؛ و مهم‌تر، می‌توان یک گرهٔ معلوم را <strong>بدون جست‌وجوی گرهٔ قبلی‌اش</strong> حذف کرد.</p></div>
+  <div class="box warn"><div class="bh">هزینه‌ها</div><p>یک اشاره‌گر اضافه در هر گره و به‌روزرسانی‌های بیشتر؛ اشتباه در یکی از این به‌روزرسانی‌ها پیوندها را ناسازگار می‌کند.</p></div>
+</div>
+<div class="box extra">
+  <div class="bh">حذف گرهٔ \(x\) از لیست دوپیوندی</div>
+<pre class="code" data-title="DELETE(head, x)    ⊳ x is a pointer to the node">
+if x.prev != null then x.prev.next = x.next
+else head = x.next                  // x was the first node
+if x.next != null then x.next.prev = x.prev
+</pre>
+  <p>در لیست یک‌طرفه برای حذف \(x\) باید گرهٔ قبل از آن را داشته باشیم (چون \(next\) آن باید عوض شود) و پیدا کردنش \(\Theta(n)\) است. در لیست دوپیوندی \(x.prev\) همان گرهٔ قبلی است، پس حذف \(\Theta(1)\) می‌شود.</p>
+</div>
+<h3>آرایه یا لیست پیوندی؟</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th class="start">پرسش / عمل</th><th>آرایه / آرایهٔ پویا</th><th>لیست پیوندی</th></tr></thead>
+  <tbody>
+    <tr><td class="start">دسترسی به عنصر \(i\)ام</td><td class="good">\(\Theta(1)\)</td><td class="bad">\(\Theta(n)\)</td></tr>
+    <tr><td class="start">جست‌وجو در دادهٔ نامرتب</td><td>\(\Theta(n)\)</td><td>\(\Theta(n)\)</td></tr>
+    <tr><td class="start">درج در ابتدا</td><td class="bad">\(\Theta(n)\)</td><td class="good">\(\Theta(1)\)</td></tr>
+    <tr><td class="start">درج بعد از گرهٔ معلوم</td><td class="bad">\(\Theta(n)\) جابه‌جایی</td><td class="good">\(\Theta(1)\)</td></tr>
+    <tr><td class="start">محلی بودن حافظه</td><td class="good">معمولاً عالی</td><td>گره‌ها ممکن است پراکنده باشند</td></tr>
+    <tr><td class="start">حافظهٔ اضافه</td><td>معمولاً کم برای هر عنصر</td><td>یک یا دو اشاره‌گر برای هر گره</td></tr>
+  </tbody>
+</table></div>
+<div class="box note">
+  <div class="bh">«محلی بودن حافظه» یعنی چه؟</div>
+  <p>پردازنده‌ها داده را به‌صورت بلوک‌های پشت سر هم از حافظه به حافظهٔ نهان ({{cache}}) می‌آورند. وقتی خانهٔ \(A[i]\) خوانده می‌شود، چند خانهٔ بعدی هم مجانی می‌آیند. در آرایه این خانه‌ها همان عناصر بعدی‌اند؛ در لیست پیوندی گرهٔ بعدی ممکن است جای دوری از حافظه باشد. برای همین، با وجود مرتبهٔ یکسان، پیمایش آرایه در عمل چند برابر سریع‌تر است.</p>
+</div>
+
+<h2>معکوس کردن لیست پیوندی</h2>
+<p>می‌خواهیم جهت همهٔ پیوندها را برعکس کنیم، <strong>بدون</strong> ساختن گرهٔ جدید (درجا).</p>
+<figure>
+  <div class="fig-body"><!--FIG:listReverse--></div>
+  <figcaption>سر قدیمی (۱۰) دم جدید می‌شود و دم قدیمی (۴۰) سر جدید.</figcaption>
+</figure>
+<pre class="code" data-title="REVERSE(head)">
+prev = null
+current = head
+while current != null
+    next = current.next      // save the rest of the list first!
+    current.next = prev      // flip this link
+    prev = current           // advance prev
+    current = next           // advance current
+return prev                  // the new head
+</pre>
+<div class="box intuit">
+  <div class="bh">ناوردا</div>
+  <p>در شروع هر دور: \(prev\) سرِ بخشِ <strong>معکوس‌شده</strong> است و \(current\) سرِ بخشِ <strong>هنوز دست‌نخورده</strong>. هر دور یک گره را از بخش دوم برمی‌دارد و به سر بخش اول می‌چسباند. وقتی بخش دوم تمام شد (\(current = \text{null}\))، \(prev\) سرِ کل لیست معکوس است.</p>
+</div>
+<div class="tbl-wrap"><table class="trace" dir="ltr">
+  <thead><tr><th>iteration</th><th>reversed part (from prev)</th><th>remaining part (from current)</th></tr></thead>
+  <tbody>
+    <tr><td>start</td><td>null</td><td>10 → 20 → 30 → 40</td></tr>
+    <tr><td>1</td><td>10 → null</td><td>20 → 30 → 40</td></tr>
+    <tr><td>2</td><td>20 → 10 → null</td><td>30 → 40</td></tr>
+    <tr><td>3</td><td>30 → 20 → 10 → null</td><td>40</td></tr>
+    <tr><td>4</td><td>40 → 30 → 20 → 10 → null</td><td>null</td></tr>
+  </tbody>
+</table></div>
+<p><strong>زمان:</strong> \(\Theta(n)\) (هر گره دقیقاً یک بار) · <strong>حافظهٔ اضافه:</strong> \(\Theta(1)\) (سه اشاره‌گر).</p>
+<div class="box warn">
+  <div class="bh">چرا \(next\) را اول ذخیره می‌کنیم؟</div>
+  <p>خط <code>current.next = prev</code> تنها پیوند به بقیهٔ لیست را پاک می‌کند. اگر قبلش آن را در \(next\) نگه نداشته باشیم، بقیهٔ لیست گم می‌شود. این همان درس عمل ۴ است.</p>
+</div>
+
+<h2>پیاده‌سازی لیست پیوندی با آرایه</h2>
+<p>
+  «اشاره‌گر» لازم نیست حتماً نشانی حافظه باشد؛ می‌تواند <strong>اندیس یک آرایه</strong> باشد. دو آرایهٔ موازی می‌گیریم: \(Data[\,]\) برای مقدار و \(Next[\,]\) برای اندیس گرهٔ بعدی.
+</p>
+<!--FIG:arrayListTable-->
+<p>
+  با \(head = 0\)، پیمایش منطقی این است: \(0{:}\,10 \to 2{:}\,20 \to 1{:}\,30\) (چون \(Next[0] = 2\) و \(Next[2] = 1\) و \(Next[1] = \text{null}\)). یعنی لیست \(10, 20, 30\) است،
+  با اینکه در آرایه ترتیب فیزیکی \(10, 30, 20\) است.
+</p>
+<div class="box ex">
+  <div class="bh">درج ۱۵ بین ۱۰ و ۲۰ با خانهٔ آزاد ۳</div>
+<pre class="code">
+Data[3] = 15
+Next[3] = 2       // 15 -> 20
+Next[0] = 3       // 10 -> 15
+</pre>
+  <p>ترتیب منطقی جدید: \(10 \to 15 \to 20 \to 30\). هیچ عنصری جابه‌جا نشد؛ فقط دو «اشاره‌گر» عوض شد.</p>
+  <p><strong>حذف ۲۰:</strong> گرهٔ قبلی‌اش اکنون اندیس ۳ (یعنی ۱۵) است، پس \(Next[3] = 1\). حالا خانهٔ ۲ آزاد است و ترتیب منطقی \(10 \to 15 \to 30\) می‌شود.</p>
+</div>
+<div class="box sum"><div class="bh">ایدهٔ کلیدی</div><p>ترتیب منطقی را آرایهٔ \(Next\) تعیین می‌کند، نه جای فیزیکی عناصر در آرایه.</p></div>
+<div class="box extra">
+  <div class="bh">مدیریت خانه‌های آزاد</div>
+  <p>خانه‌های آزاد را هم می‌توان با همان آرایهٔ \(Next\) در یک «لیست آزاد» ({{free list}}) به هم زنجیر کرد. برای گرفتن خانهٔ جدید، اولین عضو لیست آزاد را برمی‌داریم و پس از حذف، خانه را به سر لیست آزاد برمی‌گردانیم. هر دو \(O(1)\) هستند. این کار همان کاری است که \(\texttt{new}\) و \(\texttt{delete}\) پشت صحنه انجام می‌دهند.</p>
+</div>
+
+<h2>لیست دوری: شمارش گره‌ها با الگوریتم فلوید</h2>
+<p>
+  گاهی (عمداً یا به‌خاطر یک باگ) پیوند آخرین گره به جای null، به یکی از گره‌های قبلی برمی‌گردد. ساختار حاصل یک <strong>پیشوند</strong> غیردوری دارد و بعد وارد یک <strong>دور</strong> می‌شود.
+  مسئله: تعداد گره‌های متمایز را بشمارید.
+</p>
+<figure>
+  <div class="fig-body"><!--FIG:cycleList--></div>
+  <figcaption>پیشوند \(A, B\) (۲ گره) و دور \(C \to D \to E \to C\) (۳ گره). تعداد گره‌های متمایز: \(2 + 3 = 5\).</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا پیمایش معمولی کار نمی‌کند؟</div>
+  <p>در ساختار دوری هیچ پیوند null وجود ندارد، پس حلقهٔ <code>while cur != null</code> هرگز تمام نمی‌شود. می‌توان نشانی همهٔ گره‌های دیده‌شده را در یک مجموعه نگه داشت، ولی این \(O(n)\) حافظهٔ اضافه می‌خواهد. الگوریتم فلوید با \(O(1)\) حافظه کار می‌کند.</p>
+</div>
+<div class="box algo">
+  <div class="bh">فلوید (لاک‌پشت و خرگوش) + دو شمارش</div>
+  <ol>
+    <li>با دو اشاره‌گر \(slow\) (یک قدم در هر گام) و \(fast\) (دو قدم در هر گام) از \(head\) راه بیفت تا به هم برسند (نقطهٔ ملاقات).</li>
+    <li>یک اشاره‌گر را به \(head\) برگردان و دیگری را در نقطهٔ ملاقات نگه دار؛ هر دو را <em>یک قدم یک قدم</em> جلو ببر. جایی که به هم می‌رسند، <strong>ورودی دور</strong> است.</li>
+    <li>گره‌های قبل از ورودی را بشمار (طول پیشوند).</li>
+    <li>از ورودی یک دور کامل بزن و گره‌های دور را بشمار.</li>
+    <li>جواب: طول پیشوند + طول دور.</li>
+  </ol>
+</div>
+<pre class="code" data-title="COUNT-NODES(head)    ⊳ assumes the list has a cycle">
+slow = head, fast = head                 // step 1: find a meeting point
+repeat
+    slow = slow.next
+    fast = fast.next.next
+until slow = fast
+p1 = head, p2 = slow                     // step 2: find the cycle entry
+while p1 != p2
+    p1 = p1.next, p2 = p2.next
+entry = p1
+prefix = 0, p = head                     // step 3: count the prefix
+while p != entry
+    prefix = prefix + 1, p = p.next
+cycle = 1, p = entry.next                // step 4: count the cycle
+while p != entry
+    cycle = cycle + 1, p = p.next
+return prefix + cycle                    // step 5
+</pre>
+<div class="box proof">
+  <div class="bh">چرا الگوریتم فلوید درست است؟</div>
+  <p>فرض کنید طول پیشوند \(\mu\) و طول دور \(\lambda\) باشد (در مثال، \(\mu = 2\) و \(\lambda = 3\)).</p>
+  <p><strong>(الف) حتماً به هم می‌رسند:</strong> پس از \(\mu\) گام، \(slow\) وارد دور می‌شود و \(fast\) هم جایی درون دور است. از آن پس در هر گام، \(fast\) یک قدم بیشتر از \(slow\) جلو می‌رود؛ پس فاصلهٔ \(fast\) تا رسیدن به \(slow\) (در جهت حرکت) هر گام یکی کم می‌شود و حداکثر پس از \(\lambda\) گام صفر می‌شود.</p>
+  <p><strong>(ب) زمان ملاقات مضرب \(\lambda\) است:</strong> اگر ملاقات در گام \(t\) رخ دهد، \(slow\) مسافت \(t\) و \(fast\) مسافت \(2t\) را پیموده و هر دو در یک گره‌اند. پس \(fast\) دقیقاً چند دور کامل بیشتر زده است: \(2t - t = t\) مضربی از \(\lambda\) است.</p>
+  <p><strong>(ج) گام ۲ به ورودی دور می‌رسد:</strong> \(p_1\) از \(head\) و \(p_2\) از نقطهٔ ملاقات (یعنی \(t\) قدم پس از \(head\)) هم‌زمان یک‌قدمی جلو می‌روند. پس از \(\mu\) قدم، \(p_1\) در ورودی دور است و \(p_2\) در نقطه‌ای \(t + \mu\) قدم پس از \(head\). چون \(t\) مضرب \(\lambda\) است و جای گره‌های درون دور هر \(\lambda\) قدم تکرار می‌شود، \(t + \mu\) قدم همان جایی است که \(\mu\) قدم: <strong>ورودی دور</strong>. قبل از آن هم نمی‌توانند به هم برسند، چون \(p_1\) هنوز روی پیشوند است و \(p_2\) درون دور.</p>
+</div>
+<div class="box ex">
+  <div class="bh">اجرا روی مثال شکل</div>
+  <p>گره‌ها را به ترتیب پیمایش شماره کنید: \(A{=}0, B{=}1, C{=}2, D{=}3, E{=}4\) و پس از آن دوباره \(C\).</p>
+  <ul>
+    <li>گام ۱: \(slow = B\)، \(fast = C\). گام ۲: \(slow = C\)، \(fast = E\). گام ۳: \(slow = D\)، \(fast = D\) ← <strong>ملاقات در \(D\)</strong> با \(t = 3\) (مضرب \(\lambda = 3\) ✓).</li>
+    <li>\(p_1 = A, p_2 = D\) ← \(p_1 = B, p_2 = E\) ← \(p_1 = C, p_2 = C\): <strong>ورودی دور \(C\)</strong> پس از \(\mu = 2\) قدم.</li>
+    <li>پیشوند: \(A, B\) یعنی ۲. دور: \(C \to D \to E \to C\) یعنی ۳. جواب: \(5\).</li>
+  </ul>
+</div>
+<p><strong>زمان:</strong> \(O(n)\) · <strong>حافظهٔ اضافه:</strong> \(O(1)\). اگر لیست <em>کاملاً</em> حلقوی باشد (دم به سر برگردد)، کافی است از \(head\) یک دور کامل بزنیم و بشماریم.</p>
+
+<h2>لیست حلقوی و مسئلهٔ ژوزفوس</h2>
+<div class="box def">
+  <div class="bh">مسئلهٔ ژوزفوس</div>
+  <p>\(n\) نفر در یک دایره ایستاده‌اند. از نفر ۱ شروع می‌کنیم و ۱، ۲، ...، \(k\) می‌شماریم؛ نفرِ \(k\)ام حذف می‌شود و شمارش از نفر بعدی از نو شروع می‌شود. آخرین نفر باقی‌مانده کیست؟</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:josephus--></div>
+  <figcaption>برای \(n = 7\) و \(k = 3\): ترتیب حذف \(3, 6, 2, 7, 5, 1\) و بازمانده نفر \(4\).</figcaption>
+</figure>
+<p>
+  لیست <strong>حلقوی</strong> ({{circular linked list}}) که در آن دم به سر وصل است، دقیقاً مدل همین دایره است: «نفر بعدی» همیشه \(next\) است، حتی برای آخرین نفر.
+</p>
+<pre class="code" data-title="JOSEPHUS(n, k)">
+build a circular list 1..n
+current = node 1
+previous = node n
+while more than one node remains
+    repeat k-1 times                    // walk k-1 steps
+        previous = current
+        current = current.next
+    previous.next = current.next         // remove current
+    delete current
+    current = previous.next              // counting restarts here
+return current.value
+</pre>
+<div class="box ex">
+  <div class="bh">چند گام اول</div>
+  <p>شروع: \(current = 1\). دو قدم: \(current = 3\) ← حذف ۳؛ \(current = 4\). دو قدم: \(current = 6\) ← حذف ۶؛ \(current = 7\). دو قدم (۷ ← ۱ ← ۲): حذف ۲؛ \(current = 4\). به همین ترتیب ۷، ۵ و ۱ حذف می‌شوند و ۴ می‌ماند.</p>
+</div>
+<p><strong>زمان:</strong> \(n - 1\) حذف و برای هر کدام \(k - 1\) قدم: \(O(nk)\). برای \(k\) ثابت، \(O(n)\). <strong>حافظه:</strong> \(O(n)\).</p>
+<div class="box extra">
+  <div class="bh">فرمول بازگشتی</div>
+  <p>اگر افراد را از ۰ شماره کنیم و \(J(n)\) شمارهٔ بازمانده باشد: \(J(1) = 0\) و \(J(n) = (J(n-1) + k) \bmod n\). (پس از اولین حذف، مسئله همان مسئلهٔ \(n-1\) نفره است که شماره‌هایش \(k\) واحد جابه‌جا شده.) برای \(n = 7, k = 3\): \(0, 1, 1, 0, 3, 0, 3\)؛ یعنی شمارهٔ ۳ از صفر، که همان نفر ۴ است. این روش بدون شبیه‌سازی \(O(n)\) زمان می‌برد.</p>
+</div>
+
+<h2>پشته: آخرین ورودی، اولین خروجی</h2>
+<div class="box def">
+  <div class="bh">پشته ({{LIFO}}: {{Last In, First Out}})</div>
+  <p>عملیات: \(\text{push}(x)\) (افزودن \(x\) به بالا)، \(\text{pop}()\) (برداشتن عنصر بالا)، \(\text{top}()\) (دیدن عنصر بالا)، \(\text{isEmpty}()\) (آیا خالی است؟). <strong>فقط عنصر بالا مستقیماً در دسترس است.</strong></p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:stackPic--></div>
+  <figcaption>پس از \(\text{push}(10), \text{push}(20), \text{push}(30)\)، اولین \(\text{pop}()\) عدد ۳۰ را برمی‌گرداند، سپس ۲۰ و سپس ۱۰.</figcaption>
+</figure>
+<div class="box extra">
+  <div class="bh">دو پیاده‌سازی \(O(1)\)</div>
+<pre class="code" data-title="array-based stack (top = index of the top item, -1 if empty)">
+PUSH(x):  if top = capacity-1 then overflow
+          top = top + 1;  A[top] = x
+POP():    if top = -1 then underflow
+          x = A[top];  top = top - 1;  return x
+</pre>
+  <p>با لیست پیوندی: push همان «درج در ابتدا» و pop همان «حذف از ابتدا» است. هر دو \(O(1)\). (چرا در ابتدا و نه انتها؟ چون حذف از انتهای لیست یک‌طرفه گرهٔ قبلی را لازم دارد.)</p>
+</div>
+<h3>پشته کجا ظاهر می‌شود؟</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>کاربرد</th><th class="start">چرا پشته؟</th></tr></thead>
+  <tbody>
+    <tr><td>فراخوانی توابع</td><td class="start">تابعی که تابع دیگری را صدا می‌زند معلق می‌شود. «پشتهٔ فراخوانی» محل بازگشت و متغیرهای محلی هر تابع را نگه می‌دارد.</td></tr>
+    <tr><td>برگرداندن ({{undo}}) و عقب‌گرد</td><td class="start">آخرین کار، اولین کاری است که برگردانده می‌شود. جست‌وجوی عمق‌اول (DFS) هم صریح یا ضمنی (با بازگشت) از پشته استفاده می‌کند.</td></tr>
+    <tr><td>پشتهٔ یکنوا</td><td class="start">پشته‌ای از مقادیر یا اندیس‌ها به ترتیب مرتب، برای مسائل «بزرگ‌تر/کوچک‌تر بعدی» (بخش بعد).</td></tr>
+  </tbody>
+</table></div>
+<div class="box intuit">
+  <div class="bh">قدرت واقعی پشته</div>
+  <p>قدرت پشته فقط در عملیاتش نیست؛ در این است که ساختار <strong>«تازه‌ترین کارِ هنوز حل‌نشده»</strong> را دقیقاً مدل می‌کند. هر جا کارهایی تودرتو دارید (پرانتزها، فراخوانی‌ها، زیرمسئله‌ها) که آخرین شروع‌شده باید اول تمام شود، به پشته فکر کنید.</p>
+</div>
+<h3>بازگشت از پشته استفاده می‌کند، حتی اگر آن را نبینید</h3>
+<pre class="code" data-title="FACTORIAL(n)">
+if n <= 1 then return 1
+return n * FACTORIAL(n-1)
+</pre>
+<p>
+  \(\text{factorial}(3)\) تابع \(\text{factorial}(2)\) را صدا می‌زند و آن هم \(\text{factorial}(1)\) را، تا به حالت پایه برسیم. هر فراخوانی باید به خاطر بسپارد <em>کجا ادامه دهد</em> و
+  <em>کدام \(n\)</em> مال اوست. این اطلاعات در یک «قاب» ({{frame}}) روی پشتهٔ زمان اجرا گذاشته می‌شود.
+</p>
+<figure>
+  <div class="fig-body"><!--FIG:callStack--></div>
+  <figcaption>در عمیق‌ترین لحظه سه قاب روی پشته است. فراخوانی‌ها به ترتیب ۳، ۲، ۱ عمیق می‌شوند و جواب‌ها به ترتیب عکس برمی‌گردند: \(1 \to 2 \to 6\).</figcaption>
+</figure>
+<div class="box note">
+  <div class="bh">سرریز پشته</div>
+  <p>حافظهٔ پشتهٔ فراخوانی محدود است. بازگشتی که خیلی عمیق شود (مثلاً \(\text{factorial}(10^6)\) یا بازگشت بی‌پایان به‌خاطر حالت پایهٔ غلط) پشته را پر می‌کند و برنامه با خطای {{stack overflow}} متوقف می‌شود.</p>
+</div>
+
+<h2>کاربرد پشته: نزدیک‌ترین قیمت بزرگ‌تر بعدی</h2>
+<div class="box def">
+  <div class="bh">مسئله</div>
+  <p>قیمت‌های روزانهٔ یک سهم \(P[0..n-1]\) داده شده است. برای هر روز \(i\)، قیمتِ <strong>اولین</strong> روز بعدی \(j &gt; i\) را پیدا کنید که \(P[j] &gt; P[i]\). اگر چنین روزی نبود، جواب \(-1\) (یا —).</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:stockNGE--></div>
+  <figcaption>\(P = 100, 80, 60, 70, 60, 75, 85\). هر پیکان از یک روز به نزدیک‌ترین روز بعدی با قیمت بیشتر می‌رود. ردیف پایین جواب است.</figcaption>
+</figure>
+<div class="box warn">
+  <div class="bh">«اولین» نه «بیشترین»</div>
+  <p>«اولین روز بعدی» یعنی <strong>نزدیک‌ترین</strong> اندیس سمت راست با قیمت <em>اکیداً</em> بیشتر، نه بیشترین قیمت آینده. مثلاً برای روز ۲ (قیمت ۶۰) جواب ۷۰ است، نه ۸۵.</p>
+</div>
+<h3>الگوریتم ساده: \(\Theta(n^2)\)</h3>
+<pre class="code" data-title="NEXT-GREATER-BRUTE(P)">
+for i = 0 to n-1
+    next[i] = -1
+    for j = i+1 to n-1
+        if P[j] > P[i] then
+            next[i] = P[j]
+            break
+</pre>
+<p>
+  برای هر \(i\) ممکن است تقریباً همهٔ اندیس‌های بعدی را بررسی کنیم. در بدترین حالت (قیمت‌های نزولی، که هیچ‌کدام جواب ندارند) تعداد مقایسه‌ها
+  \((n-1) + (n-2) + \dots + 1 = \frac{n(n-1)}{2} = \Theta(n^2)\) است. این الگوریتم ساده و درست است، اما <strong>اسکن‌های تکراری کاری را دوباره انجام می‌دهند</strong> که پشته می‌تواند از آن پرهیز کند.
+</p>
+<h3>ایدهٔ پشته</h3>
+<ul>
+  <li>روزهایی را که هنوز جوابشان معلوم نیست («حل‌نشده») روی یک پشته نگه دار.</li>
+  <li>وقتی قیمت جدیدی می‌رسد، <strong>همهٔ</strong> قیمت‌های کوچک‌ترِ بالای پشته را حل می‌کند: آن‌ها را pop کن و جوابشان را قیمت جدید بگذار.</li>
+  <li>سپس اندیس روز جاری را push کن (جواب خودش هنوز معلوم نیست).</li>
+</ul>
+<div class="box ex">
+  <div class="bh">قیمت جاری ۷۵</div>
+  <p>اگر بالای پشته روز ۴ با قیمت ۶۰ باشد، ۷۵ اولین قیمت بعدی بزرگ‌تر از ۶۰ است: روز ۴ را pop کن و جوابش را ۷۵ بگذار. ادامه بده: روز ۳ (۷۰) هم کوچک‌تر است، pop و جواب ۷۵. وقتی بالای پشته \(\ge 75\) شد (روز ۱ با ۸۰) یا پشته خالی شد، متوقف شو.</p>
+</div>
+<pre class="code" data-title="NEXT-GREATER(P)    ⊳ monotonic stack, Θ(n)">
+n = length(P)
+ans = array of n values, all -1
+create empty stack st                    // stores indices
+for i = 0 to n-1
+    while st is not empty and P[st.top] < P[i]
+        ans[st.pop()] = P[i]             // P[i] resolves this day
+    st.push(i)
+return ans
+</pre>
+<div class="tbl-wrap"><table class="trace" dir="ltr">
+  <thead><tr><th>i</th><th>P[i]</th><th>popped (answer = P[i])</th><th>stack after (indices: prices)</th></tr></thead>
+  <tbody>
+    <tr><td>0</td><td>100</td><td>—</td><td>[0:100]</td></tr>
+    <tr><td>1</td><td>80</td><td>—</td><td>[0:100, 1:80]</td></tr>
+    <tr><td>2</td><td>60</td><td>—</td><td>[0:100, 1:80, 2:60]</td></tr>
+    <tr><td>3</td><td>70</td><td class="on">2</td><td>[0:100, 1:80, 3:70]</td></tr>
+    <tr><td>4</td><td>60</td><td>—</td><td>[0:100, 1:80, 3:70, 4:60]</td></tr>
+    <tr><td>5</td><td>75</td><td class="on">4, 3</td><td>[0:100, 1:80, 5:75]</td></tr>
+    <tr><td>6</td><td>85</td><td class="on">5, 1</td><td>[0:100, 6:85]</td></tr>
+  </tbody>
+</table></div>
+<p>در پایان روزهای ۰ و ۶ روی پشته مانده‌اند، پس جوابشان \(-1\) می‌ماند. جواب نهایی: \(-1, 85, 70, 75, 75, 85, -1\) ✓.</p>
+<div class="box note">
+  <div class="bh">جزئیات مهم</div>
+  <ul>
+    <li><strong>اندیس ذخیره کن، نه فقط قیمت:</strong> باید بدانیم جواب را در کدام خانهٔ \(ans\) بنویسیم.</li>
+    <li>از \(&lt;\) برای «اکیداً بزرگ‌تر» استفاده کن؛ \(\le\) فقط اگر مسئله «بزرگ‌تر یا مساوی» بخواهد.</li>
+    <li>اندیس‌هایی که حل نشده می‌مانند، \(-1\) باقی می‌مانند.</li>
+    <li><strong>ناوردا:</strong> قیمت‌های روی پشته از پایین به بالا نزولی‌اند (به همین دلیل «پشتهٔ یکنوا»). چرا؟ هر عنصری که push می‌شود، قبلش همهٔ عناصر کوچک‌تر از خودش را از بالای پشته برداشته است.</li>
+  </ul>
+</div>
+<div class="box proof">
+  <div class="bh">چرا \(\Theta(n)\)؟ (شمارش سرشکنی)</div>
+  <p>
+    حلقهٔ <code>while</code> ممکن است در <em>یک</em> دور خیلی اجرا شود (مثلاً روز ۶ دو pop داشت)، پس ضرب «\(n\) دور × بدترین while» کران \(O(n^2)\) می‌دهد. اما مثل پشتهٔ multipop در فصل ۴ (روش انبوهه)،
+    از دید هر <em>اندیس</em> حساب کنید: هر اندیس دقیقاً یک بار push و حداکثر یک بار pop می‌شود. پس در کل اجرا حداکثر \(n\) push و \(n\) pop داریم و بقیهٔ بررسی‌ها هم \(O(n)\) هستند:
+  </p>
+  \[\text{کل کار} = O(n) + O(n) = O(n).\]
+  <p>از طرف دیگر هر الگوریتمی باید همهٔ قیمت‌ها را دست‌کم یک بار بخواند، پس \(\Omega(n)\) هم هست. در نتیجه \(\Theta(n)\).</p>
+</div>
+
+<h2>کاربرد پشته: قطار و جایگشت‌ها</h2>
+<div class="box def">
+  <div class="bh">مسئلهٔ خط فرعی</div>
+  <p>واگن‌ها به ترتیب \(1, 2, \dots, n\) وارد می‌شوند. یک خط فرعی ({{siding}}) مثل پشته رفتار می‌کند: واگنی که آخر وارد شده، اول خارج می‌شود. آیا می‌توان ترتیب خروجی دلخواه \(\pi\) را تولید کرد؟</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trainSiding--></div>
+  <figcaption>هر واگن ورودی باید وارد خط فرعی شود (push) و بعداً از آن خارج شود (pop) و به خروجی برود.</figcaption>
+</figure>
+<div class="cols">
+  <div class="box ex"><div class="bh">هدف \(2, 1, 4, 3\): ممکن</div>
+    <p>push ۱، push ۲؛ pop ۲، pop ۱. push ۳، push ۴؛ pop ۴، pop ۳. ✓</p></div>
+  <div class="box warn"><div class="bh">هدف \(3, 1, 2\): ناممکن</div>
+    <p>برای خروج ۳ باید ۱، ۲، ۳ را push کنیم و ۳ را pop کنیم. حالا ۲ روی ۱ است، پس ۱ نمی‌تواند خروجی بعدی باشد. ✗</p></div>
+</div>
+<p><strong>نکتهٔ کلیدی:</strong> محدودیت ترتیب پشته؛ واگنی که آخر وارد شده باید پیش از همهٔ واگن‌های زیرش خارج شود.</p>
+<h3>شرط لازم و کافی: شبیه‌سازی حریصانه</h3>
+<pre class="code" data-title="CAN-PRODUCE(π)    ⊳ π[1..n] is the target order">
+next_in = 1                  // next car waiting at the input
+create empty stack S
+for t = 1 to n               // we want to output π[t]
+    while (S is empty or S.top != π[t]) and next_in <= n
+        S.push(next_in)
+        next_in = next_in + 1
+    if S.top = π[t] then S.pop()
+    else return false        // input exhausted, top cannot match
+return true
+</pre>
+<div class="box proof">
+  <div class="bh">چرا این شبیه‌سازی هم لازم است و هم کافی؟</div>
+  <p>فرض کنید خروجی بعدیِ مورد نیاز \(x = \pi[t]\) باشد. فقط سه حالت ممکن است و در هر کدام <strong>تنها یک کار</strong> مجاز است:</p>
+  <ul>
+    <li><strong>\(x\) بالای پشته است:</strong> باید همین حالا pop شود. هر push دیگری آن را زیر واگن دیگری دفن می‌کند که باید پیش از آن خارج شود، ولی خروجی بعدی باید \(x\) باشد.</li>
+    <li><strong>\(x\) هنوز وارد نشده:</strong> تنها راه رساندن \(x\) به بالای پشته، push کردن واگن‌های ورودی تا رسیدن به \(x\) است.</li>
+    <li><strong>\(x\) در پشته است ولی بالا نیست:</strong> واگن‌های بالای آن باید زودتر خارج شوند، ولی خروجی بعدی باید \(x\) باشد: <strong>ناممکن</strong>.</li>
+  </ul>
+  <p>چون در هر گام انتخاب اجباری است، اگر شبیه‌سازی گیر کند هیچ راه دیگری هم وجود ندارد، و اگر تا آخر برود، خودش یک دنبالهٔ معتبر push/pop ساخته است. هر واگن یک بار push و یک بار pop می‌شود، پس زمان \(\Theta(n)\) است.</p>
+</div>
+<div class="box extra">
+  <div class="bh">چند جایگشت ممکن است؟</div>
+  <p>یک جایگشت دقیقاً وقتی تولیدشدنی است که الگوی «۳۱۲» نداشته باشد: سه موقعیت \(i &lt; j &lt; k\) با \(\pi_j &lt; \pi_k &lt; \pi_i\) (یعنی بزرگی، بعد کوچکی، بعد متوسطی). تعداد جایگشت‌های تولیدشدنی عدد کاتالان \(C_n = \frac{1}{n+1}\binom{2n}{n}\) است. برای \(n = 3\): از ۶ جایگشت، ۵ تا ممکن‌اند و فقط \(3, 1, 2\) ناممکن است.</p>
+</div>
+
+<h2>صف: اولین ورودی، اولین خروجی</h2>
+<div class="box def">
+  <div class="bh">صف ({{FIFO}}: {{First In, First Out}})</div>
+  <p>صف نوعی لیست است که فقط اجازهٔ <strong>افزودن به انتها</strong> و <strong>حذف از ابتدا</strong> را می‌دهد. عملیات:</p>
+  <ul>
+    <li>\(\text{enqueue}(x)\): درج \(x\) در انتهای صف (عقب).</li>
+    <li>\(\text{dequeue}()\): حذف و برگرداندن عنصر ابتدای صف (جلو).</li>
+    <li>\(\text{front}()\): برگرداندن عنصر ابتدای صف بدون حذف.</li>
+    <li>\(\text{isEmpty}()\): آیا صف خالی است؟ و \(\text{size}()\): تعداد عناصر.</li>
+  </ul>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:queuePic--></div>
+  <figcaption>\(\text{dequeue}()\) عنصر A را برمی‌دارد؛ \(\text{enqueue}(E)\) عنصر E را پس از D می‌گذارد. مثل صف نانوایی.</figcaption>
+</figure>
+<h3>صف با آرایه: چرا جلو و عقب مهم‌اند؟</h3>
+<div class="cols">
+  <div class="box warn"><div class="bh">روش ساده: جابه‌جا کردن</div>
+    <p>صف همیشه از خانهٔ ۰ شروع شود. پس از حذف اولین عنصر، همهٔ عناصر باقی‌مانده یک خانه به چپ می‌روند. هر dequeue \(\Theta(n)\) می‌شود و هدف یک صف کارا از بین می‌رود.</p></div>
+  <div class="box ex"><div class="bh">روش آرایهٔ حلقوی</div>
+    <p>به‌جای جابه‌جا کردن <em>عناصر</em>، <em>اندیس‌های</em> جلو و عقب را جابه‌جا کن. هر دو عمل \(\Theta(1)\) می‌شوند.</p></div>
+</div>
+<h3>صف حلقوی: اندیس‌ها دور می‌زنند</h3>
+<p>
+  اگر فقط اندیس‌ها را جلو ببریم، دیر یا زود به انتهای آرایه می‌رسیم، در حالی که خانه‌های ابتدایی (که عناصرشان dequeue شده‌اند) خالی‌اند. راه حل: آرایه را <strong>حلقوی</strong> فرض کنیم؛
+  بعد از آخرین خانه، دوباره خانهٔ ۰ می‌آید:
+</p>
+\[\text{next}(i) = (i + 1) \bmod C.\]
+<figure>
+  <div class="fig-body"><!--FIG:circularQueue--></div>
+  <figcaption>آرایه‌ای با ظرفیت ۶. اندیس \(front = 4\) به عنصری اشاره می‌کند که نوبت حذف آن است و اندیس \(rear = 2\) جای درج بعدی است. صف از خانهٔ ۴ شروع می‌شود، تا ۵ می‌رود و سپس به ۰ و ۱ دور می‌زند.</figcaption>
+</figure>
+<pre class="code" data-title="CIRCULAR QUEUE with a count (capacity C)">
+isEmpty:  return count = 0
+isFull:   return count = C
+
+enqueue(x):
+    if isFull then report overflow
+    A[rear] = x
+    rear = (rear + 1) mod C
+    count = count + 1
+
+dequeue():
+    if isEmpty then report underflow
+    x = A[front]
+    front = (front + 1) mod C
+    count = count - 1
+    return x
+</pre>
+<div class="kv">
+  <span>\(front\)</span><span>اندیس عنصر بعدی برای حذف.</span>
+  <span>\(rear\)</span><span>اندیسی که عنصر بعدی در آن درج می‌شود.</span>
+  <span>\(count\)</span><span>تعداد عناصر ذخیره‌شده. خالی اگر و فقط اگر \(count = 0\)؛ پر اگر و فقط اگر \(count = C\).</span>
+</div>
+<h3>پر و خالی را چطور از هم تشخیص دهیم؟</h3>
+<div class="box why">
+  <div class="bh">مشکل</div>
+  <p>اگر فقط \(front\) و \(rear\) را داشته باشیم، در صف <em>خالی</em> داریم \(front = rear\). اما اگر \(C\) عنصر درج کنیم، \(rear\) دقیقاً یک دور می‌زند و دوباره \(front = rear\) می‌شود: صف <em>پر</em> هم همین وضعیت را دارد! پس به اطلاعات بیشتری نیاز داریم.</p>
+</div>
+<div class="cols">
+  <div class="box ex"><div class="bh">روش الف: نگه داشتن count</div>
+    <p>\(count = 0\) یعنی خالی و \(count = C\) یعنی پر. ساده است و صف می‌تواند از <strong>همهٔ</strong> \(C\) خانه استفاده کند.</p></div>
+  <div class="box ex"><div class="bh">روش ب: یک خانه را خالی بگذار</div>
+    <p>خالی: \(front = rear\). پر: \((rear + 1) \bmod C = front\). ظرفیت قابل استفاده \(C - 1\) است؛ آن یک خانهٔ خالی ابهام پر/خالی را از بین می‌برد.</p></div>
+</div>
+<div class="box warn"><div class="bh">دو قرارداد را با هم قاطی نکنید</div><p>ناوردایی که انتخاب می‌کنید، آزمون‌های درست را تعیین می‌کند. پیاده‌سازی‌ای که count نگه می‌دارد ولی پر بودن را با \((rear+1) \bmod C = front\) می‌آزماید، یک خانه را بی‌دلیل هدر می‌دهد یا بدتر، خطا دارد.</p></div>
+<div class="box ex">
+  <div class="bh">ردگیری صف حلقوی با \(C = 5\)</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>operation</th><th>front</th><th>rear</th><th>count</th><th>array (indices 0..4)</th></tr></thead>
+    <tbody>
+      <tr><td>initial</td><td>0</td><td>0</td><td>0</td><td>[ _, _, _, _, _ ]</td></tr>
+      <tr><td>enqueue(A)</td><td>0</td><td>1</td><td>1</td><td>[ A, _, _, _, _ ]</td></tr>
+      <tr><td>enqueue(B)</td><td>0</td><td>2</td><td>2</td><td>[ A, B, _, _, _ ]</td></tr>
+      <tr><td>dequeue() → A</td><td>1</td><td>2</td><td>1</td><td>[ (A), B, _, _, _ ]</td></tr>
+      <tr><td>enqueue(C)</td><td>1</td><td>3</td><td>2</td><td>[ (A), B, C, _, _ ]</td></tr>
+      <tr><td>enqueue(D), enqueue(E)</td><td>1</td><td class="on">0</td><td>4</td><td>[ (A), B, C, D, E ]</td></tr>
+    </tbody>
+  </table></div>
+  <p>دقت کنید \(rear\) پس از آخرین درج از ۴ به ۰ <strong>دور زد</strong>. A هنوز فیزیکی در خانهٔ ۰ هست، اما چون \(front = 1\) است، دیگر جزو صف نیست و درج بعدی رویش نوشته می‌شود. هیچ عنصری جابه‌جا نشد.</p>
+</div>
+<h3>هزینهٔ پیاده‌سازی‌های صف</h3>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>پیاده‌سازی</th><th>enqueue</th><th>dequeue</th><th class="start">نکتهٔ اصلی</th></tr></thead>
+  <tbody>
+    <tr><td>آرایه + جابه‌جایی</td><td>\(\Theta(1)\) در انتها</td><td class="bad">\(\Theta(n)\)</td><td class="start">ساده، ولی حذف عناصر را جابه‌جا می‌کند</td></tr>
+    <tr><td>آرایهٔ حلقوی</td><td>\(\Theta(1)\)</td><td>\(\Theta(1)\)</td><td class="start">ظرفیت ثابت یا سیاست بزرگ کردن (مثل آرایهٔ پویا)</td></tr>
+    <tr><td>لیست پیوندی با head و tail</td><td>\(\Theta(1)\)</td><td>\(\Theta(1)\)</td><td class="start">مدیریت اشاره‌گرها؛ حافظهٔ اضافه برای هر گره</td></tr>
+  </tbody>
+</table></div>
+<div class="box why">
+  <div class="bh">چرا در لیست پیوندی درج در tail و حذف از head؟</div>
+  <p>درج بعد از tail و حذف از head هر دو فقط به اشاره‌گرِ موجود نیاز دارند: \(\Theta(1)\). اما اگر برعکس کار کنیم، «حذف از tail» گرهٔ قبل از tail را لازم دارد که در لیست یک‌طرفه پیدا کردنش \(\Theta(n)\) است.</p>
+</div>
+
+<h2>جمع‌بندی: رابط را به هزینه وصل کنید</h2>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>ساختار</th><th class="start">قوت</th><th class="start">محدودیت / احتیاط</th></tr></thead>
+  <tbody>
+    <tr><td>نوع انتزاعی</td><td class="start">قرارداد روشن، مستقل از نمایش</td><td class="start">به‌تنهایی کارایی را مشخص نمی‌کند</td></tr>
+    <tr><td>آرایه</td><td class="start">اندیس‌دهی \(\Theta(1)\)؛ محلی بودن عالی حافظه</td><td class="start">درج/حذف وسط ممکن است \(\Theta(n)\) جابه‌جایی بخواهد</td></tr>
+    <tr><td>لیست پیوندی یک‌طرفه</td><td class="start">درج بعد از گرهٔ معلوم \(\Theta(1)\)</td><td class="start">جست‌وجو / رسیدن به موقعیت \(i\) هزینهٔ \(\Theta(n)\)</td></tr>
+    <tr><td>پشته</td><td class="start">LIFO؛ مناسب کارهای تودرتو و حل‌نشده</td><td class="start">فقط عنصر بالا مستقیماً در دسترس است</td></tr>
+    <tr><td>صف حلقوی</td><td class="start">enqueue و dequeue در \(\Theta(1)\)</td><td class="start">ناوردای پر/خالی باید با دقت انتخاب شود</td></tr>
+  </tbody>
+</table></div>
+<div class="box sum">
+  <div class="bh">پرسش درست</div>
+  <p>پرسش درست این نیست که «کدام داده‌ساختار بهترین است؟» بلکه این است که <strong>«کدام عملیات باید کارا باشند؟»</strong></p>
+</div>
+
+<h2>خودآزمایی فصل ۵</h2>
+<div class="box quiz">
+  <div class="bh"></div>
+  <ol>
+    <li>در پیاده‌سازی آرایه‌ای بخش «پیاده‌سازی لیست با آرایه»، پس از درج ۱۵ و حذف ۲۰، پیمایش از head چه خروجی‌ای می‌دهد؟ مقادیر \(Next\) را بنویسید.
+      <div class="ans">\(Next[0] = 3\)، \(Next[3] = 1\)، \(Next[1] = \text{null}\) (خانهٔ ۲ آزاد است). خروجی: \(10, 15, 30\).</div></li>
+    <li>آیا ترتیب خروجی \(4, 3, 5, 1, 2\) با خط فرعی ممکن است؟
+      <div class="ans">push ۱..۴، pop ۴؛ ۳ بالاست، pop ۳؛ push ۵، pop ۵؛ حالا بالای پشته ۲ است ولی ۱ لازم است و ورودی تمام شده: <strong>ناممکن</strong> (الگوی ۳۱۲: ۴، ۱، ۲).</div></li>
+    <li>جواب «بزرگ‌تر بعدی» را برای \(2, 7, 3, 5, 4, 6, 8\) بنویسید.
+      <div class="ans">\(7, 8, 5, 6, 6, 8, -1\).</div></li>
+    <li>صف حلقوی با \(C = 4\) و روش «یک خانه خالی» حداکثر چند عنصر نگه می‌دارد؟
+      <div class="ans">\(C - 1 = 3\) عنصر.</div></li>
+    <li>صفی با دو پشته بسازید. هزینهٔ سرشکن هر عمل چقدر است؟
+      <div class="ans">enqueue: push در پشتهٔ ورودی. dequeue: اگر پشتهٔ خروجی خالی بود، همهٔ عناصر پشتهٔ ورودی را pop و در پشتهٔ خروجی push کن (ترتیبشان برعکس می‌شود)، سپس از پشتهٔ خروجی pop کن. هر عنصر حداکثر دو بار push و دو بار pop می‌شود، پس هزینهٔ سرشکن \(O(1)\) است (روش انبوههٔ فصل ۴)، هرچند یک dequeue تکی ممکن است \(\Theta(n)\) باشد.</div></li>
+    <li>چرا در الگوریتم فلوید لازم است \(fast\) دقیقاً دو قدم برود؟ اگر سه قدم برود چه؟
+      <div class="ans">با سرعت ۲، فاصلهٔ \(fast\) تا \(slow\) در هر گام دقیقاً یکی کم می‌شود، پس هرگز از روی \(slow\) نمی‌پرد و حتماً به آن می‌رسد. با سرعت ۳ فاصله هر گام <em>دو</em> واحد (به پیمانهٔ \(\lambda\)) کم می‌شود؛ اگر طول دور زوج و فاصلهٔ اولیه فرد باشد، فاصله همیشه فرد می‌ماند و <strong>هرگز به هم نمی‌رسند</strong>. مثلاً \(\lambda = 2\) و فاصلهٔ ۱.</div></li>
+  </ol>
+</div>
+</section>

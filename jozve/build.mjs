@@ -7,7 +7,9 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createRequire } from 'node:module';
 import katex from 'katex';
-import { FIGS } from './figures.mjs';
+import { FIGS as FIGS1 } from './figures.mjs';
+import { FIGS2 } from './figures2.mjs';
+const FIGS = { ...FIGS1, ...FIGS2 };
 
 const require = createRequire(import.meta.url);
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -21,7 +23,12 @@ const PARTS = [
   '02-divide-conquer.html',
   '03-randomized.html',
   '04-amortized.html',
-  '05-appendix.html',
+  '05-lists.html',
+  '06-trees.html',
+  '07-expression-trees.html',
+  '08-heaps.html',
+  '09-sorting.html',
+  '99-appendix.html',
 ];
 
 const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
@@ -98,7 +105,9 @@ function tex(src, displayMode, where) {
 
 function renderMath(html, where) {
   html = html.replace(/\\\[([\s\S]+?)\\\]/g, (_, t) => `<div class="math-display">${tex(t, true, where)}</div>`);
-  html = html.replace(/\\\(([\s\S]+?)\\\)/g, (_, t) => tex(t, false, where));
+  // فرمول درون‌خطی همراه با پرانتز/نشانهٔ چسبیده به آن در یک واحد شکست‌ناپذیر
+  html = html.replace(/([(«]?)\\\(([\s\S]+?)\\\)([.,،:؛)»؟!]*)/g, (_, a, t, z) =>
+    (a || z) && t.length <= 40 ? `<span class="mnb">${a}${tex(t, false, where)}${z}</span>` : a + tex(t, false, where) + z);
   return html;
 }
 

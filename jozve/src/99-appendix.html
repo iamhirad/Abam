@@ -53,6 +53,19 @@
   </tbody>
 </table></div>
 
+<h3>داده‌ساختارها</h3>
+<div class="tbl-wrap"><table>
+  <tbody>
+    <tr><td class="start">نشانی خانهٔ آرایه</td><td>\(\text{base} + i \times \text{element\_size}\)</td></tr>
+    <tr><td class="start">صف حلقوی</td><td>\(\text{next}(i) = (i + 1) \bmod C\)</td></tr>
+    <tr><td class="start">درخت با \(n\) رأس</td><td>\(n - 1\) یال</td></tr>
+    <tr><td class="start">درخت دودویی به ارتفاع \(h\)</td><td>حداکثر \(2^{h+1} - 1\) گره؛ کامل با \(n\) گره: \(h = \floor{\log_2 n}\)</td></tr>
+    <tr><td class="start">هرم در آرایهٔ \(A[1..n]\)</td><td>فرزندان \(2i\) و \(2i + 1\)، پدر \(\floor{i/2}\)</td></tr>
+    <tr><td class="start">تحلیل ساخت هرم</td><td>\(\sum_{h \ge 1} h/2^h = 2\)</td></tr>
+    <tr><td class="start">کران پایین مرتب‌سازی</td><td>\(\log_2(N!) \ge \frac N2 \log\frac N2 = \Omega(N\log N)\)</td></tr>
+  </tbody>
+</table></div>
+
 <h2>جدول الگوریتم‌های جزوه</h2>
 <div class="tbl-wrap"><table>
   <thead><tr><th>مسئله</th><th>الگوریتم</th><th>زمان</th><th>فصل</th></tr></thead>
@@ -81,6 +94,31 @@
     <tr><td>پشته با MULTIPOP</td><td>—</td><td>سرشکن \(O(1)\)</td><td>۴</td></tr>
     <tr><td>شمارندهٔ دودویی</td><td>INCREMENT</td><td>سرشکن \(O(1)\)، بدترین \(O(k)\)</td><td>۴</td></tr>
     <tr><td>آرایهٔ پویا</td><td>دو برابر کردن</td><td>سرشکن \(O(1)\) برای هر درج</td><td>۴ (تکمیلی)</td></tr>
+    <tr><td rowspan="3">آرایه</td><td>دسترسی به \(A[i]\)</td><td>\(\Theta(1)\)</td><td>۵</td></tr>
+    <tr><td>درج / حذف در اندیس \(i\)</td><td>\(\Theta(n)\)</td><td>۵</td></tr>
+    <tr><td>جست‌وجو (نامرتب)</td><td>\(\Theta(n)\)</td><td>۵</td></tr>
+    <tr><td rowspan="4">لیست پیوندی</td><td>درج در ابتدا / بعد از گرهٔ معلوم</td><td>\(\Theta(1)\)</td><td>۵</td></tr>
+    <tr><td>جست‌وجو / رسیدن به موقعیت \(i\)</td><td>\(\Theta(n)\)</td><td>۵</td></tr>
+    <tr><td>معکوس کردن درجا</td><td>\(\Theta(n)\) زمان، \(\Theta(1)\) حافظه</td><td>۵</td></tr>
+    <tr><td>شمارش گره‌ها با دور (فلوید)</td><td>\(O(n)\) زمان، \(O(1)\) حافظه</td><td>۵</td></tr>
+    <tr><td>ژوزفوس</td><td>لیست حلقوی</td><td>\(O(nk)\)</td><td>۵</td></tr>
+    <tr><td>پشته / صف حلقوی</td><td>push، pop، enqueue، dequeue</td><td>\(\Theta(1)\)</td><td>۵</td></tr>
+    <tr><td>بزرگ‌تر بعدی</td><td>پشتهٔ یکنوا</td><td>\(\Theta(n)\)</td><td>۵</td></tr>
+    <tr><td>جایگشت قطار</td><td>شبیه‌سازی حریصانه با پشته</td><td>\(\Theta(n)\)</td><td>۵</td></tr>
+    <tr><td>پیمایش درخت</td><td>پیش‌ترتیب / میان‌ترتیب / پس‌ترتیب</td><td>\(\Theta(n)\)</td><td>۶</td></tr>
+    <tr><td>بازسازی درخت</td><td>از پیش‌ترتیب و پس‌ترتیب</td><td>\(O(n^2)\) ساده</td><td>۶</td></tr>
+    <tr><td rowspan="4">درخت عبارت</td><td>مقداریابی (پس‌ترتیب)</td><td>\(\Theta(n)\)</td><td>۷</td></tr>
+    <tr><td>ساخت از میانوندی پرانتزدار (یافتن ریشه)</td><td>\(O(n^2)\)</td><td>۷</td></tr>
+    <tr><td>ساخت با تجزیهٔ همزمان / پسوندی با پشته</td><td>\(\Theta(n)\)</td><td>۷</td></tr>
+    <tr><td>ساخت از میانوندی بی‌پرانتز (دو پشته)</td><td>\(\Theta(n)\)</td><td>۷</td></tr>
+    <tr><td rowspan="4">هرم</td><td>max</td><td>\(O(1)\)</td><td>۸</td></tr>
+    <tr><td>insert / increase-key / extract-max</td><td>\(O(\log n)\)</td><td>۸</td></tr>
+    <tr><td>ساخت (فلوید)</td><td>\(O(n)\)</td><td>۸</td></tr>
+    <tr><td>شمارش اعداد بزرگ‌تر از \(k\)</td><td>\(O(t)\)</td><td>۸</td></tr>
+    <tr><td>مرتب‌سازی</td><td>هرمی</td><td>\(O(n\log n)\)، درجا</td><td>۸</td></tr>
+    <tr><td>مرتب‌سازی مقایسه‌ای</td><td>کران پایین</td><td>\(\Omega(n\log n)\)</td><td>۹</td></tr>
+    <tr><td>مرتب‌سازی</td><td>شمارشی</td><td>\(O(n + k)\)، پایدار</td><td>۹</td></tr>
+    <tr><td>مرتب‌سازی</td><td>مبنایی</td><td>\(O(d(n + k))\)</td><td>۹</td></tr>
   </tbody>
 </table></div>
 
@@ -111,6 +149,26 @@
     <tr><td class="start">میانهٔ میانه‌ها</td><td class="start" dir="ltr">median of medians</td></tr>
     <tr><td class="start">تحلیل سرشکنی / هزینهٔ سرشکن‌شده</td><td class="start" dir="ltr">amortized analysis / amortized cost</td></tr>
     <tr><td class="start">روش انبوهه / حساب‌داری / تابع پتانسیل</td><td class="start" dir="ltr">aggregate / accounting / potential method</td></tr>
+    <tr><td class="start">داده‌ساختار / نوع دادهٔ انتزاعی</td><td class="start" dir="ltr">data structure / abstract data type (ADT)</td></tr>
+    <tr><td class="start">لیست پیوندی (یک‌طرفه / دوپیوندی / حلقوی)</td><td class="start" dir="ltr">(singly / doubly / circular) linked list</td></tr>
+    <tr><td class="start">اشاره‌گر / گره</td><td class="start" dir="ltr">pointer / node</td></tr>
+    <tr><td class="start">پشته / صف / صف حلقوی</td><td class="start" dir="ltr">stack (LIFO) / queue (FIFO) / circular queue</td></tr>
+    <tr><td class="start">پشتهٔ یکنوا / بزرگ‌تر بعدی</td><td class="start" dir="ltr">monotonic stack / next greater element</td></tr>
+    <tr><td class="start">درخت / جنگل / ریشه / برگ</td><td class="start" dir="ltr">tree / forest / root / leaf</td></tr>
+    <tr><td class="start">پدر / فرزند / برادر / جد / فرزندزاده</td><td class="start" dir="ltr">parent / child / sibling / ancestor / descendant</td></tr>
+    <tr><td class="start">عمق / ارتفاع / سطح</td><td class="start" dir="ltr">depth / height / level</td></tr>
+    <tr><td class="start">درخت دودویی کامل / پر / متوازن</td><td class="start" dir="ltr">complete / full / balanced binary tree</td></tr>
+    <tr><td class="start">پیمایش پیش‌ترتیب / میان‌ترتیب / پس‌ترتیب</td><td class="start" dir="ltr">preorder / inorder / postorder traversal</td></tr>
+    <tr><td class="start">فرزند چپ، برادر راست</td><td class="start" dir="ltr">left-child, right-sibling</td></tr>
+    <tr><td class="start">عبارت / عملگر / عملوند</td><td class="start" dir="ltr">expression / operator / operand</td></tr>
+    <tr><td class="start">یگانی / دودویی</td><td class="start" dir="ltr">unary / binary</td></tr>
+    <tr><td class="start">نگارش میانوندی / پیشوندی / پسوندی</td><td class="start" dir="ltr">infix / prefix / postfix notation</td></tr>
+    <tr><td class="start">گرامر مستقل از متن</td><td class="start" dir="ltr">context-free grammar</td></tr>
+    <tr><td class="start">صف اولویت / هرم</td><td class="start" dir="ltr">priority queue / heap</td></tr>
+    <tr><td class="start">بالا بردن / پایین بردن</td><td class="start" dir="ltr">sift-up / sift-down (heapify)</td></tr>
+    <tr><td class="start">درخت تصمیم</td><td class="start" dir="ltr">decision tree</td></tr>
+    <tr><td class="start">مرتب‌سازی مقایسه‌ای / پایدار</td><td class="start" dir="ltr">comparison sort / stable sort</td></tr>
+    <tr><td class="start">مرتب‌سازی شمارشی / مبنایی / هرمی</td><td class="start" dir="ltr">counting sort / radix sort / heapsort</td></tr>
   </tbody>
 </table></div>
 
@@ -122,12 +180,14 @@
   <li>{{Mark de Berg. <i>Lecture notes on Advanced Algorithms</i>}} (میانهٔ تقریبی و الگوریتم‌های مونت‌کارلو و لاس‌وگاس).</li>
   <li>اسلایدهای انگلیسی درس بر پایهٔ اسلایدهای {{Kevin Wayne}} ({{Pearson Addison-Wesley}}) تهیه شده‌اند.</li>
   <li>اسلایدهای تحلیل سرشکنی: درس داده‌ساختارها و مبانی الگوریتم‌ها، دانشکدهٔ مهندسی کامپیوتر، محمد قدسی.</li>
+  <li>{{CLRS}}، فصل ۶ (هرم و مرتب‌سازی هرمی)، فصل ۸ (کران پایین و مرتب‌سازی در زمان خطی)، فصل ۱۰ (پشته، صف و لیست پیوندی) و بخش ۱۰٫۴ (نمایش درخت‌های ریشه‌دار).</li>
+  <li>نمونهٔ الگوریتم ساخت هرم فلوید بر پایهٔ اسلایدهای درس {{CSE 373}} ({{Kasey Champion}}) در اسلایدهای هرم آمده است.</li>
 </ol>
 <div class="box note">
   <div class="bh">دربارهٔ این جزوه</div>
   <p>
     ترتیب و محتوای اصلی این جزوه از اسلایدهای درس گرفته شده و توضیحات، اثبات‌های کامل، مثال‌های حل‌شده، شکل‌ها و خودآزمایی‌ها به آن افزوده شده است. هر جا اسلاید خطای کوچکی داشت
-    (مثل اندیس‌های شبه‌کد ادغام و زیرآرایهٔ بیشینه) در متن تذکر داده شده است. مطالب کادرهای «تکمیلی» فراتر از اسلایدهاست.
+    (مثل اندیس‌های شبه‌کد ادغام، زیرآرایهٔ بیشینه و مرتب‌سازی شمارشی) در متن تذکر داده شده است. مطالب کادرهای «تکمیلی» فراتر از اسلایدهاست.
   </p>
 </div>
 </section>

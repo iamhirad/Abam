@@ -1,0 +1,450 @@
+<section class="chapter" data-ch="6" data-color="c6" data-title="درخت" id="ch6">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۶</div>
+  <h1>درخت</h1>
+  <p class="ch-lead">لیست پیوندی هر عنصر را به <em>یک</em> عنصر بعدی وصل می‌کرد. اگر هر عنصر بتواند چند عنصر بعدی داشته باشد، به درخت می‌رسیم: ساختاری برای داده‌های سلسله‌مراتبی، از شجره‌نامه تا پوشه‌های کامپیوتر.</p>
+  <ul class="ch-topics"><li>تعریف‌ها و واژه‌ها</li><li>انواع درخت</li><li>پیاده‌سازی</li><li>پیمایش‌ها</li><li>بازسازی درخت</li><li>درخت دودویی معادل</li></ul>
+  <div class="ch-big" aria-hidden="true">۶</div>
+</header>
+
+<h2>از لیست به درخت</h2>
+<p>یادآوری: در لیست پیوندی هر عنصر دو مؤلفه دارد:</p>
+<ol>
+  <li><strong>کلید:</strong> مقداری که می‌خواهیم نگه داریم (می‌تواند یک یا چند مؤلفه باشد، مثلاً نام و شماره).</li>
+  <li><strong>بعدی:</strong> اشاره‌گری به عنصر بعدی لیست (<strong>تنها یک</strong> عنصر).</li>
+</ol>
+<p>حالا محدودیت دوم را برداریم: <strong>اگر هر عنصر بتواند دو یا چند عنصر بعدی داشته باشد</strong>، ساختار حاصل دیگر یک زنجیر نیست؛ شاخه شاخه می‌شود. این ساختار <strong>درخت</strong> است.</p>
+<figure>
+  <div class="fig-body"><!--FIG:treeABC--></div>
+  <figcaption>درخت نمونهٔ این فصل. A دو «بعدی» دارد (B و H)، I سه تا (J، K و L) و D هیچ.</figcaption>
+</figure>
+<div class="box intuit">
+  <div class="bh">درخت را کجا دیده‌اید؟</div>
+  <p>شجره‌نامهٔ خانوادگی، ساختار پوشه‌ها و فایل‌ها در کامپیوتر، نمودار سازمانی یک شرکت، فهرست مطالب همین جزوه (فصل ← بخش ← زیربخش). در همهٔ این‌ها هر چیز یک «والد» دارد و ممکن است چند «فرزند» داشته باشد.</p>
+</div>
+
+<h2>درخت و جنگل</h2>
+<p>در نظریهٔ گراف، درخت را بدون هیچ ریشه یا جهتی تعریف می‌کنند:</p>
+<div class="cols">
+  <div class="box def"><div class="bh">درخت</div><p>گرافی <strong>همبند</strong> و <strong>بدون دور</strong>.</p></div>
+  <div class="box def"><div class="bh">جنگل</div><p>گرافی <strong>بدون دور</strong> (نه لزوماً همبند). به بیان دیگر: <strong>جنگل = چند درخت</strong> کنار هم.</p></div>
+</div>
+<ul>
+  <li><strong>همبند</strong> یعنی از هر رأس به هر رأس دیگر مسیری وجود دارد؛ گراف «یک‌تکه» است.</li>
+  <li><strong>دور</strong> یعنی مسیری که از یک رأس شروع شود و بدون تکرار یال به همان رأس برگردد.</li>
+</ul>
+<div class="box why">
+  <div class="bh">چرا «بدون دور» مهم است؟</div>
+  <p>
+    در گرافی همبند و بدون دور، بین هر دو رأس <strong>دقیقاً یک</strong> مسیر ساده وجود دارد: حداقل یکی چون همبند است، و حداکثر یکی چون اگر دو مسیر متفاوت بود، کنار هم یک دور می‌ساختند.
+    همین «یکتایی مسیر» است که مفاهیمی مثل «عمق» و «پدر» را خوش‌تعریف می‌کند.
+  </p>
+</div>
+
+<h2>درخت جهت‌دار، ریشه و درخت ریشه‌دار</h2>
+<div class="box def">
+  <div class="bh">درخت جهت‌دار و ریشه</div>
+  <p><strong>درخت جهت‌دار:</strong> درختی که یال‌هایش جهت دارند. <strong>ریشه:</strong> گره‌ای که <strong>هیچ یال ورودی</strong> ندارد.</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeDirected--></div>
+  <figcaption>H (نارنجی) ریشه است، چون هیچ پیکانی به آن وارد نمی‌شود. J، K و L (سبز) هیچ یال خروجی ندارند.</figcaption>
+</figure>
+<div class="box def">
+  <div class="bh">درخت ریشه‌دار</div>
+  <p>درختی جهت‌دار که با نظمی بر حسب ریشه نمایش داده شده است: ریشه بالا و همهٔ یال‌ها رو به پایین (از ریشه دور می‌شوند). در این حالت معمولاً پیکان‌ها را نمی‌کشیم، چون جهت از روی شکل معلوم است.</p>
+</div>
+<p>از این به بعد، «درخت» یعنی درخت ریشه‌دار. با رسم ریشه در بالا، هر گره‌ای را می‌توان با یک مسیر یکتا از ریشه رو به پایین رسید (مثل مسیر A ← B ← E ← F در شکل اول).</p>
+
+<h2>روابط: درخت به‌عنوان شجره‌نامه</h2>
+<div class="kv">
+  <span>پدر و فرزند</span><span>برای هر یال جهت‌دار \(u \to v\)، گره \(u\) <strong>پدر</strong> و گره \(v\) <strong>فرزند</strong> است. در شکل بالا: H پدر I است و I فرزند H. همچنین I پدر J، K و L است و آن‌ها فرزندان I.</span>
+  <span>برادر</span><span>گره‌هایی که پدر یکسان دارند. J، K و L برادرند.</span>
+  <span>درجه</span><span>درجهٔ (خروجی) هر رأس = <strong>تعداد فرزندان</strong> آن. \(\deg(H) = 1\) و \(\deg(I) = 3\).</span>
+  <span>برگ</span><span>گرهٔ <strong>بدون فرزند</strong> (درجهٔ صفر).</span>
+  <span>گرهٔ داخلی</span><span>گره‌ای که برگ <strong>نیست</strong> (دست‌کم یک فرزند دارد).</span>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeLeaves--></div>
+  <figcaption>برگ‌ها (سبز): D، F، G، J، K، L و M. گره‌های داخلی (آبی): A، B، C، E، H و I.</figcaption>
+</figure>
+<div class="box note">
+  <div class="bh">درجه در درخت و در گراف</div>
+  <p>در نظریهٔ گراف، درجهٔ رأس تعداد <em>همهٔ</em> یال‌های متصل به آن است (شامل یال به پدر). در درخت ریشه‌دار، «درجه» معمولاً یعنی <strong>تعداد فرزندان</strong>. در این درس تعریف دوم را به کار می‌بریم.</p>
+</div>
+
+<h2>درخت ترتیب‌دار</h2>
+<div class="cols">
+  <div class="box def"><div class="bh">درخت بدون ترتیب</div><p>درختی که <strong>ترتیب</strong> فرزندان یک گره اهمیت ندارد. فقط مهم است چه کسی فرزند چه کسی است.</p></div>
+  <div class="box def"><div class="bh">درخت ترتیب‌دار</div><p>درختی که ترتیب فرزندان اهمیت دارد: «فرزند اول»، «فرزند دوم» و ... معنا دارند.</p></div>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeOrdered--></div>
+  <figcaption>به‌عنوان درخت <strong>بدون ترتیب</strong> این دو یکی‌اند (روابط پدر و فرزندی یکسان است). به‌عنوان درخت <strong>ترتیب‌دار</strong> متفاوت‌اند، چون فرزند اول A در یکی B و در دیگری E است.</figcaption>
+</figure>
+<p>پیمایش‌ها (بخش‌های بعد) و درخت دودویی همیشه ترتیب‌دار در نظر گرفته می‌شوند، چون «اول زیردرخت اول را ببین» فقط در درخت ترتیب‌دار معنا دارد.</p>
+
+<h2>مسیر، اولاد و اجداد</h2>
+<div class="box def">
+  <div class="bh">مسیر و طول مسیر</div>
+  <p><strong>مسیر:</strong> دنباله‌ای به شکل \((a_0, a_1, \dots, a_k)\) به‌طوری که هر \(a_{i+1}\) فرزند \(a_i\) باشد. <strong>طول مسیر:</strong> تعداد <em>یال‌های</em> مسیر، یعنی \(k\) (نه تعداد گره‌ها).</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treePath--></div>
+  <figcaption>مسیر \((B, E, G)\) با طول ۲: دو یال B–E و E–G.</figcaption>
+</figure>
+<div class="cols">
+  <div class="box def"><div class="bh">اولاد</div>
+    <p><strong>اولاد گرهٔ \(v\):</strong> گره‌هایی که مسیری از \(v\) به آن‌ها وجود دارد. <strong>زیردرخت گرهٔ \(v\):</strong> درختی شامل \(v\) و تمام اولاد آن، با \(v\) به‌عنوان ریشه.</p></div>
+  <div class="box def"><div class="bh">اجداد</div>
+    <p><strong>اجداد گرهٔ \(v\):</strong> تمام گره‌هایی که مسیری از آن‌ها به \(v\) وجود دارد. یعنی پدر، پدرِ پدر، ... تا ریشه.</p></div>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeDesc--></div>
+  <figcaption>اولاد B (آبی): C، D، E، F و G. همراه با خود B، زیردرخت B را می‌سازند.</figcaption>
+</figure>
+<figure>
+  <div class="fig-body"><!--FIG:treeAnc--></div>
+  <figcaption>اجداد K (آبی): I، H و A. مسیر از هر کدام از این‌ها به K می‌رسد.</figcaption>
+</figure>
+<div class="box note">
+  <div class="bh">آیا \(v\) جدِ خودش است؟</div>
+  <p>چون مسیری به طول صفر \((v)\) از \(v\) به خودش وجود دارد، با این تعریف هر گره جد و فرزندزادهٔ خودش هم هست. اگر بخواهیم خود \(v\) را کنار بگذاریم، می‌گوییم «جد <strong>سره</strong>» یا «اولاد سره» ({{proper}}). در شکل‌های بالا خود گره را جدا رنگ کرده‌ایم.</p>
+</div>
+
+<h2>عمق، ارتفاع و سطح</h2>
+<div class="box def">
+  <div class="bh">عمق و ارتفاع</div>
+  <ul>
+    <li><strong>عمق (سطح) گره:</strong> طول مسیر از ریشه تا آن گره. چون در درخت فقط یک مسیر از ریشه به هر گره وجود دارد، این عدد خوش‌تعریف است. در شکل اول: عمق E برابر ۲ و عمق L برابر ۳ است.</li>
+    <li><strong>ارتفاع گره:</strong> طول مسیر از آن گره تا <strong>دورترین برگ</strong> زیردرختش.</li>
+    <li><strong>ارتفاع درخت:</strong> ارتفاع ریشه؛ یعنی بیشترین عمق یک برگ.</li>
+  </ul>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeHeightDepth--></div>
+  <figcaption>برای هر گره \(h\) ارتفاع و \(d\) عمق است. ارتفاع درخت = ارتفاع ریشه = ۳. برگ‌ها ارتفاع صفر دارند و ریشه عمق صفر.</figcaption>
+</figure>
+<div class="box intuit">
+  <div class="bh">عمق از بالا، ارتفاع از پایین</div>
+  <p>عمق را از ریشه رو به پایین می‌شماریم (ریشه صفر). ارتفاع را از برگ‌ها رو به بالا (برگ صفر). ارتفاع هر گره داخلی یکی بیشتر از بیشترین ارتفاع فرزندانش است:</p>
+  \[h(v) = \begin{cases} 0 & \text{برگ باشد}\; v \;\text{اگر}\\[2pt] 1 + \max\limits_{c\,\in\,\text{ch}(v)} h(c) & \text{در غیر این صورت}\end{cases}\]
+  <p>که در آن \(\text{ch}(v)\) مجموعهٔ فرزندان \(v\) است.</p>
+</div>
+<div class="box warn">
+  <div class="bh">«سطح» از ۰ یا از ۱؟</div>
+  <p>بعضی کتاب‌ها (و شکل اسلاید) سطح ریشه را ۱ می‌گیرند، یعنی سطح = عمق + ۱. بعضی سطح را همان عمق می‌دانند. در امتحان به قرارداد صورت سؤال دقت کنید؛ «عمق» و «ارتفاع» در همهٔ کتاب‌ها یکسان‌اند.</p>
+</div>
+
+<h2>درخت‌های \(k\)تایی و انواع آن‌ها</h2>
+<div class="kv">
+  <span>درخت \(k\)تایی</span><span>درختی که هر گره <strong>حداکثر</strong> \(k\) فرزند دارد.</span>
+  <span>درخت دودویی</span><span>نام دیگر درخت ۲تایی. در درخت دودویی، دو فرزند هر گره نام دارند: <strong>فرزند چپ</strong> و <strong>فرزند راست</strong>.</span>
+  <span>درخت \(k\)تایی کامل</span><span>همهٔ سطح‌ها به‌جز سطح آخر کاملاً پرند و سطح آخر <strong>از چپ به راست</strong> پر شده است (بدون جای خالی در وسط).</span>
+  <span>درخت \(k\)تایی پر</span><span>هر گرهٔ غیربرگ <strong>دقیقاً</strong> \(k\) فرزند دارد.</span>
+  <span>درخت متوازن</span><span>عمق برگ‌ها حداکثر ۱ واحد با هم اختلاف دارد.</span>
+  <span>درخت کاملاً متوازن</span><span>عمق <strong>همهٔ</strong> برگ‌ها برابر است.</span>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeComplete--></div>
+  <figcaption>درخت دودویی کامل: سطح‌های ۰ تا ۲ پرند و سطح آخر (H تا L) از چپ پر شده است. اگر L فرزند G بود (به‌جای F)، دیگر کامل نبود.</figcaption>
+</figure>
+<figure>
+  <div class="fig-body"><!--FIG:treeKinds--></div>
+  <figcaption>«پر»: هر گرهٔ داخلی دو فرزند دارد. «کاملاً متوازن»: همهٔ برگ‌ها در یک عمق‌اند (و پر هم هست). «متوازن»: عمق برگ‌ها ۲ یا ۳ است، پس حداکثر ۱ اختلاف دارند.</figcaption>
+</figure>
+<div class="box warn">
+  <div class="bh">نام‌ها در کتاب‌ها فرق دارند</div>
+  <p>در منابع انگلیسی {{full}}، {{complete}} و {{perfect}} گاهی جابه‌جا به کار می‌روند و «متوازن» هم تعریف‌های متفاوتی دارد (مثلاً اختلاف ارتفاع دو زیردرخت هر گره حداکثر ۱). در این درس تعریف‌های بالا ملاک است.</p>
+</div>
+
+<h2>ویژگی‌های پایه</h2>
+<div class="box thm">
+  <div class="bh">تعداد یال‌ها</div>
+  <p>درختی با \(n\) رأس دقیقاً \(n - 1\) یال دارد.</p>
+</div>
+<div class="box proof">
+  <div class="bh">با استقرا روی \(n\)</div>
+  <p><strong>پایه (\(n = 1\)):</strong> یک رأس و صفر یال. ✓</p>
+  <p><strong>گام:</strong> فرض کنید حکم برای همهٔ درخت‌های \(n - 1\) رأسی درست باشد و \(T\) درختی با \(n \ge 2\) رأس باشد.</p>
+  <ul>
+    <li><strong>\(T\) یک برگ دارد</strong> (رأسی با فقط یک یال): طولانی‌ترین مسیر ساده در \(T\) را در نظر بگیرید. اگر انتهای آن یال دیگری داشت، یا آن یال به رأسی بیرون از مسیر می‌رفت (و مسیر طولانی‌تر می‌شد) یا به رأسی روی مسیر (و دور می‌ساخت). هر دو ناممکن‌اند.</li>
+    <li>آن برگ و تنها یالش را حذف کنید. چیزی که می‌ماند هنوز همبند است (برگ روی هیچ مسیری بین دو رأس دیگر نبود) و بدون دور؛ پس درختی با \(n - 1\) رأس است و طبق فرض استقرا \(n - 2\) یال دارد.</li>
+    <li>با برگرداندن برگ: \(n - 2 + 1 = n - 1\) یال. ✓</li>
+  </ul>
+</div>
+<div class="box intuit">
+  <div class="bh">اثبات یک‌خطی برای درخت ریشه‌دار</div>
+  <p>هر گره به‌جز ریشه دقیقاً <strong>یک پدر</strong> دارد و هر یال دقیقاً یک فرزند را به پدرش وصل می‌کند. پس تعداد یال‌ها = تعداد گره‌های غیرریشه = \(n - 1\).</p>
+</div>
+<div class="box extra">
+  <div class="bh">ارتفاع درخت دودویی کامل</div>
+  <p>درخت دودویی به ارتفاع \(h\) حداکثر \(1 + 2 + 4 + \dots + 2^h = 2^{h+1} - 1\) گره دارد (سطح \(i\) حداکثر \(2^i\) گره). در درخت دودویی <strong>کامل</strong> با ارتفاع \(h\)، سطح‌های ۰ تا \(h-1\) پرند (\(2^h - 1\) گره) و سطح آخر بین ۱ و \(2^h\) گره دارد؛ پس</p>
+  \[2^h \le n \le 2^{h+1} - 1 \quad\Longrightarrow\quad h = \floor{\log_2 n}.\]
+  <p>این نتیجه در فصل ۸ (هرم) اساسی است: همهٔ عملیات هرم متناسب با ارتفاع‌اند، یعنی \(O(\log n)\).</p>
+</div>
+
+<h2>پیاده‌سازی درخت با اشاره‌گر</h2>
+<p>همان ایدهٔ گرهٔ لیست را گسترش می‌دهیم. برای درخت \(k\)تایی، هر عنصر \(k + 1\) مؤلفه دارد:</p>
+<ol>
+  <li><strong>کلید:</strong> مقداری که می‌خواهیم نگه داریم.</li>
+  <li><strong>\(k\) متغیر فرزند:</strong> اشاره‌گرهایی به فرزندان (می‌توان آن‌ها را به‌صورت آرایه یا لیست نگه داشت).</li>
+</ol>
+<figure>
+  <div class="fig-body"><!--FIG:kAryNode--></div>
+  <figcaption>گرهٔ A با ۵ خانهٔ اشاره‌گر برای یک درخت ۵تایی. سه خانه به B، C و D اشاره می‌کنند و دو خانهٔ دیگر NULL هستند (خط‌خورده). برگ‌های B، C و D هم ۵ خانه دارند که همه NULL است؛ این همان هدررفت حافظه است.</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">ایراد این روش: هدر رفتن حافظه</div>
+  <p>
+    \(n\) گره در کل \(nk\) خانهٔ اشاره‌گر دارند، ولی درخت فقط \(n - 1\) یال دارد. پس \(nk - (n - 1) = n(k-1) + 1\) اشاره‌گر <strong>NULL</strong> است. برای \(k = 10\)، بیش از ۹۰٪ خانه‌ها خالی‌اند.
+    راه حل این مشکل «درخت دودویی معادل» است که در آخر فصل می‌بینیم.
+  </p>
+</div>
+
+<h2>پیاده‌سازی درخت با آرایه</h2>
+<h3>روش ۱: هر گره، اندیس پدرش را نگه می‌دارد</h3>
+<p>هر گره دو متغیر نگه می‌دارد: (۱) کلید، (۲) اندیس پدر خود (ریشه پدر ندارد و ۰ می‌گیرد).</p>
+<figure>
+  <div class="fig-body"><!--FIG:treeAM--></div>
+  <figcaption>درخت نمونه با ۱۳ گره که در جدول زیر ذخیره شده است.</figcaption>
+</figure>
+<div class="tbl-wrap"><table dir="ltr">
+  <thead><tr><th>Index</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr></thead>
+  <tbody>
+    <tr><th>Key</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>g</td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td></tr>
+    <tr><th>P</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>3</td><td>5</td><td>8</td><td>8</td><td>9</td><td>9</td></tr>
+  </tbody>
+</table></div>
+<p>مثلاً \(P[8] = 3\) یعنی پدرِ h (خانهٔ ۸) گرهٔ c (خانهٔ ۳) است. رفتن به پدر (و در نتیجه به ریشه) سریع است: \(O(1)\) برای هر قدم.</p>
+<div class="box why">
+  <div class="bh">مشکل این روش چیست؟</div>
+  <p><strong>دسترسی سریع به فرزندان ممکن نیست.</strong> برای پیدا کردن فرزندان c باید کل آرایه را بگردیم و ببینیم \(P\) کدام خانه‌ها ۳ است: \(\Theta(n)\) برای هر گره. پیمایش‌هایی که از ریشه رو به پایین می‌روند (مثل پیمایش‌های بخش بعد) با این نمایش بسیار کند می‌شوند.</p>
+</div>
+<h3>روش ۲: اندیس پدر و اندیس فرزندان</h3>
+<p>اگر بخواهیم به فرزندان هم دسترسی داشته باشیم، برای درخت \(k\)تایی هر گره \(k + 2\) متغیر نگه می‌دارد: (۱) کلید، (۲) اندیس پدر، (۳) \(k\) اندیس فرزندان.</p>
+<div class="tbl-wrap"><table dir="ltr">
+  <thead><tr><th>Index</th><th>1</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th><th>10</th><th>11</th><th>12</th><th>13</th></tr></thead>
+  <tbody>
+    <tr><th>Key</th><td>a</td><td>b</td><td>c</td><td>d</td><td>e</td><td>f</td><td>g</td><td>h</td><td>i</td><td>j</td><td>k</td><td>l</td><td>m</td></tr>
+    <tr><th>P</th><td>0</td><td>1</td><td>1</td><td>1</td><td>1</td><td>3</td><td>3</td><td>3</td><td>5</td><td>8</td><td>8</td><td>9</td><td>9</td></tr>
+    <tr><th>Ch 1</th><td>2</td><td></td><td>6</td><td></td><td>9</td><td></td><td></td><td>10</td><td>12</td><td></td><td></td><td></td><td></td></tr>
+    <tr><th>Ch 2</th><td>3</td><td></td><td>7</td><td></td><td></td><td></td><td></td><td>11</td><td>13</td><td></td><td></td><td></td><td></td></tr>
+    <tr><th>Ch 3</th><td>4</td><td></td><td>8</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><th>Ch 4</th><td>5</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </tbody>
+</table></div>
+<p>حالا فرزندان هر گره در \(O(k)\) در دسترس‌اند، ولی همان مشکل هدر رفتن حافظه (این بار خانه‌های خالی جدول) برمی‌گردد.</p>
+
+<h2>تعریف بازگشتی و پیمایش درخت</h2>
+<div class="box def">
+  <div class="bh">تعریف بازگشتی درخت</div>
+  <p>درخت \(T\) یا تهی است، یا از این‌ها تشکیل می‌شود: یک <strong>ریشه</strong> \(r\) و <strong>زیردرخت‌های</strong> \(T_1, \dots, T_k\) که هر کدام خودشان درخت‌اند و ریشه‌هایشان \(r_1, \dots, r_k\) فرزندان \(r\) هستند.</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:treeRecursive--></div>
+  <figcaption>هر زیردرخت خودش یک درخت کامل است. پس هر الگوریتمی روی درخت را می‌توان بازگشتی نوشت: «برای ریشه کاری بکن و بقیه را به زیردرخت‌ها بسپار».</figcaption>
+</figure>
+<p>
+  <strong>پیمایش</strong> ({{traversal}}) یعنی خواندن همهٔ عناصر درخت، هر کدام دقیقاً یک بار. سه روش استاندارد داریم که فقط در <em>زمان دیدن ریشه</em> با هم فرق دارند:
+</p>
+\[\begin{aligned}
+\text{preorder}(T) &= r,\; \text{preorder}(T_1),\; \text{preorder}(T_2),\; \dots,\; \text{preorder}(T_k)\\
+\text{inorder}(T) &= \text{inorder}(T_1),\; r,\; \text{inorder}(T_2),\; \dots,\; \text{inorder}(T_k)\\
+\text{postorder}(T) &= \text{postorder}(T_1),\; \text{postorder}(T_2),\; \dots,\; \text{postorder}(T_k),\; r
+\end{aligned}\]
+<div class="kv">
+  <span>پیش‌ترتیب</span><span>({{preorder}}) ریشه <strong>پیش از</strong> زیردرخت‌ها.</span>
+  <span>میان‌ترتیب</span><span>({{inorder}}) ریشه <strong>میان</strong> زیردرخت اول و بقیه.</span>
+  <span>پس‌ترتیب</span><span>({{postorder}}) ریشه <strong>پس از</strong> همهٔ زیردرخت‌ها.</span>
+</div>
+<pre class="code" data-title="PREORDER(v) / INORDER(v) / POSTORDER(v)">
+PREORDER(v):
+    if v = null then return
+    visit(v)
+    for each child c of v (in order)
+        PREORDER(c)
+
+INORDER(v):
+    if v = null then return
+    INORDER(first child of v)
+    visit(v)
+    for each remaining child c of v (in order)
+        INORDER(c)
+
+POSTORDER(v):
+    if v = null then return
+    for each child c of v (in order)
+        POSTORDER(c)
+    visit(v)
+</pre>
+<div class="box ex">
+  <div class="bh">سه پیمایش روی درخت نمونه (ریشهٔ a)</div>
+  <div class="kv">
+    <span>Preorder</span><span dir="ltr">\(a, b, c, f, g, h, j, k, d, e, i, l, m\)</span>
+    <span>Inorder</span><span dir="ltr">\(b, a, f, c, g, j, h, k, d, l, i, m, e\)</span>
+    <span>Postorder</span><span dir="ltr">\(b, f, g, j, k, h, c, d, l, m, i, e, a\)</span>
+  </div>
+  <p>
+    <strong>میان‌ترتیب را گام‌به‌گام بسازیم:</strong>
+    \[\text{inorder}(a) = \text{inorder}(b),\; a,\; \text{inorder}(c),\; \text{inorder}(d),\; \text{inorder}(e)\]
+    \(\text{inorder}(b) = b\) (برگ). \(\text{inorder}(c) = f, c, g, \text{inorder}(h) = f, c, g, j, h, k\). \(\text{inorder}(d) = d\).
+    \(\text{inorder}(e) = \text{inorder}(i), e = l, i, m, e\) (e فقط یک فرزند دارد، پس ریشه پس از آن می‌آید).
+    کنار هم: \(b, a, f, c, g, j, h, k, d, l, i, m, e\). ✓
+  </p>
+</div>
+<div class="box intuit">
+  <div class="bh">قدم زدن دور درخت</div>
+  <p>تصور کنید از بالای ریشه شروع کرده و دور درخت راه می‌روید، طوری که دست چپتان همیشه به درخت بچسبد. به هر گره چند بار می‌رسید. <strong>پیش‌ترتیب</strong> = گره‌ها به ترتیب <em>اولین</em> رسیدن. <strong>پس‌ترتیب</strong> = به ترتیب <em>آخرین</em> رسیدن (وقتی برای همیشه ترکش می‌کنید). <strong>میان‌ترتیب</strong> در درخت دودویی = وقتی از زیر گره (بین فرزند چپ و راست) رد می‌شوید.</p>
+</div>
+<div class="box why">
+  <div class="bh">چرا زمان پیمایش \(\Theta(n)\) است؟</div>
+  <p>هر گره دقیقاً یک بار «ملاقات» می‌شود و تابع برای هر گره یک بار صدا زده می‌شود. کار درون هر فراخوانی (بدون فراخوانی‌های بازگشتی) \(O(1 + \deg(v))\) است. جمع: \(\sum_v (1 + \deg(v)) = n + (n-1) = \Theta(n)\)، چون جمع درجه‌ها همان تعداد یال‌هاست.</p>
+</div>
+
+<h2>مسئلهٔ ۱: بازسازی درخت از پیش‌ترتیب و پس‌ترتیب</h2>
+<div class="box def">
+  <div class="bh">صورت مسئله</div>
+  <p>اگر پیمایش preorder و postorder یک درخت داده شده باشد، آیا می‌توان پیمایش inorder آن را پیدا کرد؟</p>
+  <div class="kv" dir="ltr">
+    <span>Preorder</span><span><code>MNHCRSKWTGDXIYAJPOEZVBULQF</code></span>
+    <span>Postorder</span><span><code>CWTKSGRHDNAOEPJYZIBQLFUVXM</code></span>
+  </div>
+</div>
+<p><strong>راهبرد:</strong> درخت را <strong>می‌سازیم</strong>؛ وقتی درخت را داشته باشیم، inorder با تعریف به دست می‌آید. کلید ساختن، باز کردن یک مرحله از تعریف دو پیمایش است:</p>
+\[\begin{aligned}
+\text{preorder}(T) &= r,\;\; r_1, \text{preorder}(T_1 - r_1),\;\; r_2, \text{preorder}(T_2 - r_2),\;\; \dots,\;\; r_k, \text{preorder}(T_k - r_k)\\
+\text{postorder}(T) &= \text{postorder}(T_1 - r_1), r_1,\;\; \text{postorder}(T_2 - r_2), r_2,\;\; \dots,\;\; \text{postorder}(T_k - r_k), r_k,\;\; r
+\end{aligned}\]
+<p>(منظور از \(T_i - r_i\) زیردرخت \(T_i\) بدون ریشه‌اش است.) از این دو تساوی سه مشاهده بیرون می‌آید:</p>
+<ol class="steps">
+  <li><strong>پیدا کردن \(r\):</strong> ریشه <em>اولین</em> حرف preorder و <em>آخرین</em> حرف postorder است: \(r = M\).</li>
+  <li><strong>پیدا کردن \(r_1\):</strong> ریشهٔ زیردرخت اول، <em>دومین</em> حرف preorder است: \(r_1 = N\).</li>
+  <li><strong>پیدا کردن \(T_1\):</strong> در postorder، زیردرخت \(T_1\) دقیقاً جایی <strong>تمام می‌شود</strong> که \(r_1\) آمده است. پس \(T_1\) در postorder برابر <code>CWTKSGRHDN</code> است (۱۰ حرف). در preorder هم همان ۱۰ حرفِ پس از M: <code>NHCRSKWTGD</code>.</li>
+  <li><strong>پیدا کردن \(r_2\) و \(T_2\):</strong> حرف بعدی preorder ریشهٔ زیردرخت دوم است: \(r_2 = X\). در postorder، \(T_2\) از ادامه تا X است: <code>AOEPJYZIBQLFUVX</code> (۱۵ حرف). دیگر حرفی جز M نمانده، پس M فقط دو فرزند N و X دارد.</li>
+  <li>همین کار را <strong>بازگشتی</strong> برای هر زیردرخت تکرار می‌کنیم.</li>
+</ol>
+<div class="tbl-wrap"><table class="trace" dir="ltr">
+  <thead><tr><th>subtree</th><th>preorder</th><th>postorder</th><th>root</th><th>children (subtrees)</th></tr></thead>
+  <tbody>
+    <tr><td>whole</td><td>MNHCRSKWTGDXIYAJPOEZVBULQF</td><td>CWTKSGRHDNAOEPJYZIBQLFUVXM</td><td>M</td><td>N, X</td></tr>
+    <tr><td>T(N)</td><td>NHCRSKWTGD</td><td>CWTKSGRHDN</td><td>N</td><td>H, D</td></tr>
+    <tr><td>T(H)</td><td>HCRSKWTG</td><td>CWTKSGRH</td><td>H</td><td>C, R</td></tr>
+    <tr><td>T(R)</td><td>RSKWTG</td><td>WTKSGR</td><td>R</td><td>S, G</td></tr>
+    <tr><td>T(S)</td><td>SKWT</td><td>WTKS</td><td>S</td><td>K</td></tr>
+    <tr><td>T(K)</td><td>KWT</td><td>WTK</td><td>K</td><td>W, T</td></tr>
+    <tr><td>T(X)</td><td>XIYAJPOEZVBULQF</td><td>AOEPJYZIBQLFUVX</td><td>X</td><td>I, V</td></tr>
+    <tr><td>T(I)</td><td>IYAJPOEZ</td><td>AOEPJYZI</td><td>I</td><td>Y, Z</td></tr>
+    <tr><td>T(Y)</td><td>YAJPOE</td><td>AOEPJY</td><td>Y</td><td>A, J</td></tr>
+    <tr><td>T(J)</td><td>JPOE</td><td>OEPJ</td><td>J</td><td>P</td></tr>
+    <tr><td>T(P)</td><td>POE</td><td>OEP</td><td>P</td><td>O, E</td></tr>
+    <tr><td>T(V)</td><td>VBULQF</td><td>BQLFUV</td><td>V</td><td>B, U</td></tr>
+    <tr><td>T(U)</td><td>ULQF</td><td>QLFU</td><td>U</td><td>L, F</td></tr>
+    <tr><td>T(L)</td><td>LQ</td><td>QL</td><td>L</td><td>Q</td></tr>
+  </tbody>
+</table></div>
+<figure>
+  <div class="fig-body"><!--FIG:treeProblem1--></div>
+  <figcaption>درخت بازسازی‌شده. ریشه M (نارنجی) و ریشه‌های دو زیردرخت اول N و X (آبی).</figcaption>
+</figure>
+<p>حالا inorder را با تعریف حساب می‌کنیم (زیردرخت اول، ریشه، بقیهٔ زیردرخت‌ها):</p>
+<div class="box ex">
+  <div class="bh">جواب</div>
+  <p dir="ltr" style="text-align:center"><code>Inorder: CHWKTSRGNDMAYOPEJIZXBVQLUF</code></p>
+  <p>مثلاً \(\text{inorder}(N) = \text{inorder}(H), N, \text{inorder}(D)\) و \(\text{inorder}(H) = C, H, \text{inorder}(R)\) و \(\text{inorder}(R) = \text{inorder}(S), R, G = W, K, T, S, R, G\). پس \(\text{inorder}(N) = C, H, W, K, T, S, R, G, N, D\).</p>
+</div>
+<div class="box why">
+  <div class="bh">چرا جواب یکتاست؟</div>
+  <p>در هر گام، تقسیم پیمایش‌ها به «ریشه» و «زیردرخت‌ها» <em>اجباری</em> بود: ریشه و مرز هر زیردرخت را دقیقاً از روی دو رشته خواندیم و هیچ انتخابی نکردیم. پس فقط یک درخت ترتیب‌دار با این دو پیمایش وجود دارد، و inorder آن یکتاست.</p>
+</div>
+<div class="box warn">
+  <div class="bh">در درخت دودویی این روش کار نمی‌کند</div>
+  <p>
+    در درخت <em>دودویی</em>، فرزند تنها می‌تواند «چپ» یا «راست» باشد. دو درخت «A با فرزند چپ B» و «A با فرزند راست B» هر دو preorder برابر AB و postorder برابر BA دارند،
+    ولی inorder یکی BA و دیگری AB است. پس برای درخت دودویی، preorder و postorder با هم کافی نیستند؛ ترکیب «preorder + inorder» یا «postorder + inorder» کافی است.
+  </p>
+</div>
+
+<h2>درخت دودویی معادل: فرزند چپ، برادر راست</h2>
+<p>
+  دیدیم پیاده‌سازی درخت \(k\)تایی با \(k\) اشاره‌گر حافظه هدر می‌دهد. ترفند زیبایی وجود دارد: <strong>هر درخت \(k\)تایی را می‌توان با یک درخت دودویی نمایش داد.</strong> هر گره فقط دو اشاره‌گر دارد:
+</p>
+<div class="kv">
+  <span>فرزند چپ</span><span>اشاره به <strong>اولین فرزند</strong> گره در درخت اصلی.</span>
+  <span>فرزند راست</span><span>اشاره به <strong>برادر بعدی</strong> گره (فرزند بعدی پدرش).</span>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:lcrs--></div>
+  <figcaption>درخت دودویی معادل درخت نمونه. پیکان‌های رو به پایین «فرزند چپ» و پیکان‌های افقی «فرزند راست» (برادر بعدی) هستند. مثلاً c سه فرزند f، g و h داشت: حالا c فقط به f اشاره می‌کند و f به g و g به h.</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا این نمایش اطلاعاتی از دست نمی‌دهد؟</div>
+  <p>فرزندان هر گره را می‌توان با شروع از «اولین فرزند» و دنبال کردن زنجیرهٔ «برادر بعدی» به ترتیب به دست آورد. پس درخت اصلی کاملاً قابل بازسازی است. هزینه: هر گره دقیقاً ۲ اشاره‌گر دارد، یعنی \(2n\) اشاره‌گر که فقط \(n + 1\) تا NULL هستند (به‌جای \(n(k-1) + 1\)).</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:lcrsGeneral--></div>
+  <figcaption>شکل کلی: ریشهٔ \(r\) به اولین فرزندش \(r_1\) اشاره می‌کند، \(r_1\) به برادرش \(r_2\)، \(r_2\) به برادر بعدی و همین‌طور تا \(r_k\). زیر هر \(r_i\) درخت دودویی معادلِ باقی‌ماندهٔ زیردرخت \(T_i\) آویزان است.</figcaption>
+</figure>
+
+<h2>مسئلهٔ ۲ و ۳: پیمایش‌ها در درخت دودویی معادل</h2>
+<h3>مسئلهٔ ۲: آیا preorder یک درخت با preorder درخت دودویی معادلش برابر است؟</h3>
+<div class="box ex">
+  <div class="bh">مثال</div>
+  <p>preorder درخت نمونه: <code dir="ltr">abcfghjkdeilm</code>. preorder درخت دودویی معادلش (ریشه، زیردرخت چپ، زیردرخت راست): <code dir="ltr">abcfghjkdeilm</code>. <strong>برابرند!</strong></p>
+</div>
+<div class="box thm">
+  <div class="bh">پاسخ مسئلهٔ ۲</div>
+  <p>بله؛ برای هر درخت \(T\): \(\;\text{preorder}(T) = \text{preorder}_{\text{دودویی}}(\text{LCRS}(T))\).</p>
+</div>
+<div class="box proof">
+  <p>
+    حکم کلی‌تری را برای یک <strong>جنگل</strong> ثابت می‌کنیم (دنباله‌ای از درخت‌ها \(T_1, \dots, T_k\) که ریشه‌هایشان برادرند). درخت دودویی معادل جنگل، ریشه‌اش \(r_1\) است؛
+    زیردرخت چپش معادلِ جنگلِ فرزندان \(r_1\) (یعنی \(T_1 - r_1\)) و زیردرخت راستش معادلِ جنگلِ \(T_2, \dots, T_k\) است. با استقرا روی تعداد گره‌ها:
+  </p>
+  \[\begin{aligned}
+  \text{pre}_{\text{دودویی}} &= r_1,\; \underbrace{\text{pre}_{\text{دودویی}}(\text{چپ})}_{=\;\text{preorder}(T_1 - r_1)},\; \underbrace{\text{pre}_{\text{دودویی}}(\text{راست})}_{=\;\text{preorder}(T_2), \dots, \text{preorder}(T_k)}\\
+  &= \text{preorder}(T_1),\; \text{preorder}(T_2),\; \dots,\; \text{preorder}(T_k).
+  \end{aligned}\]
+  <p>(تساوی‌های زیر آکولادها فرض استقراست، چون آن جنگل‌ها گرهٔ کمتری دارند.) درخت \(T\) هم جنگلی تک‌درختی است، پس حکم برقرار است. همان مراحل اسلاید: \(r\)، سپس \(\text{preorder}(T')\) برای جنگل فرزندان، که به \(r_1, \text{preorder}(T_1 - r_1), \text{preorder}(T'')\) باز می‌شود و الی آخر.</p>
+</div>
+<h3>مسئلهٔ ۳: آیا postorder یک درخت با postorder درخت دودویی معادلش برابر است؟</h3>
+<div class="box ex">
+  <div class="bh">مثال نقض</div>
+  <p>postorder درخت نمونه: <code dir="ltr">bfgjkhcdlmiea</code>. postorder درخت دودویی معادل (چپ، راست، ریشه): <code dir="ltr">kjhgfmliedcba</code>. <strong>برابر نیستند.</strong></p>
+  <p>علت: در postorder دودویی، گرهٔ \(b\) باید پس از زیردرخت راستش (یعنی همهٔ برادرهای بعدی‌اش c، d، e و اولادشان) بیاید، در حالی که در درخت اصلی \(b\) هیچ ربطی به برادرهایش ندارد و همان اول ظاهر می‌شود.</p>
+</div>
+<div class="box extra">
+  <div class="bh">پس postorder به چه چیزی تبدیل می‌شود؟</div>
+  <p>به <strong>inorder</strong> درخت دودویی معادل! inorder دودویی (چپ، ریشه، راست) درخت مثال: <code dir="ltr">bfgjkhcdlmiea</code> که دقیقاً postorder درخت اصلی است. اثبات مثل مسئلهٔ ۲:</p>
+  \[\text{in}_{\text{دودویی}} = \underbrace{\text{in}(\text{چپ})}_{\text{postorder}(T_1 - r_1)},\; r_1,\; \underbrace{\text{in}(\text{راست})}_{\text{postorder}(T_2), \dots} = \text{postorder}(T_1),\; \text{postorder}(T_2),\; \dots\]
+  <p>چون \(\text{postorder}(T_1) = \text{postorder}(T_1 - r_1), r_1\).</p>
+</div>
+<div class="box sum">
+  <div class="bh">فصل ۶ در یک نگاه</div>
+  <ul>
+    <li>درخت = گراف همبند بدون دور؛ بین هر دو رأس دقیقاً یک مسیر. \(n\) رأس، \(n - 1\) یال.</li>
+    <li>عمق از ریشه، ارتفاع از برگ؛ ارتفاع درخت دودویی کامل \(\floor{\log_2 n}\).</li>
+    <li>پیاده‌سازی: \(k\) اشاره‌گر (هدر رفتن حافظه)، آرایهٔ پدر (کندی رسیدن به فرزندان)، یا درخت دودویی معادل (دو اشاره‌گر).</li>
+    <li>پیش‌ترتیب، میان‌ترتیب، پس‌ترتیب: فقط زمان دیدن ریشه فرق دارد؛ همه \(\Theta(n)\).</li>
+    <li>پیش‌ترتیب + پس‌ترتیب یک درخت ترتیب‌دار را یکتا مشخص می‌کنند (ولی درخت دودویی را نه).</li>
+    <li>در تبدیل به درخت دودویی معادل: preorder ← preorder و postorder ← inorder.</li>
+  </ul>
+</div>
+
+<h2>خودآزمایی فصل ۶</h2>
+<div class="box quiz">
+  <div class="bh"></div>
+  <ol>
+    <li>در درخت نمونهٔ اول فصل (ریشهٔ A)، عمق G، ارتفاع B و ارتفاع درخت چقدر است؟
+      <div class="ans">عمق G = ۳ (A–B–E–G). ارتفاع B = ۲ (B–E–F). ارتفاع درخت = ۳.</div></li>
+    <li>درخت دودویی با preorder برابر <code dir="ltr">ABDECF</code> و inorder برابر <code dir="ltr">DBEAFC</code> را بسازید و postorder آن را بنویسید.
+      <div class="ans">ریشه A (اول preorder). در inorder، چپ A: DBE و راست: FC. زیردرخت چپ: preorder BDE ← ریشه B، فرزند چپ D و راست E. زیردرخت راست: preorder CF و inorder FC ← ریشه C با فرزند چپ F. postorder: <code dir="ltr">DEBFCA</code>.</div></li>
+    <li>درخت دودویی به ارتفاع \(h\) حداقل و حداکثر چند گره دارد؟
+      <div class="ans">حداقل \(h + 1\) (یک زنجیر) و حداکثر \(2^{h+1} - 1\) (همهٔ سطح‌ها پر).</div></li>
+    <li>در پیاده‌سازی \(k\) اشاره‌گری درختی با \(n\) گره، چند اشاره‌گر NULL است؟ در درخت دودویی معادل چطور؟
+      <div class="ans">\(nk - (n - 1)\). در درخت دودویی معادل \(2n - (n - 1) = n + 1\).</div></li>
+    <li>ثابت کنید هر درخت (بدون ریشه) با \(n \ge 2\) رأس دست‌کم دو برگ دارد.
+      <div class="ans">دو سر طولانی‌ترین مسیر ساده هر دو برگ‌اند (همان استدلال اثبات «\(n - 1\) یال»): اگر یکی از آن‌ها یال دیگری داشت، یا مسیر طولانی‌تر می‌شد یا دوری پدید می‌آمد.</div></li>
+  </ol>
+</div>
+</section>
