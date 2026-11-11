@@ -63,6 +63,7 @@
     <tr><td class="start">هرم در آرایهٔ \(A[1..n]\)</td><td>فرزندان \(2i\) و \(2i + 1\)، پدر \(\floor{i/2}\)</td></tr>
     <tr><td class="start">تحلیل ساخت هرم</td><td>\(\sum_{h \ge 1} h/2^h = 2\)</td></tr>
     <tr><td class="start">کران پایین مرتب‌سازی</td><td>\(\log_2(N!) \ge \frac N2 \log\frac N2 = \Omega(N\log N)\)</td></tr>
+    <tr><td class="start">ترای با \(n\) گره روی الفبای \(\sigma\)حرفی</td><td>\(n - 1\) اشاره‌گر غیر NIL از \(\sigma n\)؛ تعداد گره‌ها \(\le 1 + \sum_w |w|\)</td></tr>
   </tbody>
 </table></div>
 
@@ -119,6 +120,8 @@
     <tr><td>مرتب‌سازی مقایسه‌ای</td><td>کران پایین</td><td>\(\Omega(n\log n)\)</td><td>۹</td></tr>
     <tr><td>مرتب‌سازی</td><td>شمارشی</td><td>\(O(n + k)\)، پایدار</td><td>۹</td></tr>
     <tr><td>مرتب‌سازی</td><td>مبنایی</td><td>\(O(d(n + k))\)</td><td>۹</td></tr>
+    <tr><td rowspan="2">ترای</td><td>جست‌وجو / درج / حذف کلمهٔ \(m\)حرفی</td><td>\(O(m)\)، مستقل از تعداد کلمات</td><td>۱۰</td></tr>
+    <tr><td>وجود پیشوند / شمارش با cnt</td><td>\(O(|p|)\)</td><td>۱۰</td></tr>
   </tbody>
 </table></div>
 
@@ -169,6 +172,10 @@
     <tr><td class="start">درخت تصمیم</td><td class="start" dir="ltr">decision tree</td></tr>
     <tr><td class="start">مرتب‌سازی مقایسه‌ای / پایدار</td><td class="start" dir="ltr">comparison sort / stable sort</td></tr>
     <tr><td class="start">مرتب‌سازی شمارشی / مبنایی / هرمی</td><td class="start" dir="ltr">counting sort / radix sort / heapsort</td></tr>
+    <tr><td class="start">ترای / پیشوند / الفبا</td><td class="start" dir="ltr">trie / prefix / alphabet</td></tr>
+    <tr><td class="start">پرچم پایان کلمه</td><td class="start" dir="ltr">end-of-word flag</td></tr>
+    <tr><td class="start">ترای فشرده</td><td class="start" dir="ltr">compressed trie / radix tree</td></tr>
+    <tr><td class="start">غلط‌یاب / پیشنهاد خودکار</td><td class="start" dir="ltr">spell checker / autocomplete</td></tr>
   </tbody>
 </table></div>
 
@@ -179,8 +186,9 @@
   <li>{{Udi Manber. <i>Introduction to Algorithms: A Creative Approach</i>. Addison-Wesley, 1989}}؛ بخش ۵٫۸ (زیرآرایهٔ بیشینه).</li>
   <li>{{Mark de Berg. <i>Lecture notes on Advanced Algorithms</i>}} (میانهٔ تقریبی و الگوریتم‌های مونت‌کارلو و لاس‌وگاس).</li>
   <li>اسلایدهای انگلیسی درس بر پایهٔ اسلایدهای {{Kevin Wayne}} ({{Pearson Addison-Wesley}}) تهیه شده‌اند.</li>
-  <li>اسلایدهای تحلیل سرشکنی: درس داده‌ساختارها و مبانی الگوریتم‌ها، دانشکدهٔ مهندسی کامپیوتر، محمد قدسی.</li>
+  <li>اسلایدهای تحلیل سرشکنی و شکل‌های ترای: درس داده‌ساختارها و مبانی الگوریتم‌ها، دانشکدهٔ مهندسی کامپیوتر، محمد قدسی.</li>
   <li>{{CLRS}}، فصل ۶ (هرم و مرتب‌سازی هرمی)، فصل ۸ (کران پایین و مرتب‌سازی در زمان خطی)، فصل ۱۰ (پشته، صف و لیست پیوندی) و بخش ۱۰٫۴ (نمایش درخت‌های ریشه‌دار).</li>
+  <li>{{Robert Sedgewick, Kevin Wayne. <i>Algorithms</i>, 4th ed. Addison-Wesley}}؛ بخش ۵٫۲ (ترای‌ها).</li>
   <li>نمونهٔ الگوریتم ساخت هرم فلوید بر پایهٔ اسلایدهای درس {{CSE 373}} ({{Kasey Champion}}) در اسلایدهای هرم آمده است.</li>
 </ol>
 <div class="box note">

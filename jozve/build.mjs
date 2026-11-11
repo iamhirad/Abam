@@ -9,7 +9,8 @@ import { createRequire } from 'node:module';
 import katex from 'katex';
 import { FIGS as FIGS1 } from './figures.mjs';
 import { FIGS2 } from './figures2.mjs';
-const FIGS = { ...FIGS1, ...FIGS2 };
+import { FIGS3 } from './figures3.mjs';
+const FIGS = { ...FIGS1, ...FIGS2, ...FIGS3 };
 
 const require = createRequire(import.meta.url);
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -27,7 +28,7 @@ const PARTS = [
   '06-trees.html',
   '07-expression-trees.html',
   '08-heaps.html',
-  '09-sorting.html',
+  '09-sorting.html', '10-trie.html',
   '99-appendix.html',
 ];
 

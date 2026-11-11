@@ -18,6 +18,7 @@
   --c7: #587c0e;
   --c8: #a35c00;
   --c9: #1f66b3;
+  --c10: #5a3fc0;
   --cA: #56657c;
   --cw: #d62f4b;
 
@@ -69,6 +70,7 @@
     --c7: #a8d65a;
     --c8: #f2a948;
     --c9: #6aa8ff;
+    --c10: #ab95ff;
     --cA: #9fadc2;
     --cw: #ff6b81;
     --k-def: #5ea4ff;
@@ -109,6 +111,7 @@
   --c7: #a8d65a;
   --c8: #f2a948;
   --c9: #6aa8ff;
+  --c10: #ab95ff;
   --cA: #9fadc2;
   --cw: #ff6b81;
   --k-def: #5ea4ff;
@@ -163,6 +166,7 @@ body {
 .chapter[data-color="c7"] { --chc: var(--c7); }
 .chapter[data-color="c8"] { --chc: var(--c8); }
 .chapter[data-color="c9"] { --chc: var(--c9); }
+.chapter[data-color="c10"] { --chc: var(--c10); }
 .chapter[data-color="cA"] { --chc: var(--cA); }
 
 p { margin: 0.75em 0; }
@@ -175,6 +179,8 @@ strong, b { font-weight: 800; }
 em { font-style: normal; color: var(--chc); font-weight: 700; }
 .hl { background: color-mix(in srgb, var(--k-note) 22%, transparent); padding: 0 .2em; border-radius: 3px; }
 bdi.en { font-family: var(--f-body); font-size: 0.94em; letter-spacing: 0.01em; }
+.word-list { text-align: center; direction: ltr; font-family: var(--f-mono); font-size: 0.92em; color: var(--chc); }
+.muted { color: var(--ink-2); font-size: 0.92em; }
 ul, ol { padding-inline-start: 1.5em; margin: 0.6em 0; }
 li { margin: 0.25em 0; }
 li::marker { color: var(--chc); font-weight: 800; }
@@ -229,7 +235,7 @@ code {
 .cover-lead { font-size: 1.08rem; color: var(--ink-2); margin: 0; max-width: 40rem; }
 .cover-strip {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(5, 1fr);
   gap: 0.6rem;
   margin-top: 0.4rem;
 }
@@ -254,6 +260,9 @@ code {
   text-align: center;
 }
 .cover-fig figcaption { margin-top: 0.3rem; }
+@media (max-width: 760px) {
+  .cover-strip { grid-template-columns: repeat(2, 1fr); }
+}
 @media (max-width: 640px) {
   .cover-strip a { padding: 0.6rem 0.6rem 0.55rem; border-radius: 12px; }
   .cover-strip a span:first-child { font-size: 1.25rem; }
@@ -720,3 +729,27 @@ td.on { background: color-mix(in srgb, var(--k-note) 25%, transparent) !importan
 td.done { color: var(--chc); font-weight: 800; }
 .ch-head em { color: var(--on-accent); font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 5px; }
 table.trace td.fa, table.trace th.fa { direction: rtl; text-align: right; min-width: 14rem; }
+
+/* ---------- شکل‌های ترای (فصل ۱۰) ---------- */
+.sv .sv-trie { fill: var(--paper-2); stroke: var(--chc); stroke-width: 2; }
+.sv .sv-trie-root { fill: color-mix(in srgb, var(--chc) 22%, var(--paper-2)); stroke: var(--chc); stroke-width: 2; }
+.sv .sv-trie-end { fill: var(--chc); stroke: var(--chc); stroke-width: 2; }
+.sv .sv-trie-hl { stroke: var(--k-intuit); stroke-width: 3; }
+.sv .sv-trie-ok { stroke: var(--k-ex); stroke-width: 3; }
+.sv .sv-trie-new { fill: color-mix(in srgb, var(--k-ex) 22%, var(--paper-2)); stroke: var(--k-ex); stroke-width: 2.2; }
+.sv .sv-trie-new-end { fill: var(--k-ex); stroke: var(--k-ex); stroke-width: 2.2; }
+.sv .sv-trie-cleared { fill: var(--paper-2); stroke: var(--cw); stroke-width: 2.2; stroke-dasharray: 3 2; }
+.sv .sv-edge-hl { stroke: var(--k-intuit); stroke-width: 3; }
+.sv .sv-edge-ok { stroke: var(--k-ex); stroke-width: 3; }
+.sv .sv-edge-new { stroke: var(--k-ex); stroke-width: 2.2; }
+.sv .sv-edge-gone { stroke: var(--ink-2); stroke-width: 1.4; stroke-dasharray: 4 3; opacity: 0.6; }
+.sv .sv-edge-fail { stroke: var(--cw); stroke-width: 2; stroke-dasharray: 4 3; }
+.sv .sv-trie-lab { font-family: var(--f-mono); font-size: 13px; font-weight: 700; fill: var(--chc); }
+.sv .sv-trie-lab-fail { fill: var(--cw); }
+.sv .sv-faded { opacity: 0.45; }
+.sv .sv-trie-word { font-family: var(--f-mono); font-size: 11px; fill: var(--ink-2); }
+.sv .sv-trie-word-new { fill: var(--k-ex); font-weight: 700; }
+.sv .sv-strike-ln { stroke: var(--cw); stroke-width: 1.5; }
+.sv .sv-trie-mark { font-family: var(--f-mono); font-size: 15px; font-weight: 800; fill: var(--k-intuit); }
+.sv .sv-trie-x { fill: var(--cw); font-size: 17px; font-weight: 800; }
+.sv .sv-ln-faint { stroke: var(--ink-2); stroke-width: 1.1; opacity: 0.55; }

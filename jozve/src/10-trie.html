@@ -1,0 +1,578 @@
+<section class="chapter" data-ch="10" data-color="c10" data-title="درخت ترای" id="ch10">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۱۰</div>
+  <h1>درخت ترای ({{trie}})</h1>
+  <p class="ch-lead">تا این‌جا هزینهٔ جست‌وجو همیشه به <em>تعداد</em> داده‌ها بستگی داشت. در این فصل داده‌ساختاری می‌سازیم که هزینهٔ جست‌وجوی یک کلمه فقط به <em>طول همان کلمه</em> بستگی دارد، هر قدر هم که تعداد کلمات زیاد باشد؛ درست مثل ورق زدن یک لغت‌نامهٔ کاغذی.</p>
+  <ul class="ch-topics"><li>مسئلهٔ لغت‌نامه</li><li>ساختار ترای</li><li>جست‌وجو</li><li>درج</li><li>حذف</li><li>حافظه</li><li>فشرده‌سازی</li><li>کاربردها</li></ul>
+  <div class="ch-big" aria-hidden="true">۱۰</div>
+</header>
+
+<h2>مسئله: یک لغت‌نامهٔ کامپیوتری</h2>
+<p>
+  فرض کنید می‌خواهیم <strong>همهٔ کلمات انگلیسی</strong> را در حافظه نگه داریم؛ مثلاً برای یک غلط‌یاب ({{spell checker}}) که برای هر کلمهٔ تایپ‌شده باید بگوید «این کلمه در زبان وجود دارد یا نه».
+  تعداد کلمات انگلیسی حدوداً <strong>۴۷۰٬۰۰۰</strong> است و سه عمل لازم داریم:
+</p>
+<ul>
+  <li><strong>اضافه کردن</strong> یک کلمه (لغت تازه وارد زبان شده است)،</li>
+  <li><strong>جست‌وجوی</strong> یک کلمه (آیا وجود دارد؟)،</li>
+  <li><strong>حذف</strong> یک کلمه.</li>
+</ul>
+
+<h3>راه اول: یک لیست</h3>
+<p>
+  ساده‌ترین راه این است که همهٔ کلمات را در یک لیست (آرایه یا لیست پیوندی، فصل ۵) بریزیم. برای جست‌وجوی کلمهٔ \(w\) باید از اول لیست جلو برویم و
+  کلمه‌ها را <strong>یکی‌یکی</strong> با \(w\) مقایسه کنیم تا یا پیدا شود یا لیست تمام شود.
+</p>
+<div class="box why">
+  <div class="bh">هزینهٔ جست‌وجو در بدترین حالت چقدر است؟</div>
+  <p>
+    بدترین حالت وقتی است که \(w\) آخرین کلمهٔ لیست باشد یا <strong>اصلاً در لیست نباشد</strong>. در هر دو حالت باید \(w\) را با همهٔ کلمات مقایسه کنیم؛ پس هزینهٔ جست‌وجو
+    می‌تواند به <strong>۴۷۰٬۰۰۰ واحد</strong> (۴۷۰٬۰۰۰ مقایسهٔ رشته) برسد.
+  </p>
+  <p>
+    توجه کنید که برای غلط‌یاب، حالت «پیدا نشد» اتفاقاً <strong>رایج</strong> است: هر غلط تایپی یعنی کلمه‌ای که در لیست نیست، یعنی پیمودن کل لیست.
+    تازه هر مقایسهٔ رشته هم خودش حرف‌به‌حرف انجام می‌شود و تا \(m\) مقایسهٔ حرف هزینه دارد (\(m\) طول کلمه است)؛ پس هزینهٔ دقیق‌تر \(O(N \cdot m)\) مقایسهٔ حرف است
+    که \(N\) تعداد کلمات است.
+  </p>
+</div>
+<div class="box extra">
+  <div class="bh">اگر لیست را مرتب کنیم چه؟</div>
+  <p>
+    با آرایهٔ مرتب و <strong>جست‌وجوی دودویی</strong>، تعداد مقایسه‌ها \(\ceil{\log_2 470000} = 19\) می‌شود که فوق‌العاده بهتر از ۴۷۰٬۰۰۰ است. اما سه ایراد باقی می‌ماند:
+  </p>
+  <ol>
+    <li><strong>درج و حذف گران است:</strong> برای باز کردن جا یا پر کردن جای خالی باید به‌طور میانگین نیمی از آرایه را جابه‌جا کنیم: \(O(N)\).</li>
+    <li><strong>هزینه هنوز به \(N\) بستگی دارد:</strong> اگر لغت‌نامه دو برابر شود، جست‌وجو هم (کمی) کندتر می‌شود.</li>
+    <li>هر کدام از آن ۱۹ مقایسه خودش تا \(m\) مقایسهٔ حرف است.</li>
+  </ol>
+  <p>پرسش اصلی این فصل: <strong>آیا می‌شود هزینهٔ جست‌وجو را کاملاً از \(N\) جدا کرد؟</strong></p>
+</div>
+
+<h3>ایدهٔ لغت‌نامهٔ کاغذی</h3>
+<p>دو واقعیت دربارهٔ کلمات انگلیسی:</p>
+<ul>
+  <li><strong>بزرگ‌ترین</strong> کلمهٔ انگلیسی <strong>۴۵</strong> حرف دارد.</li>
+  <li><strong>میانگین</strong> طول کلمات انگلیسی <strong>۴٫۷</strong> حرف است.</li>
+</ul>
+<p>یعنی کلمات هر قدر هم که <em>زیاد</em> باشند، هر کدامشان <em>کوتاه</em> است. اگر هزینهٔ جست‌وجو به طول کلمه بستگی داشت و نه به تعداد کلمات، عالی می‌شد.</p>
+<div class="box intuit">
+  <div class="bh">در یک لغت‌نامهٔ کاغذی چطور دنبال کلمه می‌گردیم؟</div>
+  <p>
+    برای پیدا کردن <bdi class="en" dir="ltr">then</bdi> هیچ‌کس از صفحهٔ اول شروع نمی‌کند و همهٔ کلمات را نمی‌خواند. لبهٔ لغت‌نامه‌های بزرگ <strong>زبانه‌های حروف</strong> دارد
+    (همان بریدگی‌هایی که در تصویر اسلاید دیده می‌شود): مستقیم به بخش <bdi class="en" dir="ltr">T</bdi> می‌رویم. داخل این بخش، کلمات بر اساس حرف دوم گروه‌بندی شده‌اند؛ به زیربخش
+    <bdi class="en" dir="ltr">TH</bdi> می‌رویم، بعد <bdi class="en" dir="ltr">THE</bdi> و بعد <bdi class="en" dir="ltr">THEN</bdi>.
+  </p>
+  <p>
+    <strong>هر حرفی که می‌خوانیم، دامنهٔ جست‌وجو را به یک «بخش» کوچک‌تر محدود می‌کند.</strong> تعداد گام‌ها برابر تعداد حروف کلمه است و به ضخامت لغت‌نامه ربطی ندارد:
+    لغت‌نامه‌ای که دو برابر قطورتر است، پیدا کردن <bdi class="en" dir="ltr">then</bdi> را دو برابر طولانی نمی‌کند.
+  </p>
+</div>
+<p>هدف: با ایده‌ای مشابه <strong>لغت‌نامهٔ کاغذی</strong>، داده‌ساختاری بسازیم که پیچیدگی‌اش <strong>بر حسب طول لغت</strong> باشد:</p>
+<ul>
+  <li>بیشترین هزینهٔ جست‌وجو: <strong>۴۵</strong> (طول بلندترین کلمه)،</li>
+  <li>میانگین هزینهٔ جست‌وجو: <strong>۴٫۷</strong>.</li>
+</ul>
+<div class="box note">
+  <div class="bh">«میانگین»، نه «امید ریاضی» ({{average not expected}})</div>
+  <p>
+    در فصل ۳ «امید ریاضی» دربارهٔ <strong>انتخاب‌های تصادفی خود الگوریتم</strong> بود: کوئیک‌سورت تصادفی روی <em>یک</em> ورودی ثابت، هر بار مسیر متفاوتی می‌رفت و ما امید زمان اجرایش را حساب می‌کردیم.
+    این‌جا هیچ تصادفی در کار نیست؛ الگوریتم قطعی است و هزینهٔ جست‌وجوی هر کلمه دقیقاً معلوم است (برابر طول آن). «میانگین ۴٫۷» یک <strong>میانگین حسابی ساده</strong> روی کلمات است:
+    اگر هر کلمه را یک بار جست‌وجو کنیم، متوسط هزینه ۴٫۷ است.
+  </p>
+  <p>عدد ۴٫۷ معمولاً برای کلمات <em>متن‌های واقعی</em> گزارش می‌شود (کلمه‌های پرتکرار مثل <bdi class="en" dir="ltr">the</bdi> و <bdi class="en" dir="ltr">of</bdi> کوتاه‌اند). در هر حال پیام اصلی عوض نمی‌شود: هزینه به طول کلمه بستگی دارد، نه به تعداد کلمات.</p>
+</div>
+
+<h2>ساختمان دادهٔ ترای</h2>
+<div class="box def">
+  <div class="bh">ترای ({{trie}})</div>
+  <p>
+    ترای نوعی <strong>درخت</strong> است که هدفش ذخیره کردن <strong>تعداد زیادی داده با طول محدود</strong> (معمولاً رشته‌ها) است. در آن:
+  </p>
+  <ul>
+    <li>هر <strong>یال</strong> با یک حرف برچسب خورده است؛</li>
+    <li>هر <strong>گره</strong> نمایندهٔ یک <strong>پیشوند</strong> ({{prefix}}) است: رشته‌ای که از کنار هم گذاشتن برچسب یال‌های مسیر ریشه تا آن گره به دست می‌آید. ریشه نمایندهٔ رشتهٔ تهی است؛</li>
+    <li>هر گره یک <strong>پرچم</strong> ({{flag}}) دارد که می‌گوید آیا پیشوند آن گره یک <strong>کلمهٔ کامل</strong> است (<bdi class="en" dir="ltr">*</bdi>) یا نه (<bdi class="en" dir="ltr">−</bdi>).</li>
+  </ul>
+</div>
+<div class="box note">
+  <div class="bh">این اسم از کجا آمده؟</div>
+  <p>
+    نام <bdi class="en" dir="ltr">trie</bdi> از وسط کلمهٔ <bdi class="en" dir="ltr">re<b>trie</b>val</bdi> (بازیابی) گرفته شده است. برای اینکه با <bdi class="en" dir="ltr">tree</bdi> (درخت) اشتباه نشود،
+    معمولاً آن را <bdi class="en" dir="ltr">try</bdi> تلفظ می‌کنند؛ در فارسی هم «ترای» می‌گوییم.
+  </p>
+</div>
+<p>
+  از آن‌جا که زبان انگلیسی <strong>۲۶ حرف</strong> دارد، ترایِ آن یک <strong>درخت ۲۶تایی</strong> است (درخت \(k\)تایی، فصل ۶): هر گره حداکثر ۲۶ فرزند دارد، یکی برای هر حرف.
+  هر زیردرخت، کلماتی را نگه می‌دارد که با <strong>حرف یکسانی شروع می‌شوند</strong>؛ به بیان دقیق‌تر، زیردرختِ گرهٔ پیشوند \(p\) دقیقاً همهٔ کلماتی را دارد که با \(p\) شروع می‌شوند.
+</p>
+<div class="box extra">
+  <div class="bh">الفبای دلخواه</div>
+  <p>
+    عدد ۲۶ هیچ چیز خاصی ندارد. اگر الفبا \(\sigma\) حرف داشته باشد، ترای یک درخت \(\sigma\)تایی است: برای فارسی ۳۲تایی، برای رشته‌های DNA (حروف A، C، G و T) ۴تایی و برای رشته‌های بیتی
+    دودویی. همهٔ تحلیل‌های این فصل با گذاشتن \(\sigma\) به جای ۲۶ برقرار می‌ماند.
+  </p>
+</div>
+
+<h3>ساختار یک گره</h3>
+<p>هر گره شامل دو بخش است:</p>
+<ol>
+  <li><strong>یک متغیر</strong> برای نگه‌داشتن مقدار مورد نظر: پرچم <code>isEnd</code> که \(*\) (درست) یا \(-\) (نادرست) است.</li>
+  <li><strong>۲۶ اشاره‌گر</strong> برای نگه‌داشتن فرزندان: <code>child[0]</code> برای حرف a، <code>child[1]</code> برای b و … و <code>child[25]</code> برای z. اگر فرزندی برای حرفی نباشد، اشاره‌گرش NIL است.</li>
+</ol>
+<pre class="code" data-title="TRIE-NODE">
+isEnd     : boolean     // the flag: * (true) or - (false)
+child[26] : pointer     // child[c - 'a'], NIL if there is no such child
+</pre>
+<figure>
+  <div class="fig-body"><!--FIG:trieNode--></div>
+  <figcaption>گرهٔ پیشوند <bdi class="en" dir="ltr">th</bdi> در ترای مثال بعدی. پرچمش \(-\) است، چون <bdi class="en" dir="ltr">th</bdi> کلمه نیست. فقط خانه‌های e و i به فرزند اشاره می‌کنند (پیشوندهای <bdi class="en" dir="ltr">the</bdi> و <bdi class="en" dir="ltr">thi</bdi>) و ۲۴ خانهٔ دیگر NIL هستند.</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا خودِ حرف در گره ذخیره نمی‌شود؟</div>
+  <p>
+    چون لازم نیست: حرف از روی <strong>شمارهٔ خانه‌ای</strong> معلوم می‌شود که از آن وارد گره شده‌ایم. اگر از <code>child[4]</code> پایین آمده باشیم، حرف حتماً e بوده است.
+    برای همین در شکل‌ها حرف را روی <strong>یال</strong> می‌نویسیم. (در برخی شکل‌ها، مثل اسلایدهای بخش فشرده‌سازی، حرف را داخل گرهٔ فرزند می‌نویسند؛ این همان برچسب یال ورودی به آن گره است و ساختار فرقی نمی‌کند.)
+  </p>
+</div>
+<div class="box intuit">
+  <div class="bh">رمز سرعت ترای: حرف، اندیس آرایه است</div>
+  <p>
+    برای رفتن به فرزندِ حرف \(c\) لازم نیست بین فرزندان بگردیم: مستقیم به خانهٔ <code dir="ltr">child[c - 'a']</code> می‌رویم. مثلاً کد اسکی e برابر ۱۰۱ و کد a برابر ۹۷ است، پس
+    \(101 - 97 = 4\) و فرزند e در <code>child[4]</code> است. یک دسترسی به آرایه، یعنی \(O(1)\).
+  </p>
+  <p>
+    این همان ترفندی است که در مرتب‌سازی شمارشی (فصل ۹) دیدیم: به‌جای <strong>مقایسهٔ</strong> کلیدها با یکدیگر، از <strong>خود مقدار</strong> به‌عنوان اندیس استفاده می‌کنیم.
+    برای همین ترای مجبور نیست کلمهٔ ما را با کلمات دیگر مقایسه کند و هزینه‌اش به تعداد آن‌ها ربطی ندارد.
+  </p>
+</div>
+
+<h3>یک مثال کامل</h3>
+<p>ترای کلمات زیر را می‌سازیم (همه را با حروف کوچک می‌نویسیم، چون الفبای ما ۲۶ حرف کوچک است؛ اسلاید آن‌ها را با حرف بزرگ نوشته است):</p>
+<p class="word-list" dir="ltr">the, then, thin, this, tip, see, so, some, win, wing</p>
+<figure>
+  <div class="fig-body"><!--FIG:trieExample--></div>
+  <figcaption>ترای ده کلمهٔ بالا. گره‌های <strong>توپُر</strong> پرچم \(*\) دارند (پایان یک کلمه) و کلمه کنارشان نوشته شده است. فرزندان به ترتیب الفبا رسم شده‌اند (همان ترتیب خانه‌های <code>child</code>)؛ در اسلاید شاخهٔ t اول آمده که در ساختار فرقی ایجاد نمی‌کند.</figcaption>
+</figure>
+<p>برای اینکه ببینیم شکل از کجا آمده، جای کلمهٔ <bdi class="en" dir="ltr">then</bdi> را گام‌به‌گام دنبال کنیم:</p>
+<ol class="steps">
+  <li>از ریشه (رشتهٔ تهی) با یال <b>t</b> پایین می‌رویم: گرهٔ <bdi class="en" dir="ltr">t</bdi>.</li>
+  <li>با یال <b>h</b>: گرهٔ <bdi class="en" dir="ltr">th</bdi>. پرچمش \(-\) است؛ <bdi class="en" dir="ltr">th</bdi> کلمه نیست، فقط پیشوند است.</li>
+  <li>با یال <b>e</b>: گرهٔ <bdi class="en" dir="ltr">the</bdi>. پرچمش \(*\) است، چون <bdi class="en" dir="ltr">the</bdi> خودش یک کلمه است.</li>
+  <li>با یال <b>n</b>: گرهٔ <bdi class="en" dir="ltr">then</bdi> با پرچم \(*\). این برگ است.</li>
+</ol>
+<p>به همین ترتیب <bdi class="en" dir="ltr">thin</bdi> و <bdi class="en" dir="ltr">this</bdi> تا گرهٔ <bdi class="en" dir="ltr">th</bdi> همان مسیر را می‌روند و از آن‌جا با یال i جدا می‌شوند. چهار کلمه، یک <bdi class="en" dir="ltr">th</bdi> مشترک.</p>
+
+<h3>دو ویژگی مهم</h3>
+<div class="box thm">
+  <div class="bh">ویژگی ۱: مقدار هر عنصر = مسیر از ریشه تا گرهٔ آن</div>
+  <p>مقدار هر عنصر (کلمه) برابر رشته‌ای است که <strong>مسیر ریشه تا گرهٔ آن</strong> مشخص می‌کند. کلمه جایی «ذخیره» نشده است؛ <strong>خودِ مسیر</strong> کلمه است.</p>
+</div>
+<div class="box warn">
+  <div class="bh">تا «برگ» یا تا «گره»؟</div>
+  <p>
+    اسلاید می‌گوید «مسیر ریشه تا <strong>برگ</strong>». این برای بیشتر کلمه‌ها درست است، اما نه همه: <bdi class="en" dir="ltr">the</bdi>، <bdi class="en" dir="ltr">so</bdi> و <bdi class="en" dir="ltr">win</bdi>
+    روی گره‌های <strong>داخلی</strong> تمام می‌شوند، چون پیشوند کلمه‌های دیگری‌اند (<bdi class="en" dir="ltr">then</bdi>، <bdi class="en" dir="ltr">some</bdi> و <bdi class="en" dir="ltr">wing</bdi>).
+    دقیق‌تر این است: مسیر ریشه تا <strong>گره‌ای که پرچم \(*\) دارد</strong>.
+  </p>
+</div>
+<div class="box why">
+  <div class="bh">پس چرا پرچم لازم است؟</div>
+  <p>
+    بدون پرچم، گرهٔ <bdi class="en" dir="ltr">the</bdi> و گرهٔ <bdi class="en" dir="ltr">thi</bdi> هیچ فرقی ندارند: هر دو گره‌ای داخلی با یک یا چند فرزندند. اما اولی کلمه است و دومی نیست.
+    پرچم همین اطلاع را نگه می‌دارد: «آیا مسیری که تا این‌جا آمده‌ایم، خودش یک کلمهٔ کامل است؟». هر برگ حتماً پرچم \(*\) دارد (وگرنه وجودش بی‌دلیل بود)، اما گره‌های داخلی ممکن است \(*\) یا \(-\) باشند.
+  </p>
+</div>
+<div class="box thm">
+  <div class="bh">ویژگی ۲: پیشوند مشترک، جد مشترک</div>
+  <p>
+    اگر دو عنصر <strong>پیشوند ({{prefix}}) یکسانی</strong> داشته باشند، <strong>جد آن‌ها یکسان است</strong>: گرهٔ آن پیشوند، جد هر دو است.
+    از این هم بیشتر: <strong>پایین‌ترین جد مشترک</strong> دو کلمه، گرهٔ <strong>بلندترین پیشوند مشترک</strong> آن‌هاست.
+  </p>
+</div>
+<div class="box proof">
+  <div class="bh">چرا؟</div>
+  <p>
+    مسیر هر کلمه حرف‌به‌حرف ساخته می‌شود و از هر گره، با هر حرف فقط <strong>یک</strong> راه پایین هست (خانهٔ <code>child[c]</code>). پس اگر \(k\) حرف اول دو کلمه یکی باشد، \(k\) یال اول مسیرشان هم یکی است
+    و هر دو از گرهٔ آن پیشوند \(k\)حرفی می‌گذرند. در اولین حرفی که متفاوت باشند، از دو خانهٔ متفاوت <code>child</code> پایین می‌روند و دیگر هرگز به هم نمی‌رسند (در درخت، هر گره فقط یک پدر دارد).
+    پس آخرین گره مشترک مسیرها، گرهٔ بلندترین پیشوند مشترک است.
+  </p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieShared--></div>
+  <figcaption>بلندترین پیشوند مشترک <bdi class="en" dir="ltr">then</bdi> و <bdi class="en" dir="ltr">this</bdi> رشتهٔ <bdi class="en" dir="ltr">th</bdi> است و گرهٔ <bdi class="en" dir="ltr">th</bdi> پایین‌ترین جد مشترک آن‌هاست. همهٔ کلمات با پیشوند <bdi class="en" dir="ltr">th</bdi> (<bdi class="en" dir="ltr">the, then, thin, this</bdi>) در زیردرخت همین گره‌اند.</figcaption>
+</figure>
+<p>دو نتیجهٔ سادهٔ دیگر که بعداً لازم داریم:</p>
+<ul>
+  <li><strong>عمق</strong> هر گره برابر <strong>طول</strong> پیشوند آن است (ریشه عمق ۰ دارد، <bdi class="en" dir="ltr">th</bdi> عمق ۲).</li>
+  <li><strong>ارتفاع</strong> ترای برابر طول <strong>بلندترین کلمه</strong> است. در مثال ۴ و برای کل زبان انگلیسی ۴۵.</li>
+</ul>
+
+<h2>اعمال مورد نیاز روی ترای</h2>
+<p>سه عمل داریم: <strong>جست‌وجو</strong>، <strong>اضافه کردن</strong> و <strong>حذف</strong> یک رشته. هر سه یک کار مشترک دارند: از ریشه شروع می‌کنند و حرف‌به‌حرف از روی کلمه پایین می‌روند. در ادامه طول کلمه را \(m\) و حروفش را \(w[1..m]\) می‌نامیم.</p>
+
+<h3>جست‌وجوی یک رشته</h3>
+<div class="box algo">
+  <div class="bh">ایدهٔ جست‌وجو</div>
+  <p>از ریشه شروع کن. برای هر حرف \(c\) از کلمه، به فرزند <code>child[c]</code> برو. جست‌وجو به یکی از دو دلیل شکست می‌خورد:</p>
+  <ol>
+    <li><strong>مسیر قطع شود:</strong> <code>child[c]</code> برابر NIL باشد. یعنی هیچ کلمه‌ای با این پیشوند در ترای نیست، چه برسد به خود کلمه.</li>
+    <li><strong>حروف تمام شوند ولی پرچم \(-\) باشد:</strong> مسیر هست، اما کلمهٔ ما فقط <strong>پیشوندِ</strong> کلمه‌های دیگر است، نه یک کلمهٔ ذخیره‌شده.</li>
+  </ol>
+</div>
+<pre class="code" data-title="SEARCH(root, w)    ⊳ w = w[1..m]">
+v = root
+for i = 1 to m
+    c = w[i]
+    if v.child[c] == NIL
+        return false        // the path breaks: no word starts with w[1..i]
+    v = v.child[c]
+return v.isEnd              // the path exists; is it a whole word?
+</pre>
+
+<div class="box ex">
+  <div class="bh">مثال ۱: جست‌وجوی win (موفق)</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>i</th><th>c</th><th>v</th><th>v.child[c]</th><th class="fa">چه می‌شود</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>w</td><td>root</td><td>w</td><td class="fa">فرزند w هست؛ پایین می‌رویم.</td></tr>
+      <tr><td>2</td><td>i</td><td>w</td><td>wi</td><td class="fa">فرزند i هست؛ پایین می‌رویم.</td></tr>
+      <tr><td>3</td><td>n</td><td>wi</td><td>win</td><td class="fa">فرزند n هست؛ پایین می‌رویم.</td></tr>
+      <tr><td>end</td><td></td><td>win</td><td></td><td class="fa">حروف تمام شد؛ پرچم \(*\) است، پس <strong>پیدا شد</strong>.</td></tr>
+    </tbody>
+  </table></div>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieSearchWin--></div>
+  <figcaption>جست‌وجوی <bdi class="en" dir="ltr">win</bdi>: مسیر سبز سه یال w، i و n را می‌رود و به گره‌ای با پرچم \(*\) می‌رسد. اینکه گرهٔ <bdi class="en" dir="ltr">win</bdi> فرزند دارد (<bdi class="en" dir="ltr">wing</bdi>) مهم نیست؛ فقط پرچم مهم است.</figcaption>
+</figure>
+
+<div class="box ex">
+  <div class="bh">مثال ۲: جست‌وجوی tie (مسیر قطع می‌شود)</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>i</th><th>c</th><th>v</th><th>v.child[c]</th><th class="fa">چه می‌شود</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>t</td><td>root</td><td>t</td><td class="fa">فرزند t هست.</td></tr>
+      <tr><td>2</td><td>i</td><td>t</td><td>ti</td><td class="fa">فرزند i هست.</td></tr>
+      <tr><td>3</td><td>e</td><td>ti</td><td>NIL</td><td class="fa">گرهٔ <bdi class="en" dir="ltr">ti</bdi> فقط فرزند p دارد. مسیر قطع شد: <strong>پیدا نشد</strong>.</td></tr>
+    </tbody>
+  </table></div>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieSearchTie--></div>
+  <figcaption>جست‌وجوی <bdi class="en" dir="ltr">tie</bdi>: بعد از t و i، یال e وجود ندارد (خط‌چین قرمز). یعنی هیچ کلمه‌ای در ترای با <bdi class="en" dir="ltr">tie</bdi> شروع نمی‌شود.</figcaption>
+</figure>
+
+<div class="box ex">
+  <div class="bh">مثال ۳: جست‌وجوی th (فقط پیشوند است)</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>i</th><th>c</th><th>v</th><th>v.child[c]</th><th class="fa">چه می‌شود</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>t</td><td>root</td><td>t</td><td class="fa">فرزند t هست.</td></tr>
+      <tr><td>2</td><td>h</td><td>t</td><td>th</td><td class="fa">فرزند h هست.</td></tr>
+      <tr><td>end</td><td></td><td>th</td><td></td><td class="fa">حروف تمام شد ولی پرچم \(-\) است: <strong>پیدا نشد</strong>.</td></tr>
+    </tbody>
+  </table></div>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieSearchTh--></div>
+  <figcaption>جست‌وجوی <bdi class="en" dir="ltr">th</bdi>: مسیر کامل وجود دارد، اما گرهٔ <bdi class="en" dir="ltr">th</bdi> پرچم \(-\) دارد. <bdi class="en" dir="ltr">th</bdi> فقط پیشوندِ چهار کلمه است، نه یک کلمهٔ ذخیره‌شده.</figcaption>
+</figure>
+<div class="box warn">
+  <div class="bh">اشتباه رایج: فراموش کردن پرچم</div>
+  <p>اگر در خط آخر به‌جای <code>return v.isEnd</code> بنویسیم <code>return true</code>، الگوریتم می‌گوید <bdi class="en" dir="ltr">th</bdi>، <bdi class="en" dir="ltr">thi</bdi> و <bdi class="en" dir="ltr">wi</bdi> هم کلمه‌اند؛ چون مسیرشان وجود دارد. «مسیر هست» یعنی «پیشوند است»، نه «کلمه است».</p>
+</div>
+<div class="box why">
+  <div class="bh">زمان جست‌وجو چقدر است و چرا به \(N\) ربطی ندارد؟</div>
+  <p>
+    حلقه حداکثر \(m\) بار اجرا می‌شود و هر بار فقط یک مقایسه با NIL و یک دسترسی به آرایه (\(O(1)\)) دارد. پس زمان جست‌وجو \(O(m)\) است و اگر کلمه نباشد ممکن است زودتر هم تمام شود
+    (مثلاً جست‌وجوی <bdi class="en" dir="ltr">xylophone</bdi> در مثال، در همان حرف اول متوقف می‌شود چون ریشه فرزند x ندارد).
+  </p>
+  <p>در هیچ جای الگوریتم تعداد کلمات \(N\) ظاهر نمی‌شود: ترای با ده کلمه یا با ۴۷۰٬۰۰۰ کلمه، برای <bdi class="en" dir="ltr">win</bdi> همان سه گام را برمی‌دارد. برای زبان انگلیسی، بدترین حالت ۴۵ گام است.</p>
+</div>
+
+<h3>اضافه کردن یک رشته</h3>
+<div class="box algo">
+  <div class="bh">ایدهٔ درج</div>
+  <p>
+    دقیقاً مثل جست‌وجو پایین برو. هر جا مسیر قطع شد (<code>child[c]</code> برابر NIL بود)، به‌جای اعلام شکست، <strong>یک گرهٔ تازه بساز</strong> (با پرچم \(-\) و ۲۶ اشاره‌گر NIL) و به همان خانه وصلش کن، بعد ادامه بده.
+    وقتی حروف تمام شد، پرچم گرهٔ آخر را \(*\) کن.
+  </p>
+</div>
+<pre class="code" data-title="INSERT(root, w)    ⊳ w = w[1..m]">
+v = root
+for i = 1 to m
+    c = w[i]
+    if v.child[c] == NIL
+        v.child[c] = NEW-NODE()     // isEnd = false, all 26 children NIL
+    v = v.child[c]
+v.isEnd = true
+</pre>
+
+<div class="box ex">
+  <div class="bh">مثال ۱: اضافه کردن bag</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>i</th><th>c</th><th>v</th><th>v.child[c]</th><th class="fa">چه می‌شود</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>b</td><td>root</td><td>NIL</td><td class="fa">ریشه فرزند b ندارد؛ گرهٔ تازهٔ <bdi class="en" dir="ltr">b</bdi> را می‌سازیم.</td></tr>
+      <tr><td>2</td><td>a</td><td>b</td><td>NIL</td><td class="fa">گرهٔ تازه هیچ فرزندی ندارد؛ <bdi class="en" dir="ltr">ba</bdi> را می‌سازیم.</td></tr>
+      <tr><td>3</td><td>g</td><td>ba</td><td>NIL</td><td class="fa"><bdi class="en" dir="ltr">bag</bdi> را می‌سازیم.</td></tr>
+      <tr><td>end</td><td></td><td>bag</td><td></td><td class="fa">پرچم را \(*\) می‌کنیم. <strong>۳ گرهٔ تازه</strong>.</td></tr>
+    </tbody>
+  </table></div>
+  <p>چون هیچ کلمه‌ای با b شروع نمی‌شد، هیچ پیشوندی برای اشتراک وجود نداشت و به ازای هر حرف یک گره ساخته شد.</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieInsertBag--></div>
+  <figcaption>بعد از اضافه کردن <bdi class="en" dir="ltr">bag</bdi>: سه گرهٔ تازه (سبز) یک شاخهٔ جدید زیر ریشه ساخته‌اند. بقیهٔ درخت دست نخورده است.</figcaption>
+</figure>
+
+<div class="box ex">
+  <div class="bh">مثال ۲: اضافه کردن will</div>
+  <div class="tbl-wrap"><table class="trace" dir="ltr">
+    <thead><tr><th>i</th><th>c</th><th>v</th><th>v.child[c]</th><th class="fa">چه می‌شود</th></tr></thead>
+    <tbody>
+      <tr><td>1</td><td>w</td><td>root</td><td>w</td><td class="fa">فرزند w هست؛ فقط پایین می‌رویم.</td></tr>
+      <tr><td>2</td><td>i</td><td>w</td><td>wi</td><td class="fa">فرزند i هست؛ پایین می‌رویم.</td></tr>
+      <tr><td>3</td><td>l</td><td>wi</td><td>NIL</td><td class="fa"><bdi class="en" dir="ltr">wi</bdi> فقط فرزند n دارد؛ گرهٔ تازهٔ <bdi class="en" dir="ltr">wil</bdi> را می‌سازیم.</td></tr>
+      <tr><td>4</td><td>l</td><td>wil</td><td>NIL</td><td class="fa"><bdi class="en" dir="ltr">will</bdi> را می‌سازیم.</td></tr>
+      <tr><td>end</td><td></td><td>will</td><td></td><td class="fa">پرچم \(*\). <strong>۲ گرهٔ تازه</strong>.</td></tr>
+    </tbody>
+  </table></div>
+  <p>این بار پیشوند <bdi class="en" dir="ltr">wi</bdi> از قبل وجود داشت و <strong>مشترک</strong> استفاده شد؛ فقط دو حرف آخر گره تازه لازم داشتند.</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieInsertWill--></div>
+  <figcaption>بعد از اضافه کردن <bdi class="en" dir="ltr">will</bdi>: مسیر نارنجی (w، i) از قبل بود و دوباره استفاده شد؛ دو گرهٔ سبز تازه‌اند. گرهٔ <bdi class="en" dir="ltr">wi</bdi> حالا دو فرزند دارد.</figcaption>
+</figure>
+<div class="box note">
+  <div class="bh">دو حالت خاص درج</div>
+  <ul>
+    <li><strong>کلمه پیشوندِ کلمه‌های موجود است</strong> (مثلاً درج <bdi class="en" dir="ltr">th</bdi>): مسیر کامل وجود دارد، هیچ گرهٔ تازه‌ای ساخته نمی‌شود و فقط پرچم گرهٔ <bdi class="en" dir="ltr">th</bdi> از \(-\) به \(*\) تغییر می‌کند.</li>
+    <li><strong>کلمه از قبل هست</strong> (مثلاً درج دوبارهٔ <bdi class="en" dir="ltr">thin</bdi>): هیچ چیز عوض نمی‌شود؛ پرچم از قبل \(*\) بود. پس ترای خودبه‌خود تکراری ذخیره نمی‌کند.</li>
+  </ul>
+</div>
+<div class="box why">
+  <div class="bh">چرا درج هیچ گرهٔ قبلی را جابه‌جا نمی‌کند؟</div>
+  <p>
+    در آرایهٔ مرتب، جای هر کلمه به <strong>کلمه‌های دیگر</strong> بستگی دارد (چندتا از آن کوچک‌ترند)، پس هر درج همه را جابه‌جا می‌کند. در ترای، جای هر کلمه فقط به <strong>حروف خودش</strong>
+    بستگی دارد: <bdi class="en" dir="ltr">will</bdi> همیشه همان‌جاست، هر کلمهٔ دیگری که در ترای باشد یا نباشد. برای همین درج فقط گره‌های تازه اضافه می‌کند و به بقیه دست نمی‌زند.
+  </p>
+</div>
+<p>
+  <strong>زمان درج:</strong> حلقه \(m\) بار اجرا می‌شود. هر گرهٔ تازه باید ۲۶ اشاره‌گرش را NIL کند که \(O(26) = O(1)\) است. پس درج \(O(m)\) است
+  (برای الفبای \(\sigma\)حرفی دقیق‌ترش \(O(\sigma m)\) است). حداکثر \(m\) گرهٔ تازه ساخته می‌شود.
+</p>
+
+<h3>حذف کردن یک رشته</h3>
+<p>
+  حذف کمی ظریف‌تر است. نمی‌شود گرهٔ کلمه را بی‌محابا پاک کرد، چون ممکن است همان گره (یا گره‌های بالاترش) روی مسیر کلمه‌های دیگر باشد. پس حذف را در دو مرحله انجام می‌دهیم.
+</p>
+<div class="box algo">
+  <div class="bh">ایدهٔ حذف</div>
+  <ol>
+    <li><strong>پیدا کردن و برداشتن پرچم:</strong> مثل جست‌وجو تا گرهٔ کلمه پایین برو (اگر پیدا نشد، کاری نیست) و پرچمش را \(-\) کن. از این لحظه کلمه دیگر در ترای نیست.</li>
+    <li>
+      <strong>هرس گره‌های بی‌مصرف از پایین به بالا:</strong> گره‌ای که <strong>نه پرچم \(*\) دارد و نه فرزندی</strong>، روی مسیر هیچ کلمه‌ای نیست و باید حذف شود.
+      از گرهٔ کلمه شروع کن و تا وقتی گره بی‌مصرف است، آن را از پدرش جدا کن و یک گام بالا برو. به <strong>اولین</strong> گره‌ای که پرچم \(*\) یا فرزند داشت که رسیدی، متوقف شو. ریشه هرگز حذف نمی‌شود.
+    </li>
+  </ol>
+</div>
+
+<div class="box ex">
+  <div class="bh">مثال ۱: حذف win</div>
+  <ol class="steps">
+    <li>مرحلهٔ ۱: مسیر root ← w ← wi ← win پیدا می‌شود. پرچم گرهٔ <bdi class="en" dir="ltr">win</bdi> \(*\) است؛ آن را \(-\) می‌کنیم.</li>
+    <li>مرحلهٔ ۲: گرهٔ <bdi class="en" dir="ltr">win</bdi> فرزند g دارد (مسیر <bdi class="en" dir="ltr">wing</bdi>). پس هنوز به کار می‌آید؛ همین‌جا متوقف می‌شویم.</li>
+  </ol>
+  <p><strong>هیچ گره‌ای حذف نشد</strong>؛ فقط پرچم عوض شد. اگر گرهٔ <bdi class="en" dir="ltr">win</bdi> را پاک می‌کردیم، <bdi class="en" dir="ltr">wing</bdi> هم از دست می‌رفت.</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieDeleteWin--></div>
+  <figcaption>بعد از حذف <bdi class="en" dir="ltr">win</bdi>: گرهٔ آن (حلقهٔ خط‌چین قرمز) سر جایش می‌ماند، چون روی مسیر <bdi class="en" dir="ltr">wing</bdi> است؛ فقط پرچمش \(-\) شده است.</figcaption>
+</figure>
+
+<div class="box ex">
+  <div class="bh">مثال ۲: حذف tip</div>
+  <ol class="steps">
+    <li>مرحلهٔ ۱: مسیر root ← t ← ti ← tip پیدا می‌شود. پرچم <bdi class="en" dir="ltr">tip</bdi> را \(-\) می‌کنیم.</li>
+    <li>گرهٔ <bdi class="en" dir="ltr">tip</bdi>: پرچم \(-\) و بدون فرزند، پس بی‌مصرف است. آن را حذف می‌کنیم (<code>ti.child[p] = NIL</code>) و بالا می‌رویم.</li>
+    <li>گرهٔ <bdi class="en" dir="ltr">ti</bdi>: پرچمش \(-\) است و تنها فرزندش (p) همین الان حذف شد. بی‌مصرف است؛ حذف (<code>t.child[i] = NIL</code>) و بالا.</li>
+    <li>گرهٔ <bdi class="en" dir="ltr">t</bdi>: فرزند h دارد (مسیر <bdi class="en" dir="ltr">the</bdi>، <bdi class="en" dir="ltr">this</bdi> و …). به کار می‌آید؛ <strong>توقف</strong>.</li>
+  </ol>
+  <p><strong>دو گره حذف شد</strong> (<bdi class="en" dir="ltr">tip</bdi> و <bdi class="en" dir="ltr">ti</bdi>).</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieDeleteTip--></div>
+  <figcaption>حذف <bdi class="en" dir="ltr">tip</bdi>: گره‌های خط‌چین (<bdi class="en" dir="ltr">ti</bdi> و <bdi class="en" dir="ltr">tip</bdi>) حذف می‌شوند. هرس در گرهٔ <bdi class="en" dir="ltr">t</bdi> متوقف می‌شود، چون هنوز فرزند h دارد.</figcaption>
+</figure>
+<pre class="code" data-title="DELETE(root, w)    ⊳ w = w[1..m]">
+// phase 1: find the word and remember the path
+path[0] = root
+for i = 1 to m
+    path[i] = path[i-1].child[w[i]]
+    if path[i] == NIL
+        return                      // w is not in the trie
+if not path[m].isEnd
+    return                          // w is only a prefix, not a word
+path[m].isEnd = false
+// phase 2: remove the nodes no word needs any more, bottom-up
+for i = m downto 1
+    u = path[i]
+    if u.isEnd or HAS-CHILD(u)
+        break                       // u and all its ancestors still serve a word
+    path[i-1].child[w[i]] = NIL
+    FREE(u)
+</pre>
+<div class="box why">
+  <div class="bh">چرا به اولین گرهٔ مفید که رسیدیم، می‌توانیم متوقف شویم؟</div>
+  <p>
+    اگر گرهٔ \(u\) مفید باشد (پرچم \(*\) یا فرزند داشته باشد)، پس دست‌کم یک کلمه هست که مسیرش از \(u\) می‌گذرد یا به \(u\) ختم می‌شود. مسیر آن کلمه از همهٔ <strong>اجداد</strong> \(u\) هم می‌گذرد
+    (هر مسیری از ریشه شروع می‌شود). پس همهٔ اجداد \(u\) هم مفیدند و بررسی‌شان بی‌فایده است.
+  </p>
+  <p>از طرف دیگر، گره‌های پایین‌تر از \(u\) روی مسیر کلمهٔ حذف‌شده را یکی‌یکی بررسی کردیم و همه بی‌مصرف بودند. پس هیچ گرهٔ بی‌مصرفی جا نمی‌ماند.</p>
+</div>
+<div class="box note">
+  <div class="bh">HAS-CHILD چقدر طول می‌کشد؟</div>
+  <p>
+    ساده‌ترین روش این است که ۲۶ خانهٔ <code>child</code> را نگاه کنیم: \(O(\sigma) = O(26) = O(1)\). اگر الفبا بزرگ باشد، می‌توان در هر گره یک شمارندهٔ <code>numChildren</code> نگه داشت که در درج یکی زیاد و
+    در حذف یکی کم شود؛ آن‌وقت HAS-CHILD یعنی <code dir="ltr">numChildren &gt; 0</code> و همیشه \(O(1)\) است. در هر حال زمان حذف \(O(m)\) است: مرحلهٔ ۱ حداکثر \(m\) گام و مرحلهٔ ۲ هم حداکثر \(m\) گام.
+  </p>
+</div>
+
+<h3>مقایسه با راه‌های قبلی</h3>
+<p>با \(N\) کلمه که طول کلمهٔ مورد نظر \(m\) است:</p>
+<div class="tbl-wrap"><table>
+  <thead><tr><th>ساختار</th><th>جست‌وجو</th><th>درج</th><th>حذف</th><th class="start">برای انگلیسی (\(N \approx 470000\))</th></tr></thead>
+  <tbody>
+    <tr><td>لیست نامرتب</td><td>\(O(Nm)\)</td><td>\(O(Nm)\) (بررسی تکراری‌نبودن)</td><td>\(O(Nm)\)</td><td class="start">تا ۴۷۰٬۰۰۰ مقایسهٔ رشته</td></tr>
+    <tr><td>آرایهٔ مرتب</td><td>\(O(m\log N)\)</td><td>\(O(N + m\log N)\)</td><td>\(O(N + m\log N)\)</td><td class="start">حدود ۱۹ مقایسهٔ رشته</td></tr>
+    <tr><td><strong>ترای</strong></td><td>\(O(m)\)</td><td>\(O(m)\)</td><td>\(O(m)\)</td><td class="start">حداکثر ۴۵ گام، به‌طور میانگین ۴٫۷</td></tr>
+  </tbody>
+</table></div>
+
+<h2>بهای سرعت: حافظه</h2>
+<p>
+  ترای سریع است، اما رایگان نیست. هر گره ۲۶ اشاره‌گر دارد، حتی اگر فقط یکی دو فرزند داشته باشد. ترای مثال ۲۰ گره دارد، یعنی \(20 \times 26 = 520\) خانهٔ اشاره‌گر؛
+  اما فقط ۱۹ تا از آن‌ها به جایی اشاره می‌کنند و <strong>۵۰۱ خانه (۹۶٪) NIL است</strong>. این تصادفی نیست:
+</p>
+<div class="box lem">
+  <div class="bh">چند درصد اشاره‌گرها استفاده می‌شوند؟</div>
+  <p>در ترایی با \(n\) گره روی الفبای \(\sigma\)حرفی، دقیقاً \(n - 1\) خانه از \(\sigma n\) خانهٔ اشاره‌گر غیر NIL است. پس سهم خانه‌های استفاده‌شده کمتر از \(1/\sigma\) است؛ برای انگلیسی کمتر از \(1/26 \approx 3.8\%\).</p>
+</div>
+<div class="box proof">
+  <div class="bh">اثبات</div>
+  <p>
+    هر اشاره‌گر غیر NIL، یک یال درخت است. درخت با \(n\) گره دقیقاً \(n - 1\) یال دارد (فصل ۶): هر گره به جز ریشه دقیقاً یک یال ورودی از پدرش دارد. پس
+    \(\frac{n - 1}{\sigma n} &lt; \frac{1}{\sigma}\).
+  </p>
+</div>
+<p>
+  تعداد گره‌ها هم حداکثر \(1 + \sum_w |w|\) است (ریشه به‌علاوهٔ مجموع طول کلمه‌ها)، چون هر درج حداکثر به اندازهٔ طول کلمه گره می‌سازد. اشتراک پیشوندها این عدد را در عمل خیلی کمتر می‌کند:
+  در مثال، مجموع طول کلمات ۳۴ است ولی ترای فقط ۲۰ گره دارد.
+</p>
+<div class="box extra">
+  <div class="bh">راه‌های کم کردن حافظه</div>
+  <ul>
+    <li><strong>درخت دودویی معادل (فصل ۶):</strong> هر گره فقط دو اشاره‌گر «اولین فرزند» و «برادر بعدی» دارد. حافظه کم می‌شود، اما برای پیدا کردن فرزند \(c\) باید فهرست برادرها را پیمود: هر گام \(O(\sigma)\) و جست‌وجو \(O(\sigma m)\).</li>
+    <li><strong>نگه‌داشتن فرزندان در یک آرایهٔ کوچک مرتب یا جدول درهم‌سازی</strong> به‌جای ۲۶ خانهٔ ثابت.</li>
+    <li><strong>فشرده‌سازی</strong> زنجیره‌های تک‌فرزندی، که در بخش بعد می‌بینیم.</li>
+  </ul>
+</div>
+
+<h2>فشرده‌سازی ترای (در امتحان نمی‌آید)</h2>
+<p class="muted">طبق اسلاید، این بخش در امتحان نمی‌آید. برای کامل شدن تصویر آن را می‌آوریم.</p>
+<p>ترای ساده‌ای برای کلمات <bdi class="en" dir="ltr">bear, bell, bid, busy, buy, sell, stock, stop</bdi> را در نظر بگیرید:</p>
+<figure>
+  <div class="fig-body"><!--FIG:trieSimple--></div>
+  <figcaption>ترای ساده با ۲۲ گره. زنجیره‌های بلندی از گره‌های تک‌فرزند دارد، مثلاً از <bdi class="en" dir="ltr">s</bdi> به <bdi class="en" dir="ltr">sell</bdi> هیچ انشعابی نیست.</figcaption>
+</figure>
+<p>
+  در زنجیرهٔ <bdi class="en" dir="ltr">s → e → l → l</bdi>، گره‌های <bdi class="en" dir="ltr">se</bdi> و <bdi class="en" dir="ltr">sel</bdi> هیچ تصمیمی نمی‌گیرند: فقط یک راه ادامه دارند و کلمه هم نیستند.
+  پس می‌توان آن‌ها را حذف کرد و به‌جایشان یک یال با برچسب <strong>رشته‌ای</strong> <bdi class="en" dir="ltr">ell</bdi> گذاشت.
+</p>
+<div class="box def">
+  <div class="bh">ترای فشرده ({{compressed trie / radix tree}})</div>
+  <p>هر گره‌ای که <strong>فقط یک فرزند</strong> دارد و <strong>پایان هیچ کلمه‌ای نیست</strong> را با فرزندش <strong>ادغام</strong> می‌کنیم؛ برچسب یال‌ها به‌جای یک حرف، یک رشته می‌شود.</p>
+</div>
+<figure>
+  <div class="fig-body"><!--FIG:trieCompressed--></div>
+  <figcaption>همان هشت کلمه پس از ادغام گره‌های تک‌فرزند: ۱۴ گره به‌جای ۲۲. در اسلاید حروف داخل گره‌ها نوشته شده‌اند (مثلاً گرهٔ <bdi class="en" dir="ltr">ell</bdi>)؛ این همان برچسب یال ورودی به آن گره است.</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا ترای فشرده حداکثر حدود \(2N\) گره دارد؟</div>
+  <p>
+    بعد از فشرده‌سازی، هر گره (به جز ریشه) یا <strong>پایان یک کلمه</strong> است یا <strong>دست‌کم دو فرزند</strong> دارد. گره‌های نوع اول حداکثر \(N\) تا هستند. در هر درخت، تعداد گره‌های دست‌کم دوفرزندی
+    از تعداد برگ‌ها کمتر است، و برگ‌ها همه پایان کلمه‌اند، پس حداکثر \(N - 1\) گرهٔ نوع دوم داریم. جمعاً با ریشه حداکثر \(2N\) گره: تعداد گره‌ها دیگر به <strong>طول</strong> کلمات بستگی ندارد.
+  </p>
+  <p>جست‌وجو هم تقریباً همان است: در هر گره، یالی را انتخاب می‌کنیم که با حرف بعدی کلمه شروع می‌شود و رشتهٔ روی یال را حرف‌به‌حرف با ادامهٔ کلمه مقایسه می‌کنیم. باز هم کل کار \(O(m)\) است.</p>
+</div>
+
+<h2>کاربردهای ترای</h2>
+<div class="box extra">
+  <div class="bh">پیشنهاد خودکار و جست‌وجوی پیشوندی</div>
+  <p>
+    وقتی در گوشی <bdi class="en" dir="ltr">th</bdi> را تایپ می‌کنید و <bdi class="en" dir="ltr">the, then, this</bdi> پیشنهاد می‌شود، پشت صحنه یک پیمایش ترای است: تا گرهٔ پیشوند پایین بروید؛
+    طبق ویژگی ۲، <strong>همهٔ</strong> کلمات با این پیشوند در زیردرخت همین گره‌اند.
+  </p>
+  <pre class="code" data-title="STARTS-WITH(root, p)    ⊳ is p a prefix of some stored word?">
+v = root
+for i = 1 to |p|
+    v = v.child[p[i]]
+    if v == NIL
+        return false
+return true                 // unlike SEARCH, the flag does not matter
+</pre>
+  <p>فرق با SEARCH فقط در خط آخر است: این‌جا وجود مسیر کافی است. پس <bdi class="en" dir="ltr">th</bdi> در جست‌وجو «نیست» ولی به‌عنوان پیشوند «هست».</p>
+</div>
+<div class="box extra">
+  <div class="bh">شمارش کلمات با یک پیشوند در \(O(|p|)\)</div>
+  <p>
+    در هر گره عدد <code>cnt</code> را نگه می‌داریم: تعداد کلمات زیردرخت آن. در درج یک کلمهٔ <strong>تازه</strong>، <code>cnt</code> همهٔ گره‌های مسیرش یکی زیاد می‌شود و در حذف یکی کم (هزینهٔ اضافه \(O(m)\)).
+    آن‌وقت جواب «چند کلمه با \(p\) شروع می‌شوند؟» همان <code>cnt</code> گرهٔ \(p\) است. در مثال: <code>cnt(th) = 4</code>، <code>cnt(s) = 3</code> و <code>cnt(root) = 10</code>.
+  </p>
+</div>
+<div class="box extra">
+  <div class="bh">مرتب‌سازی کلمات با پیمایش پیش‌ترتیب</div>
+  <p>اگر ترای را <strong>پیش‌ترتیب</strong> (فصل ۶) بپیماییم و فرزندان را به ترتیب a تا z ببینیم، کلمات به <strong>ترتیب لغت‌نامه‌ای</strong> بیرون می‌آیند:</p>
+  <p class="word-list" dir="ltr">see, so, some, the, then, thin, this, tip, win, wing</p>
+  <p>
+    چرا؟ پیش‌ترتیب هر گره را <strong>قبل از</strong> فرزندانش می‌بیند، پس هر کلمه قبل از کلمه‌هایی می‌آید که آن را پیشوند دارند (<bdi class="en" dir="ltr">the</bdi> قبل از <bdi class="en" dir="ltr">then</bdi>)؛
+    و چون برادرها به ترتیب الفبا دیده می‌شوند، در اولین حرف متفاوت، کلمهٔ با حرف کوچک‌تر زودتر می‌آید. این دقیقاً تعریف ترتیب لغت‌نامه‌ای است.
+    این روش در واقع همان مرتب‌سازی مبنایی است، با این فرق که از <em>پرارزش‌ترین</em> رقم (حرف اول) شروع می‌کند، نه از کم‌ارزش‌ترین (فصل ۹).
+  </p>
+</div>
+<p>کاربردهای دیگر: <strong>غلط‌یاب</strong> (همان مسئلهٔ شروع فصل)، <strong>مسیریابی اینترنت</strong> (یافتن بلندترین پیشوند مشترک نشانی IP در یک ترای دودویی از بیت‌ها) و جست‌وجوی نام در دفترچهٔ تلفن گوشی.</p>
+
+<div class="box sum">
+  <div class="bh">فصل ۱۰ در یک نگاه</div>
+  <ul>
+    <li>مسئله: نگه‌داری \(N \approx 470000\) کلمه. لیست تا \(N\) مقایسه و آرایهٔ مرتب \(\log N\) مقایسه می‌خواهد؛ هر دو به \(N\) وابسته‌اند.</li>
+    <li>ترای: درخت ۲۶تایی؛ هر یال یک حرف، هر گره یک پیشوند، پرچم \(*/-\) برای «پایان کلمه». حرف، اندیس آرایهٔ فرزندان است.</li>
+    <li>مقدار هر کلمه = مسیر ریشه تا گره پرچم‌دارش (نه لزوماً برگ). پیشوند مشترک = جد مشترک.</li>
+    <li>جست‌وجو، درج و حذف همه \(O(m)\) و مستقل از \(N\)؛ برای انگلیسی حداکثر ۴۵ گام.</li>
+    <li>حذف: پرچم را بردار، سپس گره‌های بی‌پرچم و بی‌فرزند را از پایین به بالا هرس کن.</li>
+    <li>بها: بیش از ۹۶٪ اشاره‌گرها NIL است. فشرده‌سازی تعداد گره‌ها را به حداکثر حدود \(2N\) می‌رساند.</li>
+  </ul>
+</div>
+
+<h2>خودآزمایی فصل ۱۰</h2>
+<div class="box quiz">
+  <div class="bh"></div>
+  <ol>
+    <li>کلمه‌های <bdi class="en" dir="ltr">to</bdi> و <bdi class="en" dir="ltr">sea</bdi> را به ترای مثال اضافه کنید. هر کدام چند گرهٔ تازه می‌سازد؟
+      <div class="ans">هر کدام <strong>یک</strong> گره. <bdi class="en" dir="ltr">to</bdi>: گرهٔ <bdi class="en" dir="ltr">t</bdi> هست ولی فرزند o ندارد (فقط h و i)، پس فقط گرهٔ <bdi class="en" dir="ltr">to</bdi> ساخته می‌شود. <bdi class="en" dir="ltr">sea</bdi>: <bdi class="en" dir="ltr">s</bdi> و <bdi class="en" dir="ltr">se</bdi> هستند، <bdi class="en" dir="ltr">se</bdi> فقط فرزند e دارد، پس فقط <bdi class="en" dir="ltr">sea</bdi> ساخته می‌شود.</div></li>
+    <li>کلمهٔ <bdi class="en" dir="ltr">th</bdi> را اضافه کنید. چه تغییری می‌کند و بعد از آن SEARCH(th) چه برمی‌گرداند؟
+      <div class="ans">هیچ گرهٔ تازه‌ای ساخته نمی‌شود؛ فقط پرچم گرهٔ <bdi class="en" dir="ltr">th</bdi> از \(-\) به \(*\) می‌رود. از آن به بعد SEARCH(th) مقدار true برمی‌گرداند.</div></li>
+    <li>از ترای مثال، اول <bdi class="en" dir="ltr">some</bdi> و بعد <bdi class="en" dir="ltr">wing</bdi> را حذف کنید. هر بار چند گره حذف می‌شود؟
+      <div class="ans"><bdi class="en" dir="ltr">some</bdi>: گره‌های <bdi class="en" dir="ltr">some</bdi> و <bdi class="en" dir="ltr">som</bdi> حذف می‌شوند و هرس در <bdi class="en" dir="ltr">so</bdi> متوقف می‌شود چون پرچم \(*\) دارد (۲ گره). <bdi class="en" dir="ltr">wing</bdi>: فقط گرهٔ <bdi class="en" dir="ltr">wing</bdi> حذف می‌شود و هرس در <bdi class="en" dir="ltr">win</bdi> (پرچم \(*\)) متوقف می‌شود (۱ گره).</div></li>
+    <li>با حذف <bdi class="en" dir="ltr">this</bdi> از ترای مثال چند گره حذف می‌شود؟
+      <div class="ans">فقط یک گره (<bdi class="en" dir="ltr">this</bdi>). گرهٔ <bdi class="en" dir="ltr">thi</bdi> هنوز فرزند n (مسیر <bdi class="en" dir="ltr">thin</bdi>) دارد.</div></li>
+    <li>ترایی روی الفبای انگلیسی ۱۰۰۰ گره دارد. چند خانهٔ اشاره‌گر آن NIL است؟
+      <div class="ans">کل خانه‌ها \(26 \times 1000 = 26000\) و خانه‌های غیر NIL برابر تعداد یال‌ها یعنی \(999\). پس \(26000 - 999 = 25001\) خانه NIL است.</div></li>
+    <li>در ترای مثال، جست‌وجوی <bdi class="en" dir="ltr">thing</bdi> در کدام گام و به کدام دلیل شکست می‌خورد؟
+      <div class="ans">گام پنجم. t، h، i و n پیدا می‌شوند (گرهٔ <bdi class="en" dir="ltr">thin</bdi>)، اما <bdi class="en" dir="ltr">thin</bdi> فرزند g ندارد، پس مسیر قطع می‌شود (دلیل اول شکست، نه پرچم).</div></li>
+    <li>چرا زمان جست‌وجوی دودویی به \(N\) بستگی دارد ولی زمان جست‌وجو در ترای نه؟
+      <div class="ans">جست‌وجوی دودویی با <strong>مقایسهٔ</strong> کلمهٔ ما با کلمه‌های دیگر جلو می‌رود و هر مقایسه فقط نیمی از کلمه‌ها را کنار می‌گذارد، پس \(\log N\) مقایسه لازم است. ترای کلمه‌ها را با هم مقایسه نمی‌کند؛ هر حرف را مستقیم اندیس آرایهٔ فرزندان قرار می‌دهد و یک‌جا به بخش درست می‌رود، پس تعداد گام‌ها فقط طول کلمه است.</div></li>
+  </ol>
+</div>
+</section>
