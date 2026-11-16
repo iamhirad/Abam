@@ -753,3 +753,106 @@ table.trace td.fa, table.trace th.fa { direction: rtl; text-align: right; min-wi
 .sv .sv-trie-mark { font-family: var(--f-mono); font-size: 15px; font-weight: 800; fill: var(--k-intuit); }
 .sv .sv-trie-x { fill: var(--cw); font-size: 17px; font-weight: 800; }
 .sv .sv-ln-faint { stroke: var(--ink-2); stroke-width: 1.1; opacity: 0.55; }
+
+/* ================= صفحهٔ حل تمرین ================= */
+.tamrin [data-color="c1"] { --chc: var(--c1); } .tamrin [data-color="c2"] { --chc: var(--c2); }
+.tamrin [data-color="c3"] { --chc: var(--c3); } .tamrin [data-color="c4"] { --chc: var(--c4); }
+.tamrin [data-color="c5"] { --chc: var(--c5); } .tamrin [data-color="c6"] { --chc: var(--c6); }
+.tamrin [data-color="c7"] { --chc: var(--c7); } .tamrin [data-color="c8"] { --chc: var(--c8); }
+.tamrin [data-color="c9"] { --chc: var(--c9); } .tamrin [data-color="c10"] { --chc: var(--c10); }
+.tamrin .cover h1 .c-a { color: var(--c2); }
+.tamrin .cover h1 .c-b { color: var(--c10); }
+.cover-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.2rem; color: var(--ink-2); font-size: 0.92rem; }
+.cover-meta b { color: var(--ink); }
+.cover-links { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.btn {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.45rem 0.95rem; border-radius: 999px; border: 1.5px solid var(--line);
+  background: var(--paper-2); color: var(--ink); font: inherit; font-weight: 700; font-size: 0.9rem;
+  text-decoration: none; cursor: pointer;
+}
+.btn:hover { border-color: var(--c10); }
+.btn.primary { background: var(--c10); border-color: var(--c10); color: var(--on-accent); }
+.btn[aria-pressed="true"] { border-color: var(--c10); box-shadow: inset 0 0 0 1.5px var(--c10); }
+.steps-how { counter-reset: how; list-style: none; padding: 0; margin: 1rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 0.7rem; }
+.steps-how li { counter-increment: how; background: var(--paper-2); border: 1px solid var(--line); border-radius: 14px; padding: 0.8rem 0.9rem; margin: 0; }
+.steps-how li::before { content: counter(how, persian); display: inline-grid; place-items: center; width: 1.7rem; height: 1.7rem; border-radius: 50%; background: var(--k); color: var(--on-accent); font-weight: 800; margin-inline-end: 0.5rem; }
+.steps-how li b { color: var(--k); }
+
+/* فهرست مسئله‌ها */
+.pgroups { display: grid; gap: 0.9rem; margin: 1.2rem 0 0.5rem; }
+.pgroup { border: 1px solid var(--line); border-radius: 16px; padding: 0.75rem 0.9rem 0.85rem; background: var(--paper-2); }
+.pgroup h3 { margin: 0 0 0.55rem; font-size: 1rem; color: var(--chc); display: flex; gap: 0.5rem; align-items: center; }
+.pgroup h3::before { content: ""; width: 0.7rem; height: 0.7rem; border-radius: 3px; background: var(--chc); }
+.pchips { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+.pchips a {
+  display: inline-flex; align-items: baseline; gap: 0.35rem; padding: 0.3rem 0.7rem; border-radius: 10px;
+  background: color-mix(in srgb, var(--chc) 10%, var(--paper-2)); border: 1px solid color-mix(in srgb, var(--chc) 35%, transparent);
+  color: var(--ink); text-decoration: none; font-size: 0.9rem;
+}
+.pchips a b { color: var(--chc); font-family: var(--f-display); font-weight: 400; font-size: 1.1rem; }
+.pchips a i { font-style: normal; color: var(--c4); font-weight: 800; }
+
+/* هر مسئله */
+.prob { margin: 2.6rem 0 1rem; padding-top: 0.6rem; border-top: 3px solid var(--chc); scroll-margin-top: 1rem; }
+.p-head { display: flex; gap: 0.9rem; align-items: center; margin-bottom: 0.6rem; }
+.p-no {
+  flex: none; width: 3.1rem; height: 3.1rem; border-radius: 14px; display: grid; place-items: center;
+  background: var(--chc); color: var(--on-accent); font-family: var(--f-display); font-size: 1.6rem; line-height: 1;
+}
+.p-h { margin: 0; font-size: 1.35rem; line-height: 1.5; }
+.p-h .star { color: var(--c4); margin-inline-start: 0.25rem; }
+.p-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 0.15rem; }
+.p-tags a { font-size: 0.78rem; padding: 0.05rem 0.55rem; border-radius: 999px; border: 1px solid color-mix(in srgb, var(--chc) 40%, transparent); color: var(--chc); font-weight: 700; text-decoration: none; }
+.p-tags span { font-size: 0.78rem; padding: 0.05rem 0.55rem; border-radius: 999px; background: color-mix(in srgb, var(--chc) 12%, transparent); color: var(--chc); font-weight: 700; }
+.p-statement { background: color-mix(in srgb, var(--chc) 5%, var(--paper-2)); border: 1px solid color-mix(in srgb, var(--chc) 22%, var(--line)); border-radius: 14px; padding: 0.4rem 1rem; }
+.p-statement ol[type="a"], .p-statement .parts { list-style: none; padding-inline-start: 0.2rem; }
+.parts > li { margin: 0.35rem 0; }
+.parts > li > .pl { font-weight: 800; color: var(--chc); margin-inline-end: 0.35rem; }
+.box.hint { --k: var(--c8); --label: "راهنمایی"; }
+.box.review { --k: var(--k-def); --label: "مرور درس"; }
+.box.takeaway { --k: var(--k-sum); --label: "جمع‌بندی این تیپ سؤال"; }
+.box.verify { --k: var(--k-why); --label: "امتحانش کنید"; }
+details.sol { margin: 1.2rem 0 0.4rem; border: 1.5px solid color-mix(in srgb, var(--chc) 35%, var(--line)); border-radius: 16px; background: var(--paper); }
+details.sol > summary {
+  cursor: pointer; list-style: none; padding: 0.7rem 1rem; font-weight: 800; color: var(--chc);
+  display: flex; align-items: center; gap: 0.6rem; border-radius: 15px;
+  background: color-mix(in srgb, var(--chc) 8%, var(--paper-2));
+}
+details.sol > summary::-webkit-details-marker { display: none; }
+details.sol > summary::before { content: "◀"; font-size: 0.75rem; transition: transform 0.15s; }
+details.sol[open] > summary::before { transform: rotate(-90deg); }
+details.sol > summary .sub { font-weight: 500; color: var(--ink-2); font-size: 0.85rem; }
+details.sol[open] > summary { border-bottom: 1px solid var(--line); border-radius: 15px 15px 0 0; }
+.sol-body { padding: 0.4rem 1.1rem 0.8rem; }
+.sol-body h3 { color: var(--chc); font-size: 1.08rem; margin: 1.4rem 0 0.4rem; }
+.sol-body h3 .pl { display: inline-grid; place-items: center; min-width: 1.6rem; height: 1.6rem; padding: 0 0.3rem; border-radius: 8px; background: var(--chc); color: var(--on-accent); font-size: 0.9rem; margin-inline-end: 0.45rem; }
+.answer { display: inline-block; padding: 0.15rem 0.7rem; border-radius: 8px; background: color-mix(in srgb, var(--k-sum) 14%, transparent); border: 1px solid color-mix(in srgb, var(--k-sum) 45%, transparent); font-weight: 800; }
+
+/* برگهٔ تقلب */
+.cheat-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(19rem, 1fr)); gap: 0.85rem; margin: 1.2rem 0; }
+.cheat-card { border: 1px solid color-mix(in srgb, var(--chc) 35%, var(--line)); border-top: 4px solid var(--chc); border-radius: 14px; background: var(--paper-2); padding: 0.7rem 0.95rem 0.8rem; }
+.cheat-card h3 { margin: 0 0 0.4rem; font-size: 1.02rem; color: var(--chc); }
+.cheat-card ul { margin: 0; padding-inline-start: 1.1rem; }
+.cheat-card li { margin: 0.3rem 0; font-size: 0.93rem; line-height: 1.85; }
+.cheat-card li .when { font-weight: 800; }
+.cheat-card .refs { margin-top: 0.45rem; font-size: 0.8rem; color: var(--ink-2); }
+.cheat-card .refs a { color: var(--chc); font-weight: 700; text-decoration: none; }
+.cheat-head { display: flex; align-items: center; gap: 0.8rem; margin-top: 3rem; padding-top: 0.6rem; border-top: 3px solid var(--c10); }
+.cheat-head h2 { margin: 0; font-family: var(--f-display); font-weight: 400; font-size: 2rem; color: var(--c10); }
+.back-top { font-size: 0.85rem; }
+@media (max-width: 640px) {
+  .p-no { width: 2.6rem; height: 2.6rem; font-size: 1.35rem; border-radius: 12px; }
+  .p-h { font-size: 1.15rem; }
+  .sol-body { padding: 0.3rem 0.75rem 0.6rem; }
+  .cheat-grid { grid-template-columns: 1fr; }
+}
+@media print {
+  .tamrin .prob { break-before: auto; }
+  details.sol > summary { display: none; }
+  details.sol { border: 0; background: none; }
+  .sol-body { padding: 0; }
+  .cover-links, .btn { display: none; }
+  .cheat-head { break-before: page; }
+  .cheat-card { break-inside: avoid; }
+}

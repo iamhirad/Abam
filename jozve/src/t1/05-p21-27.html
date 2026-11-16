@@ -1,0 +1,251 @@
+<!-- ============================== مسئلهٔ ۲۱ ============================== -->
+<article class="prob" id="p21" data-color="c3">
+<header class="p-head"><div class="p-no">۲۱</div><div><h2 class="p-h">نقطهٔ ثابت<span class="star">*</span></h2>
+<div class="p-tags"><span>امید ریاضی</span><span>متغیر نشانگر</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
+<div class="p-statement">
+  <p>فرض کنید \(\sigma\) یک جایگشت تصادفی از اعداد ۱ تا \(n\) باشد. امید ریاضی تعداد \(i\)هایی را که \(\sigma(i) = i\) به دست آورید.</p>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>برای هر \(i\) یک متغیر نشانگر \(X_i\) تعریف کنید که اگر \(\sigma(i) = i\) یک باشد. امید ریاضی خطی است، حتی وقتی متغیرها مستقل نیستند.</p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">متغیر نشانگر و خطی بودن امید</div>
+  <p>برای پیشامد \(A\)، \(X_A = 1\) اگر \(A\) رخ دهد و ۰ در غیر این صورت؛ آنگاه \(\E[X_A] = \Pr[A]\). و \(\E[X + Y] = \E[X] + \E[Y]\) <strong>همیشه</strong>، حتی اگر \(X\) و \(Y\) وابسته باشند.</p>
+</div>
+<p>\(X = \sum_{i=1}^{n} X_i\) با \(X_i = [\sigma(i) = i]\). در جایگشت تصادفی یکنواخت، \(\sigma(i)\) با احتمال برابر هر یک از \(n\) مقدار است، پس \(\Pr[\sigma(i) = i] = \frac1n\). بنابراین</p>
+\[\E[X] = \sum_{i=1}^{n}\Pr[\sigma(i) = i] = n\cdot\frac1n = 1.\]
+<p>جواب: <span class="answer">۱</span>، مستقل از \(n\). (برای \(n = 6\) با شمارش کامل همهٔ ۷۲۰ جایگشت تأیید شده.)</p>
+<div class="box note"><div class="bh">\(X_i\)ها مستقل نیستند</div>
+  <p>مثلاً اگر \(n - 1\) عدد سر جایشان باشند، آخری هم حتماً هست. اما خطی بودن امید به استقلال نیازی ندارد؛ برای همین این روش این‌قدر قدرتمند است.</p>
+</div>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>«امید ریاضی تعداد چیزهایی که …» ⇐ برای هر چیز یک نشانگر بساز، احتمال هر کدام را جدا حساب کن و جمع بزن.</li>
+    <li>تقارن (این‌جا: \(\sigma(i)\) یکنواخت است) معمولاً احتمال هر نشانگر را فوراً می‌دهد.</li>
+  </ul>
+</div>
+</div></details>
+</article>
+
+<!-- ============================== مسئلهٔ ۲۲ ============================== -->
+<article class="prob" id="p22" data-color="c3">
+<header class="p-head"><div class="p-no">۲۲</div><div><h2 class="p-h">امید ریاضی وارونه‌ها<span class="star">*</span></h2>
+<div class="p-tags"><span>امید ریاضی</span><span>تقارن</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
+<div class="p-statement">
+  <p>\(\sigma\) یک جایگشت تصادفی از ۱ تا \(n\) است. امید ریاضی تعداد وارونه‌ها را به دست آورید. وارونه جفت \((i, j)\) است با \(i &lt; j\) ولی \(\sigma(i) &gt; \sigma(j)\).</p>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>برای هر جفت \(i &lt; j\) یک نشانگر بگذارید. اگر مقدارهای \(\sigma(i)\) و \(\sigma(j)\) را با هم عوض کنید، باز یک جایگشت دارید؛ این جفت در یکی از دو جایگشت وارونه است و در دیگری نه.</p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">استدلال تقارنی</div>
+  <p>اگر یک نگاشت یک‌به‌یک روی فضای نمونه (با احتمال‌های برابر) پیشامد \(A\) را به متمم آن ببرد، آنگاه \(\Pr[A] = \Pr[\bar A] = \frac12\).</p>
+</div>
+<p>
+  برای هر جفت \(i &lt; j\)، \(X_{ij} = [\sigma(i) &gt; \sigma(j)]\). نگاشتی که مقدار خانه‌های \(i\) و \(j\) را عوض می‌کند، جایگشت‌ها را یک‌به‌یک به هم می‌برد و وارونه بودن جفت \((i, j)\) را برعکس می‌کند.
+  پس \(\Pr[\sigma(i) &gt; \sigma(j)] = \frac12\) و
+</p>
+\[\E[\text{inversions}] = \sum_{i&lt;j}\frac12 = \binom n2\cdot\frac12 = \frac{n(n-1)}{4}.\]
+<p>جواب: <span class="answer">\(\frac{n(n-1)}{4}\)</span>.</p>
+<div class="box why"><div class="bh">ربطش به مرتب‌سازی درجی</div>
+  <p>مرتب‌سازی درجی دقیقاً به تعداد وارونه‌ها جابه‌جایی انجام می‌دهد (هر جابه‌جایی مجاور یک وارونه را حذف می‌کند). پس زمان <em>میانگین</em> آن روی ورودی تصادفی هم \(\Theta(n^2)\) است، نه فقط بدترین حالت (فصل ۱ جزوه).</p>
+</div>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>شمردن جفت‌ها ⇐ یک نشانگر برای هر جفت؛ \(\binom n2\) جمله.</li>
+    <li>برای احتمال \(\frac12\)، دنبال یک «جابه‌جایی» بگرد که پیشامد را به متممش ببرد.</li>
+  </ul>
+</div>
+</div></details>
+</article>
+
+<!-- ============================== مسئلهٔ ۲۳ ============================== -->
+<article class="prob" id="p23" data-color="c3">
+<header class="p-head"><div class="p-no">۲۳</div><div><h2 class="p-h">انتخاب تصادفی<span class="star">*</span></h2>
+<div class="p-tags"><span>احتمال</span><span>نمونه‌گیری مخزنی</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
+<div class="p-statement">
+  <p>الگوریتمی ورودی \(a_1, \dots, a_n\) (\(n\) عدد مجزا) را به ترتیب می‌خواند و هنگام خواندن \(a_i\)، با احتمال \(1/i\) مقدار متغیر \(x\) را برابر \(a_i\) قرار می‌دهد. در پایان \(x\) را گزارش می‌کند. با چه احتمالی خروجی برابر \(a_i\) است؟</p>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>خروجی \(a_i\) است اگر و تنها اگر در قدم \(i\) انتخاب شود و در هیچ‌کدام از قدم‌های \(i+1, \dots, n\) جایگزین نشود. احتمال‌ها را ضرب کنید؛ حاصل‌ضرب تلسکوپی است.</p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">پیشامدهای مستقل</div>
+  <p>تصمیم‌های قدم‌های مختلف با سکه‌های مستقل گرفته می‌شوند، پس احتمال اشتراک پیشامدها حاصل‌ضرب احتمال‌هاست.</p>
+</div>
+\[\Pr[x = a_i] = \underbrace{\frac1i}_{\text{chosen at step } i}\cdot\prod_{j=i+1}^{n}\underbrace{\left(1 - \frac1j\right)}_{\text{not replaced}} = \frac1i\cdot\frac{i}{i+1}\cdot\frac{i+1}{i+2}\cdots\frac{n-1}{n} = \frac1n.\]
+<p>جواب: <span class="answer">\(\frac1n\)</span> برای هر \(i\)؛ یعنی خروجی یک انتخاب یکنواخت است. (توجه: \(a_1\) با احتمال \(1/1 = 1\) حتماً اول انتخاب می‌شود.)</p>
+<div class="box why"><div class="bh">چرا مفید است؟ (ناوردای حلقه)</div>
+  <p>
+    ناوردا: «بعد از خواندن \(i\) عدد، \(x\) با احتمال \(\frac1i\) برابر هر کدام از آن‌هاست». با خواندن عدد بعدی، آن عدد احتمال \(\frac{1}{i+1}\) می‌گیرد و هر عدد قبلی
+    \(\frac1i\cdot\frac{i}{i+1} = \frac{1}{i+1}\). مزیت: لازم نیست \(n\) را از قبل بدانیم یا ورودی را نگه داریم؛ برای جریان داده‌ای با طول نامعلوم عالی است ({{reservoir sampling}}).
+  </p>
+</div>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>«انتخاب شود و بعد عوض نشود» ⇐ احتمال انتخاب × حاصل‌ضرب احتمال‌های عوض نشدن. کسرهای \(\frac{j-1}{j}\) همیشه تلسکوپی می‌شوند.</li>
+    <li>الگوریتم‌های جریانی را با ناوردای حلقه روی توزیع احتمال ثابت کن.</li>
+  </ul>
+</div>
+</div></details>
+</article>
+
+<!-- ============================== مسئلهٔ ۲۴ ============================== -->
+<article class="prob" id="p24" data-color="c3">
+<header class="p-head"><div class="p-no">۲۴</div><div><h2 class="p-h">ارتفاع درخت جست‌وجوی دودویی تصادفی<span class="star">*</span></h2>
+<div class="p-tags"><span>امید ریاضی</span><span>رابطهٔ بازگشتی</span><a href="https://iamhirad.github.io/Abam/#ch6">جزوه: فصل ۶</a></div></div></header>
+<div class="p-statement">
+  <p>اگر اعداد ۱ تا \(n\) را به ترتیب تصادفی در یک درخت جست‌وجوی دودویی درج کنیم، رابطهٔ بازگشتی امید ریاضی ارتفاع این درخت را به دست آورید.</p>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>اولین عدد درج‌شده ریشه می‌شود و رتبه‌اش یکنواخت بین ۱ و \(n\) است. اگر رتبه \(i\) باشد، زیردرخت چپ یک درخت تصادفی با \(i - 1\) عدد و زیردرخت راست با \(n - i\) عدد است. مشکل: امید \(\max\) را نمی‌شود ساده حساب کرد؛ به‌جای ارتفاع \(X_n\) با «ارتفاع نمایی» \(Y_n = 2^{X_n}\) کار کنید.</p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">درخت جست‌وجوی دودویی (BST)</div>
+  <p>
+    درختی دودویی که در آن برای هر گره، کلیدهای زیردرخت چپ کوچک‌تر و کلیدهای زیردرخت راست بزرگ‌ترند (فصل ۶ جزوه برای واژه‌های درخت). درج: از ریشه با مقایسه پایین برو و در اولین جای خالی بگذار.
+    ارتفاع = طول بلندترین مسیر ریشه تا برگ. بدترین حالت (ورودی مرتب) \(n - 1\) است.
+  </p>
+</div>
+<h3>رابطهٔ بازگشتی</h3>
+<p>
+  \(X_n\) را ارتفاع درخت با \(n\) کلید بگیرید (یک گره: ارتفاع ۰). اولین کلید درج‌شده ریشه است و رتبه‌اش \(R\) بین ۱ و \(n\) یکنواخت است. کلیدهای کوچک‌تر به ترتیب تصادفی به زیردرخت چپ می‌روند
+  (\(R - 1\) کلید) و بزرگ‌ترها به راست (\(n - R\) کلید)، و این دو زیردرخت خودشان درخت‌های تصادفی همان مدل‌اند. پس
+</p>
+\[X_n = 1 + \max\big(X_{R-1},\ X_{n-R}\big),\qquad \E[X_n] = 1 + \frac1n\sum_{i=1}^{n}\E\Big[\max\big(X_{i-1}, X_{n-i}\big)\Big].\]
+<p>این رابطهٔ دقیق است، ولی چون \(\E[\max] \ne \max(\E)\)، مستقیم حل نمی‌شود.</p>
+<h3>ترفند ارتفاع نمایی</h3>
+<p>\(Y_n = 2^{X_n}\) با قرارداد \(Y_0 = 0\) و \(Y_1 = 1\). آنگاه \(Y_n = 2\max(Y_{R-1}, Y_{n-R})\) و چون \(\max(a, b) \le a + b\) برای اعداد نامنفی:</p>
+\[\E[Y_n] \le \frac2n\sum_{i=1}^{n}\big(\E[Y_{i-1}] + \E[Y_{n-i}]\big) = \frac4n\sum_{i=0}^{n-1}\E[Y_i].\]
+<p>با استقرا \(\E[Y_n] \le \frac14\binom{n+3}{3}\): برای \(n = 1\) برابر ۱ است و با اتحاد \(\sum_{i=0}^{n-1}\binom{i+3}{3} = \binom{n+3}{4}\):</p>
+\[\E[Y_n] \le \frac4n\cdot\frac14\binom{n+3}{4} = \frac{(n+3)(n+2)(n+1)}{24} = \frac14\binom{n+3}{3}.\]
+<h3>برگشت به ارتفاع</h3>
+<p>تابع \(2^x\) محدب است، پس طبق نامساوی ینسن \(2^{\E[X_n]} \le \E[2^{X_n}] = \E[Y_n] = O(n^3)\). با لگاریتم گرفتن:</p>
+\[\E[X_n] \le 3\lg n + O(1) = O(\log n).\]
+<p>از طرف دیگر هر درخت دودویی با \(n\) گره ارتفاع \(\ge \floor{\lg n}\) دارد. پس <span class="answer">\(\E[X_n] = \Theta(\log n)\)</span>. (ثابت دقیق حدود \(4.311\ln n\) است.)</p>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>ساختارهای تصادفی بازگشتی (BST تصادفی، کوئیک‌سورت): روی <strong>رتبهٔ ریشه/محور</strong> شرط بگذار؛ بقیه دو نمونهٔ کوچک‌تر مستقل‌اند.</li>
+    <li>اگر \(\max\) در رابطه است، به تابعی محدب مثل \(2^X\) برو تا \(\max \le\) جمع قابل استفاده شود؛ آخر کار با ینسن برگرد.</li>
+    <li>جمع‌های \(\sum\binom{i+k}{k}\) با اتحاد «چوب هاکی» بسته می‌شوند.</li>
+  </ul>
+</div>
+</div></details>
+</article>
+
+<!-- ============================== مسئلهٔ ۲۵ ============================== -->
+<article class="prob" id="p25" data-color="c4">
+<header class="p-head"><div class="p-no">۲۵</div><div><h2 class="p-h">آرایهٔ جادار<span class="star">*</span></h2>
+<div class="p-tags"><span>تحلیل سرشکنی</span><a href="https://iamhirad.github.io/Abam/#ch4">جزوه: فصل ۴</a></div></div></header>
+<div class="p-statement">
+  <p>
+    می‌خواهیم \(n\) عدد را به ترتیب به انتهای آرایه‌ای اضافه کنیم. طول آرایه در ابتدا ۱ است. اگر آرایه فضای خالی داشت، عدد در انتها اضافه می‌شود؛ در غیر این صورت، آرایهٔ جدید به طول
+    دو برابر آرایهٔ فعلی ایجاد، عناصر قبلی به آن منتقل و سپس عنصر جدید در انتها اضافه می‌شود. پیچیدگی زمانی سرشکن هر عمل اضافه کردن را محاسبه کنید.
+  </p>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>این همان آرایهٔ پویای <a href="#p9">مسئلهٔ ۹</a> است. هزینهٔ کل انتقال‌ها \(1 + 2 + 4 + \dots\) است تا کمتر از \(n\).</p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">سری هندسی در گسترش ضربی</div>
+  <p>وقتی ظرفیت ضرب در یک ثابت می‌شود، اندازهٔ انتقال‌ها یک سری هندسی است که جمعش حداکثر چند برابر آخرین جمله است.</p>
+</div>
+<p>هر درج یک واحد هزینهٔ نوشتن دارد. انتقال‌ها وقتی رخ می‌دهند که آرایه با \(1, 2, 4, \dots, 2^j\) عنصر پر شده باشد و \(2^j &lt; n\). پس</p>
+\[\text{total}(n) = n + \sum_{2^j &lt; n} 2^j &lt; n + 2n = 3n,\]
+<p>و هزینهٔ سرشکن هر اضافه کردن <span class="answer">\(O(1)\)</span> (حداکثر ۳) است. اثبات با حساب‌داری یا پتانسیل \(2\,\text{num} - \text{cap} + 1\) دقیقاً مثل <a href="#p9">مسئلهٔ ۹ (ج)</a> است.</p>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>هر بار که ساختمانی «وقتی پر شد، دو برابر کن» دیدی، سرشکن \(O(1)\) است. اگر «یکی اضافه کن» دیدی، \(\Theta(n)\).</li>
+  </ul>
+</div>
+</div></details>
+</article>
+
+<!-- ============================== مسئلهٔ ۲۶ ============================== -->
+<article class="prob" id="p26" data-color="c2">
+<header class="p-head"><div class="p-no">۲۶</div><div><h2 class="p-h">حدس پیچیده<span class="star">*</span></h2>
+<div class="p-tags"><span>رابطهٔ بازگشتی</span><span>روش حدس و استقرا</span><a href="https://iamhirad.github.io/Abam/#ch2">جزوه: فصل ۲</a></div></div></header>
+<div class="p-statement">
+  <p>در هر قسمت، بهترین مرتبهٔ ممکن را برای \(T(n)\) بیابید.</p>
+  <ul class="parts">
+    <li><span class="pl">الف)</span> \(T(n) = 2T(\frac n2) + 1\)</li>
+    <li><span class="pl">ب)</span> \(T(n) = 2T(\frac n2 + \sqrt n) + 1\)</li>
+  </ul>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>
+    در هر دو، حدس \(\Theta(n)\) است. ولی اگر حدس \(T(n) \le cn\) را مستقیم امتحان کنید، استقرا با «\(+1\)» خراب می‌شود. ترفند: حدس را <strong>قوی‌تر</strong> کنید و یک جملهٔ مرتبه‌پایین کم کنید:
+    \(T(n) \le cn - 1\) برای (الف) و \(T(n) \le c(n - a\sqrt n) - 1\) برای (ب).
+  </p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">روش حدس و استقرا و ترفند تفریق</div>
+  <p>
+    در استقرا باید <em>دقیقاً</em> همان حکم ثابت شود، نه «حکم به‌علاوهٔ یک ثابت». اگر از حدس \(T \le cn\) به \(T \le cn + 1\) برسیم، شکست خورده‌ایم، با اینکه \(cn + 1 = O(n)\).
+    ترفند کلاسیک: یک جملهٔ مرتبه‌پایین از حدس <strong>کم</strong> کن. حکم قوی‌تر، فرض استقرای قوی‌تری هم می‌دهد و معمولاً جواب می‌دهد.
+  </p>
+</div>
+<h3><span class="pl">الف</span>\(T(n) = 2T(n/2) + 1\)</h3>
+<p><strong>تلاش ناموفق:</strong> با فرض \(T(n/2) \le cn/2\): \(T(n) \le cn + 1\). این \(\le cn\) نیست؛ استقرا شکست می‌خورد.</p>
+<p><strong>حدس قوی‌تر \(T(n) \le cn - 1\):</strong></p>
+\[T(n) \le 2\left(c\frac n2 - 1\right) + 1 = cn - 1.\ \checkmark\]
+<p><strong>کران پایین \(T(n) \ge c'n - 1\)</strong> هم با همین محاسبه برقرار است. در واقع برای \(n\) توان ۲، \(T(n) = (T(1) + 1)n - 1\). پس <span class="answer">\(T(n) = \Theta(n)\)</span>.</p>
+<h3><span class="pl">ب</span>\(T(n) = 2T(n/2 + \sqrt n) + 1\)</h3>
+<p>
+  نکتهٔ مقدماتی: \(\frac n2 + \sqrt n &lt; n\) فقط وقتی \(n &gt; 4\)؛ پس فرض می‌کنیم برای \(n\) کوچک‌تر از یک آستانه (مثلاً ۱۰۰) \(T(n)\) ثابت است. شهود: آرگومان کمی بیشتر از نصف است و این «اضافه» نسبت به
+  \(n/2\) کوچک است، پس باید همان \(\Theta(n)\) قسمت الف را بگیریم.
+</p>
+<p><strong>کران بالا با حدس \(T(n) \le c(n - a\sqrt n) - 1\):</strong> با فرض استقرا برای \(m = \frac n2 + \sqrt n\):</p>
+\[T(n) \le 2\big(c(m - a\sqrt m) - 1\big) + 1 = c\big(n + 2\sqrt n - 2a\sqrt m\big) - 1.\]
+<p>کافی است \(2\sqrt n - 2a\sqrt m \le -a\sqrt n\). چون \(\sqrt m \ge \sqrt{n/2}\)، کافی است \(2 + a \le a\sqrt2\)، یعنی \(a \ge \frac{2}{\sqrt2 - 1} \approx 4.83\). با \(a = 5\) استقرا کار می‌کند (برای \(n \ge 100\) هم \(n - 5\sqrt n \ge n/2 &gt; 0\)، پس \(c\) بزرگ پایه‌ها را می‌پوشاند). پس \(T(n) = O(n)\).</p>
+<p><strong>کران پایین با حدس \(T(n) \ge c'n - 1\):</strong></p>
+\[T(n) \ge 2\left(c'\Big(\frac n2 + \sqrt n\Big) - 1\right) + 1 = c'n + 2c'\sqrt n - 1 \ge c'n - 1.\ \checkmark\]
+<p>نتیجه: <span class="answer">\(T(n) = \Theta(n)\)</span>. (شبیه‌سازی عددی: \(T(n)/n\) برای \(n\) از \(10^4\) تا \(10^{10}\) بین \(0.06\) و \(0.11\) می‌ماند.)</p>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>اگر استقرا با یک «ثابت اضافه» شکست خورد، حدس را با <strong>کم کردن جملهٔ مرتبه‌پایین</strong> قوی کن (\(cn - d\)، \(c(n - a\sqrt n)\)، …).</li>
+    <li>آرگومان‌های جابه‌جاشده مثل \(n/2 + \sqrt n\) یا \(n/2 + 17\) معمولاً مرتبه را عوض نمی‌کنند؛ جابه‌جایی را در حدس جذب کن.</li>
+    <li>برای \(\Theta\) دو استقرای جدا بنویس: یکی برای \(O\) و یکی برای \(\Omega\).</li>
+  </ul>
+</div>
+</div></details>
+</article>
+
+<!-- ============================== مسئلهٔ ۲۷ ============================== -->
+<article class="prob" id="p27" data-color="c2">
+<header class="p-head"><div class="p-no">۲۷</div><div><h2 class="p-h">دنبالهٔ طلایی<span class="star">*</span></h2>
+<div class="p-tags"><span>رابطهٔ بازگشتی</span><span>آکرا–بازی</span><a href="https://iamhirad.github.io/Abam/#ch2">جزوه: فصل ۲</a></div></div></header>
+<div class="p-statement">
+  <p>\(a_1, \dots, a_k\) عددهای حقیقی بزرگ‌تر از یک هستند. برای \(a_i\)ها یک شرط لازم و کافی پیدا کنید به‌طوری که \(T(n) = \sum_{i=1}^{k} T(\frac{n}{a_i}) + \Theta(\frac{n}{\log n})\) از مرتبهٔ \(\Theta(\frac{n}{\log n})\) باشد.</p>
+</div>
+<div class="box hint"><div class="bh"></div>
+  <p>در درخت بازگشت، جمع اندازهٔ زیرمسئله‌های سطح \(j\) برابر \(n\cdot r^j\) است که \(r = \sum 1/a_i\). اگر \(r &lt; 1\) هزینهٔ سطح‌ها هندسی کم می‌شود و ریشه غالب است. اگر \(r \ge 1\) چه؟ برای مقایسه به <a href="#p5">مسئلهٔ ۵</a> نگاه کنید: (الف) \(r = \frac12\) و (ب) \(r = 1\).</p>
+</div>
+<details class="sol"><summary>راه‌حل کامل <span class="sub">مرور درس، حل گام‌به‌گام و جمع‌بندی</span></summary><div class="sol-body">
+<div class="box review"><div class="bh">قضیهٔ آکرا–بازی (تعمیم قضیهٔ اصلی)</div>
+  <p>برای رابطه‌ای با چند زیرمسئلهٔ نامساوی، \(T(n) = \sum_i T(n/a_i) + f(n)\)، عدد \(p\) را از \(\sum_i a_i^{-p} = 1\) پیدا کنید. آنگاه</p>
+  \[T(n) = \Theta\!\left(n^p\left(1 + \int_1^n\frac{f(u)}{u^{p+1}}\,du\right)\right).\]
+  <p>تابع \(p \mapsto \sum a_i^{-p}\) اکیداً نزولی است و در \(p = 1\) برابر \(r = \sum 1/a_i\) است؛ پس \(p &lt; 1 \iff r &lt; 1\).</p>
+</div>
+<h3>جواب: \(\sum_{i=1}^{k}\frac{1}{a_i} &lt; 1\)</h3>
+<p><strong>کافی بودن (\(r &lt; 1\)):</strong> کران پایین بدیهی است (\(T(n) \ge\) جملهٔ \(n/\log n\) خودش). برای کران بالا حدس \(T(n) \le C\frac{n}{\lg n}\):</p>
+\[T(n) \le \sum_i C\frac{n/a_i}{\lg n - \lg a_i} + \frac{n}{\lg n} = C\,\frac{n}{\lg n}\left(\sum_i\frac{1}{a_i}\cdot\frac{\lg n}{\lg n - \lg a_i}\right) + \frac{n}{\lg n}.\]
+<p>پرانتز برای \(n\) بزرگ به \(r\) میل می‌کند، پس از \(\frac{1 + r}{2} &lt; 1\) کمتر می‌شود. با \(C \ge \frac{2}{1 - r}\): \(T(n) \le C\frac{n}{\lg n}\left(\frac{1+r}{2}\right) + \frac{n}{\lg n} \le C\frac{n}{\lg n}\). پس \(T = \Theta(n/\log n)\).</p>
+<p><strong>لازم بودن (\(r \ge 1\) جواب نمی‌دهد):</strong> بگذارید \(A = \max a_i\). در سطح‌های \(j \le \log_A n\) هر زیرمسئله اندازه‌ای \(\ge 1\) دارد و جمع اندازه‌ها \(n r^j \ge n\). هزینهٔ هر گره به اندازهٔ \(s\) برابر \(\frac{s}{\lg s} \ge \frac{s}{\lg n}\) است، پس هر کدام از این \(\Theta(\log n)\) سطح دست‌کم \(\frac{n}{\lg n}\) هزینه دارد:</p>
+\[T(n) \ge \log_A n\cdot\frac{n}{\lg n} = \Omega(n),\]
+<p>که \(O(n/\log n)\) نیست. پس شرط <span class="answer">\(\sum_{i=1}^{k} 1/a_i &lt; 1\)</span> لازم و کافی است.</p>
+<div class="box extra"><div class="bh">تصویر کامل با آکرا–بازی</div>
+  <ul>
+    <li>\(r &lt; 1\) (\(p &lt; 1\)): انتگرال \(\int u^{-p}/\lg u\) حدود \(\frac{n^{1-p}}{\lg n}\) است و \(T = \Theta(n/\log n)\).</li>
+    <li>\(r = 1\) (\(p = 1\)): انتگرال \(\int\frac{du}{u\lg u} = \Theta(\log\log n)\) و \(T = \Theta(n\log\log n)\)؛ همان <a href="#p5">مسئلهٔ ۵ (ب)</a>.</li>
+    <li>\(r &gt; 1\) (\(p &gt; 1\)): برگ‌ها غالب‌اند و \(T = \Theta(n^p)\).</li>
+  </ul>
+</div>
+<div class="box takeaway"><div class="bh"></div>
+  <ul>
+    <li>برای چند زیرمسئلهٔ نامساوی، عدد کلیدی <strong>مجموع کسرهای اندازه</strong> \(r = \sum 1/a_i\) است: کمتر از ۱ ⇐ ریشه غالب، برابر ۱ ⇐ همهٔ سطح‌ها مهم، بیشتر از ۱ ⇐ برگ‌ها غالب.</li>
+    <li>کران بالا را با حدس و استقرا، و «لازم بودن» را با پایین زدن هزینهٔ <strong>تعداد زیادی سطح</strong> در درخت بازگشت ثابت کن.</li>
+  </ul>
+</div>
+</div></details>
+</article>

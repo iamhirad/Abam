@@ -1,7 +1,8 @@
 // ساخت جزوه: قطعه‌های src را کنار هم می‌گذارد، فرمول‌ها را با KaTeX رندر می‌کند،
 // فونت‌ها را درون فایل جاسازی می‌کند و خروجی HTML (و در صورت نیاز PDF) می‌سازد.
-//   node build.mjs          → dist/jozve-dsa.html  و  dist/artifact.html
-//   node build.mjs --pdf    → علاوه بر بالا، dist/jozve-dsa.pdf
+//   node build.mjs              → همهٔ سندها (جزوه و حل تمرین‌ها)، فقط HTML
+//   node build.mjs --pdf        → HTML و PDF همهٔ سندها
+//   node build.mjs --doc=t1     → فقط یک سند (نام‌ها در DOCS)
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -10,7 +11,8 @@ import katex from 'katex';
 import { FIGS as FIGS1 } from './figures.mjs';
 import { FIGS2 } from './figures2.mjs';
 import { FIGS3 } from './figures3.mjs';
-const FIGS = { ...FIGS1, ...FIGS2, ...FIGS3 };
+import { FIGS4 } from './figures4.mjs';
+const FIGS = { ...FIGS1, ...FIGS2, ...FIGS3, ...FIGS4 };
 
 const require = createRequire(import.meta.url);
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -18,19 +20,39 @@ const SRC = path.join(ROOT, 'src');
 const DIST = path.join(ROOT, 'dist');
 const NM = path.join(ROOT, 'node_modules');
 
-const PARTS = [
-  '00-front.html',
-  '01-analysis.html',
-  '02-divide-conquer.html',
-  '03-randomized.html',
-  '04-amortized.html',
-  '05-lists.html',
-  '06-trees.html',
-  '07-expression-trees.html',
-  '08-heaps.html',
-  '09-sorting.html', '10-trie.html',
-  '99-appendix.html',
-];
+const DOCS = {
+  jozve: {
+    parts: [
+      '00-front.html',
+      '01-analysis.html',
+      '02-divide-conquer.html',
+      '03-randomized.html',
+      '04-amortized.html',
+      '05-lists.html',
+      '06-trees.html',
+      '07-expression-trees.html',
+      '08-heaps.html',
+      '09-sorting.html',
+      '10-trie.html',
+      '99-appendix.html',
+    ],
+    out: 'jozve-dsa',
+    artifact: 'artifact.html',
+    title: 'جزوهٔ ساختمان داده‌ها و الگوریتم‌ها',
+    desc: 'جزوهٔ کامل فارسی درس ساختمان داده‌ها و الگوریتم‌ها: تحلیل الگوریتم، تقسیم و حل، الگوریتم‌های تصادفی، تحلیل سرشکنی، لیست، درخت، هرم، مرتب‌سازی و ترای',
+    wrap: 'jozve',
+  },
+  t1: {
+    parts: ['t1/00-front.html', 't1/01-p01-06.html', 't1/02-p07-11.html', 't1/03-p12-16.html', 't1/04-p17-20.html', 't1/05-p21-27.html', 't1/06-p28-33.html', 't1/99-cheatsheet.html'],
+    out: 'tamrin-1',
+    artifact: 'artifact-tamrin-1.html',
+    title: 'حل تمرین سری اول ساختمان داده‌ها',
+    desc: 'حل گام‌به‌گام تمرین سری اول درس ساختمان داده‌ها و طراحی الگوریتم‌ها: راهنمایی، راه‌حل با مرور مفاهیم، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها',
+    wrap: 'jozve tamrin',
+    script: true,
+  },
+};
+const ONLY = (process.argv.find((a) => a.startsWith('--doc=')) || '').slice(6);
 
 const FA_DIGITS = '۰۱۲۳۴۵۶۷۸۹';
 const fa = (s) => String(s).replace(/\d/g, (d) => FA_DIGITS[d]);
@@ -187,6 +209,7 @@ function numberAndToc(html) {
         return m;
       }
       if (h2 !== undefined) {
+        if (!ch) return m;
         sec++;
         const label = `${fa(ch.no)}.${fa(sec)}`;
         const id = `s${ch.no === 'پ' ? 'A' : ch.no}-${sec}`;
@@ -215,21 +238,36 @@ function numberAndToc(html) {
 }
 
 // ---------- ساخت ----------
-function build() {
+// دکمهٔ «باز کردن همهٔ راه‌حل‌ها» و باز شدن خودکار هنگام چاپ
+const SCRIPT = `<script>
+(function () {
+  function setAll(open) { document.querySelectorAll('details.sol').forEach(function (d) { d.open = open; }); }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('[data-toggle-all]');
+    if (!b) return;
+    var open = b.getAttribute('data-toggle-all') === 'open';
+    setAll(open);
+    document.querySelectorAll('[data-toggle-all]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+  });
+  window.addEventListener('beforeprint', function () { setAll(true); });
+})();
+</script>`;
+
+function build(key) {
+  const doc = DOCS[key];
   fs.mkdirSync(DIST, { recursive: true });
-  let body = PARTS.map((p) => processPart(fs.readFileSync(path.join(SRC, p), 'utf8'), p)).join('\n');
+  let body = doc.parts.map((p) => processPart(fs.readFileSync(path.join(SRC, p), 'utf8'), p)).join('\n');
   body = numberAndToc(body);
   const style = fs.readFileSync(path.join(SRC, 'style.css'), 'utf8');
   const fonts = fontCss();
   const kx = katexCss();
 
-  const title = 'جزوهٔ ساختمان داده‌ها و الگوریتم‌ها';
   const headBits =
-    `<title>${title}</title>\n` +
+    `<title>${doc.title}</title>\n` +
     `<meta name="claude:viewport-fit-sides" content="cover">\n` +
-    `<meta name="description" content="جزوهٔ کامل فارسی درس ساختمان داده‌ها و الگوریتم‌ها: تحلیل الگوریتم، تقسیم و حل، الگوریتم‌های تصادفی و تحلیل سرشکنی">\n` +
+    `<meta name="description" content="${doc.desc}">\n` +
     `<style>\n${fonts}\n</style>\n<style>\n${kx}\n</style>\n<style>\n${style}\n</style>\n`;
-  const page = `<div class="jozve" dir="rtl" lang="fa">\n${body}\n</div>\n`;
+  const page = `<div class="${doc.wrap}" dir="rtl" lang="fa">\n${body}\n</div>\n` + (doc.script ? SCRIPT + '\n' : '');
 
   const full =
     `<!doctype html>\n<html lang="fa" dir="rtl">\n<head>\n<meta charset="utf-8">\n` +
@@ -238,25 +276,27 @@ function build() {
     `</head>\n<body>\n${page}</body>\n</html>\n`;
   const artifact = headBits + page;
 
-  fs.writeFileSync(path.join(DIST, 'jozve-dsa.html'), full);
-  fs.writeFileSync(path.join(DIST, 'artifact.html'), artifact);
+  fs.writeFileSync(path.join(DIST, doc.out + '.html'), full);
+  fs.writeFileSync(path.join(DIST, doc.artifact), artifact);
   const kb = (s) => (Buffer.byteLength(s) / 1024).toFixed(0) + 'KB';
-  console.log(`✓ dist/jozve-dsa.html (${kb(full)})  ✓ dist/artifact.html (${kb(artifact)})`);
+  console.log(`✓ dist/${doc.out}.html (${kb(full)})  ✓ dist/${doc.artifact} (${kb(artifact)})`);
   if (mathErrors) {
     console.error(`✗ ${mathErrors} خطای فرمول`);
     process.exitCode = 1;
   }
 }
 
-async function pdf() {
+async function pdf(key) {
+  const doc = DOCS[key];
   const { chromium } = require('playwright');
   const browser = await chromium.launch();
   const page = await browser.newPage();
   await page.emulateMedia({ media: 'print', colorScheme: 'light' });
-  await page.goto('file://' + path.join(DIST, 'jozve-dsa.html'), { waitUntil: 'load' });
+  await page.goto('file://' + path.join(DIST, doc.out + '.html'), { waitUntil: 'load' });
   await page.evaluate(() => document.fonts.ready);
+  await page.evaluate(() => document.querySelectorAll('details').forEach((d) => (d.open = true)));
   await page.pdf({
-    path: path.join(DIST, 'jozve-dsa.pdf'),
+    path: path.join(DIST, doc.out + '.pdf'),
     format: 'A4',
     printBackground: true,
     preferCSSPageSize: true,
@@ -264,11 +304,14 @@ async function pdf() {
     headerTemplate: '<div></div>',
     footerTemplate:
       '<div style="width:100%;font-size:8.5px;color:#7a8296;font-family:\'Vazirmatn\',\'DejaVu Sans\',sans-serif;display:flex;justify-content:space-between;padding:0 14mm;direction:rtl">' +
-      '<span>جزوهٔ ساختمان داده‌ها و الگوریتم‌ها</span><span class="pageNumber"></span></div>',
+      `<span>${doc.title}</span><span class="pageNumber"></span></div>`,
   });
   await browser.close();
-  console.log('✓ dist/jozve-dsa.pdf');
+  console.log(`✓ dist/${doc.out}.pdf`);
 }
 
-build();
-if (process.argv.includes('--pdf')) await pdf();
+for (const key of Object.keys(DOCS)) {
+  if (ONLY && key !== ONLY) continue;
+  build(key);
+  if (process.argv.includes('--pdf')) await pdf(key);
+}
