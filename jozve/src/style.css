@@ -794,7 +794,7 @@ table.trace td.fa, table.trace th.fa { direction: rtl; text-align: right; min-wi
 .pchips a i { font-style: normal; color: var(--c4); font-weight: 800; }
 
 /* هر مسئله */
-.prob { margin: 2.6rem 0 1rem; padding-top: 0.6rem; border-top: 3px solid var(--chc); scroll-margin-top: 1rem; }
+.prob { margin-block: 2.6rem 1rem; padding-top: 0.6rem; border-top: 3px solid var(--chc); scroll-margin-top: 1rem; }
 .p-head { display: flex; gap: 0.9rem; align-items: center; margin-bottom: 0.6rem; }
 .p-no {
   flex: none; width: 3.1rem; height: 3.1rem; border-radius: 14px; display: grid; place-items: center;
@@ -856,3 +856,30 @@ details.sol[open] > summary { border-bottom: 1px solid var(--line); border-radiu
   .cheat-head { break-before: page; }
   .cheat-card { break-inside: avoid; }
 }
+
+/* ---------- دکمهٔ تغییر تم ---------- */
+.jozve > .theme-toggle {
+  position: fixed;
+  top: calc(12px + env(safe-area-inset-top, 0px));
+  left: calc(12px + env(safe-area-inset-left, 0px));
+  z-index: 6;
+  max-width: none;
+  margin: 0;
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.38rem 0.85rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--line);
+  background: color-mix(in srgb, var(--paper-2) 92%, transparent);
+  color: var(--ink);
+  font: inherit; font-weight: 700; font-size: 0.85rem;
+  cursor: pointer;
+  box-shadow: 0 4px 14px color-mix(in srgb, var(--ink) 14%, transparent);
+  backdrop-filter: blur(6px);
+}
+.jozve > .theme-toggle:hover { border-color: var(--c10); }
+.theme-toggle .tt-icon { font-size: 1rem; line-height: 1; }
+@media (max-width: 640px) {
+  .jozve > .theme-toggle { padding: 0.4rem 0.55rem; }
+  .theme-toggle .tt-label { display: none; }
+}
+@media print { .theme-toggle { display: none !important; } }

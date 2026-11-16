@@ -49,7 +49,6 @@ const DOCS = {
     title: 'حل تمرین سری اول ساختمان داده‌ها',
     desc: 'حل گام‌به‌گام تمرین سری اول درس ساختمان داده‌ها و طراحی الگوریتم‌ها: راهنمایی، راه‌حل با مرور مفاهیم، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها',
     wrap: 'jozve tamrin',
-    script: true,
   },
 };
 const ONLY = (process.argv.find((a) => a.startsWith('--doc=')) || '').slice(6);
@@ -238,18 +237,45 @@ function numberAndToc(html) {
 }
 
 // ---------- ساخت ----------
-// دکمهٔ «باز کردن همهٔ راه‌حل‌ها» و باز شدن خودکار هنگام چاپ
+// دکمهٔ تغییر تم (روشن/تیره)، دکمه‌های «باز کردن همهٔ راه‌حل‌ها» و باز شدن خودکار راه‌حل‌ها هنگام چاپ
+const THEME_EARLY = `<script>try{var t=localStorage.getItem('jozve-theme');if(t==='light'||t==='dark')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>`;
+const THEME_BUTTON = `<button class="theme-toggle" type="button" aria-label="تغییر تم روشن و تیره"><span class="tt-icon" aria-hidden="true"></span><span class="tt-label"></span></button>`;
 const SCRIPT = `<script>
 (function () {
+  var root = document.documentElement;
+  var mq = window.matchMedia ? window.matchMedia('(prefers-color-scheme: dark)') : null;
+  function current() {
+    var t = root.getAttribute('data-theme');
+    if (t === 'light' || t === 'dark') return t;
+    return mq && mq.matches ? 'dark' : 'light';
+  }
+  function paint() {
+    var dark = current() === 'dark';
+    document.querySelectorAll('.theme-toggle').forEach(function (b) {
+      b.querySelector('.tt-icon').textContent = dark ? '☀' : '☾';
+      b.querySelector('.tt-label').textContent = dark ? 'حالت روشن' : 'حالت تیره';
+      b.setAttribute('aria-pressed', String(dark));
+    });
+  }
   function setAll(open) { document.querySelectorAll('details.sol').forEach(function (d) { d.open = open; }); }
   document.addEventListener('click', function (e) {
+    var tb = e.target.closest('.theme-toggle');
+    if (tb) {
+      var next = current() === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', next);
+      try { localStorage.setItem('jozve-theme', next); } catch (err) {}
+      paint();
+      return;
+    }
     var b = e.target.closest('[data-toggle-all]');
     if (!b) return;
     var open = b.getAttribute('data-toggle-all') === 'open';
     setAll(open);
     document.querySelectorAll('[data-toggle-all]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
   });
+  if (mq && mq.addEventListener) mq.addEventListener('change', paint);
   window.addEventListener('beforeprint', function () { setAll(true); });
+  paint();
 })();
 </script>`;
 
@@ -266,8 +292,9 @@ function build(key) {
     `<title>${doc.title}</title>\n` +
     `<meta name="claude:viewport-fit-sides" content="cover">\n` +
     `<meta name="description" content="${doc.desc}">\n` +
+    THEME_EARLY + '\n' +
     `<style>\n${fonts}\n</style>\n<style>\n${kx}\n</style>\n<style>\n${style}\n</style>\n`;
-  const page = `<div class="${doc.wrap}" dir="rtl" lang="fa">\n${body}\n</div>\n` + (doc.script ? SCRIPT + '\n' : '');
+  const page = `<div class="${doc.wrap}" dir="rtl" lang="fa">\n${THEME_BUTTON}\n${body}\n</div>\n` + SCRIPT + '\n';
 
   const full =
     `<!doctype html>\n<html lang="fa" dir="rtl">\n<head>\n<meta charset="utf-8">\n` +
