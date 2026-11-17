@@ -956,6 +956,64 @@ details.sol[open] > summary { border-bottom: 1px solid var(--line); border-radiu
 }
 @media print { .theme-toggle { display: none !important; } }
 
+/* ---------- درجهٔ سختی (صفحهٔ حل تمرین) ---------- */
+.tamrin { --d1: var(--k-ex); --d2: var(--c6); --d3: var(--c8); --d4: var(--c4); --d5: var(--cw); }
+.tamrin [data-l="1"], .tamrin .prob[data-diff="1"] { --dc: var(--d1); --l: 1; }
+.tamrin [data-l="2"], .tamrin .prob[data-diff="2"] { --dc: var(--d2); --l: 2; }
+.tamrin [data-l="3"], .tamrin .prob[data-diff="3"] { --dc: var(--d3); --l: 3; }
+.tamrin [data-l="4"], .tamrin .prob[data-diff="4"] { --dc: var(--d4); --l: 4; }
+.tamrin [data-l="5"], .tamrin .prob[data-diff="5"] { --dc: var(--d5); --l: 5; }
+.diff, .p-tags .diff {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-size: 0.78rem; font-weight: 800; padding: 0.08rem 0.6rem; border-radius: 999px;
+  color: var(--dc); background: color-mix(in srgb, var(--dc) 13%, var(--paper-2));
+  border: 1px solid color-mix(in srgb, var(--dc) 45%, transparent);
+}
+.diff .dots, .p-tags .diff .dots { display: inline-flex; gap: 2px; padding: 0; background: none; border: 0; }
+.diff .dots i { width: 7px; height: 7px; border-radius: 50%; border: 1.5px solid var(--dc); box-sizing: border-box; }
+.diff[data-l="1"] .dots i:nth-child(-n+1), .diff[data-l="2"] .dots i:nth-child(-n+2),
+.diff[data-l="3"] .dots i:nth-child(-n+3), .diff[data-l="4"] .dots i:nth-child(-n+4),
+.diff[data-l="5"] .dots i:nth-child(-n+5) { background: var(--dc); }
+.p-why { margin: 0.1rem 0 0.8rem; font-size: 0.9rem; color: var(--ink-2); line-height: 1.9; }
+.p-why b { color: var(--dc); }
+.pchips .lv {
+  display: inline-block; width: 1.9rem; height: 0.38rem; border-radius: 999px; margin-inline-start: 0.2rem; align-self: center;
+  background: linear-gradient(to left, var(--dc) calc(var(--l) * 20%), color-mix(in srgb, var(--dc) 18%, transparent) 0);
+}
+.dlevels { display: grid; gap: 0.55rem; margin: 1rem 0; }
+.dlevel {
+  display: grid; grid-template-columns: 8.5rem 1fr; align-items: center; gap: 0.35rem 1rem;
+  border: 1px solid color-mix(in srgb, var(--dc) 30%, var(--line)); border-inline-start: 5px solid var(--dc);
+  border-radius: 12px; background: var(--paper-2); padding: 0.55rem 0.8rem;
+}
+.dlevel-h { display: flex; flex-direction: column; align-items: flex-start; gap: 0.2rem; grid-row: span 2; }
+.dcount { font-size: 0.78rem; color: var(--ink-2); }
+.dlevel p { font-size: 0.88rem; margin: 0; line-height: 1.8; }
+.dlevel .dlinks { justify-content: flex-start; }
+@media (max-width: 640px) {
+  .dlevel { grid-template-columns: 1fr; }
+  .dlevel-h { flex-direction: row; justify-content: space-between; align-items: center; grid-row: auto; }
+  .dlevel .dlinks { justify-content: flex-start; }
+}
+.dlinks { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.dlinks a {
+  display: inline-grid; place-items: center; min-width: 1.8rem; height: 1.8rem; padding: 0 0.3rem; border-radius: 8px;
+  background: color-mix(in srgb, var(--dc) 14%, transparent); color: var(--ink); font-weight: 800; font-size: 0.85rem; text-decoration: none;
+}
+.dlinks a:hover { background: var(--dc); color: var(--on-accent); }
+.diff-filter { display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.6rem 0 1.4rem; }
+.tamrin[data-show="1"] .prob:not([data-diff="1"]), .tamrin[data-show="2"] .prob:not([data-diff="2"]),
+.tamrin[data-show="3"] .prob:not([data-diff="3"]), .tamrin[data-show="4"] .prob:not([data-diff="4"]),
+.tamrin[data-show="5"] .prob:not([data-diff="5"]) { display: none; }
+.tamrin[data-show="1"] .pchips a:not([data-diff="1"]), .tamrin[data-show="2"] .pchips a:not([data-diff="2"]),
+.tamrin[data-show="3"] .pchips a:not([data-diff="3"]), .tamrin[data-show="4"] .pchips a:not([data-diff="4"]),
+.tamrin[data-show="5"] .pchips a:not([data-diff="5"]) { opacity: 0.3; }
+@media print {
+  .tamrin .prob { display: block !important; }
+  .diff-filter { display: none; }
+  .dlevel { break-inside: avoid; }
+}
+
 </style>
 </head>
 <body>
@@ -6380,6 +6438,14 @@ M834 80h400000v40h-400000z"/></svg></span></span></span><span class="vlist-s">�
       root.setAttribute('data-theme', next);
       try { localStorage.setItem('jozve-theme', next); } catch (err) {}
       paint();
+      return;
+    }
+    var fb = e.target.closest('[data-diff-filter]');
+    if (fb) {
+      var v = fb.getAttribute('data-diff-filter');
+      var w = document.querySelector('.tamrin');
+      if (w) { if (v === 'all') w.removeAttribute('data-show'); else w.setAttribute('data-show', v); }
+      document.querySelectorAll('[data-diff-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === fb)); });
       return;
     }
     var b = e.target.closest('[data-toggle-all]');
