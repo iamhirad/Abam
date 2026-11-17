@@ -267,6 +267,14 @@ const SCRIPT = `<script>
       paint();
       return;
     }
+    var fb = e.target.closest('[data-diff-filter]');
+    if (fb) {
+      var v = fb.getAttribute('data-diff-filter');
+      var w = document.querySelector('.tamrin');
+      if (w) { if (v === 'all') w.removeAttribute('data-show'); else w.setAttribute('data-show', v); }
+      document.querySelectorAll('[data-diff-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === fb)); });
+      return;
+    }
     var b = e.target.closest('[data-toggle-all]');
     if (!b) return;
     var open = b.getAttribute('data-toggle-all') === 'open';
