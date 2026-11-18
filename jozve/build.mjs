@@ -51,6 +51,15 @@ const DOCS = {
     desc: 'حل گام‌به‌گام تمرین سری اول درس ساختمان داده‌ها و طراحی الگوریتم‌ها: راهنمایی، راه‌حل با مرور مفاهیم، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها',
     wrap: 'jozve tamrin',
   },
+  proofs: {
+    parts: ['proofs/00-front.html', ...Array.from({ length: 10 }, (_, i) => `proofs/ch${String(i + 1).padStart(2, '0')}.html`)],
+    out: 'proofs',
+    artifact: 'artifact-proofs.html',
+    title: 'اثبات‌های جزوهٔ ساختمان داده‌ها',
+    desc: 'همهٔ اثبات‌های کامل جزوهٔ ساختمان داده‌ها و الگوریتم‌ها، فصل به فصل: حکم، اثبات و پیوند به جای آن در جزوه؛ با فهرست بر اساس روش اثبات و حالت تمرین',
+    wrap: 'jozve tamrin proofs',
+    figNumbers: false,
+  },
   t2: {
     parts: ['t2/00-front.html', 't2/01-p01-07.html', 't2/02-p08-14.html', 't2/03-p15-20.html', 't2/04-p21-26.html', 't2/99-cheatsheet.html'],
     out: 'tamrin-2',
@@ -201,7 +210,7 @@ function processPart(html, where) {
 }
 
 // ---------- شماره‌گذاری و فهرست ----------
-function numberAndToc(html) {
+function numberAndToc(html, { figNumbers = true } = {}) {
   const toc = [];
   let ch = null;
   let sec = 0;
@@ -224,7 +233,7 @@ function numberAndToc(html) {
         ch.items.push({ id, label, title: h2 });
         return `<h2 id="${id}"><span class="num">${label}</span><span class="h2t">${h2}</span></h2>`;
       }
-      if (!ch) return m;
+      if (!ch || !figNumbers) return m;
       fig++;
       return `<figcaption><span class="fig-no">شکل ${fa(ch.no)}-${fa(fig)}</span>`;
     },
@@ -300,7 +309,7 @@ function build(key) {
   const doc = DOCS[key];
   fs.mkdirSync(DIST, { recursive: true });
   let body = doc.parts.map((p) => processPart(fs.readFileSync(path.join(SRC, p), 'utf8'), p)).join('\n');
-  body = numberAndToc(body);
+  body = numberAndToc(body, { figNumbers: doc.figNumbers !== false });
   const style = fs.readFileSync(path.join(SRC, 'style.css'), 'utf8');
   const fonts = fontCss();
   const kx = katexCss();

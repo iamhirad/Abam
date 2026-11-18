@@ -1,0 +1,77 @@
+<section class="chapter" data-ch="9" data-color="c9" data-title="کران پایین مرتب‌سازی و مرتب‌سازی خطی" id="ch9">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۹ · ۴ اثبات</div>
+  <h1>کران پایین مرتب‌سازی و مرتب‌سازی خطی</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch9">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۹</div>
+</header>
+
+<h2>درخت تصمیم مرتب‌سازی دست‌کم \(N!\) برگ دارد</h2>
+<p class="pf-meta"><span class="pf-tag">شمارش</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s9-4">در جزوه: بخش ۹.۴، کران پایین \(\Omega(n\log n)\) برای مرتب‌سازی مقایسه‌ای ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">تعداد برگ‌ها</div>
+  <p>درخت تصمیمی که \(N\) عنصر را درست مرتب کند، دست‌کم \(N!\) برگ دارد.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>
+    \(N\) عنصر متمایز \(N!\) ترتیب ممکن دارند و هر کدام پاسخ متفاوتی می‌خواهند (جایگشتی که آن‌ها را مرتب می‌کند فرق دارد). اگر دو ترتیب ورودی متفاوت به <em>یک</em> برگ برسند،
+    الگوریتم برای هر دو همان جایگشت را اعمال می‌کند و دست‌کم برای یکی اشتباه است. پس هر ترتیب ورودی باید به برگ خودش برسد: دست‌کم \(N!\) برگ.
+  </p>
+</div>
+</div></details>
+
+<h2>کران پایین \(\Omega(N\log N)\) برای مرتب‌سازی مقایسه‌ای</h2>
+<p class="pf-meta"><span class="pf-tag">شمارش</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s9-4">در جزوه: بخش ۹.۴، کران پایین \(\Omega(n\log n)\) برای مرتب‌سازی مقایسه‌ای ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">کران پایین</div>
+  <p>هر الگوریتم مرتب‌سازی که فقط بر پایهٔ مقایسهٔ عناصر باشد، در بدترین حالت دست‌کم \(\ceil{\log_2(N!)}\) مقایسه انجام می‌دهد، و \(\log_2(N!) = \Omega(N\log N)\).</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>گام ۱:</strong> درخت دودویی به عمق \(h\) حداکثر \(2^h\) برگ دارد (در هر سطح تعداد گره‌ها حداکثر دو برابر می‌شود). پس</p>
+  \[2^h \ge \#\text{برگ‌ها} \ge N! \quad\Longrightarrow\quad h \ge \log_2(N!) \quad\Longrightarrow\quad h \ge \ceil{\log_2(N!)}.\]
+  <p><strong>گام ۲:</strong> \(\log_2(N!)\) را از پایین کران می‌زنیم:</p>
+  \[\begin{aligned}
+  \log_2(N!) &= \log\big(N(N-1)(N-2)\cdots(2)(1)\big)\\
+  &= \log N + \log(N-1) + \log(N-2) + \dots + \log 2 + \log 1 &&\text{لگاریتم ضرب = جمع لگاریتم‌ها}\\
+  &\ge \log N + \log(N-1) + \dots + \log(N/2) &&\text{فقط نیمهٔ بزرگ‌تر جملات}\\
+  &\ge \frac N2\log\frac N2 &&\ge \log(N/2)\;\;\text{هر کدام}\\
+  &= \frac N2\log N - \frac N2 = \Omega(N\log N).
+  \end{aligned}\]
+</div>
+</div></details>
+
+<h2>پایداری مرتب‌سازی شمارشی</h2>
+<p class="pf-meta"><span class="pf-tag">استدلال مستقیم</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s9-6">در جزوه: بخش ۹.۶، پایداری ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">پایداری مرتب‌سازی شمارشی</div>
+  <p>مرتب‌سازی شمارشی (با حلقهٔ آخر از \(j = n\) به ۱) پایدار است.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>
+    حلقهٔ ۴ از \(j = n\) به عقب حرکت می‌کند. از میان عناصری با مقدار \(v\)، <strong>آخرین</strong> عنصر ورودی اول دیده می‌شود و به <strong>آخرین</strong> خانهٔ گروه \(v\) (یعنی \(C[v]\)) می‌رود؛
+    عنصر قبلی با مقدار \(v\) به خانهٔ قبلی، و ... . پس عناصر مساوی در خروجی به همان ترتیب ورودی چیده می‌شوند. (در جدول بالا: سه ۳ در خانه‌های ۵، ۶ و ۷ به ترتیب \(A[3], A[6], A[8]\) قرار گرفتند.)
+  </p>
+  <p>اگر حلقهٔ ۴ از \(j = 1\) تا \(n\) می‌رفت، خروجی هنوز مرتب بود، اما عناصر مساوی <strong>برعکس</strong> می‌شدند: ناپایدار.</p>
+</div>
+</div></details>
+
+<h2>درستی مرتب‌سازی مبنایی</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s9-7">در جزوه: بخش ۹.۷، مرتب‌سازی مبنایی ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>مرتب‌سازی مبنایی که با یک مرتب‌سازی پایدار از کم‌ارزش‌ترین رقم شروع می‌کند، پس از \(d\) گذر اعداد \(d\)رقمی را درست مرتب می‌کند.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">چرا از کم‌ارزش‌ترین رقم، و چرا پایدار؟</div>
+  <p><strong>ادعا:</strong> پس از گذر \(i\)، اعداد بر اساس <em>\(i\) رقم آخرشان</em> مرتب‌اند. استقرا روی \(i\):</p>
+  <ul>
+    <li><strong>پایه (\(i = 1\)):</strong> گذر ۱ بر اساس رقم آخر مرتب می‌کند. ✓</li>
+    <li><strong>گام:</strong> گذر \(i + 1\) بر اساس رقم \((i+1)\)ام مرتب می‌کند. دو عدد \(x\) و \(y\) را در نظر بگیرید.
+      اگر رقم \((i+1)\)امشان فرق کند، گذر \(i + 1\) آن‌ها را درست می‌چیند. اگر برابر باشد، چون مرتب‌سازی <strong>پایدار</strong> است، ترتیب قبلی‌شان حفظ می‌شود؛ و طبق فرض استقرا آن ترتیب بر اساس \(i\) رقم آخر درست بود.
+      در هر دو حالت \(x\) و \(y\) بر اساس \(i + 1\) رقم آخر درست چیده شده‌اند. ✓</li>
+  </ul>
+  <p>پس از \(d\) گذر، اعداد بر اساس همهٔ رقم‌ها، یعنی کاملاً، مرتب‌اند.</p>
+</div>
+</div></details>
+</section>

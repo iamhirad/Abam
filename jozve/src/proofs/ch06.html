@@ -1,0 +1,47 @@
+<section class="chapter" data-ch="6" data-color="c6" data-title="درخت" id="ch6">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۶ · ۲ اثبات</div>
+  <h1>درخت</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch6">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۶</div>
+</header>
+
+<h2>درخت با \(n\) رأس، \(n - 1\) یال دارد</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s6-9">در جزوه: بخش ۶.۹، ویژگی‌های پایه ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">تعداد یال‌ها</div>
+  <p>درختی با \(n\) رأس دقیقاً \(n - 1\) یال دارد.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">با استقرا روی \(n\)</div>
+  <p><strong>پایه (\(n = 1\)):</strong> یک رأس و صفر یال. ✓</p>
+  <p><strong>گام:</strong> فرض کنید حکم برای همهٔ درخت‌های \(n - 1\) رأسی درست باشد و \(T\) درختی با \(n \ge 2\) رأس باشد.</p>
+  <ul>
+    <li><strong>\(T\) یک برگ دارد</strong> (رأسی با فقط یک یال): طولانی‌ترین مسیر ساده در \(T\) را در نظر بگیرید. اگر انتهای آن یال دیگری داشت، یا آن یال به رأسی بیرون از مسیر می‌رفت (و مسیر طولانی‌تر می‌شد) یا به رأسی روی مسیر (و دور می‌ساخت). هر دو ناممکن‌اند.</li>
+    <li>آن برگ و تنها یالش را حذف کنید. چیزی که می‌ماند هنوز همبند است (برگ روی هیچ مسیری بین دو رأس دیگر نبود) و بدون دور؛ پس درختی با \(n - 1\) رأس است و طبق فرض استقرا \(n - 2\) یال دارد.</li>
+    <li>با برگرداندن برگ: \(n - 2 + 1 = n - 1\) یال. ✓</li>
+  </ul>
+</div>
+</div></details>
+
+<h2>پیش‌ترتیب درخت و درخت دودویی معادلش یکی است</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s6-15">در جزوه: بخش ۶.۱۵، مسئلهٔ ۲ و ۳: پیمایش‌ها در درخت دودویی معادل ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">پاسخ مسئلهٔ ۲</div>
+  <p>بله؛ برای هر درخت \(T\): \(\;\text{preorder}(T) = \text{preorder}_{\text{دودویی}}(\text{LCRS}(T))\).</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>
+    حکم کلی‌تری را برای یک <strong>جنگل</strong> ثابت می‌کنیم (دنباله‌ای از درخت‌ها \(T_1, \dots, T_k\) که ریشه‌هایشان برادرند). درخت دودویی معادل جنگل، ریشه‌اش \(r_1\) است؛
+    زیردرخت چپش معادلِ جنگلِ فرزندان \(r_1\) (یعنی \(T_1 - r_1\)) و زیردرخت راستش معادلِ جنگلِ \(T_2, \dots, T_k\) است. با استقرا روی تعداد گره‌ها:
+  </p>
+  \[\begin{aligned}
+  \text{pre}_{\text{دودویی}} &= r_1,\; \underbrace{\text{pre}_{\text{دودویی}}(\text{چپ})}_{=\;\text{preorder}(T_1 - r_1)},\; \underbrace{\text{pre}_{\text{دودویی}}(\text{راست})}_{=\;\text{preorder}(T_2), \dots, \text{preorder}(T_k)}\\
+  &= \text{preorder}(T_1),\; \text{preorder}(T_2),\; \dots,\; \text{preorder}(T_k).
+  \end{aligned}\]
+  <p>(تساوی‌های زیر آکولادها فرض استقراست، چون آن جنگل‌ها گرهٔ کمتری دارند.) درخت \(T\) هم جنگلی تک‌درختی است، پس حکم برقرار است. همان مراحل اسلاید: \(r\)، سپس \(\text{preorder}(T')\) برای جنگل فرزندان، که به \(r_1, \text{preorder}(T_1 - r_1), \text{preorder}(T'')\) باز می‌شود و الی آخر.</p>
+</div>
+</div></details>
+</section>

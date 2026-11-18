@@ -1,0 +1,44 @@
+<section class="chapter" data-ch="10" data-color="c10" data-title="درخت ترای" id="ch10">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۱۰ · ۲ اثبات</div>
+  <h1>درخت ترای</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch10">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۱۰</div>
+</header>
+
+<h2>ترای: پیشوند مشترک یعنی جد مشترک</h2>
+<p class="pf-meta"><span class="pf-tag">استدلال مستقیم</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s10-2">در جزوه: بخش ۱۰.۲، ساختمان دادهٔ ترای ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">ویژگی ۲: پیشوند مشترک، جد مشترک</div>
+  <p>
+    اگر دو عنصر <strong>پیشوند ({{prefix}}) یکسانی</strong> داشته باشند، <strong>جد آن‌ها یکسان است</strong>: گرهٔ آن پیشوند، جد هر دو است.
+    از این هم بیشتر: <strong>پایین‌ترین جد مشترک</strong> دو کلمه، گرهٔ <strong>بلندترین پیشوند مشترک</strong> آن‌هاست.
+  </p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">چرا؟</div>
+  <p>
+    مسیر هر کلمه حرف‌به‌حرف ساخته می‌شود و از هر گره، با هر حرف فقط <strong>یک</strong> راه پایین هست (خانهٔ <code>child[c]</code>). پس اگر \(k\) حرف اول دو کلمه یکی باشد، \(k\) یال اول مسیرشان هم یکی است
+    و هر دو از گرهٔ آن پیشوند \(k\)حرفی می‌گذرند. در اولین حرفی که متفاوت باشند، از دو خانهٔ متفاوت <code>child</code> پایین می‌روند و دیگر هرگز به هم نمی‌رسند (در درخت، هر گره فقط یک پدر دارد).
+    پس آخرین گره مشترک مسیرها، گرهٔ بلندترین پیشوند مشترک است.
+  </p>
+</div>
+</div></details>
+
+<h2>ترای: کمتر از \(1/\sigma\) اشاره‌گرها استفاده می‌شوند</h2>
+<p class="pf-meta"><span class="pf-tag">شمارش</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s10-4">در جزوه: بخش ۱۰.۴، بهای سرعت: حافظه ↗</a></span></p>
+<div class="box lem">
+  <div class="bh">چند درصد اشاره‌گرها استفاده می‌شوند؟</div>
+  <p>در ترایی با \(n\) گره روی الفبای \(\sigma\)حرفی، دقیقاً \(n - 1\) خانه از \(\sigma n\) خانهٔ اشاره‌گر غیر NIL است. پس سهم خانه‌های استفاده‌شده کمتر از \(1/\sigma\) است؛ برای انگلیسی کمتر از \(1/26 \approx 3.8\%\).</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">اثبات</div>
+  <p>
+    هر اشاره‌گر غیر NIL، یک یال درخت است. درخت با \(n\) گره دقیقاً \(n - 1\) یال دارد (فصل ۶): هر گره به جز ریشه دقیقاً یک یال ورودی از پدرش دارد. پس
+    \(\frac{n - 1}{\sigma n} &lt; \frac{1}{\sigma}\).
+  </p>
+</div>
+</div></details>
+</section>

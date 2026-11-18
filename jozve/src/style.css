@@ -943,3 +943,18 @@ details.sol[open] > summary { border-bottom: 1px solid var(--line); border-radiu
 }
 
 .sv .sv-ring-start { fill: none; stroke: var(--k-intuit); stroke-width: 2.5; stroke-dasharray: 4 3; }
+
+/* ---------- صفحهٔ اثبات‌ها ---------- */
+.box.claim { --k: var(--k-thm); --label: "حکم"; }
+.pf-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.35rem 0.5rem; margin: -0.2rem 0 0.4rem; font-size: 0.82rem; }
+.pf-tag { padding: 0.05rem 0.6rem; border-radius: 999px; background: color-mix(in srgb, var(--chc) 13%, transparent); color: var(--chc); font-weight: 800; }
+.pf-where { margin-inline-start: auto; }
+.pf-where a { color: var(--ink-2); text-decoration: none; border-bottom: 1px dashed currentColor; }
+.pf-where a:hover { color: var(--chc); }
+.ch-head .ch-lead a { color: inherit; font-weight: 700; }
+.proofs details.pf { margin-top: 0.6rem; }
+.proofs details.pf > .sol-body { padding: 0.2rem 0.5rem 0.5rem; }
+.proofs details.pf > .sol-body > .box:first-child { margin-top: 1.4rem; }
+.pf-tech h3 .dcount { font-weight: 500; }
+@media (max-width: 640px) { .pf-where { margin-inline-start: 0; } }
+@media print { .proofs .to-top { display: none; } }

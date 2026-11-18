@@ -1,0 +1,150 @@
+<section class="chapter" data-ch="4" data-color="c4" data-title="تحلیل سرشکنی" id="ch4">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۴ · ۹ اثبات</div>
+  <h1>تحلیل سرشکنی</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch4">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۴</div>
+</header>
+
+<h2>پشتهٔ multipop: روش انبوهه</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-5">در جزوه: بخش ۴.۵، روش انبوهه ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>هر دنباله از \(n\) عمل PUSH، POP و MULTIPOP روی پشتهٔ ابتدا خالی، روی هم \(O(n)\) هزینه دارد؛ یعنی هزینهٔ سرشکن هر عمل \(O(1)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>اگر \(n\) عمل (PUSH، POP یا MULTIPOP) روی پشتهٔ ابتدا خالی داشته باشیم:</p>
+  <ul>
+    <li>حداکثر تعداد عناصر پشته \(n\) است (حداکثر \(n\) PUSH).</li>
+    <li>هر عنصر داخل پشته دقیقاً <strong>یک بار</strong> PUSH و حداکثر <strong>یک بار</strong> POP می‌شود.</li>
+    <li>یک عنصر یا مستقیماً POP می‌شود یا در یک MULTIPOP.</li>
+    <li>هر عمل PUSH و POP هزینهٔ \(O(1)\) دارد.</li>
+  </ul>
+  <p>
+    پس تعداد کل POPها (شامل POPهای داخل MULTIPOP) حداکثر برابر تعداد PUSHهاست که حداکثر \(n\) است. <strong>جمع هزینه‌ها حداکثر \(2n\)</strong> است و
+    هزینهٔ سرشکن‌شدهٔ هر عمل \(\frac{2n}{n} = O(1)\).
+  </p>
+</div>
+</div></details>
+
+<h2>شمارندهٔ دودویی: روش انبوهه</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-5">در جزوه: بخش ۴.۵، روش انبوهه ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>\(n\) بار افزایش شمارندهٔ دودویی که از صفر شروع می‌کند، کمتر از \(2n\) بار بیت عوض می‌کند؛ یعنی هزینهٔ سرشکن هر افزایش \(O(1)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <ul>
+    <li>هر افزایش حداکثر <strong>یک</strong> بیت را ۱ می‌کند و تعدادی را از ۱ به ۰ تغییر می‌دهد.</li>
+    <li>بیت ۰ با <strong>هر</strong> افزایش عوض می‌شود (\(n\) بار).</li>
+    <li>بیت ۱ <strong>یکی در میان</strong> عوض می‌شود (\(\floor{n/2}\) بار).</li>
+    <li>بیت ۲ هر <strong>۴</strong> بار یک دفعه عوض می‌شود (\(\floor{n/4}\) بار).</li>
+    <li>...</li>
+    <li>بیت \(i\) پس از هر \(2^i\) افزایش عوض می‌شود (در مجموع \(\floor{n/2^i}\) بار).</li>
+  </ul>
+  <p>پس در مجموع:</p>
+  \[\sum_{i=0}^{k-1}\floor{\frac{n}{2^i}} \;&lt;\; n\sum_{i=0}^{\infty}\frac1{2^i} = 2n.\]
+  <p>یعنی هزینهٔ سرشکن‌شدهٔ هر عمل \(O(1)\) است (حداکثر ۲).</p>
+</div>
+</div></details>
+
+<h2>پشتهٔ multipop: روش حساب‌داری</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-6">در جزوه: بخش ۴.۶، روش حساب‌داری ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>هر دنباله از \(n\) عمل PUSH، POP و MULTIPOP روی پشتهٔ ابتدا خالی، روی هم \(O(n)\) هزینه دارد؛ یعنی هزینهٔ سرشکن هر عمل \(O(1)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <ul>
+    <li>برای هر PUSH، <strong>۲ ریال</strong> خرج می‌کنیم.</li>
+    <li><strong>۱ ریال</strong> صرف خود عمل PUSH می‌شود.</li>
+    <li><strong>۱ ریال</strong> را روی عنصرِ داخل پشته می‌گذاریم.</li>
+    <li>POPها همه <strong>مجانی</strong> خواهند بود: هزینهٔ برداشتن هر عنصر از ریالی پرداخت می‌شود که رویش گذاشته‌ایم. MULTIPOP هم چند POP است و مجانی است.</li>
+  </ul>
+  <p>
+    اعتبار کل همیشه برابر تعداد عناصر پشته است، پس هرگز منفی نمی‌شود. کلاً حداکثر \(2n\) ریال هزینه شده است، پس هزینهٔ سرشکن‌شده \(O(1)\) است.
+  </p>
+</div>
+</div></details>
+
+<h2>شمارندهٔ دودویی: روش حساب‌داری</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-6">در جزوه: بخش ۴.۶، روش حساب‌داری ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>\(n\) بار افزایش شمارندهٔ دودویی که از صفر شروع می‌کند، کمتر از \(2n\) بار بیت عوض می‌کند؛ یعنی هزینهٔ سرشکن هر افزایش \(O(1)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <ul>
+    <li>برای هر بار تبدیل یک بیت از ۰ به ۱، <strong>۲ ریال</strong> هزینه می‌کنیم.</li>
+    <li><strong>۱ ریال</strong> صرف خود تبدیل ۰ به ۱ می‌شود.</li>
+    <li><strong>۱ ریال</strong> را روی همان بیت ۱ قرار می‌دهیم.</li>
+    <li>هزینهٔ تبدیل ۱ به ۰ <strong>مجانی</strong> خواهد بود: ریالِ روی آن بیت را خرج می‌کنیم.</li>
+  </ul>
+  <p>
+    <strong>ناوردا:</strong> روی هر بیت ۱ دقیقاً یک ریال هست، پس اعتبار کل = تعداد یک‌ها \(\ge 0\). هر افزایش حداکثر <strong>یک</strong> بیت را از ۰ به ۱ می‌کند (حلقهٔ <code>while</code> فقط
+    یک‌ها را صفر می‌کند که مجانی است)، پس هزینهٔ سرشکن هر افزایش حداکثر ۲ ریال است. \(n\) افزایش حداکثر \(2n\) هزینه دارد.
+  </p>
+</div>
+</div></details>
+
+<h2>پشتهٔ multipop: روش پتانسیل</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-7">در جزوه: بخش ۴.۷، روش تابع پتانسیل ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>هر دنباله از \(n\) عمل PUSH، POP و MULTIPOP روی پشتهٔ ابتدا خالی، روی هم \(O(n)\) هزینه دارد؛ یعنی هزینهٔ سرشکن هر عمل \(O(1)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>تعریف:</strong> \(\Phi(D_i)\) = تعداد عناصر موجود در پشته. در ابتدا \(\Phi(D_0) = 0\) و همیشه \(\Phi \ge 0\).</p>
+  <p><strong>عمل PUSH:</strong> یک عنصر اضافه می‌شود: \(\Phi(D_i) - \Phi(D_{i-1}) = 1\). هزینهٔ واقعی \(c_i = 1\). پس \(\hat c_i = 1 + 1 = 2\).</p>
+  <p><strong>عمل POP:</strong> یک عنصر کم می‌شود: \(\Phi(D_i) - \Phi(D_{i-1}) = -1\). هزینهٔ واقعی \(c_i = 1\). پس \(\hat c_i = 1 - 1 = 0\).</p>
+  <p><strong>عمل MULTIPOP:</strong> اگر \(k' = \min(k, s)\) عنصر برداشته شود، \(c_i = k'\) و \(\Delta\Phi = -k'\)، پس \(\hat c_i = 0\). (MULTIPOP هم تعدادی POP است، پس هزینهٔ سرشکنش صفر است.)</p>
+  \[\sum_{i=1}^{n}c_i \;\le\; \sum_{i=1}^{n}\hat c_i \;\le\; 2n.\]
+  <p>پس هزینهٔ سرشکن‌شدهٔ هر عمل \(O(1)\) است.</p>
+</div>
+</div></details>
+
+<h2>شمارندهٔ دودویی: روش پتانسیل</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-7">در جزوه: بخش ۴.۷، روش تابع پتانسیل ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>\(n\) بار افزایش شمارندهٔ دودویی که از صفر شروع می‌کند، کمتر از \(2n\) بار بیت عوض می‌کند؛ یعنی هزینهٔ سرشکن هر افزایش \(O(1)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>تعریف تابع پتانسیل:</strong> \(\Phi(D_i) = b_i\) = تعداد یک‌های \(A\) پس از عمل \(i\). داریم \(\Phi(D_0) = 0\) و \(\Phi(D_i) \ge 0\).</p>
+  <p><strong>عمل «افزایش»:</strong> فرض کنید افزایش \(i\)ام، \(t_i\) بیت را از ۱ به صفر و حداکثر یک بیت صفر را به ۱ تبدیل کند. پس</p>
+  \[\left.\begin{aligned}
+  \hat c_i &= c_i + \Phi(D_i) - \Phi(D_{i-1})\\
+  \Phi(D_i) - \Phi(D_{i-1}) &\le -t_i + 1\\
+  c_i &\le t_i + 1
+  \end{aligned}\;\right\}\;\Longrightarrow\; \hat c_i \le (t_i + 1) + (1 - t_i) = 2.\]
+  <p>پس هزینهٔ سرشکن‌شدهٔ هر عمل افزایش \(O(1)\) است و \(n\) افزایش حداکثر \(2n\) هزینه دارد.</p>
+</div>
+</div></details>
+
+<h2>آرایهٔ پویا: روش انبوهه</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-8">در جزوه: بخش ۴.۸، مثال تکمیلی: آرایهٔ پویا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>در آرایهٔ پویا با دو برابر کردن ظرفیت (شروع از ظرفیت ۱)، \(n\) درج کمتر از \(3n\) هزینه دارد؛ یعنی هزینهٔ سرشکن هر درج حداکثر ۳ است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">انبوهه</div>
+  <p>درج \(i\)ام هزینهٔ \(i\) دارد اگر \(i - 1\) توانی از ۲ باشد (آرایه پر است)، و ۱ در غیر این صورت. پس</p>
+  \[\sum_{i=1}^{n}c_i \le n + \sum_{j=0}^{\floor{\log n}}2^j &lt; n + 2n = 3n.\]
+  <p>هزینهٔ سرشکن هر درج حداکثر ۳ است.</p>
+</div>
+</div></details>
+
+<h2>آرایهٔ پویا: روش حساب‌داری</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-8">در جزوه: بخش ۴.۸، مثال تکمیلی: آرایهٔ پویا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>در آرایهٔ پویا با دو برابر کردن ظرفیت (شروع از ظرفیت ۱)، \(n\) درج کمتر از \(3n\) هزینه دارد؛ یعنی هزینهٔ سرشکن هر درج حداکثر ۳ است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">حساب‌داری</div>
+  <p>
+    برای هر درج <strong>۳ ریال</strong> بپرداز: ۱ ریال برای درج خودش، ۱ ریال روی خودش برای وقتی که در گسترش بعدی کپی می‌شود، و ۱ ریال روی یکی از عناصر <em>قدیمی</em> (نیمهٔ اول آرایه) که ریالش را در گسترش قبلی خرج کرده است.
+    وقتی آرایه با ظرفیت \(s\) پر می‌شود، \(s/2\) عنصر جدید هر کدام ۲ ریال ذخیره کرده‌اند، یعنی \(s\) ریال: دقیقاً به اندازهٔ کپی همهٔ \(s\) عنصر.
+  </p>
+</div>
+</div></details>
+
+<h2>آرایهٔ پویا: روش پتانسیل</h2>
+<p class="pf-meta"><span class="pf-tag">سرشکنی</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s4-8">در جزوه: بخش ۴.۸، مثال تکمیلی: آرایهٔ پویا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>در آرایهٔ پویا با دو برابر کردن ظرفیت (شروع از ظرفیت ۱)، \(n\) درج کمتر از \(3n\) هزینه دارد؛ یعنی هزینهٔ سرشکن هر درج حداکثر ۳ است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">پتانسیل</div>
+  <p>\(\Phi = 2\cdot\text{num} - \text{size}\) (پس از اولین درج، آرایه همیشه دست‌کم نیمه‌پر است، پس \(\Phi \ge 0\)).</p>
+  <ul>
+    <li><strong>درج بدون گسترش:</strong> \(c = 1\)، \(\text{num}\) یکی زیاد می‌شود: \(\Delta\Phi = 2\). پس \(\hat c = 3\).</li>
+    <li><strong>درج با گسترش</strong> (\(\text{num} = \text{size} = s\)): \(c = s + 1\). پیش از عمل \(\Phi = 2s - s = s\)، پس از آن \(\Phi = 2(s+1) - 2s = 2\). پس \(\hat c = (s + 1) + (2 - s) = 3\).</li>
+  </ul>
+</div>
+</div></details>
+</section>

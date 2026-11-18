@@ -1,0 +1,138 @@
+<section class="chapter" data-ch="3" data-color="c3" data-title="الگوریتم‌های تصادفی" id="ch3">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۳ · ۷ اثبات</div>
+  <h1>الگوریتم‌های تصادفی</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch3">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۳</div>
+</header>
+
+<h2>خطی بودن امید ریاضی</h2>
+<p class="pf-meta"><span class="pf-tag">احتمال و نشانگر</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-4">در جزوه: بخش ۳.۴، امید ریاضی و خطی بودن آن ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">خطی بودن امید ریاضی</div>
+  <p>اگر \(X_1, \dots, X_n\) متغیرهای تصادفی روی \(\Omega\) و \(a, b\) دو عدد حقیقی باشند:</p>
+  \[\text{(i)}\;\; E\Big[\sum_{i=1}^n X_i\Big] = \sum_{i=1}^n E[X_i],\qquad\qquad \text{(ii)}\;\; E[aX + b] = a\,E[X] + b.\]
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>(i) برای دو متغیر (و با استقرا برای \(n\) متغیر):</p>
+  \[E[X_1 + X_2] = \sum_{\omega} P[\omega]\big(X_1(\omega) + X_2(\omega)\big) = \sum_\omega P[\omega]X_1(\omega) + \sum_\omega P[\omega]X_2(\omega) = E[X_1] + E[X_2].\]
+  <p>(ii) \(\;E[aX + b] = \sum_\omega P[\omega]\big(aX(\omega) + b\big) = a\sum_\omega P[\omega]X(\omega) + b\underbrace{\sum_\omega P[\omega]}_{=1} = aE[X] + b.\)</p>
+</div>
+</div></details>
+
+<h2>جایگشت تصادفی درجا یکنواخت است</h2>
+<p class="pf-meta"><span class="pf-tag">احتمال و نشانگر</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-5">در جزوه: بخش ۳.۵، متغیر نشانگر و جایگشت تصادفی ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>الگوریتم «برای \(i = 1..n\)، \(A[i]\) را با \(A[\text{Random}(i, n)]\) جابه‌جا کن» هر کدام از \(n!\) جایگشت را با احتمال \(\frac1{n!}\) تولید می‌کند.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">چرا یکنواخت است؟</div>
+  <p>
+    جایگشت مشخص \(\pi\) را در نظر بگیرید. برای اینکه خروجی \(\pi\) شود، در دور ۱ باید عنصر درست از بین \(n\) عنصر انتخاب شود (احتمال \(\frac1n\))، در دور ۲ از بین \(n-1\) عنصر باقی‌مانده (احتمال \(\frac1{n-1}\))، و ... .
+    این انتخاب‌ها مستقل‌اند، پس
+  </p>
+  \[P[\pi = \text{خروجی}] = \frac1n\cdot\frac1{n-1}\cdots\frac11 = \frac1{n!}.\]
+</div>
+</div></details>
+
+<h2>مسئلهٔ استخدام: امید هزینه \(f\,H_n\)</h2>
+<p class="pf-meta"><span class="pf-tag">احتمال و نشانگر</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-9">در جزوه: بخش ۳.۹، مسئلهٔ استخدام ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>اگر متقاضی‌ها به ترتیب تصادفی یکنواخت مصاحبه شوند و هر کس از همهٔ قبلی‌ها بهتر بود با هزینهٔ \(f\) استخدام شود، امید هزینهٔ کل \(f\sum_{i=1}^{n}\frac1i = f\,H_n \approx f\ln n\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">تحلیل با متغیر نشانگر</div>
+  <p>\(X_i\) را متغیر نشانگری بگیرید که ۱ است اگر و فقط اگر متقاضی \(i\)ام از همهٔ متقاضی‌های \(1, 2, \dots, i-1\) بهتر باشد (یعنی استخدام شود).</p>
+  <p>
+    <strong>احتمال:</strong> در جایگشت تصادفی، \(i\) متقاضی اول یک زیرمجموعهٔ تصادفی‌اند که ترتیبشان هم تصادفی است. بهترینِ این \(i\) نفر با احتمال برابر در هر یک از \(i\) جایگاه قرار دارد،
+    پس احتمال اینکه دقیقاً در جایگاه \(i\)ام (آخرین) باشد \(\frac1i\) است: \(P[X_i = 1] = \frac1i\).
+  </p>
+  \[E[\text{هزینه}] = E\Big[\sum_i f\cdot X_i\Big] = f\sum_{i=1}^n E[X_i] = f\sum_{i=1}^n P[X_i = 1] = f\sum_{i=1}^n\frac1i \approx f\ln n.\]
+</div>
+</div></details>
+
+<h2>انتخاب تصادفی در امید زمان خطی</h2>
+<p class="pf-meta"><span class="pf-tag">احتمال و نشانگر</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-10">در جزوه: بخش ۳.۱۰، انتخاب تصادفی ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>امید زمان اجرای الگوریتم انتخاب تصادفی روی \(n\) عنصر \(O(n)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">روش ساده‌تر</div>
+  <p>
+    با احتمال \(\frac12\) جداکننده «خوب» است (رتبه‌اش بین \(n/4\) و \(3n/4\))، و در این صورت روی حداکثر \(\frac{3n}{4}\) عنصر بازگشت می‌کنیم. با احتمال \(\frac12\) «بد» است و در بدترین حالت روی \(n - 1\) عنصر بازگشت می‌کنیم.
+    چون \(T\) صعودی است:
+  </p>
+  \[T_{\exp}(n) \le cn + \tfrac12\,T_{\exp}(3n/4) + \tfrac12\,T_{\exp}(n-1) \;\le\; cn + \tfrac12\,T_{\exp}(3n/4) + \tfrac12\,T_{\exp}(n).\]
+  <p>\(\frac12 T_{\exp}(n)\) را به سمت چپ ببرید و در ۲ ضرب کنید:</p>
+  \[T_{\exp}(n) \le 2cn + T_{\exp}(3n/4) \le 2cn\left(1 + \tfrac34 + \left(\tfrac34\right)^2 + \dots\right) = 2cn\cdot 4 = 8cn = O(n).\]
+  <p>(برای دقت کامل، همین را با استقرا روی فرض \(T_{\exp}(n) \le 8cn\) ثابت کنید: \(cn + \frac12\cdot 8c\frac{3n}4 + \frac12\cdot 8cn = cn + 3cn + 4cn = 8cn\).)</p>
+</div>
+</div></details>
+
+<h2>میانهٔ میانه‌ها: هر طرف حداکثر \(\frac{7n}{10} + 5\) عنصر</h2>
+<p class="pf-meta"><span class="pf-tag">شمارش</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-11">در جزوه: بخش ۳.۱۱، انتخاب قطعی: میانهٔ میانه‌ها ↗</a></span></p>
+<div class="box lem">
+  <div class="bh">اندازهٔ دو طرف</div>
+  <p>اگر \(S^-\) و \(S^+\) مانند الگوریتم \(\text{SELECT}\) بالا باشند، آنگاه \(\;|S^-| \le \dfrac{7n}{10} + 5\;\) و \(\;|S^+| \le \dfrac{7n}{10} + 5\). (اثبات طرف دیگر دقیقاً مشابه است.)</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof"><div class="bh">اثبات با تصویر</div>
+<figure>
+  <div class="fig-body"><!--FIG:momGroups--></div>
+  <figcaption>۲۵ عدد در ۵ گروه پنج‌تایی (\(m = \ceil{n/5} = 5\) گروه).</figcaption>
+</figure>
+<p>
+  حالا <em>در ذهنمان</em> (الگوریتم واقعاً این کار را نمی‌کند) هر گروه را مرتب می‌کنیم تا میانه‌اش در ردیف وسط قرار گیرد، و سپس گروه‌ها را بر اساس میانه‌شان از چپ به راست مرتب می‌کنیم.
+  میانه‌ها \(12, 10, 14, 13, 15\) هستند و میانهٔ آن‌ها \(x = 13\) است: محور ما.
+</p>
+<figure>
+  <div class="fig-body"><!--FIG:momSorted--></div>
+  <figcaption>نارنجی: محور (۱۳). سبز: عناصری که <em>قطعاً</em> از محور کوچک‌ترند (بالا و چپِ محور). بنفش: عناصری که <em>قطعاً</em> بزرگ‌ترند (پایین و راستِ محور).</figcaption>
+</figure>
+<div class="box why">
+  <div class="bh">چرا ناحیهٔ سبز حتماً از محور کوچک‌تر است؟</div>
+  <p>
+    ستون‌های سمت چپِ ستونِ محور، میانه‌هایی کوچک‌تر از \(x\) دارند. در هر یک از این ستون‌ها، سه عنصرِ بالایی (میانه و دو عنصر بالای آن) از میانهٔ آن ستون کوچک‌تر یا مساوی‌اند، پس از \(x\) کوچک‌ترند.
+    در ستون خود محور هم دو عنصر بالای \(x\) از آن کوچک‌ترند. این‌ها ناحیهٔ «بالا-چپ» را می‌سازند. ناحیهٔ «پایین-راست» به همین ترتیب بزرگ‌تر است.
+  </p>
+</div>
+<p>
+  <strong>چند عنصر قطعاً از محور کوچک‌ترند؟</strong> حدود نیمی از \(m\) ستون (\(\ceil{m/2}\) ستون، شامل ستون محور) سمت چپ قرار دارند و هر کدام ۳ عنصر در ناحیهٔ سبز دارند؛
+  البته یکی از این ستون‌ها خود ستون محور است (که محور را نباید شمرد) و ممکن است یکی هم گروه «باقی‌مانده» با کمتر از ۵ عنصر باشد. پس دست‌کم
+</p>
+\[3\left(\ceil{\frac m2} - 2\right)\]
+<p>عنصر از محور کوچک‌ترند. در نتیجه حداکثر این تعداد عنصر از محور بزرگ‌ترند (با \(m = \ceil{n/5} \ge n/5\)):</p>
+\[|S^+| \le n - 1 - 3\left(\ceil{\frac m2} - 2\right) \le n + 5 - \frac{3m}{2} \le n + 5 - \frac{3n}{10} = \frac{7n}{10} + 5.\]
+</div>
+</div></details>
+
+<h2>کوئیک‌سورت: احتمال مقایسهٔ دو عنصر</h2>
+<p class="pf-meta"><span class="pf-tag">احتمال و نشانگر</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-12">در جزوه: بخش ۳.۱۲، کوئیک‌سورت تصادفی ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">احتمال مقایسه</div>
+  \[P\big[\text{مقایسه می‌شوند}\; x_j \;\text{و}\; x_i\big] = \frac{2}{j - i + 1}\qquad (i &lt; j).\]
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <ul>
+    <li>مجموعهٔ \(S_{ij} = \{x_i, x_{i+1}, \dots, x_j\}\) را در نظر بگیرید (\(j - i + 1\) عنصر).</li>
+    <li>تا وقتی جداکنندهٔ انتخاب‌شده عضو \(S_{ij}\) نباشد، همهٔ اعضای \(S_{ij}\) کنار هم و در یک زیرمسئله می‌مانند (یا همه از جداکننده کوچک‌ترند یا همه بزرگ‌تر) و هیچ مقایسه‌ای بین \(x_i\) و \(x_j\) انجام نمی‌شود.</li>
+    <li>این ادامه دارد تا وقتی که بالاخره یکی از عناصر \(S_{ij}\) به‌عنوان جداکننده انتخاب شود.</li>
+    <li>اگر آن عنصر \(x_i\) یا \(x_j\) باشد، این دو با هم مقایسه می‌شوند. وگرنه (یک \(x_k\) با \(i &lt; k &lt; j\))، \(x_i\) به \(S^-\) و \(x_j\) به \(S^+\) می‌رود و <strong>هرگز</strong> مقایسه نمی‌شوند.</li>
+    <li>چون جداکننده یکنواخت انتخاب می‌شود، هر عضو \(S_{ij}\) احتمال برابر دارد که اولین جداکننده از \(S_{ij}\) باشد. ۲ حالت از \(j - i + 1\) حالت مطلوب است، پس احتمال \(\frac2{j-i+1}\) است.</li>
+  </ul>
+</div>
+</div></details>
+
+<h2>کوئیک‌سورت تصادفی: امید \(O(n\log n)\) مقایسه</h2>
+<p class="pf-meta"><span class="pf-tag">احتمال و نشانگر</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s3-12">در جزوه: بخش ۳.۱۲، کوئیک‌سورت تصادفی ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">امید تعداد مقایسه‌های کوئیک‌سورت تصادفی</div>
+  <p>امید تعداد مقایسه‌ها \(O(n\log n)\) است.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>\(X_{ij} = 1\) اگر \(x_i\) و \(x_j\) مقایسه شوند و ۰ در غیر این صورت. هر جفت حداکثر یک بار مقایسه می‌شود (پس از مقایسه، جداکننده کنار می‌رود)، پس \(X = \sum_{i&lt;j} X_{ij}\) تعداد کل مقایسه‌هاست و</p>
+  \[E[X] = \sum_{1 \le i &lt; j \le n} E[X_{ij}] = \sum_{1 \le i &lt; j \le n}\frac{2}{j - i + 1} = 2\sum_{i=1}^{n}\sum_{d=2}^{n-i+1}\frac1d \;\le\; 2n\sum_{d=2}^{n}\frac1d \;\le\; 2n\int_1^n\frac{dx}{x} = 2n\ln n.\]
+  <p>(در جمع وسط، \(d = j - i + 1\) را جایگزین کردیم؛ برای هر \(i\)، \(d\) از ۲ تا \(n - i + 1\) تغییر می‌کند و ما آن را با \(n\) کران زدیم.) پس \(E[X] \le 2n\ln n \approx 1.39\,n\log_2 n = O(n\log n)\).</p>
+</div>
+</div></details>
+</section>

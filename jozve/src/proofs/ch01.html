@@ -1,0 +1,94 @@
+<section class="chapter" data-ch="1" data-color="c1" data-title="طراحی و تحلیل الگوریتم‌ها" id="ch1">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۱ · ۶ اثبات</div>
+  <h1>طراحی و تحلیل الگوریتم‌ها</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch1">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۱</div>
+</header>
+
+<h2>درستی مرتب‌سازی درجی</h2>
+<p class="pf-meta"><span class="pf-tag">ناوردا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s1-6">در جزوه: بخش ۱.۶، مسئلهٔ مرتب‌سازی و مرتب‌سازی درجی ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">ناوردای مرتب‌سازی درجی</div>
+  <p>در شروع هر دور حلقهٔ <code>for</code> با شمارندهٔ \(j\)، زیرآرایهٔ \(A[1..j-1]\) شامل همان عناصری است که در ابتدا در \(A[1..j-1]\) بودند، ولی به ترتیب صعودی.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>آغاز:</strong> وقتی \(j=2\) است، \(A[1..1]\) فقط یک عنصر دارد و آرایهٔ یک‌عنصری خودبه‌خود مرتب است.</p>
+  <p><strong>نگهداری:</strong> فرض کنید ناوردا در شروع دور \(j\) برقرار باشد. حلقهٔ <code>while</code> عناصر \(A[j-1], A[j-2], \dots\) را که از \(key\) بزرگ‌ترند یک خانه به راست می‌برد
+  و \(key\) را درست بعد از اولین عنصرِ نابزرگ‌تر قرار می‌دهد. پس \(A[1..j]\) همان عناصر قبلی به‌اضافهٔ \(key\) است و مرتب است؛ یعنی ناوردا در شروع دور \(j+1\) برقرار است.</p>
+  <p><strong>پایان:</strong> حلقه وقتی تمام می‌شود که \(j = n+1\). با جای‌گذاری در ناوردا، \(A[1..n]\) مرتب است؛ یعنی کل آرایه مرتب شده است.</p>
+</div>
+</div></details>
+
+<h2>تعدی و جمع‌پذیری نمادهای مجانبی</h2>
+<p class="pf-meta"><span class="pf-tag">از تعریف</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s1-11">در جزوه: بخش ۱.۱۱، نکته‌های نمادگذاری و ویژگی‌ها ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">تعدی و جمع‌پذیری</div>
+  <p><strong>تعدی:</strong> اگر \(f = O(g)\) و \(g = O(h)\) آنگاه \(f = O(h)\). همین برای \(\Omega\) و \(\Theta\) هم برقرار است.</p>
+  <p><strong>جمع‌پذیری:</strong> اگر \(f = O(h)\) و \(g = O(h)\) آنگاه \(f + g = O(h)\). اگر \(f = \Omega(h)\) و \(g = \Omega(h)\) آنگاه \(f+g = \Omega(h)\).
+  و اگر \(f = \Theta(h)\) و \(g = O(h)\) آنگاه \(f + g = \Theta(h)\).</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>تعدی:</strong> ثابت‌های \(c_1, n_1\) و \(c_2, n_2\) وجود دارند که برای \(n \ge n_1\)، \(f(n) \le c_1 g(n)\) و برای \(n \ge n_2\)، \(g(n) \le c_2 h(n)\).
+  پس برای \(n \ge \max(n_1, n_2)\) داریم \(f(n) \le c_1 c_2\, h(n)\). ثابت \(c = c_1c_2\) و آستانهٔ \(n_0 = \max(n_1,n_2)\) کار می‌کنند.</p>
+  <p><strong>جمع‌پذیری:</strong> برای \(n \ge \max(n_1,n_2)\)، \(f(n) + g(n) \le c_1 h(n) + c_2 h(n) = (c_1 + c_2)\,h(n)\).</p>
+  <p><strong>حالت سوم:</strong> کران بالا از قسمت قبل می‌آید. برای کران پایین، چون \(g \ge 0\)، داریم \(f + g \ge f \ge c\,h\).</p>
+</div>
+</div></details>
+
+<h2>چندجمله‌ای‌ها: \(\Theta(n^d)\)</h2>
+<p class="pf-meta"><span class="pf-tag">از تعریف</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s1-12">در جزوه: بخش ۱.۱۲، کران‌های مجانبی توابع رایج ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">چندجمله‌ای‌ها</div>
+  <p>\(a_0 + a_1 n + \dots + a_d n^d\) با \(a_d &gt; 0\) از \(\Theta(n^d)\) است. یعنی فقط جملهٔ با بالاترین توان مهم است.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>کران بالا: برای \(n \ge 1\) هر \(|a_i| n^i \le |a_i| n^d\)، پس مجموع حداکثر \(\left(\sum_i |a_i|\right) n^d\) است.</p>
+  <p>کران پایین: مجموع دست‌کم \(a_d n^d - \sum_{i&lt;d}|a_i| n^{d-1}\) است. اگر \(S=\sum_{i&lt;d}|a_i|\) و \(n \ge 2S/a_d\)، آنگاه \(S\,n^{d-1} \le \frac{a_d}{2} n^d\)، پس مجموع دست‌کم \(\frac{a_d}{2}n^d\) است.</p>
+</div>
+</div></details>
+
+<h2>لگاریتم‌ها: پایه مهم نیست و \(\log n = O(n^x)\)</h2>
+<p class="pf-meta"><span class="pf-tag">از تعریف</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s1-12">در جزوه: بخش ۱.۱۲، کران‌های مجانبی توابع رایج ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">لگاریتم‌ها</div>
+  <p>(۱) برای هر دو ثابت \(a, b &gt; 1\): \(\;O(\log_a n) = O(\log_b n)\). پس <strong>می‌توان پایهٔ لگاریتم را ننوشت.</strong></p>
+  <p>(۲) برای هر \(x &gt; 0\): \(\;\log n = O(n^x)\). یعنی لگاریتم از <strong>هر</strong> چندجمله‌ای، حتی \(n^{0.001}\)، کندتر رشد می‌کند.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>(۱) با قاعدهٔ تغییر پایه، \(\log_a n = \dfrac{\log_b n}{\log_b a}\). مخرج یک ثابت مثبت است، پس دو لگاریتم فقط در یک ضریب ثابت تفاوت دارند.</p>
+  <p>(۲) با هوپیتال: \(\displaystyle \lim_{n\to\infty}\frac{\ln n}{n^x} = \lim_{n\to\infty}\frac{1/n}{x\,n^{x-1}} = \lim_{n\to\infty}\frac{1}{x\,n^{x}} = 0.\)</p>
+</div>
+</div></details>
+
+<h2>نمایی‌ها از هر چندجمله‌ای سریع‌ترند</h2>
+<p class="pf-meta"><span class="pf-tag">از تعریف</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s1-12">در جزوه: بخش ۱.۱۲، کران‌های مجانبی توابع رایج ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">نمایی‌ها</div>
+  <p>برای هر \(r &gt; 1\) و هر \(d &gt; 0\): \(\;n^d = O(r^n)\). یعنی <strong>هر تابع نمایی از هر چندجمله‌ای سریع‌تر رشد می‌کند.</strong></p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>
+    نسبت جمله‌های متوالیِ \(a_n = n^d / r^n\) برابر \(\frac{a_{n+1}}{a_n} = \left(1+\frac1n\right)^d \cdot \frac1r\) است که با بزرگ شدن \(n\) به \(\frac1r &lt; 1\) میل می‌کند.
+    پس از جایی به بعد دنباله مثل یک دنبالهٔ هندسی با قدرنسبت کمتر از یک کوچک می‌شود و به صفر میل می‌کند؛ در نتیجه کران‌دار است و \(n^d = O(r^n)\).
+  </p>
+</div>
+</div></details>
+
+<h2>زمان خطی ادغام</h2>
+<p class="pf-meta"><span class="pf-tag">شمارش</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s1-17">در جزوه: بخش ۱.۱۷، مروری بر زمان‌های اجرای رایج ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">زمان ادغام</div>
+  <p>ادغام دو لیست به اندازهٔ \(n\) زمان \(O(n)\) می‌برد.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>پس از هر مقایسه، دقیقاً یک عنصر به خروجی اضافه می‌شود. خروجی در نهایت \(2n\) عنصر دارد، پس حداکثر \(2n\) مقایسه انجام می‌شود و هر کدام \(O(1)\) کار دارد.</p>
+</div>
+</div></details>
+</section>

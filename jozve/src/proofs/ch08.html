@@ -1,0 +1,54 @@
+<section class="chapter" data-ch="8" data-color="c8" data-title="هرم و صف اولویت" id="ch8">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۸ · ۳ اثبات</div>
+  <h1>هرم و صف اولویت</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch8">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۸</div>
+</header>
+
+<h2>در هرم بیشینه ریشه بزرگ‌ترین است</h2>
+<p class="pf-meta"><span class="pf-tag">استدلال مستقیم</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s8-3">در جزوه: بخش ۸.۳، هرم ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">بزرگ‌ترین عنصر در ریشه است</div>
+  <p>در هرم بیشینه، ریشه بزرگ‌ترین عنصر است.</p>
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>هر گرهٔ \(v\) با یک مسیر از ریشه \(r = a_0, a_1, \dots, a_k = v\) قابل دسترسی است. ویژگی هرم می‌گوید \(a_0 \ge a_1 \ge \dots \ge a_k\)، پس با تعدی \(r \ge v\). چون این برای همهٔ گره‌ها درست است، ریشه بیشینه است. پس \(\text{max}(S)\) فقط خواندن ریشه است: \(O(1)\).</p>
+</div>
+</div></details>
+
+<h2>درستی بالا بردن (افزایش کلید در هرم)</h2>
+<p class="pf-meta"><span class="pf-tag">ناوردا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s8-5">در جزوه: بخش ۸.۵، افزایش مقدار یک گره ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>اگر در هرم بیشینه مقدار یک گره را زیاد کنیم و آن را تا وقتی از پدرش بزرگ‌تر است با پدرش جابه‌جا کنیم، در پایان ویژگی هرم برقرار است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">چرا این روش درست است؟ (پاسخ پرسش‌های اسلاید)</div>
+  <p>فرض کنید \(x\) (مقدار جدید) با پدرش \(p\) جابه‌جا شود، چون \(x &gt; p\).</p>
+  <ul>
+    <li><strong>آیا \(x\) از فرزند دیگرِ \(p\) (برادرش) هم بزرگ‌تر است؟</strong> بله: پیش از تغییر، \(p \ge\) برادر (ویژگی هرم)، و \(x &gt; p\). پس \(x &gt;\) برادر.</li>
+    <li><strong>آیا \(p\) که پایین آمده، از فرزندان جدیدش بزرگ‌تر است؟</strong> بله: فرزندان جدید \(p\) همان فرزندان قدیمی \(x\) هستند. پیش از افزایش، آن‌ها \(\le\) مقدار قدیمی \(x\) بودند و مقدار قدیمی \(x\) هم \(\le p\) بود.</li>
+    <li><strong>آیا پدر از نوه‌های خودش نیز بزرگ‌تر است؟</strong> با تعدی از دو مورد بالا، همه چیز زیر \(x\) درست است.</li>
+  </ul>
+  <p>پس پس از هر جابه‌جایی، تنها جای ممکن برای خرابی، رابطهٔ \(x\) با پدر <em>جدیدش</em> است؛ یعنی مشکل یک سطح بالا رفته. وقتی \(x\) از پدرش بزرگ‌تر نباشد (یا به ریشه برسد)، هرم درست است.</p>
+</div>
+</div></details>
+
+<h2>ساخت هرم خطی است: \(\sum h/2^h = 2\)</h2>
+<p class="pf-meta"><span class="pf-tag">درخت بازگشت و سری</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s8-8">در جزوه: بخش ۸.۸، ساخت هرم روی ورودی با اندازهٔ \(n\) ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>\(\frac12 + \frac24 + \frac38 + \dots = \sum_{h \ge 1}\frac{h}{2^h} = 2\)؛ در نتیجه ساخت هرم با روش فلوید \(O(n)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">چرا \(\frac12 + \frac24 + \frac38 + \dots = 2\)؟</div>
+  <p>جملهٔ \(\frac{h}{2^h}\) را به‌صورت \(h\) تا \(\frac{1}{2^h}\) بنویسید و جمع را «ستونی» مرتب کنید:</p>
+  \[\begin{aligned}
+  &\tfrac12 + \tfrac14 + \tfrac18 + \tfrac1{16} + \dots &&= 1\\
+  &\phantom{\tfrac12 +{}} \tfrac14 + \tfrac18 + \tfrac1{16} + \dots &&= \tfrac12\\
+  &\phantom{\tfrac12 + \tfrac14 +{}} \tfrac18 + \tfrac1{16} + \dots &&= \tfrac14\\
+  &\phantom{\tfrac12 + \tfrac14 + \tfrac18 +{}} \tfrac1{16} + \dots &&= \tfrac18
+  \end{aligned}\]
+  <p>ستون \(h\)ام دقیقاً \(h\) بار \(\frac{1}{2^h}\) دارد، پس جمع کل جدول همان سری ماست. جمع هر سطر یک سری هندسی است و جمع سطرها: \(1 + \frac12 + \frac14 + \dots = 2\). بنابراین</p>
+  \[\text{هزینهٔ کل} \le n\left(1 + \frac12 + \frac14 + \dots\right) = 2n \in O(n).\]
+</div>
+</div></details>
+</section>

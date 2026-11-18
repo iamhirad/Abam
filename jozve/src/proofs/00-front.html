@@ -1,0 +1,38 @@
+<header class="cover" id="top">
+  <div class="cover-kicker">جزوهٔ ساختمان داده‌ها و الگوریتم‌ها</div>
+  <h1><span class="c-a">اثبات‌های</span> <span class="c-b">جزوه</span></h1>
+  <p class="cover-lead">
+    همهٔ ۴۴ اثبات کامل جزوه، فصل به فصل. هر مورد سه بخش دارد: <strong>حکم</strong> (دقیقاً چه چیزی ثابت می‌شود)، <strong>اثبات کامل</strong> همان‌طور که در جزوه آمده،
+    و <strong>پیوند</strong> به جای آن در جزوه برای دیدن زمینه. برای مرور شب امتحان و تمرین اثبات‌نویسی.
+  </p>
+  <div class="cover-meta"><span>فصل ۱: ۶، فصل ۲: ۸، فصل ۳: ۷، فصل ۴: ۹، فصل ۵: ۳، فصل ۶: ۲، فصل ۸: ۳، فصل ۹: ۴، فصل ۱۰: ۲</span></div>
+  <div class="cover-links">
+    <button class="btn primary" type="button" data-toggle-all="close">حالت تمرین: پنهان کردن اثبات‌ها</button>
+    <button class="btn" type="button" data-toggle-all="open">نمایش همهٔ اثبات‌ها</button>
+    <a class="btn" href="#toc">فهرست ↓</a>
+    <a class="btn" href="#by-technique">بر اساس روش اثبات ↓</a>
+    <a class="btn" href="https://iamhirad.github.io/Abam/">جزوهٔ درس ↗</a>
+    <a class="btn" href="https://iamhirad.github.io/Abam/tamrin-1.html">حل تمرین ۱ ↗</a>
+    <a class="btn" href="https://iamhirad.github.io/Abam/tamrin-2.html">حل تمرین ۲ ↗</a>
+  </div>
+</header>
+
+<section class="intro">
+  <h2 class="plain-h">این صفحه را چطور بخوانیم؟</h2>
+  <ol class="steps-how">
+    <li style="--k: var(--k-thm)"><b>حکم را بخوانید.</b> دقیقاً چه چیزی باید ثابت شود؟ فرض‌ها کدام‌اند؟</li>
+    <li style="--k: var(--c8)"><b>خودتان امتحان کنید.</b> دکمهٔ «حالت تمرین» همهٔ اثبات‌ها را می‌بندد؛ برچسب روش اثبات (مثلاً «استقرا») راهنمای شماست.</li>
+    <li style="--k: var(--k-sum)"><b>اثبات را باز کنید و مقایسه کنید.</b> اگر جایی گیر کردید، پیوند «در جزوه» زمینهٔ کامل را نشان می‌دهد.</li>
+  </ol>
+  <p>اثبات‌ها کلمه به کلمه از جزوه آمده‌اند. جایی که جزوه حکم را در متن گفته بود و نه در کادر قضیه، حکم این‌جا صریح در کادر «حکم» نوشته شده است.</p>
+
+  <h2 class="plain-h" id="by-technique">اثبات‌ها بر اساس روش</h2>
+  <p>یک روش را انتخاب کنید و همهٔ اثبات‌هایی را که با آن نوشته شده‌اند پشت سر هم تمرین کنید. بعضی اثبات‌ها دو روش را با هم به کار می‌برند.</p>
+  <div class="pgroups"><div class="pgroup pf-tech" data-color="c1"><h3>از تعریف <span class="dcount">(۴ اثبات · باز کردن تعریف \(O\)، \(\Omega\) یا امید و پیدا کردن ثابت‌ها)</span></h3><div class="pchips"><a href="#s1-2"><b>۱.۲</b>تعدی و جمع‌پذیری نمادهای مجانبی</a><a href="#s1-3"><b>۱.۳</b>چندجمله‌ای‌ها: \(\Theta(n^d)\)</a><a href="#s1-4"><b>۱.۴</b>لگاریتم‌ها: پایه مهم نیست و \(\log n = O(n^x)\)</a><a href="#s1-5"><b>۱.۵</b>نمایی‌ها از هر چندجمله‌ای سریع‌ترند</a></div></div><div class="pgroup pf-tech" data-color="c2"><h3>استقرا <span class="dcount">(۸ اثبات · پایه + گام؛ فرض استقرا را با ثابت صریح بنویس)</span></h3><div class="pchips"><a href="#s2-4"><b>۲.۴</b>حل \(T(n) = 2T(n/2) + n\) با حدس و استقرا</a><a href="#s2-5"><b>۲.۵</b>استقرا با ثابت نامعلوم: \(T(n) = 2T(n/2) + 32n\)</a><a href="#s2-6"><b>۲.۶</b>دو زیرمسئلهٔ نابرابر: \(T(n/5) + T(7n/10) + n\)</a><a href="#s2-7"><b>۲.۷</b>رابطه‌های دو شاخه‌ای</a><a href="#s2-8"><b>۲.۸</b>تقویت فرض استقرا: \(T(n) \le 2T(n/2) + 1\)</a><a href="#s6-1"><b>۶.۱</b>درخت با \(n\) رأس، \(n - 1\) یال دارد</a><a href="#s6-2"><b>۶.۲</b>پیش‌ترتیب درخت و درخت دودویی معادلش یکی است</a><a href="#s9-4"><b>۹.۴</b>درستی مرتب‌سازی مبنایی</a></div></div><div class="pgroup pf-tech" data-color="c4"><h3>ناوردا <span class="dcount">(۲ اثبات · آغاز، نگهداری، پایان)</span></h3><div class="pchips"><a href="#s1-1"><b>۱.۱</b>درستی مرتب‌سازی درجی</a><a href="#s8-2"><b>۸.۲</b>درستی بالا بردن (افزایش کلید در هرم)</a></div></div><div class="pgroup pf-tech" data-color="c6"><h3>درخت بازگشت و سری <span class="dcount">(۴ اثبات · هزینهٔ هر سطح و جمع یک سری)</span></h3><div class="pchips"><a href="#s2-1"><b>۲.۱</b>مرتب‌سازی ادغامی با درخت بازگشت</a><a href="#s2-2"><b>۲.۲</b>قضیهٔ اصلی (حالت \(f(n) = O(n^d)\))</a><a href="#s2-7"><b>۲.۷</b>رابطه‌های دو شاخه‌ای</a><a href="#s8-3"><b>۸.۳</b>ساخت هرم خطی است: \(\sum h/2^h = 2\)</a></div></div><div class="pgroup pf-tech" data-color="c5"><h3>شمارش <span class="dcount">(۵ اثبات · شمردن یک کمیت (گاهی از دو دید))</span></h3><div class="pchips"><a href="#s1-6"><b>۱.۶</b>زمان خطی ادغام</a><a href="#s3-5"><b>۳.۵</b>میانهٔ میانه‌ها: هر طرف حداکثر \(\frac{7n}{10} + 5\) عنصر</a><a href="#s9-1"><b>۹.۱</b>درخت تصمیم مرتب‌سازی دست‌کم \(N!\) برگ دارد</a><a href="#s9-2"><b>۹.۲</b>کران پایین \(\Omega(N\log N)\) برای مرتب‌سازی مقایسه‌ای</a><a href="#s10-2"><b>۱۰.۲</b>ترای: کمتر از \(1/\sigma\) اشاره‌گرها استفاده می‌شوند</a></div></div><div class="pgroup pf-tech" data-color="c3"><h3>احتمال و نشانگر <span class="dcount">(۶ اثبات · متغیر نشانگر، خطی بودن امید، تقارن)</span></h3><div class="pchips"><a href="#s3-1"><b>۳.۱</b>خطی بودن امید ریاضی</a><a href="#s3-2"><b>۳.۲</b>جایگشت تصادفی درجا یکنواخت است</a><a href="#s3-3"><b>۳.۳</b>مسئلهٔ استخدام: امید هزینه \(f\,H_n\)</a><a href="#s3-4"><b>۳.۴</b>انتخاب تصادفی در امید زمان خطی</a><a href="#s3-6"><b>۳.۶</b>کوئیک‌سورت: احتمال مقایسهٔ دو عنصر</a><a href="#s3-7"><b>۳.۷</b>کوئیک‌سورت تصادفی: امید \(O(n\log n)\) مقایسه</a></div></div><div class="pgroup pf-tech" data-color="c8"><h3>سرشکنی <span class="dcount">(۱۰ اثبات · انبوهه، حساب‌داری یا پتانسیل)</span></h3><div class="pchips"><a href="#s4-1"><b>۴.۱</b>پشتهٔ multipop: روش انبوهه</a><a href="#s4-2"><b>۴.۲</b>شمارندهٔ دودویی: روش انبوهه</a><a href="#s4-3"><b>۴.۳</b>پشتهٔ multipop: روش حساب‌داری</a><a href="#s4-4"><b>۴.۴</b>شمارندهٔ دودویی: روش حساب‌داری</a><a href="#s4-5"><b>۴.۵</b>پشتهٔ multipop: روش پتانسیل</a><a href="#s4-6"><b>۴.۶</b>شمارندهٔ دودویی: روش پتانسیل</a><a href="#s4-7"><b>۴.۷</b>آرایهٔ پویا: روش انبوهه</a><a href="#s4-8"><b>۴.۸</b>آرایهٔ پویا: روش حساب‌داری</a><a href="#s4-9"><b>۴.۹</b>آرایهٔ پویا: روش پتانسیل</a><a href="#s5-2"><b>۵.۲</b>نزدیک‌ترین بزرگ‌تر بعدی در \(\Theta(n)\)</a></div></div><div class="pgroup pf-tech" data-color="c9"><h3>حالت‌بندی <span class="dcount">(۱ اثبات · همهٔ حالت‌های ممکن و کار مجاز در هر کدام)</span></h3><div class="pchips"><a href="#s5-3"><b>۵.۳</b>قطار و پشته: شبیه‌سازی حریصانه لازم و کافی است</a></div></div><div class="pgroup pf-tech" data-color="c10"><h3>استدلال مستقیم <span class="dcount">(۵ اثبات · زنجیره‌ای از نتیجه‌گیری‌های مستقیم)</span></h3><div class="pchips"><a href="#s2-3"><b>۲.۳</b>جمع دبستانی بهینه است</a><a href="#s5-1"><b>۵.۱</b>درستی الگوریتم فلوید (لاک‌پشت و خرگوش)</a><a href="#s8-1"><b>۸.۱</b>در هرم بیشینه ریشه بزرگ‌ترین است</a><a href="#s9-3"><b>۹.۳</b>پایداری مرتب‌سازی شمارشی</a><a href="#s10-1"><b>۱۰.۱</b>ترای: پیشوند مشترک یعنی جد مشترک</a></div></div></div>
+</section>
+
+<nav class="toc" id="toc" aria-label="فهرست اثبات‌ها">
+  <h2 class="toc-h">فهرست اثبات‌ها</h2>
+  <!--TOC-->
+</nav>
+<a class="to-top" href="#toc">↑ فهرست</a>

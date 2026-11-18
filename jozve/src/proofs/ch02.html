@@ -1,0 +1,126 @@
+<section class="chapter" data-ch="2" data-color="c2" data-title="تقسیم و حل" id="ch2">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۲ · ۸ اثبات</div>
+  <h1>تقسیم و حل</h1>
+  <p class="ch-lead"><a href="https://iamhirad.github.io/Abam/#ch2">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۲</div>
+</header>
+
+<h2>مرتب‌سازی ادغامی با درخت بازگشت</h2>
+<p class="pf-meta"><span class="pf-tag">درخت بازگشت و سری</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-3">در جزوه: بخش ۲.۳، رابطهٔ بازگشتی و درخت بازگشت ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>برای \(n\) توانی از ۲، رابطهٔ \(T(n) = 2T(n/2) + n\) با \(T(1) = 0\) جواب \(T(n) = n\log_2 n\) دارد؛ پس زمان مرتب‌سازی ادغامی \(O(n\log n)\) است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">اثبات با درخت بازگشت</div>
+  <p><strong>هزینهٔ هر سطح:</strong> سطح \(k\) (ریشه سطح ۰ است) \(2^k\) زیرمسئله به اندازهٔ \(n/2^k\) دارد و ادغام هر کدام \(n/2^k\) کار می‌برد: \(\;2^k \cdot \frac{n}{2^k} = n\).</p>
+  <p><strong>تعداد سطح‌ها:</strong> اندازه در هر سطح نصف می‌شود و از \(n\) به ۱ می‌رسد؛ پس \(\log_2 n\) سطح هزینه‌دار داریم (برگ‌ها، یعنی زیرمسئله‌های یک‌عنصری، هزینه‌ای ندارند).</p>
+  <p><strong>جمع:</strong> \(\;T(n) = \underbrace{n + n + \dots + n}_{\text{بار}\;\log_2 n} = n\log_2 n.\)</p>
+</div>
+</div></details>
+
+<h2>قضیهٔ اصلی (حالت \(f(n) = O(n^d)\))</h2>
+<p class="pf-meta"><span class="pf-tag">درخت بازگشت و سری</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-5">در جزوه: بخش ۲.۵، قضیهٔ اصلی ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">قضیهٔ اصلی برای \(f(n) = O(n^d)\)</div>
+  \[T(n) = a\,T\!\left(\frac nb\right) + O(n^d) \quad\Longrightarrow\quad T(n) = \begin{cases} O(n^d\log n) & \log_b a = d\\ O(n^d) & \log_b a &lt; d\\ O(n^{\log_b a}) & \log_b a &gt; d\end{cases}\]
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">چرا این سه حالت؟ (سری هندسی)</div>
+  <p>هزینهٔ سطح \(k\) حداکثر \(a^k \cdot c\left(\frac{n}{b^k}\right)^d = c\,n^d\left(\frac{a}{b^d}\right)^k\) است. پس کل هزینه یک سری هندسی با قدرنسبت \(r = a/b^d\) است:</p>
+  \[T(n) \le c\,n^d \sum_{k=0}^{\log_b n} r^k.\]
+  <ul>
+    <li><strong>\(r &lt; 1\)</strong> (یعنی \(a &lt; b^d\)، یعنی \(\log_b a &lt; d\)): سری نزولی است و جمعش حداکثر \(\frac{1}{1-r}\)، یک ثابت. پس \(T(n) = O(n^d)\): <em>ریشه غالب است.</em></li>
+    <li><strong>\(r = 1\)</strong> (یعنی \(\log_b a = d\)): همهٔ \(\log_b n + 1\) جمله برابر ۱ هستند. پس \(T(n) = O(n^d\log n)\).</li>
+    <li><strong>\(r &gt; 1\)</strong> (یعنی \(\log_b a &gt; d\)): سری صعودی است و جمعش هم‌مرتبهٔ آخرین جمله است: \(r^{\log_b n} = \frac{a^{\log_b n}}{(b^{\log_b n})^d} = \frac{n^{\log_b a}}{n^d}\). ضرب در \(n^d\): \(T(n) = O(n^{\log_b a})\): <em>برگ‌ها غالب‌اند.</em></li>
+  </ul>
+</div>
+</div></details>
+
+<h2>جمع دبستانی بهینه است</h2>
+<p class="pf-meta"><span class="pf-tag">استدلال مستقیم</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-8">در جزوه: بخش ۲.۸، جمع و ضرب اعداد صحیح ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>هر الگوریتمی که دو عدد صحیح \(n\)بیتی را جمع کند، در بدترین حالت \(\Omega(n)\) زمان لازم دارد؛ بنابراین روش جمع دبستانی (\(O(n)\)) بهینه است.</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof"><div class="bh"></div><p>هر الگوریتم جمع باید دست‌کم همهٔ \(2n\) بیت ورودی را بخواند (تغییر هر بیت، جواب را تغییر می‌دهد)، پس \(\Omega(n)\) زمان لازم است. روش دبستانی \(O(n)\) است، پس <strong>بهینه</strong> است.</p></div>
+</div></details>
+
+<h2>حل \(T(n) = 2T(n/2) + n\) با حدس و استقرا</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-10">در جزوه: بخش ۲.۱۰، روش حدس و استقرا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>اگر \(T(1) = 1\) و برای \(n\) توانی از ۲، \(T(n) = 2T(n/2) + n\)، آنگاه \(T(n) = n(\log n + 1)\).</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>فرض استقرا:</strong> \(T(n) = n(\log n + 1)\).</p>
+  <p><strong>پایه (\(n=1\)):</strong> \(T(1) = 1 = 1\cdot(\log 1 + 1)\). ✓</p>
+  <p><strong>گام:</strong> فرض کنید حکم برای همهٔ \(1 \le n &lt; k\) برقرار است. آنگاه</p>
+  \[T(k) = 2\,T(k/2) + k = 2\cdot\frac k2\left(\log\frac k2 + 1\right) + k = k\,(\log k - 1 + 1) + k = k(\log k + 1).\]
+  <p>(خط اول تعریف \(T\)، تساوی دوم فرض استقرا برای \(k/2 &lt; k\)، و بقیه ساده‌سازی است.) پس حکم برای \(n = k\) هم برقرار است.</p>
+  <p><strong>نتیجه:</strong> برای همهٔ \(n \ge 1\) (توان ۲)، \(T(n) = n(\log n + 1) = O(n\log n)\).</p>
+</div>
+</div></details>
+
+<h2>استقرا با ثابت نامعلوم: \(T(n) = 2T(n/2) + 32n\)</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-10">در جزوه: بخش ۲.۱۰، روش حدس و استقرا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>اگر \(T(2) = 2\) و برای \(n\) توانی از ۲، \(T(n) = 2T(n/2) + 32n\)، آنگاه برای همهٔ \(n \ge 2\): \(T(n) \le 32\,n\log n\)؛ یعنی \(T(n) = O(n\log n)\).</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p><strong>حدس:</strong> \(T(n) \le C\cdot n\log n\) برای ثابتی مثل \(C\) که هنوز نمی‌دانیم.</p>
+  <p><strong>پایه:</strong> \(T(2) = 2 \le C\cdot 2\log 2 = 2C\)، که برای \(C \ge 1\) برقرار است.</p>
+  <p><strong>گام:</strong> فرض کنید برای \(n &lt; k\) برقرار باشد. آنگاه</p>
+  \[\begin{aligned}
+  T(k) &= 2\,T(k/2) + 32k \;\le\; 2C\,\frac k2\log\frac k2 + 32k\\
+  &= Ck(\log k - 1) + 32k \;=\; Ck\log k + (32 - C)\,k\\
+  &\le Ck\log k \qquad C \ge 32\;\;\text{به شرط}
+  \end{aligned}\]
+  <p>پس با \(C = 32\) (که شرط پایه را هم دارد) حکم برقرار است.</p>
+</div>
+<div class="box proof">
+  <p><strong>فرض استقرا:</strong> \(T(n) \le 32\,n\log n\). <strong>پایه:</strong> \(T(2) = 2 \le 32\cdot2\log2\). ✓</p>
+  <p><strong>گام:</strong> برای \(n &lt; k\) فرض را داریم. \(T(k) = 2T(k/2) + 32k \le 2\cdot32\cdot\frac k2\log\frac k2 + 32k = 32k(\log k - 1) + 32k = 32\,k\log k\).</p>
+  <p><strong>نتیجه:</strong> برای همهٔ \(n \ge 2\)، \(T(n) \le 32\,n\log n\). طبق تعریف \(O\) با \(n_0 = 2\) و \(c = 32\)، \(T(n) = O(n\log n)\).</p>
+</div>
+</div></details>
+
+<h2>دو زیرمسئلهٔ نابرابر: \(T(n/5) + T(7n/10) + n\)</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-10">در جزوه: بخش ۲.۱۰، روش حدس و استقرا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>اگر برای \(1 \le n \le 10\)، \(T(n) = 1\) و برای \(n &gt; 10\)، \(T(n) \le T(n/5) + T(7n/10) + n\)، آنگاه برای همهٔ \(n \ge 1\): \(T(n) \le 10n\).</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">گام ۲: \(C\) را در طول اثبات پیدا می‌کنیم</div>
+  <p><strong>فرض استقرا:</strong> \(T(n) \le C\,n\). <strong>پایه:</strong> \(1 = T(n) \le Cn\) برای \(1 \le n \le 10\)؛ کافی است \(C \ge 1\).</p>
+  <p><strong>گام:</strong> برای \(k &gt; 10\) و فرض برقرار برای \(1 \le n &lt; k\):</p>
+  \[T(k) \le k + C\cdot\frac k5 + C\cdot\frac{7k}{10} = k + \frac{9C}{10}\,k \;\overset{?}{\le}\; C\,k.\]
+  <p>نامساوی آخر یعنی \(k \le \frac{C}{10}k\)، یعنی \(C \ge 10\). پس <strong>\(C = 10\)</strong> کار می‌کند: \(\;T(k) \le k + 2k + 7k = 10k\).</p>
+  <p><strong>نتیجه:</strong> برای همهٔ \(n \ge 1\)، \(T(n) \le 10n\)؛ یعنی \(T(n) = O(n)\) با \(n_0 = 1\) و \(c = 10\).</p>
+</div>
+</div></details>
+
+<h2>رابطه‌های دو شاخه‌ای</h2>
+<p class="pf-meta"><span class="pf-tag">درخت بازگشت و سری</span><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-10">در جزوه: بخش ۲.۱۰، روش حدس و استقرا ↗</a></span></p>
+<div class="box thm">
+  <div class="bh">رابطه‌های دو شاخه‌ای</div>
+  \[T(n) \le T(an) + T(bn) + O(n) \;\Longrightarrow\; T(n) = \begin{cases} O(n) & a + b &lt; 1\\ O(n\log n) & a + b = 1\end{cases}\]
+</div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <p>
+    <strong>شهود با درخت بازگشت:</strong> اگر ریشه \(cn\) کار کند، دو فرزندش \(c(an) + c(bn) = (a+b)\,cn\) کار می‌کنند، نوهٔ‌ها \((a+b)^2cn\) و ... .
+    اگر \(a + b &lt; 1\)، این یک سری هندسی نزولی است با جمع حداکثر \(\frac{cn}{1-(a+b)} = O(n)\). اگر \(a+b = 1\)، هر سطح حداکثر \(cn\) کار دارد و عمق درخت \(O(\log n)\) است.
+  </p>
+  <p><strong>اثبات استقرایی حالت اول:</strong> با فرض \(T(n) \le Cn\): \(T(k) \le Cak + Cbk + ck = Ck(a+b) + ck \le Ck\) اگر \(C \ge \frac{c}{1 - a - b}\).</p>
+  <p><strong>حالت دوم:</strong> مثل اثبات کادر قبل؛ با فرض \(T(n) \le Cn\log n\) به شرط \(C \ge c/H\) می‌رسیم که \(H = a\log\frac1a + b\log\frac1b &gt; 0\).</p>
+</div>
+</div></details>
+
+<h2>تقویت فرض استقرا: \(T(n) \le 2T(n/2) + 1\)</h2>
+<p class="pf-meta"><span class="pf-tag">استقرا</span><span class="pf-where"><a href="https://iamhirad.github.io/Abam/#s2-10">در جزوه: بخش ۲.۱۰، روش حدس و استقرا ↗</a></span></p>
+<div class="box claim"><div class="bh"></div><p>اگر \(T(1) = 1\) و برای \(n \ge 2\) (توان ۲)، \(T(n) \le 2T(n/2) + 1\)، آنگاه \(T(n) \le 2n - 1\)؛ یعنی \(T(n) = O(n)\).</p></div>
+<details class="sol pf" open><summary>اثبات <span class="sub">در حالت تمرین، اول خودتان امتحان کنید</span></summary><div class="sol-body">
+<div class="box proof">
+  <div class="bh">فرض قوی‌تر: یک جملهٔ مرتبه‌پایین کم کن</div>
+  <p><strong>فرض استقرا:</strong> \(T(n) \le Cn + B\) (که \(B\) می‌تواند منفی باشد). <strong>پایه:</strong> \(1 = T(1) \le C + B\).</p>
+  <p><strong>گام:</strong></p>
+  \[T(k) \le 2\left(C\frac k2 + B\right) + 1 = Ck + 2B + 1 \;\overset{?}{\le}\; Ck + B \iff B \le -1.\]
+  <p>با \(B = -1\)، پایه \(C \ge 2\) می‌خواهد. پس <strong>حدس جدید \(T(n) \le 2n - 1\)</strong> با استقرا ثابت می‌شود.</p>
+</div>
+</div></details>
+</section>
