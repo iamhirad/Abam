@@ -1,0 +1,138 @@
+<section class="chapter" data-ch="6" data-color="c6" data-title="درخت" id="ch6">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۶ — ۹ ایده</div>
+  <h1>درخت</h1>
+  <p class="ch-lead">درخت یعنی «ریشه + زیردرخت‌ها»؛ پس تقریباً هر مسئلهٔ درختی با بازگشت حل و با استقرا ثابت می‌شود.
+بقیهٔ ایده‌های این فصل دربارهٔ نمایش درخت (آرایه، دو اشاره‌گر)، پیمایش‌ها، و استفاده از درخت جست‌وجوی متوازن به‌عنوان ابزار هستند.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch6">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۶</div>
+</header>
+
+<article class="idea" data-kinds="proof count" data-key="tree-edges">
+<h2>درخت \(n\) رأسی، \(n - 1\) یال؛ و حذف برگ</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="count">شمارش و ساختن</span></div>
+<p class="idea-core">هر درخت برگ دارد و حذف یک برگ درختی کوچک‌تر به جا می‌گذارد. این دو واقعیت پایهٔ تقریباً هر استقرا روی درخت است، از جمله «\(n\) رأس ⇐ \(n - 1\) یال».</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید هر درخت …».</li><li>شمردن یال‌ها، برگ‌ها یا گره‌های داخلی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>استقرا: برگی را بردار، حکم را برای درخت کوچک‌تر به کار ببر و برگ را برگردان.</li><li>وجود برگ: سرِ طولانی‌ترین مسیر ساده برگ است (وگرنه مسیر بلندتر یا دور می‌ساختیم).</li><li>در درخت ریشه‌دار، یال‌ها را از دید فرزندها بشمار: هر غیرریشه دقیقاً یک یال به پدرش دارد.</li><li>در درخت دودوییِ سره (هر گره ۰ یا ۲ فرزند): تعداد برگ‌ها = تعداد گره‌های داخلی + ۱.</li></ol>
+<div class="box ex"><div class="bh"></div><p>درخت تصمیم مرتب‌سازی دست‌کم \(n!\) برگ دارد؛ چون هر گرهٔ داخلی‌اش دو فرزند دارد، دست‌کم \(n! - 1\) گرهٔ داخلی (مقایسهٔ متمایز) هم دارد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-2"><b>جزوه ۶.۲</b>درخت و جنگل</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-9"><b>جزوه ۶.۹</b>ویژگی‌های پایه</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s6-1"><b>اثبات ۶.۱</b>درخت با \(n\) رأس، \(n - 1\) یال دارد</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-1"><b>اثبات ۹.۱</b>درخت تصمیم مرتب‌سازی دست‌کم \(N!\) برگ دارد</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-9"><b>۰.۹</b>به نمونهٔ کوچک‌ترِ همان مسئله برسان</a><a href="#s0-6"><b>۰.۶</b>شمارش دوگانه</a><a href="#s6-2"><b>۶.۲</b>تعریف بازگشتی درخت ⇐ الگوریتم بازگشتی</a></div>
+</article>
+
+<article class="idea" data-kinds="design proof" data-key="tree-recursion">
+<h2>تعریف بازگشتی درخت ⇐ الگوریتم بازگشتی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">درخت = ریشه + زیردرخت‌هایی که خودشان درخت‌اند. پس تقریباً هر مسئلهٔ درختی را با «جواب زیردرخت‌ها را بگیر و در ریشه ترکیب کن» حل کن و درستی‌اش را با استقرا روی ارتفاع ثابت کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ارتفاع، تعداد گره‌ها، مقداریابی عبارت.</li><li>هر ویژگی که از ویژگی زیردرخت‌ها ساخته می‌شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>پایه: درخت تهی یا برگ.</li><li>گام: \(f(T)\) را از ریشهٔ \(r\) و جواب‌های \(f(T_1), \dots, f(T_k)\) بساز.</li><li>زمان: هر گره یک بار دیده می‌شود ⇐ \(\Theta(n)\)، اگر ترکیب در هر گره متناسب با تعداد فرزندانش باشد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(\mathrm{height}(T) = 1 + \max_i \mathrm{height}(T_i)\)؛ مقدار یک عبارت = عملگرِ ریشه روی مقدار دو زیردرخت.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-12"><b>جزوه ۶.۱۲</b>تعریف بازگشتی و پیمایش درخت</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-7"><b>جزوه ۷.۷</b>مقداریابی بازگشتی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a><a href="#s7-2"><b>۷.۲</b>مقداریابی = پس‌ترتیب</a><a href="#s2-1"><b>۲.۱</b>تقسیم، حل بازگشتی، ترکیب</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="traversals">
+<h2>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">پیش‌ترتیب ریشه را قبل از زیردرخت‌ها می‌بیند، میان‌ترتیب بین چپ و راست، و پس‌ترتیب بعد از همه. انتخاب پیمایش یعنی انتخاب اینکه کار ریشه به جواب زیردرخت‌ها نیاز دارد (پس‌ترتیب) یا زیردرخت‌ها به اطلاعات ریشه (پیش‌ترتیب).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هر پردازش درخت.</li><li>تبدیل بین نگارش‌های عبارت.</li><li>چاپ مرتبِ کلیدهای BST.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>پس‌ترتیب: محاسبهٔ چیزی از پایین به بالا (اندازه، ارتفاع، مقدار عبارت، آزاد کردن حافظه).</li><li>پیش‌ترتیب: انتقال اطلاعات از بالا به پایین (عمق هر گره، کپی درخت، ترتیب لغت‌نامه‌ای در ترای).</li><li>میان‌ترتیب (درخت دودویی): در BST کلیدها را مرتب می‌دهد.</li><li>هر سه \(\Theta(n)\) هستند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>پیش‌ترتیبِ ترای، با دیدن فرزندان به ترتیب a تا z، کلمات را به ترتیب لغت‌نامه‌ای بیرون می‌دهد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-12"><b>جزوه ۶.۱۲</b>تعریف بازگشتی و پیمایش درخت</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-8"><b>جزوه ۷.۸</b>سه نگارش: میانوندی، پسوندی و پیشوندی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-6"><b>جزوه ۱۰.۶</b>کاربردهای ترای</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-2"><b>۶.۲</b>تعریف بازگشتی درخت ⇐ الگوریتم بازگشتی</a><a href="#s7-3"><b>۷.۳</b>سه نگارش = سه پیمایش</a><a href="#s10-7"><b>۱۰.۷</b>پیش‌ترتیب ترای = ترتیب لغت‌نامه‌ای</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="rebuild">
+<h2>ریشه، اولِ پیش‌ترتیب و آخرِ پس‌ترتیب است</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">از دو پیمایش، ریشه را پیدا کن، مرز زیردرخت‌ها را با جای ریشهٔ هر زیردرخت در پیمایش دیگر تعیین کن و بازگشتی ادامه بده.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«از پیمایش‌های داده‌شده درخت را بسازید».</li><li>«آیا این دو پیمایش درخت را یکتا مشخص می‌کنند؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ریشه = اولین حرفِ preorder = آخرین حرفِ postorder.</li><li>ریشهٔ زیردرخت اول = دومین حرف preorder. در postorder، زیردرخت اول دقیقاً تا همین حرف ادامه دارد؛ پس اندازه‌اش معلوم است.</li><li>همین را برای زیردرخت بعدی تکرار کن و بعد روی هر زیردرخت بازگشت بزن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>preorder = M N … و postorder = … N … M: ریشه M است و زیردرخت اول (با ریشهٔ N) همهٔ حروف postorder تا N را شامل می‌شود.</p></div>
+<div class="box trap"><div class="bh"></div><p>در درخت دودویی، preorder + postorder یکتا نیست: اگر گره‌ای فقط یک فرزند دارد، معلوم نیست چپ است یا راست. inorder + یکی از دو پیمایش دیگر یکتاست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-13"><b>جزوه ۶.۱۳</b>مسئلهٔ ۱: بازسازی درخت از پیش‌ترتیب و پس‌ترتیب</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a><a href="#s0-7"><b>۰.۷</b>به حدی‌ترین شیء نگاه کن</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="lcrs">
+<h2>هر درخت = یک درخت دودویی (فرزند اول، برادر بعدی)</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">به‌جای k اشاره‌گر برای فرزندان، در هر گره فقط دو اشاره‌گر نگه دار: اولین فرزند و برادر بعدی. حافظهٔ هر گره ثابت می‌شود و هر درخت یا جنگل با یک درخت دودویی نمایش داده می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>درخت با تعداد فرزندانِ متغیر.</li><li>حافظهٔ هدررفته در نمایش با \(k\) اشاره‌گر.</li><li>تبدیل الگوریتم‌های درخت عمومی به درخت دودویی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>child(v) = اولین فرزند و sibling(v) = برادر بعدی.</li><li>فرزندان یک گره = child آن و بعد زنجیرهٔ sibling.</li><li>پیمایش‌ها: preorder درخت اصلی = preorder درخت دودویی؛ postorder درخت اصلی = inorder درخت دودویی.</li></ol>
+<div class="box ex"><div class="bh"></div><p>درخت ۲۶تایی ترای بیش از ۹۶٪ اشاره‌گر NIL دارد. با این نمایش هر گره فقط دو اشاره‌گر دارد، به قیمت جست‌وجوی خطی بین برادرها.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-8"><b>جزوه ۶.۸</b>درخت‌های \(k\)تایی و انواع آن‌ها</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-10"><b>جزوه ۶.۱۰</b>پیاده‌سازی درخت با اشاره‌گر</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-14"><b>جزوه ۶.۱۴</b>درخت دودویی معادل: فرزند چپ، برادر راست</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-15"><b>جزوه ۶.۱۵</b>مسئلهٔ ۲ و ۳: پیمایش‌ها در درخت دودویی معادل</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s6-2"><b>اثبات ۶.۲</b>پیش‌ترتیب درخت و درخت دودویی معادلش یکی است</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s10-6"><b>۱۰.۶</b>بهای سرعت: حافظهٔ هدررفته</a><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="array-tree">
+<h2>درخت کامل در آرایه: \(2i\) و \(2i + 1\)</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">درخت دودویی کامل را سطر به سطر در آرایه بنویس: فرزندان گره \(i\) در \(2i\) و \(2i + 1\) و پدرش در \(\lfloor i/2 \rfloor\) است، بدون هیچ اشاره‌گری.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هرم، درخت تورنمنت، هر درخت دودویی کامل یا تقریباً کامل.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ریشه در \(A[1]\).</li><li>حرکت به پایین با ضرب در ۲، به بالا با تقسیم صحیح بر ۲.</li><li>گره \(i\) برگ است اگر \(2i > n\)؛ پس گره‌های \(\lfloor n/2 \rfloor + 1\) تا \(n\) برگ‌اند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>در هرم ۱۰ عنصری، گره ۵ فقط یک فرزند (۱۰) دارد و گره‌های ۶ تا ۱۰ برگ‌اند.</p></div>
+<div class="box trap"><div class="bh"></div><p>برای درختی که کامل نیست (مثلاً زنجیر)، این روش حافظهٔ نمایی هدر می‌دهد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-11"><b>جزوه ۶.۱۱</b>پیاده‌سازی درخت با آرایه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-4"><b>جزوه ۸.۴</b>پیاده‌سازی هرم با آرایه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-4"><b>۵.۴</b>اشاره‌گر می‌تواند اندیس باشد</a><a href="#s8-3"><b>۸.۳</b>ساختن از پایین: بیشتر گره‌ها نزدیک برگ‌اند</a></div>
+</article>
+
+<article class="idea" data-kinds="ds analysis" data-key="balanced-height">
+<h2>ارتفاع \(\lfloor\log_2 n\rfloor\): چرا متوازن بودن مهم است</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">درخت دودویی به ارتفاع \(h\) حداکثر \(2^{h+1} - 1\) گره دارد، پس درخت کامل با \(n\) گره ارتفاع \(\lfloor\log_2 n\rfloor\) دارد. هر عملی که یک مسیر ریشه-برگ را می‌پیماید، \(O(\log n)\) می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>تحلیل عمل‌های هرم و BST.</li><li>«چرا BST بد ممکن است \(O(n)\) باشد؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>سطح \(i\) حداکثر \(2^i\) گره دارد.</li><li>\(2^h \le n \le 2^{h+1} - 1\) ⇐ \(h = \lfloor\log_2 n\rfloor\).</li><li>هزینهٔ عمل‌های مسیری \(O(h)\) است؛ پس ساختار را طوری نگه دار که ارتفاع لگاریتمی بماند: کامل بودن در هرم، متوازن‌سازی یا ترتیب تصادفی در BST.</li></ol>
+<div class="box ex"><div class="bh"></div><p>BST با درج \(1, 2, \dots, n\) به همین ترتیب، زنجیری به ارتفاع \(n - 1\) است؛ با درج به ترتیب تصادفی، امید ارتفاع \(O(\log n)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-7"><b>جزوه ۶.۷</b>عمق، ارتفاع و سطح</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-9"><b>جزوه ۶.۹</b>ویژگی‌های پایه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-3"><b>جزوه ۸.۳</b>هرم</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p24"><b>سری ۱، مسئلهٔ ۲۴</b>ارتفاع درخت جست‌وجوی دودویی تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p17"><b>سری ۲، مسئلهٔ ۱۷</b>ارتفاع درخت جست‌وجوی دودویی تصادفی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-12"><b>۳.۱۲</b>ساختار تصادفی بازگشتی: روی رتبهٔ ریشه شرط بگذار</a><a href="#s8-2"><b>۸.۲</b>ترمیم محلی: بالا بردن و پایین بردن</a></div>
+</article>
+
+<article class="idea" data-kinds="design ds" data-key="sweep">
+<h2>خط جاروب</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">صفحه را با یک خط فرضی از چپ به راست جاروب کن. فقط در «رویدادها» (شروع و پایانِ اشیا) چیزی عوض می‌شود. وضعیت اشیایی را که خط الان قطعشان می‌کند در یک درخت جست‌وجوی متوازن نگه دار.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«همهٔ برخوردها»، «همهٔ جفت‌های متقاطع».</li><li>بازه‌ها و پاره‌خط‌ها در صفحه یا روی محور زمان.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>رویدادها را بر حسب \(x\) مرتب کن: \(O(n\log n)\).</li><li>وضعیت = مجموعهٔ اشیای فعال، مرتب بر حسب \(y\)، در یک BST متوازن: درج و حذف \(O(\log n)\).</li><li>در هر رویداد، پرس‌وجوی لازم را روی وضعیت بزن.</li><li>ترتیب رویدادهای هم‌مختصات را صریح تعیین کن (مثلاً اول شروع‌ها، بعد پرس‌وجوها، بعد پایان‌ها). حالت‌های مرزی اغلب همین‌جا خراب می‌شوند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>تقاطع پاره‌خط‌های افقی و عمودی: هر افقی در \(x\) شروعش وارد و در \(x\) پایانش خارج می‌شود؛ هر عمودی یک پرس‌وجوی بازه‌ای روی \(y\) است. کل \(O(n\log n + k)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p32"><b>سری ۱، مسئلهٔ ۳۲</b>پاره‌خط‌های موازی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-9"><b>۶.۹</b>گزارش بازه‌ای حساس به خروجی: \(O(\log n + k)\)</a><a href="#s0-13"><b>۰.۱۳</b>یک بار پیش‌پردازش، بارها پاسخ</a></div>
+</article>
+
+<article class="idea" data-kinds="ds analysis" data-key="range-report">
+<h2>گزارش بازه‌ای حساس به خروجی: \(O(\log n + k)\)</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در BST متوازن، برای گزارش همهٔ کلیدهای بازهٔ \([a, b]\)، فقط دو مسیر جست‌وجو و زیردرخت‌های بینشان دیده می‌شوند. هر خروجی \(O(1)\) هزینه دارد و فقط \(O(\log n)\) کار اضافه می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>زمانی به شکل «\(\dots + k\)» خواسته شده (\(k\) = اندازهٔ خروجی).</li><li>پرس‌وجوی بازه‌ای.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>مسیرهای جست‌وجوی \(a\) و \(b\): \(O(\log n)\) گره.</li><li>هر زیردرختی که بین این دو مسیر آویزان است، کاملاً داخل بازه است و با پیمایش میان‌ترتیب کامل گزارش می‌شود.</li><li>هزینه = \(O(\log n)\) برای مسیرها + \(O(k)\) برای گزارش.</li></ol>
+<div class="box ex"><div class="bh"></div><p>همین منطق «فقط جایی برو که ممکن است جواب باشد» در شمارش اعداد بزرگ‌تر از \(k\) در هرم هم هست: فقط جواب‌ها و فرزندانشان دیده می‌شوند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-9"><b>جزوه ۸.۹</b>مسئلهٔ ۱: شمارش اعداد بزرگ‌تر از \(k\)</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p32"><b>سری ۱، مسئلهٔ ۳۲</b>پاره‌خط‌های موازی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-8"><b>۶.۸</b>خط جاروب</a><a href="#s8-4"><b>۸.۴</b>پیمایش هرس‌شده: هزینه متناسب با خروجی</a></div>
+</article>
+</section>

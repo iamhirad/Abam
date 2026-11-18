@@ -8,6 +8,7 @@
 - **https://iamhirad.github.io/Abam/jozve-dsa.pdf** — دانلود PDF
 - **https://iamhirad.github.io/Abam/tamrin-1.html** — حل تمرین سری اول (راهنمایی، راه‌حل با مرور درس، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها) · [PDF](https://iamhirad.github.io/Abam/tamrin-1.pdf)
 - **https://iamhirad.github.io/Abam/proofs.html** — اثبات‌های جزوه: همهٔ ۴۴ اثبات کامل، فصل به فصل، با فهرست بر اساس روش اثبات و حالت تمرین · [PDF](https://iamhirad.github.io/Abam/proofs.pdf)
+- **https://iamhirad.github.io/Abam/ideas.html** — ایده‌نامه: همهٔ ۱۲۱ ایدهٔ جزوه، تمرین‌ها و اثبات‌ها، فصل به فصل؛ با نقشهٔ «از نشانه به ایده»، جست‌وجو و حالت آزمون · [PDF](https://iamhirad.github.io/Abam/ideas.pdf)
 - **https://iamhirad.github.io/Abam/tamrin-2.html** — حل تمرین سری دوم (احتمال، مرتب‌سازی، انتخاب و الگوریتم‌های تصادفی؛ با درجهٔ سختی و برگهٔ تقلب) · [PDF](https://iamhirad.github.io/Abam/tamrin-2.pdf)
 
 ## فایل‌های آماده
@@ -42,4 +43,5 @@ node build.mjs              # همهٔ سندها، فقط HTML
 node build.mjs --pdf        # HTML و PDF (نیازمند Playwright و Chromium)
 node build.mjs --doc=t1     # فقط حل تمرین سری اول (src/t1)؛ سری دوم: --doc=t2 (src/t2)
 python3 tools/build_proofs.py && node build.mjs --doc=proofs   # صفحهٔ اثبات‌ها را از متن جزوه می‌سازد
+python3 tools/build_ideas.py && node build.mjs --doc=ideas     # ایده‌نامه (دادهٔ ایده‌ها در tools/ideas_a/b/c.py)
 ```

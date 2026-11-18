@@ -3,6 +3,7 @@
 <header class="p-head"><div class="p-no">۸</div><div><h2 class="p-h">جست‌وجوی سریع در جدول صعودی</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>جست‌وجو</span><span>حذف سطر/ستون</span></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> ایدهٔ شروع از گوشهٔ بالا-راست را باید ببینید؛ بعد از آن چند خط است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s2-3"><b>۲.۳</b> دو اشاره‌گر روی دو فهرست مرتب</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-9"><b>۹.۹</b> حذف یک سطر یا ستون با هر مقایسه</a></p>
 <div class="p-statement">
   <p>جدولی \(n \times n\) داریم که اعداد داخل هر سطر از چپ به راست و اعداد داخل هر ستون از بالا به پایین صعودی‌اند.</p>
   <ul class="parts">
@@ -67,6 +68,7 @@ return count
 <header class="p-head"><div class="p-no">۹</div><div><h2 class="p-h">انتخاب محور با میانهٔ سه عنصر</h2>
 <div class="p-tags"><span class="diff" data-l="2" title="سختی ۲ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>نسبتاً آسان</span><span>احتمال</span><span>کوئیک‌سورت</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «نسبتاً آسان»؟</b> یک شمارش ترکیبیاتی: یکی از پایین، خودش، یکی از بالا.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-2"><b>۳.۲</b> اول فضای نمونه را دقیق بنویس</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-11"><b>۳.۱۱</b> کوئیک‌سورت: هزینه را روی جفت‌ها بشکن</a></p>
 <div class="p-statement">
   <p>در کوئیک‌سورت، برای انتخاب محور به‌جای یک عنصر، سه عنصر انتخاب می‌کنیم و میانهٔ آن‌ها را محور می‌گیریم. احتمال اینکه عنصر \(i\)ام در ترتیب مرتب‌شده به‌عنوان محور انتخاب شود چقدر است؟</p>
 </div>
@@ -103,6 +105,7 @@ return count
 <header class="p-head"><div class="p-no">۱۰</div><div><h2 class="p-h">مرتب‌سازی نقاط دایره</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>مرتب‌سازی سطلی</span><span>امید زمان</span><a href="https://iamhirad.github.io/Abam/#ch9">جزوه: فصل ۹</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> باید ببینید سطل‌ها باید هم‌مساحت باشند، نه هم‌شعاع، و تحلیل مرتب‌سازی سطلی را بدانید.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-11"><b>۰.۱۱</b> مسئله را به شکل آشنا تبدیل کن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-3"><b>۹.۳</b> کران را با فرض اضافه بشکن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-6"><b>۹.۶</b> سطل‌های هم‌احتمال با تابع توزیع</a></p>
 <div class="p-statement">
   <p>دایره‌ای به شعاع واحد داریم. تعداد \(n\) نقطه را به‌صورت تصادفی در داخل دایره انتخاب می‌کنیم. الگوریتمی با پیچیدگی زمانی \(O(n)\) ارائه دهید که تمام نقاط را بر حسب فاصله تا مرکز دایره مرتب کند.</p>
 </div>
@@ -151,6 +154,7 @@ concatenate B[0], B[1], ..., B[n-1]
 <header class="p-head"><div class="p-no">۱۱</div><div><h2 class="p-h">ثابت ماندن صعودی بودن سطرها</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>اثبات</span><span>شمارش</span></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> اثباتی کوتاه ولی غیربدیهی؛ نکتهٔ کلیدی معادل‌سازی «\(i\)امین کوچک‌ترین» با «دست‌کم \(i\) عضو» است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-11"><b>۰.۱۱</b> مسئله را به شکل آشنا تبدیل کن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-7"><b>۹.۷</b> اصل ۰ و ۱</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-10"><b>۹.۱۰</b> «\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عنصر \(\le y\)»</a></p>
 <div class="p-statement">
   <p>جدولی \(n \times m\) داریم که در هر خانهٔ آن یک عدد دلخواه وجود دارد. ابتدا اعداد داخل هر سطر را از چپ به راست به‌صورت صعودی مرتب می‌کنیم. سپس اعداد داخل هر ستون را از بالا به پایین به‌صورت صعودی مرتب می‌کنیم. ثابت کنید پس از پایان این دو مرحله، اعداد داخل هر سطر از چپ به راست همچنان صعودی باقی می‌مانند.</p>
 </div>
@@ -192,6 +196,7 @@ concatenate B[0], B[1], ..., B[n-1]
 <header class="p-head"><div class="p-no">۱۲</div><div><h2 class="p-h">عنصر با فراوانی بیش از یک‌سوم</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>انتخاب در زمان خطی</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> باید ببینید فقط دو نامزد ممکن است و آن‌ها را با انتخاب خطی پیدا کنید.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-9"><b>۳.۹</b> افراز کن و فقط یک طرف را ادامه بده</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-17"><b>۳.۱۷</b> فراوانی بیش از \(n/k\): فقط \(k - 1\) نامزد</a></p>
 <div class="p-statement">
   <p>یک آرایهٔ \(n\)عضوی از اعداد صحیح داده شده است. در زمان \(O(n)\) عضوی از آرایه را پیدا کنید که بیش از \(n/3\) بار تکرار شده باشد، اگر چنین عضوی وجود دارد.</p>
 </div>
@@ -245,6 +250,7 @@ then count c1 and c2 in a second pass and keep those with count > n/3
 <header class="p-head"><div class="p-no">۱۳</div><div><h2 class="p-h">جایگشت تصادفی با قید مکانی</h2>
 <div class="p-tags"><span class="diff" data-l="2" title="سختی ۲ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>نسبتاً آسان</span><span>تولید تصادفی یکنواخت</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «نسبتاً آسان»؟</b> تولید ساده است؛ اثبات یکنواختی یک شمارش مستقیم است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-6"><b>۳.۶</b> ثابت کن یکنواخت است: احتمال هر خروجی را حساب کن</a></p>
 <div class="p-statement">
   <p>
     می‌خواهیم از میان جایگشت‌های اعداد ۱ تا \(n\) که در آن‌ها عدد \(n\) در یکی از خانه‌های ۱ تا \(k\) قرار دارد، یک جایگشت را به‌صورت تصادفی یکنواخت تولید کنیم. برنامه‌ای برای این کار بنویسید و ثابت کنید که هر خروجی مجاز با احتمال یکسان تولید می‌شود.
@@ -298,6 +304,7 @@ return A
 <header class="p-head"><div class="p-no">۱۴</div><div><h2 class="p-h">مرتب‌سازی با عملیات تثبیت</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>پایان‌پذیری</span><span>امید ریاضی</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> پایان‌پذیری ساده است؛ بخش امتیازی دیدِ «دورها» و جمع انتظارهای هندسی را لازم دارد.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-5"><b>۰.۵</b> معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-5"><b>۳.۵</b> جمع \(\frac1i\)ها: رکوردها و استخدام</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-15"><b>۳.۱۵</b> جایگشت = دورها</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s4-7"><b>۴.۷</b> پتانسیل‌های آماده</a></p>
 <div class="p-statement">
   <p>
     فرض کنید آرایهٔ \(A\) یک جایگشت از اعداد ۱ تا \(n\) باشد. عملیات \(\text{fix}(i)\) را چنین تعریف می‌کنیم: مقدارهای \(A[i]\) و \(A[A[i]]\) را با یکدیگر جابه‌جا می‌کنیم (اندیس‌ها با توجه به وضعیت آرایه پیش از جابه‌جایی محاسبه می‌شوند).

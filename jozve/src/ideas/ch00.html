@@ -1,0 +1,213 @@
+<section class="chapter" data-ch="0" data-color="cA" data-title="ایده‌های همه‌جایی" id="ch0">
+<header class="ch-head">
+  <div class="ch-kicker">پایهٔ همهٔ فصل‌ها — ۱۳ ایده</div>
+  <h1>ایده‌های همه‌جایی</h1>
+  <p class="ch-lead">ابزارهایی که مال هیچ فصل خاصی نیستند و در همهٔ فصل‌ها، در اثبات‌ها و در تمرین‌ها بارها برگشتند.
+قبل از هر مسئلهٔ تازه این فهرست را از ذهن بگذرانید؛ بیشتر راه‌حل‌ها با یکی از همین‌ها شروع می‌شوند.</p>
+  <div class="ch-big" aria-hidden="true">۰</div>
+</header>
+
+<article class="idea" data-kinds="proof count" data-key="small">
+<h2>مثال کوچک بساز</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="count">شمارش و ساختن</span></div>
+<p class="idea-core">قبل از هر فکر بزرگی، مسئله را برای \(n = 1, 2, 3, 4\) با دست حل کن. الگو، حدس جواب و حتی ایدهٔ اثبات معمولاً همین‌جا پیدا می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«فرمول بسته پیدا کنید»، «چند تا …؟»، «ثابت کنید برای هر \(n\) …».</li><li>صورت مسئله را کامل نفهمیده‌ای یا نمی‌دانی از کجا شروع کنی.</li><li>جواب نهایی‌ات را می‌خواهی امتحان کنی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>کوچک‌ترین نمونه‌های غیربدیهی را بنویس و جواب هر کدام را با شمارش یا شبیه‌سازی دستی پیدا کن.</li><li>جواب‌ها را کنار هم بگذار و دنبال دنبالهٔ آشنا بگرد: \(1, 2, 4, 8\) یعنی توان ۲؛ \(1, 3, 6, 10\) یعنی \(\binom{n+1}{2}\)؛ \(1, \frac32, \frac{11}{6}\) یعنی عدد همساز \(H_n\).</li><li>ببین جواب \(n\) چطور از جواب \(n - 1\) ساخته می‌شود. همین «چطور» معمولاً گام استقرا یا رابطهٔ بازگشتی است.</li><li>در پایان، فرمول نهایی را روی همان نمونه‌های کوچک چک کن. فرمولی که برای \(n = 2\) غلط است، حتماً غلط است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>امید تعداد «رکوردها» (عددی که از همهٔ قبلی‌ها بزرگ‌تر است) در جایگشت تصادفی: برای \(n = 2\) دو جایگشت با ۲ و ۱ رکورد، میانگین \(\frac32\).
+برای \(n = 3\) شش جایگشت با ۳، ۲، ۲، ۲، ۱، ۱ رکورد، میانگین \(\frac{11}{6} = 1 + \frac12 + \frac13\). حدس \(H_n\) خودبه‌خود پیدا شد و حالا فقط اثباتش مانده است.</p></div>
+<div class="box trap"><div class="bh"></div><p>الگوی چند عدد اول می‌تواند فریب بدهد: دنبالهٔ \(1, 2, 4, 8, 16\) در یک مسئلهٔ معروف هندسی با ۳۱ ادامه پیدا می‌کند، نه ۳۲. حدس را همیشه ثابت کن.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p16"><b>سری ۱، مسئلهٔ ۱۶</b>صفحهٔ شطرنجی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p14"><b>سری ۱، مسئلهٔ ۱۴</b>پلکان</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p19"><b>سری ۱، مسئلهٔ ۱۹</b>کدهای گری با ابتدا و انتهای ازپیش‌تعیین‌شده</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p31"><b>سری ۱، مسئلهٔ ۳۱</b>شمارش مثلث‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p3"><b>سری ۲، مسئلهٔ ۳</b>رکوردهای جدید</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p7"><b>سری ۲، مسئلهٔ ۷</b>مرتب‌سازی با عملیات معکوس</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p15"><b>سری ۲، مسئلهٔ ۱۵</b>مرتب‌سازی با پنجرهٔ ثابت</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-9"><b>۰.۹</b>به نمونهٔ کوچک‌ترِ همان مسئله برسان</a><a href="#s0-3"><b>۰.۳</b>اول دنبال مثال نقض بگرد</a></div>
+</article>
+
+<article class="idea" data-kinds="proof analysis" data-key="unfold">
+<h2>تعریف را باز کن</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">وقتی نمی‌دانی چطور شروع کنی، تعریف دقیق هر واژهٔ صورت مسئله را بنویس. اغلب خود تعریف نصف راه‌حل است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید \(f = O(g)\)»، «… پایدار است»، «… یکنواخت است»، «… هرم است».</li><li>سؤال «درست یا نادرست؟» دربارهٔ یک مفهوم.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هر مفهوم را به شکل صوری‌اش برگردان. مثلاً \(f = O(g)\) یعنی «ثابت‌های \(c > 0\) و \(n_0\) هستند که برای هر \(n \ge n_0\)، \(f(n) \le c\,g(n)\)».</li><li>آنچه را باید ثابت شود هم به همین زبان بنویس. حالا مسئله شده «پیدا کردن \(c\) و \(n_0\)» یا «محاسبهٔ یک احتمال».</li><li>از فرض‌ها به سمت حکم، نامساوی‌ها را زنجیر کن و ثابت‌ها را صریح نگه دار.</li></ol>
+<div class="box ex"><div class="bh"></div><p>تعدی \(O\): از \(f \le c_1 g\) (برای \(n \ge n_1\)) و \(g \le c_2 h\) (برای \(n \ge n_2\)) نتیجه می‌شود \(f \le c_1c_2\,h\) برای \(n \ge \max(n_1, n_2)\).
+کل اثبات همین یک خط است، چون فقط دو تعریف را کنار هم گذاشتیم.</p></div>
+<div class="box trap"><div class="bh"></div><p>در اثبات «از تعریف»، \(c\) نباید به \(n\) وابسته باشد. «\(n^2 \le n \cdot n\)، پس \(n^2 = O(n)\) با \(c = n\)» غلط است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-10"><b>جزوه ۱.۱۰</b>نمادهای مجانبی \(O\)، \(\Omega\) و \(\Theta\)</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-11"><b>جزوه ۱.۱۱</b>نکته‌های نمادگذاری و ویژگی‌ها</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p4"><b>سری ۱، مسئلهٔ ۴</b>رشد عجیب</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p2"><b>سری ۱، مسئلهٔ ۲</b>مردافکن</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-2"><b>اثبات ۱.۲</b>تعدی و جمع‌پذیری نمادهای مجانبی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-3"><b>اثبات ۱.۳</b>چندجمله‌ای‌ها: \(\Theta(n^d)\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-4"><b>اثبات ۱.۴</b>لگاریتم‌ها: پایه مهم نیست و \(\log n = O(n^x)\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-5"><b>اثبات ۱.۵</b>نمایی‌ها از هر چندجمله‌ای سریع‌ترند</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-3"><b>۰.۳</b>اول دنبال مثال نقض بگرد</a><a href="#s1-9"><b>۱.۹</b>آیا \(O\) از تابع \(h\) عبور می‌کند؟</a></div>
+</article>
+
+<article class="idea" data-kinds="proof analysis" data-key="counter">
+<h2>اول دنبال مثال نقض بگرد</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">برای «آیا همیشه درست است؟» قبل از اثبات، ساده‌ترین اشیای ممکن را امتحان کن. یک مثال نقض کل بحث را تمام می‌کند و اگر پیدا نشد، دلیلِ پیدا نشدنش معمولاً ایدهٔ اثبات است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«درست است یا نادرست؟ اثبات یا مثال نقض.»</li><li>حکمی که «زیادی خوب» به نظر می‌رسد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ساده‌ترین اعضای هر دسته را فهرست کن: توابع \(1, n, 2n, n^2, \log n, 2^n\)؛ آرایه‌های مرتب، نزولی و همه‌برابر؛ درخت زنجیری و درخت کامل.</li><li>هر کدام را در حکم بگذار. دنبال حالتی بگرد که یک «تغییر کوچک» (ضریب ۲، جابه‌جایی یک عنصر) را بزرگ کند.</li><li>اگر همه گذشتند، بپرس چه ویژگی‌ای از این مثال‌ها حکم را نجات داد. همان ویژگی کلید اثبات است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>«اگر \(f = O(g)\)، آیا \(2^f = O(2^g)\)؟» با \(f = 2n\) و \(g = n\): \(2^{2n} = 4^n\) و \(4^n / 2^n = 2^n \to \infty\). پس نادرست.
+همین مثال می‌گوید چه چیزی خراب می‌شود: نمایی، ضریب ثابت را به توان می‌برد.</p></div>
+<div class="box trap"><div class="bh"></div><p>مثال نقض باید همهٔ شرط‌های صورت مسئله را داشته باشد (مثلاً «صعودی»، «مثبت»، «از جایی به بعد»)؛ وگرنه چیزی را رد نکرده‌ای.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-11"><b>جزوه ۱.۱۱</b>نکته‌های نمادگذاری و ویژگی‌ها</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p4"><b>سری ۱، مسئلهٔ ۴</b>رشد عجیب</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p2"><b>سری ۱، مسئلهٔ ۲</b>مردافکن</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p20"><b>سری ۱، مسئلهٔ ۲۰</b>رشد توابع</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-2"><b>۰.۲</b>تعریف را باز کن</a><a href="#s1-9"><b>۱.۹</b>آیا \(O\) از تابع \(h\) عبور می‌کند؟</a><a href="#s0-10"><b>۰.۱۰</b>ورودی بد را بساز</a></div>
+</article>
+
+<article class="idea" data-kinds="proof" data-key="invariant">
+<h2>ناوردا: چیزی که هرگز عوض نمی‌شود</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">در هر فرایند گام‌به‌گام، ویژگی یا کمیتی پیدا کن که هر گام حفظش می‌کند. با آن هم درستی الگوریتم ثابت می‌شود و هم ناممکن بودن یک هدف.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید الگوریتم درست است» (حلقه یا فرایند تکراری).</li><li>«آیا می‌توان با این عمل‌ها به فلان حالت رسید؟»</li><li>الگوریتم جریانی که باید «تا این‌جا» درست باشد (مثل نمونه‌گیری مخزن).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ویژگی‌ای حدس بزن که اول برقرار است و در پایان، همان چیزی است که می‌خواهی (مثلاً «پیشوند \(A[1..j-1]\) مرتب است»).</li><li>سه گام را ثابت کن. آغاز: قبل از اولین دور برقرار است. نگهداری: اگر قبل از یک دور دلخواه برقرار باشد، بعدش هم هست. پایان: وقتی حلقه تمام شد، ناوردا به‌اضافهٔ شرط خروج همان حکم است.</li><li>برای ناممکن بودن: نشان بده ناوردا در حالت شروع یک مقدار دارد و در حالت هدف مقدار دیگری.</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی درجی با ناوردای «قبل از دور \(j\)، \(A[1..j-1]\) همان عناصر اول است، ولی مرتب». در پایان \(j = n + 1\)، پس کل آرایه مرتب است.
+نمونهٔ ناممکن بودن: در ابرمکعب هر یال وزن (تعداد یک‌ها) را دقیقاً یکی عوض می‌کند، پس رأس‌های هر مسیر یک‌درمیان زوج‌وزن و فردوزن‌اند. مسیری که همهٔ \(2^n\) رأس را ببیند، از رأسی زوج‌وزن شروع و به رأسی فردوزن ختم می‌شود (یا برعکس).</p></div>
+<div class="box trap"><div class="bh"></div><p>«نگهداری» را برای یک دور دلخواه ثابت کن، نه فقط برای دورهای اول؛ و شرط خروج حلقه را در گام پایان فراموش نکن.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-6"><b>جزوه ۱.۶</b>مسئلهٔ مرتب‌سازی و مرتب‌سازی درجی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-5"><b>جزوه ۸.۵</b>افزایش مقدار یک گره</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-7"><b>جزوه ۹.۷</b>مرتب‌سازی مبنایی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p19"><b>سری ۱، مسئلهٔ ۱۹</b>کدهای گری با ابتدا و انتهای ازپیش‌تعیین‌شده</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p23"><b>سری ۱، مسئلهٔ ۲۳</b>انتخاب تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p4"><b>سری ۲، مسئلهٔ ۴</b>انتخاب تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p7"><b>سری ۲، مسئلهٔ ۷</b>مرتب‌سازی با عملیات معکوس</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-1"><b>اثبات ۱.۱</b>درستی مرتب‌سازی درجی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s8-2"><b>اثبات ۸.۲</b>درستی بالا بردن (افزایش کلید در هرم)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-4"><b>اثبات ۹.۴</b>درستی مرتب‌سازی مبنایی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a><a href="#s8-2"><b>۸.۲</b>ترمیم محلی: بالا بردن و پایین بردن</a><a href="#s9-4"><b>۹.۴</b>پایداری و ترتیب گذرها</a></div>
+</article>
+
+<article class="idea" data-kinds="proof lower" data-key="monovariant">
+<h2>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">کمیتی تعریف کن که در حالت هدف صفر است و هر گام دست‌کم مقدار ثابتی کمش می‌کند؛ آن‌وقت تعداد گام‌ها کران بالا دارد. اگر بدانی هر گام «حداکثر» چقدر کمش می‌کند، کران پایین هم می‌گیری.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید فرایند تمام می‌شود»، «حداکثر چند گام؟»</li><li>«حداقل چند عمل لازم است؟» (کران پایین برای عمل‌های محدود).</li><li>فرایند تصادفی که باید «سرانجام» تمام شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>کمیت \(\Phi\) را طوری انتخاب کن که در حالت هدف صفر باشد: تعداد وارونه‌ها، نقطه‌های شکست، عناصری که سر جایشان نیستند، اندازهٔ بازهٔ جست‌وجو، تعداد سطرهای «کثیف».</li><li>کران بالا: هر گام دست‌کم \(\alpha\) از \(\Phi\) کم می‌کند ⇐ حداکثر \(\Phi_0/\alpha\) گام.</li><li>کران پایین: هر گام حداکثر \(\beta\) از \(\Phi\) کم می‌کند ⇐ دست‌کم \(\Phi_0/\beta\) گام. حالا ورودی‌ای بساز که \(\Phi_0\) بزرگ باشد.</li><li>در فرایند تصادفی: اگر معیار کران‌دار است و هر گام با احتمالی مثبت (و دور از صفر) پیشرفت می‌کند، فرایند با احتمال ۱ تمام می‌شود.</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی با معکوس کردن بازه‌ها: «نقطهٔ شکست» جایی است که دو عدد مجاور، متوالی نیستند. یک معکوس فقط دو سرِ بازه را عوض می‌کند، پس حداکثر ۲ نقطهٔ شکست را از بین می‌برد.
+در نتیجه جایگشتی با \(b\) نقطهٔ شکست دست‌کم \(\lceil b/2 \rceil\) معکوس لازم دارد.</p></div>
+<div class="box trap"><div class="bh"></div><p>کمیتی که «معمولاً» کم می‌شود کافی نیست؛ باید در هر گام (یا در امید، در فرایند تصادفی) کم شود. همچنین چک کن که هرگز منفی نمی‌شود.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-7"><b>جزوه ۴.۷</b>روش تابع پتانسیل</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p28"><b>سری ۱، مسئلهٔ ۲۸</b>تعداد جمع بهینه</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p7"><b>سری ۲، مسئلهٔ ۷</b>مرتب‌سازی با عملیات معکوس</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p14"><b>سری ۲، مسئلهٔ ۱۴</b>مرتب‌سازی با عملیات تثبیت</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p15"><b>سری ۲، مسئلهٔ ۱۵</b>مرتب‌سازی با پنجرهٔ ثابت</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p22"><b>سری ۲، مسئلهٔ ۲۲</b>مرتب‌سازی مارپیچی ماتریس</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-7"><b>۴.۷</b>پتانسیل‌های آماده</a><a href="#s9-8"><b>۹.۸</b>وارونه‌ها: معیار نامرتبی</a><a href="#s3-15"><b>۳.۱۵</b>جایگشت = دورها</a><a href="#s4-4"><b>۴.۴</b>پتانسیل: موجودی بانک را تابعی از وضعیت بنویس</a></div>
+</article>
+
+<article class="idea" data-kinds="count lower" data-key="double-count">
+<h2>شمارش دوگانه</h2>
+<div class="idea-meta"><span class="ik" data-k="count">شمارش و ساختن</span><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">یک کمیت را از دو زاویه بشمار (جفت‌ها در برابر ستون‌ها، عمل‌ها در برابر اشیا، گره‌ها در برابر یال‌ها). برابر گذاشتن دو شمارش، تساوی یا نامساوی‌ای می‌دهد که از هیچ زاویهٔ تنهایی دیده نمی‌شد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>کران روی اندازهٔ یک خانواده («حداکثر چند رشته با فاصلهٔ دوبه‌دو …؟»).</li><li>جمعی که سطر به سطر سخت و ستون به ستون آسان است.</li><li>«تعداد یال‌ها»، «تعداد برگ‌ها»، «هزینهٔ کل همهٔ عمل‌ها».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>یک جدول تصور کن: سطرها یک نوع شیء (مثلاً جفت رشته‌ها) و ستون‌ها نوع دیگر (مثلاً مکان‌ها). هر خانه سهم یک سطر در یک ستون است.</li><li>جمع کل جدول را یک بار سطری و یک بار ستونی حساب کن.</li><li>یکی از دو شمارش را با فرض مسئله دقیق بنویس و دیگری را با بهترین کران ممکن. نامساوی حاصل همان کران مطلوب است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>یال‌های درخت ریشه‌دار را از دید «فرزندها» بشمار: هر گره غیرریشه دقیقاً یک یال به پدرش دارد، پس یال‌ها \(n - 1\) تاست.
+کران پلاتکین هم همین ایده است: \(m\) رشتهٔ دودویی به طول \(L\) با فاصلهٔ دوبه‌دو دست‌کم \(d\). مجموع فاصله‌های همهٔ جفت‌ها از دید جفت‌ها دست‌کم \(\binom m2 d\) است؛
+از دید ستون‌ها، ستونی با \(t\) یک فقط \(t(m - t) \le m^2/4\) جفتِ متفاوت دارد، پس مجموع حداکثر \(L\,m^2/4\) است.</p></div>
+<div class="box trap"><div class="bh"></div><p>هر شیء باید در هر شمارش دقیقاً یک بار بیاید. شمردن دوباره یا جا انداختن، تساوی را خراب می‌کند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-9"><b>جزوه ۶.۹</b>ویژگی‌های پایه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-5"><b>جزوه ۴.۵</b>روش انبوهه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-3"><b>جزوه ۹.۳</b>درخت تصمیم</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p18"><b>سری ۱، مسئلهٔ ۱۸</b>خانوادهٔ بهینه از رشته‌های دودویی با فاصلهٔ ثابت</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s6-1"><b>اثبات ۶.۱</b>درخت با \(n\) رأس، \(n - 1\) یال دارد</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-1"><b>اثبات ۴.۱</b>پشتهٔ multipop: روش انبوهه</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-1"><b>اثبات ۹.۱</b>درخت تصمیم مرتب‌سازی دست‌کم \(N!\) برگ دارد</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-5"><b>۴.۵</b>هر شیء یک بار ساخته و حداکثر یک بار نابود می‌شود</a><a href="#s4-2"><b>۴.۲</b>انبوهه: هر رویداد گران چند بار رخ می‌دهد؟</a><a href="#s0-8"><b>۰.۸</b>خانه‌های خاص و لانهٔ کبوتر</a></div>
+</article>
+
+<article class="idea" data-kinds="proof design" data-key="extremal">
+<h2>به حدی‌ترین شیء نگاه کن</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">بزرگ‌ترین، کوچک‌ترین، اولین، آخرین یا گوشه‌ای‌ترین شیء معمولاً کمترین آزادی را دارد. تحلیلش شرط لازم، نقطهٔ شروع یا گام استقرا را می‌دهد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید وجود دارد …» (نقطهٔ شروع، عنصر خاص).</li><li>کاشی‌کاری، افراز و ساختن، جایی که یک قطعه «اجباری» است.</li><li>شمارش مسیرها یا دنباله‌ها.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>شیء حدی را انتخاب کن: کمینهٔ مجموع پیشوندی، گوشهٔ شکل، ریشه، آخرین گام مسیر، طولانی‌ترین مسیر.</li><li>بپرس این شیء چه گزینه‌هایی دارد. معمولاً یک یا دو گزینه بیشتر نمی‌ماند.</li><li>بعد از تصمیم دربارهٔ آن، باقی‌مانده را نمونهٔ کوچک‌تر همان مسئله ببین.</li></ol>
+<div class="box ex"><div class="bh"></div><p>پمپ بنزین‌های دوری (مجموع بنزین = مجموع مصرف): مجموع پیشوندی «بنزین منهای مصرف» را حساب کن و از جایگاهِ بعد از کمینهٔ آن شروع کن.
+از آن‌جا همهٔ جمع‌های جزئی نامنفی‌اند، چون پایین‌تر از کمینه نمی‌رویم. یا وجود برگ در درخت: طولانی‌ترین مسیر را بگیر؛ سرِ آن برگ است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-9"><b>جزوه ۶.۹</b>ویژگی‌های پایه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-13"><b>جزوه ۶.۱۳</b>مسئلهٔ ۱: بازسازی درخت از پیش‌ترتیب و پس‌ترتیب</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p15"><b>سری ۱، مسئلهٔ ۱۵</b>باک بنزین</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p14"><b>سری ۱، مسئلهٔ ۱۴</b>پلکان</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p16"><b>سری ۱، مسئلهٔ ۱۶</b>صفحهٔ شطرنجی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p30"><b>سری ۱، مسئلهٔ ۳۰</b>حرکت مگس</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-9"><b>۰.۹</b>به نمونهٔ کوچک‌ترِ همان مسئله برسان</a><a href="#s1-12"><b>۱.۱۲</b>مجموع پیشوندی</a><a href="#s0-8"><b>۰.۸</b>خانه‌های خاص و لانهٔ کبوتر</a></div>
+</article>
+
+<article class="idea" data-kinds="lower count" data-key="special-cells">
+<h2>خانه‌های خاص و لانهٔ کبوتر</h2>
+<div class="idea-meta"><span class="ik" data-k="lower">کران پایین</span><span class="ik" data-k="count">شمارش و ساختن</span></div>
+<p class="idea-core">اگر \(k\) شیء پیدا کنی که هیچ دوتایشان نمی‌توانند در یک قطعه باشند، دست‌کم \(k\) قطعه لازم است. اگر دقیقاً \(k\) قطعه داری، هر قطعه دقیقاً یکی از آن‌ها را دارد و ساختار «قفل» می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«حداقل چند قطعه / رنگ / عمل لازم است؟»</li><li>افراز یک شکل به تعداد مشخصی قطعه.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>دنبال اشیای «دوبه‌دو ناسازگار» بگرد: خانه‌هایی که هیچ مستطیلی هر دو را نمی‌پوشاند، ورودی‌هایی که هیچ عملی هر دو را درست نمی‌کند.</li><li>تعدادشان کران پایین است (لانهٔ کبوتر: \(k\) کبوتر در کمتر از \(k\) لانه ⇐ دو کبوتر در یک لانه).</li><li>اگر تعداد قطعه‌ها دقیقاً همین است، هر قطعه دقیقاً یک خانهٔ خاص دارد. این اطلاعات شکل قطعه‌ها را محدود می‌کند و اغلب شمارش را ممکن می‌کند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>صفحهٔ \(n \times n\) که خانه‌های بالای قطرش حذف شده: \(n\) خانهٔ قطر را در نظر بگیر. مستطیلی که دو خانهٔ قطر را بپوشاند، خانه‌ای بالای قطر را هم می‌پوشاند که حذف شده است.
+پس دست‌کم \(n\) مستطیل لازم است و در هر پوشش با \(n\) مستطیل، هر مستطیل دقیقاً یک خانهٔ قطر دارد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p16"><b>سری ۱، مسئلهٔ ۱۶</b>صفحهٔ شطرنجی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p14"><b>سری ۱، مسئلهٔ ۱۴</b>پلکان</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-7"><b>۰.۷</b>به حدی‌ترین شیء نگاه کن</a><a href="#s0-6"><b>۰.۶</b>شمارش دوگانه</a></div>
+</article>
+
+<article class="idea" data-kinds="proof count design" data-key="shrink">
+<h2>به نمونهٔ کوچک‌ترِ همان مسئله برسان</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span><span class="ik" data-k="count">شمارش و ساختن</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">یک گام بردار (یک قطعه بگذار، یک عنصر را جا بده، از هر ضلع یکی کم کن) طوری که آنچه می‌ماند دقیقاً همان مسئله با اندازهٔ کوچک‌تر باشد. این هم الگوریتم می‌دهد، هم اثبات استقرایی و هم رابطهٔ بازگشتی برای شمارش.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید برای هر \(n\) …»، «به چند طریق؟»</li><li>ساختن یک شیء (کاشی‌کاری، جایگشت، درخت) با اندازهٔ دلخواه.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>یک تبدیل کوچک‌کننده پیدا کن: حذف برگ از درخت، حذف قطعهٔ گوشه، کم کردن ۱ از هر ضلع مثلث، درج آخرین عنصر در پیشوند مرتب.</li><li>ثابت کن باقی‌مانده همهٔ شرط‌های مسئله را دارد؛ یعنی واقعاً همان نوع شیء است.</li><li>برای شمارش: تعداد = (راه‌های گام اول) × (تعداد نمونه‌های کوچک‌تر) + (استثناهایی که تبدیل رویشان کار نمی‌کند). استثناها معمولاً روی «مرز» شرط‌ها هستند و جدا شمرده می‌شوند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>شمارش مثلث‌هایی با اضلاع صحیح \(a \le b \le c\) و محیط \(n\): از هر ضلع یکی کم کن. شرط مثلث \(a + b > c\) بعد از کم کردن می‌شود \(a + b > c + 1\)؛
+پس هر مثلث محیط \(n\) به جز آن‌هایی که \(a + b = c + 1\) دارند، به مثلثی با محیط \(n - 3\) می‌رود: \(T_n = T_{n-3} + E_n\) که \(E_n\) تعداد همین استثناهاست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-6"><b>جزوه ۱.۶</b>مسئلهٔ مرتب‌سازی و مرتب‌سازی درجی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-9"><b>جزوه ۶.۹</b>ویژگی‌های پایه</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p31"><b>سری ۱، مسئلهٔ ۳۱</b>شمارش مثلث‌ها</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p14"><b>سری ۱، مسئلهٔ ۱۴</b>پلکان</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p16"><b>سری ۱، مسئلهٔ ۱۶</b>صفحهٔ شطرنجی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s6-1"><b>اثبات ۶.۱</b>درخت با \(n\) رأس، \(n - 1\) یال دارد</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-1"><b>۰.۱</b>مثال کوچک بساز</a><a href="#s2-13"><b>۲.۱۳</b>روی گام آخر حالت‌بندی کن</a><a href="#s0-7"><b>۰.۷</b>به حدی‌ترین شیء نگاه کن</a><a href="#s6-1"><b>۶.۱</b>درخت \(n\) رأسی، \(n - 1\) یال؛ و حذف برگ</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis lower" data-key="worst-input">
+<h2>ورودی بد را بساز</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">برای اینکه بفهمی یک کران دقیق است یا فقط کران بالا، ورودی‌ای بساز که الگوریتم را به بدترین مسیرش بکشاند. اگر نتوانستی، شاید کران بهتری وجود دارد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«آیا این تحلیل \(\Theta\) است یا فقط \(O\)؟»</li><li>«بدترین حالت الگوریتم چیست؟»</li><li>می‌خواهی نشان دهی یک روش ساده کند است تا روش بهتری را توجیه کنی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ببین هزینهٔ الگوریتم از کجا می‌آید: کدام حلقه، کدام بازگشتِ نابرابر.</li><li>ورودی را طوری بچین که آن هزینه در هر مرحله رخ دهد: آرایهٔ مرتب برای کوئیک‌سورت با محور اول، آرایهٔ نزولی برای درجی، عبارت چپ‌سنگین برای یافتن ریشه.</li><li>هزینه را روی همان ورودی دقیق حساب کن تا کران پایینِ بدترین حالت به دست آید.</li></ol>
+<div class="box ex"><div class="bh"></div><p>یافتن ریشهٔ عبارت پرانتزدار با پیمایش: روی \((((((a+b)+c)+d)+e)+f)\) ریشه همیشه ته رشته است، پس هر سطح تقریباً کل رشته را می‌خواند:
+\(n + (n-4) + (n-8) + \dots = \Theta(n^2)\). همین ورودی نشان داد که به روش دیگری (تجزیهٔ همزمان) نیاز داریم.</p></div>
+<div class="box trap"><div class="bh"></div><p>برای الگوریتم تصادفی، «ورودی بد» را قبل از سکه‌ها ثابت کن؛ تصادف درون الگوریتم است و دشمن نمی‌تواند سکه‌ها را ببیند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-9"><b>جزوه ۷.۹</b>مسئلهٔ ۱: ساخت درخت از نگارش میانوندی با پرانتزبندی کامل</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-8"><b>جزوه ۱.۸</b>تحلیل دقیق مرتب‌سازی درجی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-12"><b>جزوه ۳.۱۲</b>کوئیک‌سورت تصادفی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-2"><b>جزوه ۴.۲</b>مثال ۱: پشته با عمل multipop</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-8"><b>جزوه ۴.۸</b>مثال تکمیلی: آرایهٔ پویا</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p3"><b>سری ۱، مسئلهٔ ۳</b>تحلیل زمان</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p9"><b>سری ۱، مسئلهٔ ۹</b>آرایهٔ پویا</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-8"><b>۱.۸</b>\(O\) و \(\Omega\) را جدا ثابت کن</a><a href="#s3-1"><b>۳.۱</b>تصادف را به الگوریتم ببر، نه به ورودی</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis design" data-key="transform">
+<h2>مسئله را به شکل آشنا تبدیل کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">با یک تغییر متغیر، یک نگاشت یا یک بازنویسی، مسئلهٔ تازه را به مسئله‌ای تبدیل کن که ابزارش را داری.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>عبارت‌های عجیب: \(\sqrt n\) در بازگشت، توابعی مثل \((\lg n)!\)، شکل هندسی، توزیعی غیریکنواخت.</li><li>مسئله «شبیهِ» یک مسئلهٔ آشناست ولی دقیقاً همان نیست.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>بپرس «چه چیزی این را سخت کرده؟» و همان را با متغیر جدید ساده کن.</li><li>تبدیل‌های رایج درس: \(n = 2^m\) در بازگشت؛ لگاریتم گرفتن برای مقایسهٔ رشد؛ تابع توزیع برای یکنواخت کردن کلید؛ جدا کردن ابعاد در فاصلهٔ منهتن؛ «\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عنصر \(\le y\)»؛ «از هر ضلع یکی کم کن».</li><li>مسئلهٔ آشنا را حل کن و جواب را با تبدیل معکوس برگردان.</li></ol>
+<div class="box ex"><div class="bh"></div><p>نقطه‌های یکنواخت در دایرهٔ واحد را بر حسب فاصله تا مرکز \(\rho\) مرتب کن: \(\rho\) یکنواخت نیست، ولی \(P[\rho \le r] = r^2\) (نسبت مساحت‌ها)، پس \(\rho^2\) یکنواخت است.
+مسئله تبدیل شد به مرتب‌سازی سطلیِ اعداد یکنواخت؛ مرز سطل‌ها روی \(\rho\) می‌شود \(\sqrt{k/n}\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-12"><b>جزوه ۱.۱۲</b>کران‌های مجانبی توابع رایج</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p5"><b>سری ۱، مسئلهٔ ۵</b>بازگشتی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p20"><b>سری ۱، مسئلهٔ ۲۰</b>رشد توابع</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p31"><b>سری ۱، مسئلهٔ ۳۱</b>شمارش مثلث‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p10"><b>سری ۲، مسئلهٔ ۱۰</b>مرتب‌سازی نقاط دایره</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p16"><b>سری ۲، مسئلهٔ ۱۶</b>مکان‌یابی بهینهٔ بیمارستان</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p11"><b>سری ۲، مسئلهٔ ۱۱</b>ثابت ماندن صعودی بودن سطرها</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-11"><b>۲.۱۱</b>تغییر متغیر: \(n = 2^m\)</a><a href="#s1-7"><b>۱.۷</b>از توابع عجیب لگاریتم بگیر</a><a href="#s9-6"><b>۹.۶</b>سطل‌های هم‌احتمال با تابع توزیع</a><a href="#s9-10"><b>۹.۱۰</b>«\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عنصر \(\le y\)»</a></div>
+</article>
+
+<article class="idea" data-kinds="ds design" data-key="direct-index">
+<h2>مقدار را اندیس کن</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">وقتی کلیدها اعداد کوچک یا حروف‌اند، به‌جای مقایسه کردن، خود کلید را اندیس آرایه بگیر. دسترسی \(O(1)\) می‌شود و کران‌های مبتنی بر مقایسه دور زده می‌شوند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>کلیدها صحیح در بازهٔ \([0, k)\) با \(k\) کوچک، یا حروف الفبا.</li><li>کران \(\Omega(n\log n)\) یا \(\Omega(\log N)\) جلوی راه است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>آرایه‌ای به اندازهٔ دامنهٔ کلیدها بساز.</li><li>هر کلید \(x\) را مستقیماً در خانهٔ \(x\) بشمار یا ذخیره کن.</li><li>هزینه: زمان و حافظهٔ \(O(k)\) برای خود آرایه. اگر \(k\) بزرگ است، کلید را به رقم‌ها بشکن (مبنایی) یا حرف‌به‌حرف جلو برو (ترای).</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی شمارشی برای نمره‌های صحیح ۰ تا ۲۰: یک آرایهٔ ۲۱ خانه‌ای شمارنده، بدون حتی یک مقایسه، در \(O(n + 21)\).
+در ترای، فرزندِ حرف \(c\) همان \(child[c]\) است، پس هر گام جست‌وجو \(O(1)\) است.</p></div>
+<div class="box trap"><div class="bh"></div><p>کران \(\Omega(n\log n)\) فقط برای الگوریتم‌هایی است که اطلاعات را «فقط با مقایسه» می‌گیرند. این ایده آن فرض را کنار می‌گذارد، نه اینکه کران را رد کند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-5"><b>جزوه ۹.۵</b>مرتب‌سازی شمارشی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-7"><b>جزوه ۹.۷</b>مرتب‌سازی مبنایی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-2"><b>جزوه ۱۰.۲</b>ساختمان دادهٔ ترای</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-8"><b>جزوه ۵.۸</b>پیاده‌سازی لیست پیوندی با آرایه</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p6"><b>سری ۲، مسئلهٔ ۶</b>مرتب‌سازی خطی اعداد محدود</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-3"><b>۹.۳</b>کران را با فرض اضافه بشکن</a><a href="#s9-5"><b>۹.۵</b>مبنا را \(n\) بگیر</a><a href="#s10-1"><b>۱۰.۱</b>کلید را حرف‌به‌حرف بشکن</a></div>
+</article>
+
+<article class="idea" data-kinds="design ds" data-key="preprocess">
+<h2>یک بار پیش‌پردازش، بارها پاسخ</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">اگر روی یک داده پرسش‌های زیادی می‌آید، هزینهٔ یک‌بارهٔ پیش‌پردازش (مرتب‌سازی، مجموع پیشوندی، ساخت هرم یا ترای) را بپرداز تا هر پرسش ارزان شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«پرسش‌های زیادی با \(k\)های مختلف»، «\(q\) پرس‌وجو».</li><li>یک محاسبه بارها از نو انجام می‌شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هزینهٔ کل را بنویس: پیش‌پردازش \(+\; q \times\) هزینهٔ هر پرسش.</li><li>ساختاری انتخاب کن که هزینهٔ پرسش را تا حد لازم پایین بیاورد: مجموع پیشوندی (جمع بازه در \(O(1)\))، آرایهٔ مرتب (جست‌وجوی دودویی)، هرم (پیمایش هرس‌شده)، ترای (جست‌وجوی پیشوندی).</li><li>مقایسه کن: اگر \(q\) کوچک است، شاید روش بدون پیش‌پردازش بهتر باشد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>شمارش اعداد بزرگ‌تر از \(k\) (با \(t\) جواب): بدون پیش‌پردازش هر پرسش \(O(n)\)؛ با یک بار مرتب‌سازی \(O(n\log n)\) و هر پرسش \(O(t)\)؛
+با یک بار ساخت هرم \(O(n)\) و هر پرسش باز هم \(O(t)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-9"><b>جزوه ۸.۹</b>مسئلهٔ ۱: شمارش اعداد بزرگ‌تر از \(k\)</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-16"><b>جزوه ۱.۱۶</b>مثال دوم: زیرآرایه با بیشترین مجموع</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-6"><b>جزوه ۱۰.۶</b>کاربردهای ترای</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p29"><b>سری ۱، مسئلهٔ ۲۹</b>نزدیک‌ترین نقاط</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-12"><b>۱.۱۲</b>مجموع پیشوندی</a><a href="#s8-4"><b>۸.۴</b>پیمایش هرس‌شده: هزینه متناسب با خروجی</a><a href="#s5-1"><b>۵.۱</b>اول بپرس کدام عمل‌ها لازم‌اند</a></div>
+</article>
+</section>

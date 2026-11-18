@@ -1,0 +1,139 @@
+<section class="chapter" data-ch="5" data-color="c5" data-title="آرایه، لیست پیوندی، پشته و صف" id="ch5">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۵ — ۹ ایده</div>
+  <h1>آرایه، لیست پیوندی، پشته و صف</h1>
+  <p class="ch-lead">اولین ساختمان داده‌ها و اولین درس‌های «پیاده‌سازی»: قبل از انتخاب ساختار، عمل‌ها را بشمار؛ موقع دستکاری اشاره‌گرها ترتیب را رعایت کن؛
+و دو ابزار طلایی پشته را یاد بگیر: «کارهای نیمه‌تمام» و «پشتهٔ یکنوا».</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch5">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۵</div>
+</header>
+
+<article class="idea" data-kinds="ds" data-key="adt">
+<h2>اول بپرس کدام عمل‌ها لازم‌اند</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">نوع دادهٔ انتزاعی (چه عمل‌هایی) را از پیاده‌سازی (با چه هزینه‌ای) جدا کن و ساختمان داده را بر اساس عمل‌هایی انتخاب کن که بیشتر از همه تکرار می‌شوند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«چه ساختمان داده‌ای برای این مسئله مناسب است؟»</li><li>الگوریتمی که کند است چون یک عمل را بارها با هزینهٔ زیاد انجام می‌دهد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>فهرست عمل‌ها و تعداد تقریبی هر کدام را بنویس: درج، حذف، جست‌وجو، کمینه، دسترسی به \(i\)امی.</li><li>برای هر نامزد (آرایه، لیست، پشته، صف، هرم، ترای) هزینهٔ هر عمل را بنویس.</li><li>هزینهٔ کل = جمع (تعداد × هزینه). کمینه را انتخاب کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>درج و حذف زیاد در وسط و بدون نیاز به \(A[i]\) ⇐ لیست پیوندی. دسترسی تصادفی زیاد ⇐ آرایه. «بزرگ‌ترین را بده» بارها ⇐ هرم. جست‌وجوی کلمه در لغت‌نامهٔ بزرگ ⇐ ترای.</p></div>
+<div class="box trap"><div class="bh"></div><p>نوع انتزاعی به‌تنهایی کارایی را مشخص نمی‌کند: «صف» با آرایهٔ ساده و جابه‌جا کردن عناصر \(O(n)\) است و با آرایهٔ حلقوی \(O(1)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-1"><b>جزوه ۵.۱</b>داده‌ساختار چیست؟</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-2"><b>جزوه ۵.۲</b>نوع دادهٔ انتزاعی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-15"><b>جزوه ۵.۱۵</b>جمع‌بندی: رابط را به هزینه وصل کنید</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-2"><b>جزوه ۸.۲</b>پیاده‌سازی‌های ساده و مشکلشان</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-2"><b>۵.۲</b>آرایه یا لیست پیوندی؟</a><a href="#s8-1"><b>۸.۱</b>فقط بیشینه لازم است؟ ترتیب جزئی کافی است</a><a href="#s0-13"><b>۰.۱۳</b>یک بار پیش‌پردازش، بارها پاسخ</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="array-vs-list">
+<h2>آرایه یا لیست پیوندی؟</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">آرایه دسترسی \(O(1)\) به خانهٔ \(i\)ام دارد ولی درج و حذف وسط \(O(n)\) است؛ لیست پیوندی برعکس: درج و حذف کنار یک گرهٔ معلوم \(O(1)\) و رسیدن به گرهٔ \(i\)ام \(O(i)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>انتخاب بین دو پیاده‌سازی.</li><li>«چرا جست‌وجوی دودویی روی لیست پیوندی ممکن نیست؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>اگر الگوریتم به «وسط» یا اندیس دلخواه نیاز دارد (جست‌وجوی دودویی، هرم)، آرایه.</li><li>اگر فقط پیمایش ترتیبی و درج و حذف محلی دارد، لیست.</li><li>لیست دوپیوندی: حذف یک گره با داشتن خود گره \(O(1)\) است، چون گرهٔ قبلی مستقیم در دسترس است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>جست‌وجوی دودویی روی لیست پیوندیِ مرتب: رسیدن به وسط خودش \(\Theta(n)\) است، پس کل جست‌وجو هم \(\Theta(n)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-3"><b>جزوه ۵.۳</b>آرایه: حافظهٔ پیوسته و دسترسی مستقیم</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-4"><b>جزوه ۵.۴</b>لیست پیوندی: گره‌هایی که با اشاره‌گر به هم وصل‌اند</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-6"><b>جزوه ۵.۶</b>لیست دوپیوندی و مقایسه با آرایه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-1"><b>۵.۱</b>اول بپرس کدام عمل‌ها لازم‌اند</a><a href="#s5-4"><b>۵.۴</b>اشاره‌گر می‌تواند اندیس باشد</a></div>
+</article>
+
+<article class="idea" data-kinds="ds design" data-key="pointer-order">
+<h2>ترتیب به‌روزرسانی اشاره‌گرها: اول ذخیره، بعد بازنویسی</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">قبل از بازنویسی یک اشاره‌گر، مطمئن شو چیزی که به آن اشاره می‌کرد جای دیگری ذخیره شده است؛ وگرنه بقیهٔ لیست برای همیشه گم می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>درج، حذف و معکوس کردن لیست؛ هر دستکاری اشاره‌گرها.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>برای هر انتساب بپرس: «آیا این تنها جایی است که نشانی آن گره نگه داشته شده؟»</li><li>اگر بله، اول آن را در متغیری مثل \(next\) ذخیره کن.</li><li>حالت‌های مرزی را جدا چک کن: لیست خالی، یک گره، سر و ته لیست.</li></ol>
+<div class="box ex"><div class="bh"></div><p>معکوس کردن لیست با سه اشاره‌گر: next = cur.next (ذخیره)، cur.next = prev (بازنویسی)، prev = cur، cur = next. در درج بعد از \(p\): اول q.next = p.next و بعد p.next = q.</p></div>
+<div class="box trap"><div class="bh"></div><p>اگر در درج اول p.next = q را بنویسی، نشانی بقیهٔ لیست بازنویسی می‌شود و q.next = p.next یعنی q به خودش اشاره می‌کند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-5"><b>جزوه ۵.۵</b>عملیات روی لیست پیوندی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-7"><b>جزوه ۵.۷</b>معکوس کردن لیست پیوندی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-2"><b>۵.۲</b>آرایه یا لیست پیوندی؟</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="index-as-pointer">
+<h2>اشاره‌گر می‌تواند اندیس باشد</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">لیست پیوندی را با دو آرایهٔ موازی \(Data\) و \(Next\) بساز. ترتیب منطقی را \(Next\) تعیین می‌کند نه جای فیزیکی، و خانه‌های آزاد را هم با همان \(Next\) در یک «لیست آزاد» زنجیر کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>محیط بدون اشاره‌گر، مدیریت حافظهٔ دستی.</li><li>پیاده‌سازی درخت یا هرم با آرایه.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(Next[i]\) = اندیس گرهٔ بعدی (یا مقداری خاص برای null).</li><li>درج = گرفتن یک خانه از سر لیست آزاد + تغییر دو \(Next\).</li><li>حذف = تغییر یک \(Next\) + برگرداندن خانه به سر لیست آزاد. همه \(O(1)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>آرایهٔ پدر برای درخت (\(parent[i]\)) و اندیس‌های \(2i\) و \(2i + 1\) در هرم همین ایده‌اند: رابطه‌ها با اندیس نگه داشته می‌شوند، نه با نشانی حافظه.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-8"><b>جزوه ۵.۸</b>پیاده‌سازی لیست پیوندی با آرایه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-11"><b>جزوه ۶.۱۱</b>پیاده‌سازی درخت با آرایه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-6"><b>۶.۶</b>درخت کامل در آرایه: \(2i\) و \(2i + 1\)</a><a href="#s5-2"><b>۵.۲</b>آرایه یا لیست پیوندی؟</a></div>
+</article>
+
+<article class="idea" data-kinds="design ds" data-key="floyd">
+<h2>دو اشاره‌گر با سرعت‌های متفاوت</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">اشاره‌گری که یک قدم و اشاره‌گری که دو قدم می‌رود، اگر دوری باشد حتماً به هم می‌رسند (فاصله‌شان هر قدم یکی کم می‌شود). بعد از ملاقات، یکی از سر لیست و دیگری از نقطهٔ ملاقات با سرعت برابر، دقیقاً در ورودی دور به هم می‌رسند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«آیا لیست دور دارد؟»، «شروع دور کجاست؟»</li><li>«وسط لیست را در یک پیمایش پیدا کن» با حافظهٔ \(O(1)\).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>slow یک قدم و fast دو قدم. اگر fast به null رسید، دوری نیست.</li><li>داخل دور، فاصلهٔ fast تا slow (در جهت حرکت) هر قدم یکی کم می‌شود ⇐ کمتر از \(\lambda\) قدم پس از ورود slow به دور، ملاقات می‌کنند.</li><li>اگر \(\mu\) طول پیشوندِ پیش از دور باشد، از نقطهٔ ملاقات \(\mu\) قدم جلوتر همان ورودی دور است؛ پس مرحلهٔ دوم (هم‌قدم از سر لیست و از نقطهٔ ملاقات) در ورودی دور تمام می‌شود.</li><li>وسط لیست: وقتی fast به ته رسید، slow در وسط است.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-9"><b>جزوه ۵.۹</b>لیست دوری: شمارش گره‌ها با الگوریتم فلوید</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s5-1"><b>اثبات ۵.۱</b>درستی الگوریتم فلوید (لاک‌پشت و خرگوش)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-3"><b>۲.۳</b>دو اشاره‌گر روی دو فهرست مرتب</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="circular">
+<h2>ساختار حلقوی برای فرایند دوری</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">وقتی پردازش دور می‌زند (حذف هر \(k\)امین نفر، صف با آرایهٔ ثابت)، انتها را به ابتدا وصل کن: لیست حلقوی یا اندیس‌گذاری به پیمانهٔ \(n\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ژوزفوس؛ صف با ظرفیت ثابت؛ بافر چرخشی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>لیست حلقوی: آخرین گره به اولی اشاره می‌کند؛ حذف از وسط با داشتن گرهٔ قبلی \(O(1)\) است.</li><li>صف حلقوی: \(head\) و \(tail\) با \((i + 1) \bmod n\) جلو می‌روند و هیچ عنصری جابه‌جا نمی‌شود.</li><li>پُر و خالی را از هم تمیز بده: یا یک خانه را همیشه خالی نگه دار، یا شمارندهٔ اندازه داشته باش.</li></ol>
+<div class="box ex"><div class="bh"></div><p>ژوزفوس با \(n\) نفر و گام \(k\): با لیست حلقوی \(O(nk)\)، به‌جای جابه‌جا کردن آرایه در هر حذف.</p></div>
+<div class="box trap"><div class="bh"></div><p>دو قرارداد «tail به آخرین عنصر اشاره می‌کند» و «tail به خانهٔ خالی بعدی اشاره می‌کند» را قاطی نکن.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-10"><b>جزوه ۵.۱۰</b>لیست حلقوی و مسئلهٔ ژوزفوس</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-14"><b>جزوه ۵.۱۴</b>صف: اولین ورودی، اولین خروجی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-1"><b>۵.۱</b>اول بپرس کدام عمل‌ها لازم‌اند</a></div>
+</article>
+
+<article class="idea" data-kinds="ds design" data-key="stack-pending">
+<h2>پشته = کارهای نیمه‌تمام، به ترتیب عکس</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">هر جا کاری را شروع می‌کنی که تا تمام شدن کار بعدی نمی‌توانی تمامش کنی (فراخوانی تابع، پرانتز باز، عملگری که عملوند راستش هنوز نیامده)، آن را روی پشته بگذار. آخرین کار نیمه‌تمام اولین کاری است که تمام می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ساختارهای تودرتو: پرانتز، تگ، فراخوانی بازگشتی.</li><li>تبدیل بازگشت به حلقه؛ پردازش عبارت.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>وقتی چیزی «باز» شد push کن؛ وقتی «بسته» شد pop کن و با بالای پشته جفتش کن.</li><li>بازگشت را می‌توان با پشتهٔ صریح شبیه‌سازی کرد: پشته همان فراخوانی‌های در جریان است.</li><li>در پایان، پشتهٔ خالی یعنی همه چیز جفت شده است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>بررسی پرانتزبندی: «(» را push کن و با «)» pop کن. اگر موقع pop پشته خالی بود، یا آخر کار پر ماند، عبارت نامعتبر است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-11"><b>جزوه ۵.۱۱</b>پشته: آخرین ورودی، اولین خروجی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-10"><b>جزوه ۷.۱۰</b>ساخت درخت از نگارش پیشوندی و پسوندی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-11"><b>جزوه ۷.۱۱</b>مسئلهٔ ۲: ساخت درخت از نگارش میانوندی بدون پرانتز</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s7-6"><b>۷.۶</b>از پسوندی با پشته</a><a href="#s7-7"><b>۷.۷</b>دو پشته و پرسشِ «تکلیف کی معلوم می‌شود؟»</a><a href="#s5-8"><b>۵.۸</b>پشتهٔ یکنوا</a></div>
+</article>
+
+<article class="idea" data-kinds="ds design" data-key="monotone-stack">
+<h2>پشتهٔ یکنوا</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">برای «نزدیک‌ترین عنصر بزرگ‌تر بعدی» (یا قبلی، یا کوچک‌تر)، پشته‌ای از اندیس‌هایی نگه دار که هنوز جوابشان پیدا نشده؛ مقدارهای این پشته از پایین به بالا نزولی‌اند. هر عنصر جدید، همهٔ عناصر کوچک‌ترِ بالای پشته را جواب می‌دهد و pop می‌کند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«اولین عنصر بعدی که از این بزرگ‌تر است».</li><li>بزرگ‌ترین مستطیل در هیستوگرام؛ «کدام ساختمان‌ها دیده می‌شوند؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>از چپ به راست: تا وقتی \(A[top] &lt; A[i]\)، جواب top برابر \(i\) است؛ pop کن.</li><li>\(i\) را push کن.</li><li>آخر کار، هر چه در پشته مانده جوابی ندارد.</li><li>تحلیل: هر اندیس یک بار push و حداکثر یک بار pop ⇐ \(\Theta(n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(A = 2, 1, 5, 3, 4\): وقتی ۵ می‌آید، جواب ۱ و ۲ می‌شود؛ وقتی ۴ می‌آید، جواب ۳. عناصر ۵ و ۴ جوابی ندارند.</p></div>
+<div class="box trap"><div class="bh"></div><p>«اولین» بزرگ‌تر، نه «بیشترین». و تکلیف تساوی را صریح مشخص کن (\(&lt;\) یا \(\le\)).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-12"><b>جزوه ۵.۱۲</b>کاربرد پشته: نزدیک‌ترین قیمت بزرگ‌تر بعدی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s5-2"><b>اثبات ۵.۲</b>نزدیک‌ترین بزرگ‌تر بعدی در \(\Theta(n)\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-5"><b>۴.۵</b>هر شیء یک بار ساخته و حداکثر یک بار نابود می‌شود</a><a href="#s5-7"><b>۵.۷</b>پشته = کارهای نیمه‌تمام، به ترتیب عکس</a></div>
+</article>
+
+<article class="idea" data-kinds="design proof" data-key="greedy-simulation">
+<h2>امکان‌پذیری با شبیه‌سازی حریصانه</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">وقتی می‌پرسند «آیا این خروجی با این ساختار (پشته، صف) قابل تولید است؟»، حریصانه شبیه‌سازی کن: هر وقت عنصر لازمِ بعدی در دسترس است برش دار، وگرنه ورودی بعدی را وارد کن. اگر گیر کردی، ناممکن است، چون هیچ انتخاب دیگری بهتر نبود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>قطار و ایستگاه (پشته).</li><li>«آیا این دنبالهٔ push و pop معتبر است؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>اشاره‌گری روی خروجی هدف و پشته‌ای خالی.</li><li>تا وقتی بالای پشته خروجیِ بعدی نیست، ورودی بعدی را push کن؛ اگر ورودی تمام شد، شکست.</li><li>وقتی بالای پشته همان خروجی بعدی است، pop کن.</li><li>چرا حریصانه کافی است؟ pop کردن عنصری که الان لازم نیست هرگز کمک نمی‌کند، و push نکردن وقتی لازم است، عنصر مورد نیاز را دور از دسترس نگه می‌دارد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>با ورودی \(1, 2, 3\)، خروجی \(3, 1, 2\) ناممکن است: برای بیرون دادن ۳ باید ۱ و ۲ را push کنیم، و آن‌وقت ۲ بالای ۱ است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-13"><b>جزوه ۵.۱۳</b>کاربرد پشته: قطار و جایگشت‌ها</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s5-3"><b>اثبات ۵.۳</b>قطار و پشته: شبیه‌سازی حریصانه لازم و کافی است</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-7"><b>۵.۷</b>پشته = کارهای نیمه‌تمام، به ترتیب عکس</a><a href="#s0-4"><b>۰.۴</b>ناوردا: چیزی که هرگز عوض نمی‌شود</a></div>
+</article>
+</section>

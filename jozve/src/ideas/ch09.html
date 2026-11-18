@@ -1,0 +1,147 @@
+<section class="chapter" data-ch="9" data-color="c9" data-title="کران پایین مرتب‌سازی و مرتب‌سازی خطی" id="ch9">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۹ — ۱۰ ایده</div>
+  <h1>کران پایین مرتب‌سازی و مرتب‌سازی خطی</h1>
+  <p class="ch-lead">دو روی سکهٔ مرتب‌سازی: کران پایین (درخت تصمیم و شمردن جواب‌ها) و دور زدن آن با فرض اضافه (شمارشی، مبنایی، سطلی).
+ایده‌های تمرین‌ها هم این‌جا جمع شده‌اند: وارونه‌ها به‌عنوان معیار نامرتبی، اصل ۰ و ۱، و جست‌وجو در جدول مرتب.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch9">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۹</div>
+</header>
+
+<article class="idea" data-kinds="lower" data-key="decision-tree">
+<h2>هر الگوریتم مقایسه‌ای = یک درخت تصمیم</h2>
+<div class="idea-meta"><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">اجرای هر الگوریتم مبتنی بر مقایسه روی ورودی‌های اندازهٔ \(n\) را یک درخت دودویی ببین: گره‌ها مقایسه‌ها و برگ‌ها خروجی‌ها. بدترین زمان = ارتفاع درخت.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید هیچ الگوریتمی نمی‌تواند با کمتر از … مقایسه …».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هر خروجی متمایزِ ممکن دست‌کم یک برگ دارد (برای مرتب‌سازی: \(n!\) جایگشت).</li><li>درخت دودویی به ارتفاع \(h\) حداکثر \(2^h\) برگ دارد.</li><li>اگر تعداد خروجی‌ها \(M\) باشد: \(2^h \ge M\) ⇐ \(h \ge \lg M\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی: \(h \ge \lg n! = \Theta(n\log n)\). جست‌وجو در آرایهٔ مرتب: \(n + 1\) خروجی ممکن (هر جایگاه یا «نیست») ⇐ دست‌کم \(\lg(n + 1)\) مقایسه؛ پس جست‌وجوی دودویی بهینه است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-2"><b>جزوه ۹.۲</b>چقدر سریع می‌توان مرتب کرد؟</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-3"><b>جزوه ۹.۳</b>درخت تصمیم</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-4"><b>جزوه ۹.۴</b>کران پایین \(\Omega(n\log n)\) برای مرتب‌سازی مقایسه‌ای</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-1"><b>اثبات ۹.۱</b>درخت تصمیم مرتب‌سازی دست‌کم \(N!\) برگ دارد</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-2"><b>اثبات ۹.۲</b>کران پایین \(\Omega(N\log N)\) برای مرتب‌سازی مقایسه‌ای</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-2"><b>۹.۲</b>کران اطلاعاتی: لگاریتمِ تعداد جواب‌ها</a><a href="#s2-19"><b>۲.۱۹</b>کران پایین: باید همهٔ ورودی را دید</a><a href="#s6-1"><b>۶.۱</b>درخت \(n\) رأسی، \(n - 1\) یال؛ و حذف برگ</a></div>
+</article>
+
+<article class="idea" data-kinds="lower" data-key="info-bound">
+<h2>کران اطلاعاتی: لگاریتمِ تعداد جواب‌ها</h2>
+<div class="idea-meta"><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">اگر هر پرسش حداکثر \(r\) جواب متمایز دارد و مسئله \(M\) جواب ممکن، هر الگوریتم دست‌کم \(\log_r M\) پرسش لازم دارد. مقایسه \(r = 2\) است و پرس‌وجوی «بیشینهٔ \(k\) تا» \(r = k\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>کران پایین برای مدل‌های محاسباتی غیرعادی.</li><li>«حداقل چند وزن‌کشی / پرسش لازم است؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(M\) را بشمار (جایگشت‌ها، جایگاه‌ها، زیرمجموعه‌ها).</li><li>\(r\) را بشمار: هر پرسش چند نتیجهٔ متمایز می‌تواند داشته باشد؟</li><li>درخت \(r\)تایی به ارتفاع \(h\) حداکثر \(r^h\) برگ دارد ⇐ \(h \ge \log_r M = \frac{\lg M}{\lg r}\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>یافتن یک سکهٔ سبک‌تر بین ۹ سکه با ترازوی دوکفه (۳ نتیجه): دست‌کم \(\log_3 9 = 2\) وزن‌کشی لازم است، و دو وزن‌کشی (۳ در برابر ۳، بعد ۱ در برابر ۱) کافی هم هست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-4"><b>جزوه ۹.۴</b>کران پایین \(\Omega(n\log n)\) برای مرتب‌سازی مقایسه‌ای</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p20"><b>سری ۲، مسئلهٔ ۲۰</b>دستگاه «مجیک‌سورت»</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-1"><b>۹.۱</b>هر الگوریتم مقایسه‌ای = یک درخت تصمیم</a><a href="#s8-7"><b>۸.۷</b>درخت تورنمنت \(k\)تایی</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="break-bound">
+<h2>کران را با فرض اضافه بشکن</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">کران \(\Omega(n\log n)\) فقط برای الگوریتم‌هایی است که اطلاعات را فقط از مقایسه می‌گیرند. اگر کلیدها اعداد صحیح در بازه‌ای محدودند، از خود مقدار استفاده کن (شمارشی، مبنایی، سطلی) و در زمان خطی مرتب کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«اعداد صحیح بین ۰ و \(k\)»، «اعداد \(d\)رقمی»، «کلیدهای یکنواخت در \([0, 1)\)».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>فرض اضافه را پیدا کن (بازهٔ کوچک، تعداد رقم کم، توزیع معلوم).</li><li>الگوریتم مناسب را انتخاب کن: شمارشی \(O(n + k)\)، مبنایی \(O(d(n + b))\)، سطلی با امید \(O(n)\).</li><li>فرض را صریح در جوابت بنویس.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-5"><b>جزوه ۹.۵</b>مرتب‌سازی شمارشی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-7"><b>جزوه ۹.۷</b>مرتب‌سازی مبنایی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-8"><b>جزوه ۹.۸</b>جمع‌بندی مرتب‌سازی‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p6"><b>سری ۲، مسئلهٔ ۶</b>مرتب‌سازی خطی اعداد محدود</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p10"><b>سری ۲، مسئلهٔ ۱۰</b>مرتب‌سازی نقاط دایره</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-12"><b>۰.۱۲</b>مقدار را اندیس کن</a><a href="#s9-5"><b>۹.۵</b>مبنا را \(n\) بگیر</a><a href="#s9-6"><b>۹.۶</b>سطل‌های هم‌احتمال با تابع توزیع</a></div>
+</article>
+
+<article class="idea" data-kinds="design proof" data-key="stability">
+<h2>پایداری و ترتیب گذرها</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">در مرتب‌سازی مبنایی از کم‌ارزش‌ترین رقم شروع کن و در هر گذر از مرتب‌سازی پایدار استفاده کن. پایداری تضمین می‌کند ترتیبی که گذرهای قبلی (رقم‌های کم‌ارزش‌تر) ساخته‌اند، بین کلیدهایی که رقم فعلی‌شان برابر است حفظ شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>مرتب‌سازی چندکلیدی (اول بر حسب نام، بعد بر حسب کلاس).</li><li>مرتب‌سازی مبنایی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ناوردا: بعد از گذر \(i\)، اعداد بر حسب \(i\) رقم آخرشان مرتب‌اند.</li><li>گذر \(i + 1\): اگر رقم \(i + 1\) دو عدد فرق دارد، این گذر درست مرتبشان می‌کند؛ اگر برابر است، پایداری ترتیب قبلی را نگه می‌دارد.</li><li>شمارشی پایدار است اگر در مرحلهٔ آخر آرایه را از انتها به ابتدا بپیماییم.</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی دانشجوها بر حسب (کلاس، نام): اول بر حسب نام مرتب کن، بعد با یک مرتب‌سازی پایدار بر حسب کلاس.</p></div>
+<div class="box trap"><div class="bh"></div><p>شروع از پرارزش‌ترین رقم یا مرتب‌سازی ناپایدار، نتیجهٔ غلط می‌دهد؛ مگر اینکه (مثل ترای) هر گروه با رقم اول یکسان را جدا و بازگشتی مرتب کنی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-6"><b>جزوه ۹.۶</b>پایداری</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-7"><b>جزوه ۹.۷</b>مرتب‌سازی مبنایی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-3"><b>اثبات ۹.۳</b>پایداری مرتب‌سازی شمارشی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s9-4"><b>اثبات ۹.۴</b>درستی مرتب‌سازی مبنایی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-4"><b>۰.۴</b>ناوردا: چیزی که هرگز عوض نمی‌شود</a><a href="#s9-5"><b>۹.۵</b>مبنا را \(n\) بگیر</a><a href="#s10-7"><b>۱۰.۷</b>پیش‌ترتیب ترای = ترتیب لغت‌نامه‌ای</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="radix-base-n">
+<h2>مبنا را \(n\) بگیر</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">اعداد صحیح در بازهٔ \([0, n^c)\) را در مبنای \(n\) بنویس: هر عدد \(c\) رقم دارد و هر رقم در \([0, n)\). \(c\) گذر شمارشی، هر کدام \(O(n)\): کل \(O(cn)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«اعداد بین ۰ و \(n^3 - 1\) را در \(O(n)\) مرتب کنید».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>رقم \(j\)ام عدد \(x\): \(\lfloor x / n^j \rfloor \bmod n\).</li><li>شمارشی پایدار روی رقم‌ها، از \(j = 0\) تا \(c - 1\).</li><li>چرا مبنای \(n\)؟ با مبنای ۱۰ تعداد رقم‌ها \(\Theta(\log n)\) و کل \(O(n\log n)\) می‌شود؛ مبنای \(n\) تعداد رقم‌ها را ثابت می‌کند، بی‌آنکه هزینهٔ هر گذر از \(O(n)\) بیشتر شود.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-7"><b>جزوه ۹.۷</b>مرتب‌سازی مبنایی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p6"><b>سری ۲، مسئلهٔ ۶</b>مرتب‌سازی خطی اعداد محدود</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-3"><b>۹.۳</b>کران را با فرض اضافه بشکن</a><a href="#s9-4"><b>۹.۴</b>پایداری و ترتیب گذرها</a><a href="#s0-12"><b>۰.۱۲</b>مقدار را اندیس کن</a></div>
+</article>
+
+<article class="idea" data-kinds="design prob" data-key="bucket-cdf">
+<h2>سطل‌های هم‌احتمال با تابع توزیع</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="prob">احتمال</span></div>
+<p class="idea-core">مرتب‌سازی سطلی وقتی امید خطی دارد که هر سطل امید \(O(1)\) عنصر داشته باشد. اگر کلید یکنواخت نیست، مقدار تابع توزیع روی کلید، یعنی \(F(x)\)، یکنواخت است؛ پس مرزهای سطل‌ها را جایی بگذار که \(F\) در آن‌ها \(\frac1n, \frac2n, \dots\) است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>کلیدهای تصادفی با توزیع معلوم ولی غیریکنواخت.</li><li>نقاط تصادفی در دایره یا هر شکل هندسی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(n\) سطل با احتمال برابرِ \(\frac1n\): مرزهای \(F^{-1}(k/n)\).</li><li>هر عنصر را در سطلش بگذار و سطل‌ها را جدا (مثلاً با درجی) مرتب کن.</li><li>امید هزینه \(\sum E[n_i^2] = O(n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>نقطهٔ یکنواخت در دایرهٔ واحد: \(P[\rho \le r] = r^2\) (نسبت مساحت‌ها). پس سطل‌ها حلقه‌هایی با مرزهای \(\sqrt{k/n}\) هستند، نه حلقه‌هایی با پهنای مساوی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-8"><b>جزوه ۹.۸</b>جمع‌بندی مرتب‌سازی‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p10"><b>سری ۲، مسئلهٔ ۱۰</b>مرتب‌سازی نقاط دایره</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-11"><b>۰.۱۱</b>مسئله را به شکل آشنا تبدیل کن</a><a href="#s9-3"><b>۹.۳</b>کران را با فرض اضافه بشکن</a></div>
+</article>
+
+<article class="idea" data-kinds="proof" data-key="zero-one">
+<h2>اصل ۰ و ۱</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">برای الگوریتمی که فقط از «مقایسه و جابه‌جایی» در جایگاه‌های ازپیش‌تعیین‌شده تشکیل شده (شبکهٔ مرتب‌سازی)، کافی است درستی را روی ورودی‌های ۰ و ۱ ثابت کنی.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>مرتب‌سازی شبکه‌ای، مرتب‌سازی مارپیچی ماتریس.</li><li>هر الگوریتمی که دنبالهٔ مقایسه‌هایش به داده بستگی ندارد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ورودی را با یک آستانهٔ \(t\) به ۰ و ۱ تبدیل کن: عددهای \(\ge t\) ⇐ ۱ و بقیه ⇐ ۰.</li><li>چون مقایسه‌گرها با توابع یکنوا جابه‌جا می‌شوند، اگر شبکه ورودی اصلی را جایی غلط مرتب کند، روی یکی از این ورودی‌های ۰ و ۱ هم غلط می‌کند.</li><li>روی ورودی ۰ و ۱، کمیتی مثل «تعداد سطرهای کثیف» (سطرهایی که هم ۰ و هم ۱ دارند) تعریف کن و نشان بده هر دور کمش می‌کند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی مارپیچی: هر دور تعداد سطرهای کثیف را دست‌کم نصف می‌کند ⇐ حدود \(\lg n + 1\) دور کافی است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p22"><b>سری ۲، مسئلهٔ ۲۲</b>مرتب‌سازی مارپیچی ماتریس</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p11"><b>سری ۲، مسئلهٔ ۱۱</b>ثابت ماندن صعودی بودن سطرها</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a><a href="#s9-10"><b>۹.۱۰</b>«\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عنصر \(\le y\)»</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis lower" data-key="inversions">
+<h2>وارونه‌ها: معیار نامرتبی</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">تعداد جفت‌های نابه‌جا (\(i &lt; j\) و \(A[i] > A[j]\)) دقیقاً کار مرتب‌سازی درجی است، و هر جابه‌جایی دو عنصر مجاور فقط یکی از آن‌ها را درست می‌کند. پس هم برای تحلیل به کار می‌آید و هم برای کران پایین.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«مرتب‌سازی با جابه‌جایی‌های مجاور یا پنجره‌های کوچک».</li><li>«چقدر نامرتب است؟»</li><li>تحلیل مرتب‌سازی درجی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>زمان درجی \(= \Theta(n + I)\) که \(I\) تعداد وارونه‌هاست.</li><li>عملی که فقط \(k\) عنصر مجاور را جابه‌جا می‌کند حداکثر \(\binom k2\) وارونه را درست می‌کند ⇐ کران پایین \(I / \binom k2\) عمل.</li><li>شمردن وارونه‌ها در \(O(n\log n)\) با ادغامی (جفت‌های بین دو نیمه).</li><li>امید در جایگشت تصادفی: \(\frac{n(n-1)}{4}\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>آرایهٔ نزولی \(\binom n2\) وارونه دارد ⇐ هر الگوریتمی که فقط عناصر مجاور را جابه‌جا می‌کند (حبابی، درجی) در بدترین حالت \(\Omega(n^2)\) است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-8"><b>جزوه ۱.۸</b>تحلیل دقیق مرتب‌سازی درجی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p22"><b>سری ۱، مسئلهٔ ۲۲</b>امید ریاضی وارونه‌ها</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p13"><b>سری ۱، مسئلهٔ ۱۳</b>خیلی نابجایی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p2"><b>سری ۲، مسئلهٔ ۲</b>امید ریاضی وارونه‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p15"><b>سری ۲، مسئلهٔ ۱۵</b>مرتب‌سازی با پنجرهٔ ثابت</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-7"><b>۴.۷</b>پتانسیل‌های آماده</a><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a><a href="#s2-2"><b>۲.۲</b>جواب = چپ + راست + آنچه از مرز می‌گذرد</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="staircase">
+<h2>حذف یک سطر یا ستون با هر مقایسه</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">در جدولی که سطرها و ستون‌هایش صعودی‌اند، از گوشه‌ای شروع کن که در یک جهت کم و در جهت دیگر زیاد می‌شود (بالا-راست). هر مقایسه یک سطر یا یک ستون کامل را حذف می‌کند: \(O(m + n)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>جست‌وجو یا شمارش در ماتریس مرتب.</li><li>«چند جفت با جمع \(\le x\)؟» روی دو فهرست مرتب.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>از خانهٔ بالا-راست شروع کن. اگر برابر \(x\) است، پیدا شد.</li><li>اگر بزرگ‌تر از \(x\) است، کل این ستون (که پایین‌تر بزرگ‌تر می‌شود) کنار می‌رود: یک ستون به چپ. اگر کوچک‌تر است، کل این سطر (که به چپ کوچک‌تر می‌شود) کنار می‌رود: یک سطر پایین.</li><li>هر گام یک سطر یا ستون حذف می‌کند ⇐ حداکثر \(m + n\) گام.</li><li>برای شمردن «چند تا \(\le x\)»، مرز پله‌ای را با همین حرکت دنبال کن.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p8"><b>سری ۲، مسئلهٔ ۸</b>جست‌وجوی سریع در جدول صعودی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-3"><b>۲.۳</b>دو اشاره‌گر روی دو فهرست مرتب</a><a href="#s3-9"><b>۳.۹</b>افراز کن و فقط یک طرف را ادامه بده</a></div>
+</article>
+
+<article class="idea" data-kinds="proof" data-key="rows-stay-sorted">
+<h2>«\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عنصر \(\le y\)»</h2>
+<div class="idea-meta"><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">برای اثبات اینکه یک عمل نظم را حفظ می‌کند (مثلاً مرتب کردن ستون‌ها، سطرهای مرتب را خراب نمی‌کند)، گزارهٔ رتبه‌ای را به گزارهٔ شمارشی تبدیل کن و آن عناصر را با یک نگاشت یک‌به‌یک پیدا کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید بعد از مرتب کردن ستون‌ها، سطرها هنوز مرتب‌اند».</li><li>مقایسهٔ عضو به عضو دو فهرست مرتب.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>حکمِ «\(x_{(i)} \le y_{(i)}\) برای هر \(i\)» (عضوهای \(i\)ام دو فهرست مرتب) را به «برای هر \(i\)، دست‌کم \(i\) عضو از \(x\) حداکثر \(y_{(i)}\) هستند» تبدیل کن.</li><li>یک تناظر یک‌به‌یک بساز که به هر عضو از \(y\) که حداکثر \(y_{(i)}\) است، عضوی متمایز از \(x\) با مقداری کمتر یا مساوی نسبت دهد (مثلاً همسایهٔ چپِ آن در همان سطر).</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p11"><b>سری ۲، مسئلهٔ ۱۱</b>ثابت ماندن صعودی بودن سطرها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p22"><b>سری ۲، مسئلهٔ ۲۲</b>مرتب‌سازی مارپیچی ماتریس</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-7"><b>۹.۷</b>اصل ۰ و ۱</a><a href="#s0-11"><b>۰.۱۱</b>مسئله را به شکل آشنا تبدیل کن</a></div>
+</article>
+</section>

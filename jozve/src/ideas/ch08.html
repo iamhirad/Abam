@@ -1,0 +1,106 @@
+<section class="chapter" data-ch="8" data-color="c8" data-title="هرم و صف اولویت" id="ch8">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۸ — ۷ ایده</div>
+  <h1>هرم و صف اولویت</h1>
+  <p class="ch-lead">هرم نشان می‌دهد «ترتیب جزئی» چقدر می‌ارزد: فقط پدر از فرزند بزرگ‌تر است، و همین برای بیشینه کافی است.
+ایده‌های این فصل: ترمیم محلی در طول یک مسیر، ساختن از پایین، هرس کردن با ویژگی هرم، و هرم به‌عنوان ابزار (دو هرم، درخت تورنمنت).</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch8">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۸</div>
+</header>
+
+<article class="idea" data-kinds="ds" data-key="pq-ops">
+<h2>فقط بیشینه لازم است؟ ترتیب جزئی کافی است</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">اگر فقط به «بزرگ‌ترینِ فعلی» نیاز داری، مرتب نگه داشتن همه زیادی است. هرم فقط تضمین می‌کند هر پدر از فرزندانش بزرگ‌تر است، و همین برای insert و extract_max در \(O(\log n)\) و max در \(O(1)\) کافی است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«بارها بزرگ‌ترین (یا کوچک‌ترین) را بردار».</li><li>زمان‌بندی با اولویت؛ ادغام \(k\) فهرست مرتب؛ پردازش رویدادها به ترتیب زمان.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>عمل‌ها را بنویس: insert، max، extract_max (و شاید increase_key).</li><li>مقایسه کن: آرایهٔ نامرتب (درج \(O(1)\)، بیشینه \(O(n)\))، آرایهٔ مرتب (برعکس)، هرم (هر دو \(O(\log n)\)).</li><li>هرم را انتخاب کن، مگر اینکه نسبت عمل‌ها خیلی نامتوازن باشد.</li></ol>
+<div class="box trap"><div class="bh"></div><p>هرم مرتب نیست! پیدا کردن کوچک‌ترین عنصر در هرم بیشینه \(O(n)\) است (باید بین همهٔ برگ‌ها گشت).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-1"><b>جزوه ۸.۱</b>از صف تا صف اولویت</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-2"><b>جزوه ۸.۲</b>پیاده‌سازی‌های ساده و مشکلشان</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-3"><b>جزوه ۸.۳</b>هرم</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-1"><b>۵.۱</b>اول بپرس کدام عمل‌ها لازم‌اند</a><a href="#s8-2"><b>۸.۲</b>ترمیم محلی: بالا بردن و پایین بردن</a><a href="#s8-6"><b>۸.۶</b>دو هرم برای میانهٔ جاری</a></div>
+</article>
+
+<article class="idea" data-kinds="ds proof" data-key="sift">
+<h2>ترمیم محلی: بالا بردن و پایین بردن</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">وقتی فقط یک گره ویژگی هرم را خراب کرده، آن را در طول یک مسیر جابه‌جا کن: اگر از پدرش بزرگ‌تر است بالا ببر؛ اگر از فرزندی کوچک‌تر است با بزرگ‌ترین فرزند عوض کن و پایین ببر. هزینه از مرتبهٔ ارتفاع، یعنی \(O(\log n)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>درج (ته آرایه + بالا بردن).</li><li>حذف بیشینه (آخرین عنصر به ریشه + پایین بردن).</li><li>تغییر یک کلید.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ناوردا: «همه جا ویژگی هرم برقرار است، جز احتمالاً بین گرهٔ متحرک و پدرش (یا فرزندانش)».</li><li>هر جابه‌جایی مشکل را یک سطح جابه‌جا می‌کند.</li><li>وقتی گره به جای درستش رسید (یا به ریشه یا برگ)، ناوردا یعنی کل درخت هرم است.</li></ol>
+<div class="box trap"><div class="bh"></div><p>در پایین بردن، با بزرگ‌ترین فرزند عوض کن. اگر با فرزند کوچک‌تر عوض کنی، او بالای فرزند بزرگ‌تر قرار می‌گیرد و ویژگی هرم خراب می‌شود.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-5"><b>جزوه ۸.۵</b>افزایش مقدار یک گره</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-6"><b>جزوه ۸.۶</b>افزودن یک گرهٔ جدید</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-7"><b>جزوه ۸.۷</b>حذف بزرگ‌ترین عنصر</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s8-2"><b>اثبات ۸.۲</b>درستی بالا بردن (افزایش کلید در هرم)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s8-1"><b>اثبات ۸.۱</b>در هرم بیشینه ریشه بزرگ‌ترین است</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-4"><b>۰.۴</b>ناوردا: چیزی که هرگز عوض نمی‌شود</a><a href="#s6-7"><b>۶.۷</b>ارتفاع \(\lfloor\log_2 n\rfloor\): چرا متوازن بودن مهم است</a><a href="#s8-3"><b>۸.۳</b>ساختن از پایین: بیشتر گره‌ها نزدیک برگ‌اند</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis ds" data-key="bottom-up-build">
+<h2>ساختن از پایین: بیشتر گره‌ها نزدیک برگ‌اند</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">به‌جای \(n\) درج پشت سر هم (\(O(n\log n)\))، از آخرین گرهٔ داخلی به سمت ریشه هر گره را پایین ببر. هزینهٔ هر گره متناسب با ارتفاع خودش است و چون نیمی از گره‌ها برگ‌اند، یک‌چهارم ارتفاع ۱ دارند و …، جمع \(O(n)\) است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ساخت هرم در \(O(n)\)».</li><li>هر تحلیلی که هزینهٔ گره به ارتفاعش (نه عمقش) وابسته است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>for \(i = \lfloor n/2 \rfloor\) downto 1: پایین بردنِ \(i\).</li><li>درستی: وقتی به \(i\) می‌رسیم، دو زیردرختش از قبل هرم‌اند (ناوردا).</li><li>زمان: \(\sum_h \frac{n}{2^{h+1}}\,O(h) = O\big(n\sum_h \frac{h}{2^h}\big) = O(n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>هزینهٔ درجِ تک‌تک به عمق وابسته است و بیشتر گره‌ها عمیق‌اند ⇐ \(n\log n\). هزینهٔ پایین بردن به ارتفاع وابسته است و بیشتر گره‌ها کم‌ارتفاع‌اند ⇐ \(n\). جهت کار همهٔ تفاوت را می‌سازد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-8"><b>جزوه ۸.۸</b>ساخت هرم روی ورودی با اندازهٔ \(n\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s8-3"><b>اثبات ۸.۳</b>ساخت هرم خطی است: \(\sum h/2^h = 2\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-4"><b>۱.۴</b>نوع سری را بشناس</a><a href="#s8-2"><b>۸.۲</b>ترمیم محلی: بالا بردن و پایین بردن</a><a href="#s6-6"><b>۶.۶</b>درخت کامل در آرایه: \(2i\) و \(2i + 1\)</a></div>
+</article>
+
+<article class="idea" data-kinds="design analysis" data-key="pruned-traversal">
+<h2>پیمایش هرس‌شده: هزینه متناسب با خروجی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در هرم بیشینه، اگر گره‌ای حداکثر \(k\) باشد، کل زیردرختش حداکثر \(k\) است. پس با هرس کردن، فقط جواب‌ها و فرزندانشان دیده می‌شوند و \(t\) جواب در \(O(t)\) گزارش می‌شوند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«همهٔ عناصر بزرگ‌تر از \(k\) را گزارش کنید».</li><li>«\(t\) جواب در \(O(t)\)».</li><li>هر ساختار با ویژگیِ ترتیب روی مسیرها.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>از ریشه: اگر گره از \(k\) بزرگ‌تر است، آن را بشمار و به هر دو فرزند برو؛ وگرنه برگرد.</li><li>درستی: ویژگی هرم + تعدی ⇐ هیچ جوابی زیر گرهٔ ردشده نیست.</li><li>زمان: هر گرهٔ بررسی‌شده یا جواب است (\(t\) تا)، یا فرزند یک جواب (حداکثر \(2t\))، یا ریشه ⇐ حداکثر \(2t + 1\) بررسی.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(k = 11\) روی هرمی با ریشهٔ ۱۶: فقط ۱۶ و ۱۴ شمرده می‌شوند و سه گرهٔ ۱۰، ۸ و ۷ بررسی و رد می‌شوند؛ \(2 \cdot 2 + 1 = 5\) بررسی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-9"><b>جزوه ۸.۹</b>مسئلهٔ ۱: شمارش اعداد بزرگ‌تر از \(k\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-9"><b>۶.۹</b>گزارش بازه‌ای حساس به خروجی: \(O(\log n + k)\)</a><a href="#s0-13"><b>۰.۱۳</b>یک بار پیش‌پردازش، بارها پاسخ</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="heapsort">
+<h2>مرتب‌سازی هرمی: بیشینه را به ته آرایه ببر</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">هرم بیشینه بساز؛ بعد \(n - 1\) بار ریشه را با آخرین خانهٔ هرم عوض کن، اندازهٔ هرم را یکی کم کن و ریشه را پایین ببر. بخشِ مرتب از ته آرایه رشد می‌کند و حافظهٔ اضافه لازم نیست.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>مرتب‌سازی درجا با بدترین حالت \(O(n\log n)\).</li><li>«ابزاری که بیشینه می‌دهد را به مرتب‌سازی تبدیل کن».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ساخت هرم: \(O(n)\).</li><li>هر برداشتن: \(O(\log n)\) ⇐ کل \(O(n\log n)\).</li><li>برای خروجی صعودی با ابزاری که بیشینه می‌دهد، خروجی را از انتهای آرایه پر کن.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-10"><b>جزوه ۸.۱۰</b>مسئلهٔ ۲: مرتب‌سازی با هرم</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p20"><b>سری ۲، مسئلهٔ ۲۰</b>دستگاه «مجیک‌سورت»</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s8-3"><b>۸.۳</b>ساختن از پایین: بیشتر گره‌ها نزدیک برگ‌اند</a><a href="#s8-7"><b>۸.۷</b>درخت تورنمنت \(k\)تایی</a></div>
+</article>
+
+<article class="idea" data-kinds="ds design" data-key="two-heaps">
+<h2>دو هرم برای میانهٔ جاری</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">نیمهٔ کوچک‌ترِ عناصر را در یک هرم بیشینه و نیمهٔ بزرگ‌تر را در یک هرم کمینه نگه دار، با اندازه‌هایی که حداکثر یکی فرق دارند. میانه همیشه سرِ یکی از دو هرم است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«میانه (یا صدک) بعد از هر درج».</li><li>آمارهٔ ترتیبی در جریان داده.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>عنصر جدید را با سرِ هرم بیشینه مقایسه کن و در هرم مناسب بگذار.</li><li>اگر اختلاف اندازه‌ها به ۲ رسید، سرِ هرم بزرگ‌تر را به هرم دیگر منتقل کن.</li><li>میانه = سرِ هرم بزرگ‌تر (برای \(n\) زوج، هر دو سر). هر درج \(O(\log n)\) و گزارش میانه \(O(1)\).</li><li>برای صدک \(p\)، نسبت اندازه‌ها را \(p : (1 - p)\) نگه دار.</li></ol>
+<div class="box ex"><div class="bh"></div><p>درج ۵، ۲، ۸، ۱: بعد از همه، هرم بیشینه {۲، ۱} و هرم کمینه {۵، ۸}؛ دو عنصر وسط ۲ و ۵ همان سرهای دو هرم‌اند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p21"><b>سری ۲، مسئلهٔ ۲۱</b>میانه‌های افزایشی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s8-1"><b>۸.۱</b>فقط بیشینه لازم است؟ ترتیب جزئی کافی است</a><a href="#s3-9"><b>۳.۹</b>افراز کن و فقط یک طرف را ادامه بده</a></div>
+</article>
+
+<article class="idea" data-kinds="ds design lower" data-key="tournament">
+<h2>درخت تورنمنت \(k\)تایی</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">اگر ابزاری داری که بیشینهٔ \(k\) عنصر را در یک گام می‌دهد، درخت تورنمنت \(k\)تایی بساز: ارتفاع \(\log_k N\) است و بعد از برداشتن برنده، فقط مسیر آن تا ریشه دوباره بازی می‌شود. کران پایین اطلاعاتی نشان می‌دهد این بهینه است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«دستگاهی که در هر پرس‌وجو بیشینهٔ \(k\) عدد را می‌گوید».</li><li>مرتب‌سازی با پرس‌وجوهایی قوی‌تر از مقایسه.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>برگ‌ها عناصرند و هر گرهٔ داخلی برندهٔ فرزندانش.</li><li>ساخت: حدود \(\frac{N}{k-1}\) پرس‌وجو (یکی برای هر گرهٔ داخلی).</li><li>هر برداشتن: برگ برنده را حذف کن و مسیرش را دوباره بازی کن: \(O(\log_k N)\) پرس‌وجو.</li><li>کل مرتب‌سازی \(O(N\log_k N) = O\big(N\frac{\log N}{\log k}\big)\)؛ کران پایین \(\frac{\lg N!}{\lg k}\) هم همین مرتبه است.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-4"><b>جزوه ۹.۴</b>کران پایین \(\Omega(n\log n)\) برای مرتب‌سازی مقایسه‌ای</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p20"><b>سری ۲، مسئلهٔ ۲۰</b>دستگاه «مجیک‌سورت»</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-2"><b>۹.۲</b>کران اطلاعاتی: لگاریتمِ تعداد جواب‌ها</a><a href="#s8-5"><b>۸.۵</b>مرتب‌سازی هرمی: بیشینه را به ته آرایه ببر</a></div>
+</article>
+</section>

@@ -1,0 +1,271 @@
+<section class="chapter" data-ch="3" data-color="c3" data-title="الگوریتم‌های تصادفی" id="ch3">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۳ — ۱۸ ایده</div>
+  <h1>الگوریتم‌های تصادفی</h1>
+  <p class="ch-lead">دو خانوادهٔ ایده در این فصل‌اند. اول، ابزارهای احتمال: فضای نمونه، نشانگر، تقارن و عدد همساز، که تقریباً همهٔ سؤال‌های «امید ریاضی» را حل می‌کنند.
+دوم، انتخاب در زمان خطی: «افراز کن و فقط یک طرف را ادامه بده». مسئله‌های میانه، رتبه و میانهٔ وزن‌دار تمرین‌ها همه از همین ریشه‌اند.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch3">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۳</div>
+</header>
+
+<article class="idea" data-kinds="design prob" data-key="randomize">
+<h2>تصادف را به الگوریتم ببر، نه به ورودی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="prob">احتمال</span></div>
+<p class="idea-core">اگر الگوریتم روی ورودی‌های خاصی بد کار می‌کند (آرایهٔ مرتب برای کوئیک‌سورت)، خود الگوریتم سکه بیندازد (محور تصادفی، ترتیب تصادفی). آن‌وقت «ورودی بد» وجود ندارد و امید زمان برای هر ورودی خوب است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>بدترین حالتِ قطعی بد است ولی «حالت معمولی» خوب.</li><li>دشمنی که ورودی را می‌چیند؛ ترتیب ورود داده‌ها دست ما نیست.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تصمیمی را که به ورودی حساس است پیدا کن (انتخاب محور، ترتیب پردازش).</li><li>آن را تصادفی یکنواخت کن.</li><li>امید زمان را برای یک ورودی ثابتِ دلخواه تحلیل کن؛ احتمال فقط روی سکه‌های الگوریتم است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>کوئیک‌سورت با محور اول روی آرایهٔ مرتب \(\Theta(n^2)\) است؛ با محور تصادفی، امید زمان برای هر آرایه \(O(n\log n)\).
+استخدام: اگر خودمان متقاضی‌ها را به ترتیب تصادفی مصاحبه کنیم، امید تعداد استخدام \(H_n\) است حتی اگر آن‌ها به بدترین ترتیب آمده باشند.</p></div>
+<div class="box trap"><div class="bh"></div><p>«حالت میانگین» (ورودی تصادفی، الگوریتم قطعی) با «امید زمان» (ورودی دلخواه، الگوریتم تصادفی) فرق دارد. دومی هیچ فرضی دربارهٔ ورودی نمی‌خواهد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-1"><b>جزوه ۳.۱</b>تصادف در طراحی الگوریتم</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-7"><b>جزوه ۳.۷</b>زمان اجرای الگوریتم‌های قطعی و تصادفی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-9"><b>جزوه ۳.۹</b>مسئلهٔ استخدام</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-12"><b>جزوه ۳.۱۲</b>کوئیک‌سورت تصادفی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-10"><b>۰.۱۰</b>ورودی بد را بساز</a><a href="#s3-11"><b>۳.۱۱</b>کوئیک‌سورت: هزینه را روی جفت‌ها بشکن</a><a href="#s3-5"><b>۳.۵</b>جمع \(\frac1i\)ها: رکوردها و استخدام</a></div>
+</article>
+
+<article class="idea" data-kinds="prob" data-key="sample-space">
+<h2>اول فضای نمونه را دقیق بنویس</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span></div>
+<p class="idea-core">قبل از هر محاسبهٔ احتمال، بنویس دقیقاً چه چیزی تصادفی است و با چه توزیعی: جایگشت یکنواخت؟ انتخاب با جای‌گذاری یا بدون آن؟ سکه‌های مستقل؟</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هر سؤال احتمال؛ مخصوصاً وقتی صورت مسئله دو تفسیر دارد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>فضای نمونهٔ \(\Omega\) و احتمال هر عضو را بنویس.</li><li>پیشامد مورد نظر را به زبان همان فضا بنویس.</li><li>اگر فضا یکنواخت است: احتمال = تعداد اعضای مطلوب ÷ تعداد کل.</li></ol>
+<div class="box ex"><div class="bh"></div><p>جست‌وجوی تصادفی برای یک عنصر بین \(n\) خانه: با جای‌گذاری، تعداد تلاش‌ها هندسی با \(p = \frac1n\) است و امیدش \(n\)؛
+بدون جای‌گذاری، جایگاه هدف در ترتیب بررسی یکنواخت در \(1..n\) است و امید \(\frac{n+1}{2}\).</p></div>
+<div class="box trap"><div class="bh"></div><p>«تعریف یک فضای احتمال» و «نمونه‌برداری کارا از آن» دو چیز متفاوت‌اند؛ فهرست کردن همهٔ اعضا معمولاً نمایی است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-2"><b>جزوه ۳.۲</b>فضای احتمال متناهی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-3"><b>جزوه ۳.۳</b>متغیر تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p5"><b>سری ۲، مسئلهٔ ۵</b>جست‌وجوی تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p19"><b>سری ۲، مسئلهٔ ۱۹</b>گراف تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p9"><b>سری ۲، مسئلهٔ ۹</b>انتخاب محور با میانهٔ سه عنصر</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-3"><b>۳.۳</b>نشانگر بساز و امیدها را جمع بزن</a><a href="#s3-6"><b>۳.۶</b>ثابت کن یکنواخت است: احتمال هر خروجی را حساب کن</a></div>
+</article>
+
+<article class="idea" data-kinds="prob" data-key="indicator">
+<h2>نشانگر بساز و امیدها را جمع بزن</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span></div>
+<p class="idea-core">برای «امید تعداد چیزهایی که …»، برای هر چیز یک متغیر نشانگر \(X_i \in \{0, 1\}\) بساز. \(E[\sum X_i] = \sum P[X_i = 1]\)، و این بدون هیچ فرض استقلالی درست است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«امید تعداد نقطه‌های ثابت، وارونه‌ها، رکوردها، مقایسه‌ها، یال‌ها، …».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>کمیت را به جمع نشانگرها بشکن: یک نشانگر برای هر شیء یا هر جفت.</li><li>احتمال هر نشانگر را جدا حساب کن (معمولاً با تقارن).</li><li>جمع بزن. خطی بودن امید را حتی وقتی نشانگرها به شدت به هم وابسته‌اند به کار ببر.</li><li>برای واریانس استقلال لازم است: برای نشانگرهای مستقل \(\mathrm{Var} = \sum p_i(1 - p_i)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>نقطه‌های ثابت جایگشت تصادفی: \(P[\sigma(i) = i] = \frac1n\)، پس امید \(n \cdot \frac1n = 1\).
+وارونه‌ها: هر جفت با احتمال \(\frac12\) وارونه است، پس امید \(\frac12\binom n2 = \frac{n(n-1)}{4}\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-3"><b>جزوه ۳.۳</b>متغیر تصادفی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-4"><b>جزوه ۳.۴</b>امید ریاضی و خطی بودن آن</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-5"><b>جزوه ۳.۵</b>متغیر نشانگر و جایگشت تصادفی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p21"><b>سری ۱، مسئلهٔ ۲۱</b>نقطهٔ ثابت</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p22"><b>سری ۱، مسئلهٔ ۲۲</b>امید ریاضی وارونه‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p1"><b>سری ۲، مسئلهٔ ۱</b>نقطهٔ ثابت</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p2"><b>سری ۲، مسئلهٔ ۲</b>امید ریاضی وارونه‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p3"><b>سری ۲، مسئلهٔ ۳</b>رکوردهای جدید</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p19"><b>سری ۲، مسئلهٔ ۱۹</b>گراف تصادفی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-1"><b>اثبات ۳.۱</b>خطی بودن امید ریاضی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-4"><b>۳.۴</b>احتمال را از تقارن بخوان</a><a href="#s3-5"><b>۳.۵</b>جمع \(\frac1i\)ها: رکوردها و استخدام</a><a href="#s3-11"><b>۳.۱۱</b>کوئیک‌سورت: هزینه را روی جفت‌ها بشکن</a></div>
+</article>
+
+<article class="idea" data-kinds="prob" data-key="symmetry">
+<h2>احتمال را از تقارن بخوان</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span></div>
+<p class="idea-core">اگر \(k\) پیشامد به دلیل تقارن هم‌احتمال‌اند و دقیقاً یکی‌شان رخ می‌دهد، احتمال هر کدام \(\frac1k\) است. اگر جابه‌جایی‌ای پیشامد را به متممش ببرد، احتمالش \(\frac12\) است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>جایگشت یا ترتیب تصادفی یکنواخت.</li><li>«احتمال اینکه \(a_i\) بزرگ‌ترین باشد»، «احتمال اینکه \(i\) و \(j\) مقایسه شوند».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>نامزدهای هم‌شانس را پیدا کن (مثلاً \(i\) عنصر اول؛ یا \(j - i + 1\) عنصر بازهٔ \([x_i, x_j]\)).</li><li>یک نگاشت یک‌به‌یک (جابه‌جایی دو عنصر، وارونه کردن جایگشت) بین «نامزد ۱ برنده است» و «نامزد ۲ برنده است» بساز تا هم‌احتمالی ثابت شود.</li><li>احتمال = تعداد نامزدهای مطلوب ÷ تعداد کل نامزدها.</li></ol>
+<div class="box ex"><div class="bh"></div><p>کوئیک‌سورت: \(x_i\) و \(x_j\) (به ترتیب رتبه) مقایسه می‌شوند اگر و تنها اگر اولین محوری که از بین \(x_i, \dots, x_j\) انتخاب می‌شود یکی از این دو باشد. هر \(j - i + 1\) عنصر هم‌شانس‌اند ⇐ \(\frac{2}{j - i + 1}\).
+رکورد: \(a_i\) بزرگ‌ترینِ \(i\) عدد اول است با احتمال \(\frac1i\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-12"><b>جزوه ۳.۱۲</b>کوئیک‌سورت تصادفی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-9"><b>جزوه ۳.۹</b>مسئلهٔ استخدام</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-5"><b>جزوه ۳.۵</b>متغیر نشانگر و جایگشت تصادفی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p21"><b>سری ۱، مسئلهٔ ۲۱</b>نقطهٔ ثابت</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p22"><b>سری ۱، مسئلهٔ ۲۲</b>امید ریاضی وارونه‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p2"><b>سری ۲، مسئلهٔ ۲</b>امید ریاضی وارونه‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p3"><b>سری ۲، مسئلهٔ ۳</b>رکوردهای جدید</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-6"><b>اثبات ۳.۶</b>کوئیک‌سورت: احتمال مقایسهٔ دو عنصر</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-3"><b>اثبات ۳.۳</b>مسئلهٔ استخدام: امید هزینه \(f\,H_n\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-3"><b>۳.۳</b>نشانگر بساز و امیدها را جمع بزن</a><a href="#s3-5"><b>۳.۵</b>جمع \(\frac1i\)ها: رکوردها و استخدام</a></div>
+</article>
+
+<article class="idea" data-kinds="prob" data-key="harmonic">
+<h2>جمع \(\frac1i\)ها: رکوردها و استخدام</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span></div>
+<p class="idea-core">هر جا پیشامد گام \(i\) احتمال \(\frac1i\) دارد (مثلاً «عنصر \(i\)ام بهترینِ تا این‌جاست»)، امید تعداد کل \(H_n = 1 + \frac12 + \dots + \frac1n \approx \ln n\) است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>تعداد استخدام‌ها، تعداد رکوردها، تعداد به‌روزرسانی بیشینه در یک پیمایش تصادفی.</li><li>جمع‌آوری کوپن؛ تعداد دورهای جایگشت تصادفی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>نشانگر \(X_i\) = «در گام \(i\) رویداد رخ می‌دهد».</li><li>با تقارن \(P[X_i = 1] = \frac1i\).</li><li>جمع: \(H_n = \ln n + O(1)\). اگر هر رویداد هزینهٔ \(f\) دارد، امید هزینه \(f\,H_n\) است.</li><li>شکل دیگر: اگر انتظار گام \(m\)ام \(\frac nm\) است (مثل کوپن)، جمع انتظارها \(n H_n\) می‌شود.</li></ol>
+<div class="box ex"><div class="bh"></div><p>استخدام با ترتیب تصادفی: به‌جای \(n\) استخدام در بدترین حالت، به‌طور متوسط حدود \(\ln n\) استخدام. برای ۱۰۰۰ متقاضی حدود ۷٫۵.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-9"><b>جزوه ۳.۹</b>مسئلهٔ استخدام</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p3"><b>سری ۲، مسئلهٔ ۳</b>رکوردهای جدید</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p14"><b>سری ۲، مسئلهٔ ۱۴</b>مرتب‌سازی با عملیات تثبیت</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-3"><b>اثبات ۳.۳</b>مسئلهٔ استخدام: امید هزینه \(f\,H_n\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-4"><b>۳.۴</b>احتمال را از تقارن بخوان</a><a href="#s3-3"><b>۳.۳</b>نشانگر بساز و امیدها را جمع بزن</a><a href="#s3-15"><b>۳.۱۵</b>جایگشت = دورها</a></div>
+</article>
+
+<article class="idea" data-kinds="prob proof" data-key="uniform-proof">
+<h2>ثابت کن یکنواخت است: احتمال هر خروجی را حساب کن</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">برای اثبات اینکه الگوریتمی خروجی یکنواخت می‌دهد، یک خروجی دلخواه را ثابت بگیر و احتمال تولیدش را حساب کن. اگر به خود خروجی بستگی نداشت (یا برابر یک تقسیم بر تعداد خروجی‌ها شد)، تمام.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید هر جایگشت با احتمال \(\frac{1}{n!}\) تولید می‌شود».</li><li>تولید شیء تصادفی با یک قید.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>خروجی دلخواه \(\pi\) را ثابت کن.</li><li>احتمال را به حاصل‌ضرب احتمال‌های شرطی گام‌ها بشکن: گام \(i\) باید دقیقاً همان انتخابی را بکند که \(\pi\) لازم دارد.</li><li>حاصل‌ضرب را ساده کن: \(\frac1n \cdot \frac{1}{n-1} \cdots \frac11 = \frac{1}{n!}\).</li><li>برای الگوریتم‌های پیمایشی، ناوردا بنویس: «بعد از گام \(i\)، وضعیت تا این‌جا یکنواخت است».</li><li>با قید: ساختار را به انتخاب‌های مستقل و یکنواخت بشکن (جای عنصر خاص × ترتیب بقیه)، یا نمونه را رد کن و از نو بساز.</li></ol>
+<div class="box ex"><div class="bh"></div><p>الگوریتم «برای \(i = 1..n\)، \(A[i]\) را با \(A[\mathrm{Random}(i, n)]\) جابه‌جا کن»: احتمال اینکه گام \(i\) عنصر درست را بیاورد \(\frac{1}{n - i + 1}\) است و حاصل‌ضرب \(\frac{1}{n!}\).</p></div>
+<div class="box trap"><div class="bh"></div><p>«هر عنصر با احتمال \(\frac1n\) به هر جایگاه می‌رود» برای یکنواختی کافی نیست. چرخش تصادفی این ویژگی را دارد ولی فقط \(n\) جایگشت از \(n!\) تا را تولید می‌کند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-5"><b>جزوه ۳.۵</b>متغیر نشانگر و جایگشت تصادفی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p23"><b>سری ۱، مسئلهٔ ۲۳</b>انتخاب تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p13"><b>سری ۲، مسئلهٔ ۱۳</b>جایگشت تصادفی با قید مکانی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-2"><b>اثبات ۳.۲</b>جایگشت تصادفی درجا یکنواخت است</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-7"><b>۳.۷</b>انتخاب شود و بعد عوض نشود: حاصل‌ضرب تلسکوپی</a><a href="#s3-2"><b>۳.۲</b>اول فضای نمونه را دقیق بنویس</a><a href="#s0-4"><b>۰.۴</b>ناوردا: چیزی که هرگز عوض نمی‌شود</a></div>
+</article>
+
+<article class="idea" data-kinds="prob design" data-key="reservoir">
+<h2>انتخاب شود و بعد عوض نشود: حاصل‌ضرب تلسکوپی</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">احتمال اینکه عنصر \(i\) در نهایت انتخاب‌شده بماند = احتمال انتخابش در گام \(i\) × احتمال اینکه هیچ گام بعدی جایگزینش نکند. کسرهای \(\frac{j-1}{j}\) تلسکوپی می‌شوند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>جریان داده با طول نامعلوم و حافظهٔ \(O(1)\).</li><li>«یک نمونهٔ یکنواخت از جریان بردارید».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>گام \(j\): عنصر جدید را با احتمال \(\frac1j\) جایگزین نمونه کن.</li><li>احتمال ماندن عنصر \(i\) برابر است با \(\frac1i \prod_{j=i+1}^{n}\frac{j-1}{j} = \frac1i \cdot \frac in = \frac1n\).</li><li>برای نمونهٔ \(k\)تایی: عنصر \(j\) را با احتمال \(\frac kj\) وارد کن و جای یکی از \(k\) عضو (به تصادف) بگذار.</li></ol>
+<div class="box ex"><div class="bh"></div><p>برای \(n = 3\): عنصر ۱ با احتمال \(1 \cdot \frac12 \cdot \frac23 = \frac13\) می‌ماند، عنصر ۲ با \(\frac12 \cdot \frac23 = \frac13\) و عنصر ۳ با \(\frac13\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p23"><b>سری ۱، مسئلهٔ ۲۳</b>انتخاب تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p4"><b>سری ۲، مسئلهٔ ۴</b>انتخاب تصادفی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-6"><b>۳.۶</b>ثابت کن یکنواخت است: احتمال هر خروجی را حساب کن</a><a href="#s1-4"><b>۱.۴</b>نوع سری را بشناس</a></div>
+</article>
+
+<article class="idea" data-kinds="prob design" data-key="amplify">
+<h2>تکرار، احتمال شکست را نمایی کم می‌کند</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">اگر یک اجرا با احتمال \(p\) موفق است و موفقیت را می‌شود بررسی کرد، \(c\) اجرای مستقل احتمال شکست را به \((1 - p)^c\) می‌رساند؛ و «تکرار تا موفقیت» به‌طور متوسط \(\frac1p\) اجرا دارد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>الگوریتم مونت‌کارلو با احتمال موفقیت ثابت.</li><li>«احتمال خطا کمتر از \(10^{-6}\)».</li><li>الگوریتم لاس‌وگاس: تکرار تا جواب درست.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>موفقیت یک اجرا را بررسی‌پذیر کن (مثلاً رتبهٔ عنصر انتخاب‌شده را در \(O(n)\) حساب کن).</li><li>مونت‌کارلو: حداکثر \(c\) بار تکرار کن ⇐ زمان \(c\) برابر، احتمال شکست \((1 - p)^c\).</li><li>لاس‌وگاس: تا موفقیت تکرار کن ⇐ تعداد تکرار هندسی است: \(E = \frac1p\) (از \(E = 1 + (1-p)E\)) و احتمال اینکه دست‌کم \(t\) تکرار لازم شود \((1-p)^{t-1}\) است.</li><li>زمان کل = تعداد تکرار × هزینهٔ هر تکرار.</li></ol>
+<div class="box ex"><div class="bh"></div><p>میانهٔ \(\frac14\)-تقریبی: یک عنصر تصادفی با احتمال حدود \(\frac12\) خوب است. با ۱۰ تلاش احتمال شکست \(2^{-10} &lt; 0.001\) است؛ با تکرار تا موفقیت، به‌طور متوسط ۲ تلاش و زمان \(O(n)\).</p></div>
+<div class="box trap"><div class="bh"></div><p>وقتی توزیع دقیق (هندسی) را داری، از کران مارکوف (\(P[X \ge a] \le E[X]/a\)) استفاده نکن؛ دم توزیع هندسی نمایی کم می‌شود و مارکوف خیلی سست است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-6"><b>جزوه ۳.۶</b>میانهٔ تقریبی تصادفی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-8"><b>جزوه ۳.۸</b>مونت‌کارلو در برابر لاس‌وگاس</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p5"><b>سری ۲، مسئلهٔ ۵</b>جست‌وجوی تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p18"><b>سری ۲، مسئلهٔ ۱۸</b>میانهٔ تقریبی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-1"><b>۳.۱</b>تصادف را به الگوریتم ببر، نه به ورودی</a><a href="#s3-2"><b>۳.۲</b>اول فضای نمونه را دقیق بنویس</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="prune-search">
+<h2>افراز کن و فقط یک طرف را ادامه بده</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">برای یافتن عنصر رتبهٔ \(k\)، با یک محور افراز کن. با مقایسهٔ \(k\) و رتبهٔ محور می‌دانی جواب در کدام طرف است و طرف دیگر را دور می‌ریزی. اگر هر بار کسر ثابتی حذف شود، \(T(n) = T(\alpha n) + O(n) = O(n)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«میانه»، «\(k\)امین کوچک‌ترین»، «کوچک‌ترین پیشوند (در ترتیب مرتب) با جمعِ دست‌کم فلان».</li><li>هر جا مرتب‌سازی کامل بیش از نیاز است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>محور \(x\) را انتخاب کن: تصادفی، یا میانهٔ میانه‌ها برای تضمین بدترین حالت.</li><li>افراز در \(O(n)\): \(L\) = عناصر کوچک‌تر از \(x\) و \(R\) = عناصر بزرگ‌تر از \(x\).</li><li>اگر \(|L| = k - 1\)، جواب \(x\) است؛ اگر \(|L| \ge k\)، در \(L\) ادامه بده؛ وگرنه در \(R\) با رتبهٔ \(k - |L| - 1\).</li><li>در مسئله‌های «جمع وزن»، به‌جای شمردن عناصر، جمع وزن‌های \(L\) را با هدف مقایسه کن و هدف را برای طرف بعدی به‌روز کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>کوچک‌ترین گروه از بلندقدترین‌ها که جمع قدشان دست‌کم نصف کل باشد: با میانه افراز کن. اگر نیمهٔ بلندتر به‌تنهایی کافی است، در همان ادامه بده؛
+وگرنه همه‌اش را بردار، هدف را به اندازهٔ جمع آن کم کن و در نیمهٔ کوتاه‌تر ادامه بده. \(T(n) = T(n/2) + O(n) = O(n)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-10"><b>جزوه ۳.۱۰</b>انتخاب تصادفی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-11"><b>جزوه ۳.۱۱</b>انتخاب قطعی: میانهٔ میانه‌ها</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p24"><b>سری ۲، مسئلهٔ ۲۴</b>تقسیم کلاس بر اساس قد</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p16"><b>سری ۲، مسئلهٔ ۱۶</b>مکان‌یابی بهینهٔ بیمارستان</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p12"><b>سری ۲، مسئلهٔ ۱۲</b>عنصر با فراوانی بیش از یک‌سوم</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p23"><b>سری ۲، مسئلهٔ ۲۳</b>انتخاب عناصر چندگانه</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p25"><b>سری ۲، مسئلهٔ ۲۵</b>لوله‌کشی چاه نفت</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-4"><b>اثبات ۳.۴</b>انتخاب تصادفی در امید زمان خطی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-10"><b>۳.۱۰</b>میانهٔ میانه‌ها: محوری با تضمین قطعی</a><a href="#s3-16"><b>۳.۱۶</b>میانه، جمع فاصله‌ها را کمینه می‌کند</a><a href="#s3-18"><b>۳.۱۸</b>چند رتبه با هم: رتبهٔ وسطی را انتخاب کن</a></div>
+</article>
+
+<article class="idea" data-kinds="design analysis" data-key="mom">
+<h2>میانهٔ میانه‌ها: محوری با تضمین قطعی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">عناصر را ۵تا ۵تا گروه کن، میانهٔ هر گروه را بگیر و میانهٔ این میانه‌ها را بازگشتی پیدا کن. این محور دست‌کم حدود \(\frac{3n}{10}\) عنصر را در هر طرف کنار می‌گذارد و انتخاب در بدترین حالت \(O(n)\) می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>انتخاب خطی در بدترین حالت، بدون تصادف.</li><li>زیرروالی برای مسئله‌های دیگری که «میانه در \(O(n)\)» لازم دارند.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(\frac n5\) گروه؛ میانهٔ هر کدام در \(O(1)\).</li><li>\(x\) = میانهٔ میانه‌ها، با بازگشت روی \(\frac n5\) عنصر.</li><li>نیمی از گروه‌ها میانهٔ \(\le x\) دارند و در هر کدام دست‌کم ۳ عنصر \(\le x\) است ⇐ دست‌کم حدود \(\frac{3n}{10}\) عنصر \(\le x\)؛ به همین ترتیب از آن طرف. پس هر طرف حداکثر \(\frac{7n}{10} + O(1)\).</li><li>\(T(n) \le T(n/5) + T(7n/10) + O(n)\) و \(\frac15 + \frac{7}{10} &lt; 1\) ⇐ \(O(n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>چرا ۵؟ با گروه‌های ۳تایی رابطه \(T(n/3) + T(2n/3) + O(n)\) می‌شود که مجموع کسرهایش ۱ است و \(\Theta(n\log n)\) می‌دهد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-11"><b>جزوه ۳.۱۱</b>انتخاب قطعی: میانهٔ میانه‌ها</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-5"><b>اثبات ۳.۵</b>میانهٔ میانه‌ها: هر طرف حداکثر \(\frac{7n}{10} + 5\) عنصر</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-6"><b>اثبات ۲.۶</b>دو زیرمسئلهٔ نابرابر: \(T(n/5) + T(7n/10) + n\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-8"><b>۲.۸</b>زیرمسئله‌های نابرابر: مجموع کسرها را ببین</a><a href="#s3-9"><b>۳.۹</b>افراز کن و فقط یک طرف را ادامه بده</a></div>
+</article>
+
+<article class="idea" data-kinds="prob analysis" data-key="quicksort-pairs">
+<h2>کوئیک‌سورت: هزینه را روی جفت‌ها بشکن</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">تعداد کل مقایسه‌ها = جمع نشانگرهای «\(x_i\) و \(x_j\) مقایسه شدند». با تقارن هر احتمال \(\frac{2}{j - i + 1}\) است و جمع حداکثر \(2n\ln n\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>تحلیل امید هر الگوریتم مبتنی بر افراز تصادفی.</li><li>ساختار تصادفی که «کی دو عنصر از هم جدا می‌شوند» در آن مهم است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هر دو عنصر حداکثر یک بار مقایسه می‌شوند: مقایسه فقط با محور است و محور بعد از افراز کنار می‌رود.</li><li>\(x_i\) و \(x_j\) وقتی از هم جدا می‌شوند که اولین محور از بازهٔ \([x_i, x_j]\) انتخاب شود؛ مقایسه فقط وقتی رخ می‌دهد که آن محور خود \(x_i\) یا \(x_j\) باشد.</li><li>\(\sum_{i &lt; j}\frac{2}{j - i + 1} \le 2n\sum_{k=2}^{n}\frac1k \le 2nH_n\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>برای \(n = 3\): جفت‌های مجاور با احتمال ۱ و جفتِ دور با احتمال \(\frac23\) مقایسه می‌شوند؛ امید \(2 + \frac23 = \frac83\). (محور وسط ⇐ ۲ مقایسه؛ محور کناری ⇐ ۳ مقایسه؛ \(\frac13 \cdot 2 + \frac23 \cdot 3 = \frac83\).)</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-12"><b>جزوه ۳.۱۲</b>کوئیک‌سورت تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p9"><b>سری ۲، مسئلهٔ ۹</b>انتخاب محور با میانهٔ سه عنصر</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-6"><b>اثبات ۳.۶</b>کوئیک‌سورت: احتمال مقایسهٔ دو عنصر</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-7"><b>اثبات ۳.۷</b>کوئیک‌سورت تصادفی: امید \(O(n\log n)\) مقایسه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-4"><b>۳.۴</b>احتمال را از تقارن بخوان</a><a href="#s3-3"><b>۳.۳</b>نشانگر بساز و امیدها را جمع بزن</a><a href="#s3-12"><b>۳.۱۲</b>ساختار تصادفی بازگشتی: روی رتبهٔ ریشه شرط بگذار</a></div>
+</article>
+
+<article class="idea" data-kinds="prob analysis" data-key="condition-root">
+<h2>ساختار تصادفی بازگشتی: روی رتبهٔ ریشه شرط بگذار</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در BST تصادفی یا کوئیک‌سورت، رتبهٔ ریشه (محور) یکنواخت در \(1..n\) است، و با شرط روی آن دو زیرمسئله نمونه‌های تصادفیِ مستقل و کوچک‌ترند. این یک رابطهٔ بازگشتی برای امید می‌دهد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«امید عمق، ارتفاع یا هزینه در BST تصادفی».</li><li>تحلیل دقیق کوئیک‌سورت یا انتخاب تصادفی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(R\) = رتبهٔ ریشه؛ \(P[R = r] = \frac1n\).</li><li>با شرط \(R = r\): زیردرخت چپ یک BST تصادفی با \(r - 1\) عنصر است و راست با \(n - r\).</li><li>\(E[T_n] = \frac1n\sum_r (\dots)\) را بنویس و حل کن. ترفند رایج: در \(n\) ضرب کن و رابطه‌های \(n\) و \(n - 1\) را از هم کم کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>امید مقایسه‌های کوئیک‌سورت: \(C_n = n - 1 + \frac2n\sum_{k &lt; n} C_k\). از \(nC_n - (n-1)C_{n-1}\) به \(nC_n = (n+1)C_{n-1} + 2(n-1)\) می‌رسیم و تقسیم بر \(n(n+1)\) می‌دهد \(C_n \approx 2n\ln n\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-12"><b>جزوه ۳.۱۲</b>کوئیک‌سورت تصادفی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p24"><b>سری ۱، مسئلهٔ ۲۴</b>ارتفاع درخت جست‌وجوی دودویی تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p17"><b>سری ۲، مسئلهٔ ۱۷</b>ارتفاع درخت جست‌وجوی دودویی تصادفی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-13"><b>۳.۱۳</b>\(\max\) داخل امید: به \(2^X\) برو و با ینسن برگرد</a><a href="#s3-11"><b>۳.۱۱</b>کوئیک‌سورت: هزینه را روی جفت‌ها بشکن</a><a href="#s6-7"><b>۶.۷</b>ارتفاع \(\lfloor\log_2 n\rfloor\): چرا متوازن بودن مهم است</a></div>
+</article>
+
+<article class="idea" data-kinds="prob analysis" data-key="exp-jensen">
+<h2>\(\max\) داخل امید: به \(2^X\) برو و با ینسن برگرد</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">امیدِ یک \(\max\) سخت است. به‌جای ارتفاع \(X\) با \(Y = 2^X\) کار کن تا \(\max\) را با جمع کران بزنی، و در پایان با نامساوی ینسن \(2^{E[X]} \le E[2^X]\) برگرد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«امید ارتفاع درخت تصادفی».</li><li>امید بیشینهٔ چند متغیر که رابطهٔ بازگشتی دارند.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(Y_n = 2^{X_n}\). رابطهٔ \(X_n = 1 + \max(X_L, X_R)\) می‌شود \(Y_n = 2\max(Y_L, Y_R) \le 2(Y_L + Y_R)\).</li><li>با شرط روی رتبهٔ ریشه: \(E[Y_n] \le \frac4n\sum_{k &lt; n}E[Y_k]\) و با استقرا \(E[Y_n] = O(n^3)\).</li><li>ینسن (\(2^x\) محدب است): \(2^{E[X_n]} \le E[Y_n] = O(n^3)\) ⇐ \(E[X_n] \le 3\lg n + O(1)\).</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p24"><b>سری ۱، مسئلهٔ ۲۴</b>ارتفاع درخت جست‌وجوی دودویی تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p17"><b>سری ۲، مسئلهٔ ۱۷</b>ارتفاع درخت جست‌وجوی دودویی تصادفی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-12"><b>۳.۱۲</b>ساختار تصادفی بازگشتی: روی رتبهٔ ریشه شرط بگذار</a><a href="#s6-7"><b>۶.۷</b>ارتفاع \(\lfloor\log_2 n\rfloor\): چرا متوازن بودن مهم است</a></div>
+</article>
+
+<article class="idea" data-kinds="prob proof" data-key="prob-method">
+<h2>روش احتمالاتی: زیرنمونهٔ تصادفی کران را تقویت می‌کند</h2>
+<div class="idea-meta"><span class="ik" data-k="prob">احتمال</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">یک کران ضعیف که برای هر ورودی درست است را روی زیرنمونه‌ای تصادفی (هر رأس با احتمال \(p\)) اعمال کن، امید بگیر و \(p\) را بهینه کن. چون اشیای بزرگ‌تر با احتمال کمتری می‌مانند، کران بسیار قوی‌تر می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«ثابت کنید دست‌کم … وجود دارد»؛ کران‌های ترکیبیاتی مثل لم تقاطع.</li><li>وجود شیئی با ویژگی خوب.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>کران ضعیف را بنویس؛ مثلاً برای تعداد تقاطع‌های رسم گراف: \(cr(G) \ge m - 3n\).</li><li>زیرنمونه: هر رأس مستقل با احتمال \(p\) می‌ماند. رأس با احتمال \(p\)، یال \(p^2\) و تقاطع (چهار رأس) \(p^4\) می‌ماند.</li><li>از دو طرف امید بگیر: \(p^4\,cr \ge p^2 m - 3pn\).</li><li>\(p\) را بهینه کن؛ این‌جا \(p = \frac{4n}{m}\) که با فرض \(m \ge 4n\) در \((0, 1]\) است ⇐ \(cr \ge \frac{m^3}{64n^2}\).</li><li>اصل وجود: اگر \(E[X] \ge k\)، دست‌کم یک نمونه با \(X \ge k\) وجود دارد.</li></ol>
+<div class="box trap"><div class="bh"></div><p>همیشه بررسی کن که \(p\) انتخابی در بازهٔ مجاز \((0, 1]\) است؛ فرض‌های مسئله (مثل \(m \ge 4n\)) معمولاً دقیقاً برای همین‌اند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-2"><b>جزوه ۳.۲</b>فضای احتمال متناهی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p26"><b>سری ۲، مسئلهٔ ۲۶</b>تعداد تقاطع‌های گراف</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p19"><b>سری ۲، مسئلهٔ ۱۹</b>گراف تصادفی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-3"><b>۳.۳</b>نشانگر بساز و امیدها را جمع بزن</a><a href="#s0-6"><b>۰.۶</b>شمارش دوگانه</a></div>
+</article>
+
+<article class="idea" data-kinds="count proof" data-key="cycles">
+<h2>جایگشت = دورها</h2>
+<div class="idea-meta"><span class="ik" data-k="count">شمارش و ساختن</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">هر جایگشت به دورهای مجزا تجزیه می‌شود. هر جابه‌جایی دو عنصر تعداد دورها را دقیقاً یکی کم یا زیاد می‌کند، پس مرتب کردن جایگشتی با \(c\) دور دست‌کم \(n - c\) جابه‌جایی لازم دارد (و همین تعداد کافی است).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«حداقل تعداد جابه‌جایی برای مرتب کردن».</li><li>فرایندهایی که در هر گام دو عنصر را عوض می‌کنند.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>دورها را پیدا کن: از \(i\) شروع کن و \(i \to \sigma(i) \to \sigma(\sigma(i)) \to \dots\) را تا برگشتن دنبال کن.</li><li>جایگشت همانی \(n\) دور دارد (همه نقطهٔ ثابت).</li><li>جابه‌جایی دو عنصرِ یک دور، آن را دو تکه می‌کند (+۱)؛ جابه‌جایی دو عنصر از دو دور، آن‌ها را ادغام می‌کند (−۱).</li><li>پس دست‌کم \(n - c\) جابه‌جایی لازم است، و با «هر بار یک عنصر را سر جایش بگذار» همین تعداد کافی است. امید تعداد دورهای جایگشت تصادفی \(H_n\) است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(\sigma = (2, 3, 1, 5, 4)\) (یعنی \(\sigma(1) = 2\)، …): دورها \((1\,2\,3)(4\,5)\)، پس \(c = 2\) و دقیقاً \(5 - 2 = 3\) جابه‌جایی لازم است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p14"><b>سری ۲، مسئلهٔ ۱۴</b>مرتب‌سازی با عملیات تثبیت</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a><a href="#s4-7"><b>۴.۷</b>پتانسیل‌های آماده</a><a href="#s3-5"><b>۳.۵</b>جمع \(\frac1i\)ها: رکوردها و استخدام</a></div>
+</article>
+
+<article class="idea" data-kinds="design proof" data-key="weighted-median">
+<h2>میانه، جمع فاصله‌ها را کمینه می‌کند</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">\(\sum_i w_i|x - x_i|\) در میانهٔ وزن‌دار کمینه است، چون شیب این تابع «وزن نقاط چپ منهای وزن نقاط راست» است و تا وقتی وزن راست بیشتر است، جلو رفتن سود دارد. برای مجموع مربع فاصله‌ها، جواب میانگین است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>مکان‌یابی بهینه (بیمارستان، انبار، لولهٔ اصلی).</li><li>«نقطه‌ای با کمترین مجموع فاصله تا همه».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تابع هزینه را تکه‌ای خطی ببین و شیب را بین هر دو نقطهٔ متوالی بنویس.</li><li>نقطهٔ بهینه جایی است که شیب از منفی به نامنفی می‌رسد: اولین نقطه‌ای که وزن تجمعی‌اش به نصف وزن کل می‌رسد.</li><li>فاصلهٔ منهتن \(|x - x_i| + |y - y_i|\) جدایی‌پذیر است: \(x\) و \(y\) را مستقل بهینه کن.</li><li>میانهٔ وزن‌دار را بدون مرتب‌سازی، با «افراز کن و فقط یک طرف را ادامه بده» در \(O(n)\) پیدا کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>لولهٔ اصلی افقی برای چاه‌هایی با عرض‌های \(y_1, \dots, y_n\): لوله را روی میانهٔ \(y\)ها بکش. مختصات \(x\) در هزینه نمی‌آید و کنار گذاشته می‌شود.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p16"><b>سری ۲، مسئلهٔ ۱۶</b>مکان‌یابی بهینهٔ بیمارستان</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p25"><b>سری ۲، مسئلهٔ ۲۵</b>لوله‌کشی چاه نفت</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p24"><b>سری ۲، مسئلهٔ ۲۴</b>تقسیم کلاس بر اساس قد</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-9"><b>۳.۹</b>افراز کن و فقط یک طرف را ادامه بده</a><a href="#s0-11"><b>۰.۱۱</b>مسئله را به شکل آشنا تبدیل کن</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="freq-candidates">
+<h2>فراوانی بیش از \(n/k\): فقط \(k - 1\) نامزد</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">عنصری که بیش از \(\frac nk\) بار تکرار شده، در ترتیب مرتب بلوکی پیوسته به طول بیش از \(\frac nk\) است و حتماً یکی از جایگاه‌های \(\frac nk, \frac{2n}{k}, \dots\) را می‌پوشاند. پس کافی است این \(k - 1\) عنصر را با انتخاب خطی پیدا کنی و هر کدام را بشماری.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«عنصر اکثریت»، «عناصری که بیش از یک‌سوم بار آمده‌اند»، در زمان خطی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>با انتخاب خطی، عناصر رتبه‌های \(\lfloor in/k \rfloor\) را برای \(i = 1..k-1\) پیدا کن: \(O(kn)\).</li><li>هر نامزد را با یک پیمایش بشمار.</li><li>روش جریانی (میسرا–گریس): \(k - 1\) شمارنده. عنصر جدید را به شمارنده‌اش اضافه کن؛ اگر شمارنده‌ای برایش نیست و جای خالی هم نیست، از همهٔ شمارنده‌ها یکی کم کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>برای اکثریت (\(k = 2\)) فقط میانه نامزد است: اگر عنصری بیش از نصف بار آمده باشد، حتماً میانه است.</p></div>
+<div class="box trap"><div class="bh"></div><p>نامزد بودن یعنی «ممکن است»، نه «حتماً». گذر شمارش آخر را حذف نکن.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p12"><b>سری ۲، مسئلهٔ ۱۲</b>عنصر با فراوانی بیش از یک‌سوم</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-9"><b>۳.۹</b>افراز کن و فقط یک طرف را ادامه بده</a><a href="#s3-10"><b>۳.۱۰</b>میانهٔ میانه‌ها: محوری با تضمین قطعی</a></div>
+</article>
+
+<article class="idea" data-kinds="design analysis" data-key="multi-select">
+<h2>چند رتبه با هم: رتبهٔ وسطی را انتخاب کن</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">برای یافتن \(k\) آمارهٔ ترتیبی، رتبهٔ وسطی را با انتخاب خطی پیدا کن و افراز کن؛ هر طرف نیمی از رتبه‌ها را می‌گیرد. عمق بازگشت \(\lg k\) و هر سطح \(O(n)\) است: کل \(O(n\log k)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«صدک‌ها»، «\(k\) عنصر با رتبه‌های داده‌شده».</li><li>تقسیم به \(k\) گروه هم‌اندازه بر حسب مقدار.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>رتبهٔ وسطِ فهرست رتبه‌ها را انتخاب کن و آرایه را حول آن افراز کن.</li><li>رتبه‌های کوچک‌تر به طرف چپ می‌روند و بزرگ‌ترها (با کم کردن اندازهٔ طرف چپ) به طرف راست.</li><li>زیرمسئله‌های هر سطح مجزا هستند، پس جمع اندازه‌هایشان حداکثر \(n\) و هزینهٔ هر سطح \(O(n)\) است؛ تعداد رتبه‌ها هر سطح نصف می‌شود ⇐ \(\lg k\) سطح.</li></ol>
+<div class="box ex"><div class="bh"></div><p>یافتن سه چارک: اول میانه، بعد میانهٔ هر نیمه. دو سطح بازگشت، هر کدام خطی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p23"><b>سری ۲، مسئلهٔ ۲۳</b>انتخاب عناصر چندگانه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-9"><b>۳.۹</b>افراز کن و فقط یک طرف را ادامه بده</a><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a></div>
+</article>
+</section>

@@ -1,0 +1,105 @@
+<section class="chapter" data-ch="10" data-color="c10" data-title="درخت ترای" id="ch10">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۱۰ — ۷ ایده</div>
+  <h1>درخت ترای</h1>
+  <p class="ch-lead">ترای کلید را حرف‌به‌حرف می‌شکند تا زمان به تعداد کلمات بستگی نداشته باشد. همهٔ ایده‌های این فصل از دو ویژگی می‌آیند:
+«هر گره یک پیشوند است» و «حرف، اندیس آرایهٔ فرزندان است»؛ و بهای آن حافظه است.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch10">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۱۰</div>
+</header>
+
+<article class="idea" data-kinds="ds" data-key="char-by-char">
+<h2>کلید را حرف‌به‌حرف بشکن</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">به‌جای مقایسهٔ کل کلید با کلیدهای دیگر (\(\log N\) مقایسه، هر کدام تا \(m\) حرف)، در هر گام فقط یک حرف بخوان و یک سطح پایین برو. زمان \(O(m)\) و مستقل از تعداد کلمات \(N\) است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>لغت‌نامه، غلط‌یاب، مجموعه‌ای بزرگ از رشته‌ها با پرس‌وجوی زیاد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هر یال = یک حرف و هر گره = یک پیشوند.</li><li>جست‌وجوی \(w\): از ریشه، برای هر حرف به فرزند همان حرف برو؛ اگر NIL بود، کلمه نیست.</li><li>در پایان، پرچم «پایان کلمه» را چک کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>برای \(N \approx 470000\) کلمه: لیست تا \(N\) مقایسه، آرایهٔ مرتب حدود \(\log_2 N \approx 19\) مقایسهٔ رشته‌ای، و ترای حداکثر ۴۵ گام (طول بلندترین کلمهٔ انگلیسی)، مستقل از \(N\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-1"><b>جزوه ۱۰.۱</b>مسئله: یک لغت‌نامهٔ کامپیوتری</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-2"><b>جزوه ۱۰.۲</b>ساختمان دادهٔ ترای</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-3"><b>جزوه ۱۰.۳</b>اعمال مورد نیاز روی ترای</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-12"><b>۰.۱۲</b>مقدار را اندیس کن</a><a href="#s10-2"><b>۱۰.۲</b>پرچم پایان کلمه</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="end-flag">
+<h2>پرچم پایان کلمه</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">چون یک کلمه می‌تواند پیشوند کلمهٔ دیگر باشد (the و then)، رسیدن به یک گره یعنی «این پیشوند وجود دارد»، نه «این کلمه وجود دارد». پرچم * در گره این دو را از هم جدا می‌کند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هر ساختار پیشوندی.</li><li>«پیشوند هست ولی کلمه نیست».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>درج: مسیر را بساز (گره‌های لازم را اضافه کن) و پرچم گرهٔ آخر را روشن کن.</li><li>جست‌وجوی کلمه: مسیر + پرچم. جست‌وجوی پیشوند: فقط مسیر.</li><li>شمارش کلمات با یک پیشوند: در هر گره عدد \(cnt\) (تعداد کلمات زیردرخت) را نگه دار و در درج و حذف روی کل مسیر به‌روزش کن.</li></ol>
+<div class="box trap"><div class="bh"></div><p>کلمه‌ها لزوماً در برگ تمام نمی‌شوند؛ «تا برگ رفتیم» معیار وجود کلمه نیست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-2"><b>جزوه ۱۰.۲</b>ساختمان دادهٔ ترای</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-3"><b>جزوه ۱۰.۳</b>اعمال مورد نیاز روی ترای</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-6"><b>جزوه ۱۰.۶</b>کاربردهای ترای</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s10-1"><b>۱۰.۱</b>کلید را حرف‌به‌حرف بشکن</a><a href="#s10-3"><b>۱۰.۳</b>پیشوند مشترک = جد مشترک</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="prefix-ancestor">
+<h2>پیشوند مشترک = جد مشترک</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">در ترای، کلمه‌هایی که با \(p\) شروع می‌شوند دقیقاً کلمه‌های زیردرخت گرهٔ \(p\) هستند، و بلندترین پیشوند مشترک دو کلمه، عمقِ پایین‌ترین جد مشترکشان است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>تکمیل خودکار، بلندترین پیشوند مشترک.</li><li>مسیریابی اینترنت (بلندترین پیشوند منطبق).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تا گرهٔ \(p\) پایین برو: \(O(|p|)\).</li><li>همهٔ کلمات زیردرخت را با پیمایش گزارش کن (پیش‌ترتیب، برای ترتیب الفبایی).</li></ol>
+<div class="box ex"><div class="bh"></div><p>تایپ th در گوشی: تا گرهٔ th پایین برو و کلمات زیردرخت (the، then، this، …) را پیشنهاد بده.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-6"><b>جزوه ۶.۶</b>مسیر، اولاد و اجداد</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-2"><b>جزوه ۱۰.۲</b>ساختمان دادهٔ ترای</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-6"><b>جزوه ۱۰.۶</b>کاربردهای ترای</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s10-1"><b>اثبات ۱۰.۱</b>ترای: پیشوند مشترک یعنی جد مشترک</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s10-2"><b>۱۰.۲</b>پرچم پایان کلمه</a><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="prune-up">
+<h2>حذف: پرچم را بردار، بعد از پایین هرس کن</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">برای حذف یک کلمه، پرچمش را خاموش کن و بعد از گرهٔ آخر به سمت ریشه، گره‌هایی را که نه پرچم دارند نه فرزند، پاک کن. به اولین گره‌ای که پرچم یا فرزند دیگری دارد، توقف کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>حذف از ترای یا هر درخت پیشوندی.</li><li>پاکسازی ساختار بعد از حذف.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>مسیر کلمه را پیدا کن (روی یک پشته، یا با اشاره‌گر پدر).</li><li>پرچم گرهٔ آخر را خاموش کن.</li><li>از پایین: اگر گره بی‌پرچم و بی‌فرزند است، آن را از پدرش جدا کن و یک سطح بالا برو.</li></ol>
+<div class="box ex"><div class="bh"></div><p>حذف then وقتی the هم هست: فقط گرهٔ n پاک می‌شود؛ گرهٔ e پرچم دارد و همان‌جا توقف می‌کنیم.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-3"><b>جزوه ۱۰.۳</b>اعمال مورد نیاز روی ترای</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s10-2"><b>۱۰.۲</b>پرچم پایان کلمه</a></div>
+</article>
+
+<article class="idea" data-kinds="ds count" data-key="compress">
+<h2>زنجیرهای یک‌فرزندی را فشرده کن</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="count">شمارش و ساختن</span></div>
+<p class="idea-core">گره‌هایی که فقط یک فرزند دارند و پرچم ندارند اطلاعاتی اضافه نمی‌کنند؛ هر زنجیر از آن‌ها را به یک یال با برچسب رشته تبدیل کن. آن‌وقت هر گرهٔ داخلی دست‌کم دو فرزند (یا پرچم) دارد و تعداد گره‌ها حداکثر حدود \(2N\) است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>حافظهٔ ترای زیاد است.</li><li>کلمات طولانی با پیشوندهای مشترکِ کم.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>زنجیرهای بدون انشعاب و بدون پرچم را پیدا کن.</li><li>هر زنجیر را با یک یال (رشتهٔ حروفش) جایگزین کن.</li><li>شمارش: در درختی که هر گرهٔ داخلی بی‌پرچمش دست‌کم دو فرزند دارد، گره‌های داخلی بی‌پرچم کمتر از برگ‌ها هستند؛ و برگ‌ها و گره‌های پرچم‌دار روی هم حداکثر \(N\) تا هستند.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-5"><b>جزوه ۱۰.۵</b>فشرده‌سازی ترای (در امتحان نمی‌آید)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s10-6"><b>۱۰.۶</b>بهای سرعت: حافظهٔ هدررفته</a><a href="#s6-1"><b>۶.۱</b>درخت \(n\) رأسی، \(n - 1\) یال؛ و حذف برگ</a></div>
+</article>
+
+<article class="idea" data-kinds="ds analysis" data-key="memory-tradeoff">
+<h2>بهای سرعت: حافظهٔ هدررفته</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">آرایهٔ ۲۶تایی فرزندان، دسترسی O(1) می‌دهد ولی بیشتر خانه‌هایش NIL است (بیش از ۹۶٪). هر جا سرعت را با «اندیس کردن» خریدی، هزینهٔ حافظه را هم بشمار و جایگزین‌ها را بسنج.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«حافظهٔ این ساختمان داده را تحلیل کنید».</li><li>انتخاب بین آرایه، لیست فرزندان یا جدول درهم‌سازی در هر گره.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تعداد اشاره‌گرهای استفاده‌شده = تعداد یال‌ها = تعداد گره‌ها − ۱.</li><li>کل اشاره‌گرها = \(\sigma\) × تعداد گره‌ها ⇐ کسر استفاده‌شده کمتر از \(\frac1\sigma\) است (\(\sigma\) = اندازهٔ الفبا).</li><li>جایگزین‌ها: لیست فرزندان یا نمایش «فرزند اول، برادر بعدی» (حافظهٔ کم، ولی هر گام تا \(\sigma\) مقایسه)، فشرده‌سازی، درهم‌سازی.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-4"><b>جزوه ۱۰.۴</b>بهای سرعت: حافظه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s6-14"><b>جزوه ۶.۱۴</b>درخت دودویی معادل: فرزند چپ، برادر راست</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s10-2"><b>اثبات ۱۰.۲</b>ترای: کمتر از \(1/\sigma\) اشاره‌گرها استفاده می‌شوند</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-5"><b>۶.۵</b>هر درخت = یک درخت دودویی (فرزند اول، برادر بعدی)</a><a href="#s10-5"><b>۱۰.۵</b>زنجیرهای یک‌فرزندی را فشرده کن</a><a href="#s0-12"><b>۰.۱۲</b>مقدار را اندیس کن</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="trie-sort">
+<h2>پیش‌ترتیب ترای = ترتیب لغت‌نامه‌ای</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">همهٔ کلمات را در ترای بگذار و با پیش‌ترتیب (فرزندان به ترتیب الفبا) بپیما: کلمات مرتب بیرون می‌آیند. این همان مرتب‌سازی مبنایی از پرارزش‌ترین رقم است که هر گروهِ با حرف اول یکسان را جدا ادامه می‌دهد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>مرتب‌سازی رشته‌ها.</li><li>«چرا مرتب‌سازی از پرارزش‌ترین رقم با بازگشت درست است، ولی از کم‌ارزش‌ترین رقم بدون پایداری نه؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>پیش‌ترتیب هر گره را قبل از فرزندانش می‌بیند ⇐ هر کلمه قبل از کلمه‌هایی می‌آید که آن را پیشوند دارند (the قبل از then).</li><li>برادرها به ترتیب الفبا دیده می‌شوند ⇐ در اولین حرف متفاوت، کلمهٔ با حرف کوچک‌تر زودتر می‌آید.</li><li>این دقیقاً تعریف ترتیب لغت‌نامه‌ای است.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s10-6"><b>جزوه ۱۰.۶</b>کاربردهای ترای</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-7"><b>جزوه ۹.۷</b>مرتب‌سازی مبنایی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a><a href="#s9-4"><b>۹.۴</b>پایداری و ترتیب گذرها</a></div>
+</article>
+</section>

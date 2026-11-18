@@ -1,0 +1,286 @@
+<section class="chapter" data-ch="2" data-color="c2" data-title="تقسیم و حل" id="ch2">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۲ — ۱۹ ایده</div>
+  <h1>تقسیم و حل</h1>
+  <p class="ch-lead">هر جا ورودی به‌طور طبیعی نصف می‌شود، سه سؤال بپرس: چطور تقسیم کنم، ترکیب چقدر خرج دارد، و رابطهٔ بازگشتی‌اش چه می‌شود؟
+این فصل هم ابزار طراحی (ترکیب در مرز، دو اشاره‌گر، ساختن با دو برابر کردن) دارد و هم ابزار حل رابطه‌های بازگشتی.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch2">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۲</div>
+</header>
+
+<article class="idea" data-kinds="design" data-key="dc-template">
+<h2>تقسیم، حل بازگشتی، ترکیب</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">مسئله را به چند زیرمسئلهٔ کوچک‌تر از همان نوع بشکن، هر کدام را بازگشتی حل کن و جواب‌ها را ترکیب کن. زمان با رابطه‌ای مثل \(T(n) = aT(n/b) + f(n)\) توصیف می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ورودی به‌طور طبیعی نصف می‌شود (آرایه، مجموعهٔ نقاط، عدد).</li><li>\(O(n\log n)\) خواسته شده، در حالی که روش ساده \(O(n^2)\) است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تقسیم: معمولاً از وسط (بر حسب اندیس، یا میانه بر حسب مقدار).</li><li>حل: بازگشت روی هر بخش؛ پایه برای اندازهٔ ۱ یا ثابت.</li><li>ترکیب: جواب کل را از جواب بخش‌ها بساز. همهٔ هنر در این گام است.</li><li>رابطهٔ بازگشتی را بنویس و با درخت بازگشت یا قضیهٔ اصلی حل کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی ادغامی: تقسیم \(O(1)\)، دو بازگشت روی \(n/2\)، ادغام \(O(n)\). پس \(T(n) = 2T(n/2) + O(n) = O(n\log n)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-1"><b>جزوه ۲.۱</b>ایدهٔ تقسیم و حل</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-2"><b>جزوه ۲.۲</b>مرتب‌سازی ادغامی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-6"><b>اثبات ۱.۶</b>زمان خطی ادغام</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-1"><b>اثبات ۲.۱</b>مرتب‌سازی ادغامی با درخت بازگشت</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-2"><b>۲.۲</b>جواب = چپ + راست + آنچه از مرز می‌گذرد</a><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a><a href="#s2-7"><b>۲.۷</b>قضیهٔ اصلی: \(f\) را با \(n^{\log_b a}\) مقایسه کن</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="cross-boundary">
+<h2>جواب = چپ + راست + آنچه از مرز می‌گذرد</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">در تقسیم و حل، جواب‌هایی را که کاملاً در یک نیمه‌اند بازگشت پیدا می‌کند. کار اصلی، شمردن یا یافتن جواب‌هایی است که دو نیمه را به هم وصل می‌کنند، و این‌ها ساختار ساده‌تری دارند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«زیرآرایه / جفت / زوج نقطه با فلان ویژگی».</li><li>هر شیء جواب یا داخل یک نیمه است یا از مرز می‌گذرد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ثابت کن هر جواب دقیقاً یکی از سه نوع است: کاملاً چپ، کاملاً راست، گذرنده از مرز.</li><li>برای نوع سوم از ساختار مرز استفاده کن: زیرآرایهٔ گذرنده = بهترین پسوندِ چپ + بهترین پیشوندِ راست؛ جفت گذرندهٔ \(i &lt; j\) یعنی \(i\) در چپ و \(j\) در راست، پس ترتیب داخل هر نیمه دیگر مهم نیست و می‌شود مرتبش کرد.</li><li>اگر ترکیب \(O(n)\) شد، کل الگوریتم \(O(n\log n)\) است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>زیرآرایهٔ بیشینه: بهترین زیرآرایهٔ گذرنده از وسط = (بیشترین مجموعِ پسوندی که در \(mid\) تمام می‌شود) + (بیشترین مجموعِ پیشوندی که از \(mid + 1\) شروع می‌شود)، هر دو با یک پیمایش خطی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-7"><b>جزوه ۲.۷</b>زیرآرایهٔ بیشینه با تقسیم و حل</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p13"><b>سری ۱، مسئلهٔ ۱۳</b>خیلی نابجایی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p29"><b>سری ۱، مسئلهٔ ۲۹</b>نزدیک‌ترین نقاط</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-3"><b>۲.۳</b>دو اشاره‌گر روی دو فهرست مرتب</a><a href="#s2-1"><b>۲.۱</b>تقسیم، حل بازگشتی، ترکیب</a><a href="#s2-18"><b>۲.۱۸</b>نوار باریک و استدلال بسته‌بندی</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="two-pointers">
+<h2>دو اشاره‌گر روی دو فهرست مرتب</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">وقتی دو فهرست مرتب‌اند و شرط مورد نظر یکنواست، دو اشاره‌گر که فقط جلو می‌روند همهٔ جفت‌های لازم را در \(O(n)\) می‌بینند؛ جمع حرکت‌های هر اشاره‌گر حداکثر طول فهرستش است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ادغام؛ شمردن جفت‌های \((x, y)\) از دو نیمه با شرطی مثل \(x > 2y\).</li><li>«چند عنصر \(\le x\)؟» در جدول یا فهرست مرتب.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هر دو فهرست را مرتب نگه دار (در مرتب‌سازی ادغامی، رایگان است).</li><li>برای هر \(x\) از فهرست اول به ترتیب، اشاره‌گر \(j\) را در فهرست دوم تا جایی جلو ببر که شرط دیگر برقرار نباشد. چون شرط یکنواست، \(j\) هرگز لازم نیست عقب برگردد.</li><li>تحلیل: \(j\) روی هم حداکثر \(n\) قدم برمی‌دارد ⇐ \(O(n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>شمردن جفت‌های \(i &lt; j\) با \(A[i] > 2A[j]\): در هر سطح ادغامی، روی دو نیمهٔ مرتب، برای هر عنصر چپ تعداد عناصر راستی که از نصف آن کمترند با یک اشاره‌گر یک‌طرفه شمرده می‌شود. کل \(O(n\log n)\).</p></div>
+<div class="box trap"><div class="bh"></div><p>اگر شرط شمارش با شرط مقایسهٔ ادغام فرق دارد، شمارش را در گذری جدا انجام بده و بعد ادغام کن؛ قاطی کردن این دو، جفت‌ها را کم یا زیاد می‌شمارد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-2"><b>جزوه ۲.۲</b>مرتب‌سازی ادغامی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p13"><b>سری ۱، مسئلهٔ ۱۳</b>خیلی نابجایی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p8"><b>سری ۲، مسئلهٔ ۸</b>جست‌وجوی سریع در جدول صعودی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-2"><b>۲.۲</b>جواب = چپ + راست + آنچه از مرز می‌گذرد</a><a href="#s9-9"><b>۹.۹</b>حذف یک سطر یا ستون با هر مقایسه</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="strengthen-recursion">
+<h2>از بازگشت بیشتر بخواه</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">اگر ترکیب گران است چون اطلاعاتی کم داری، کاری کن که بازگشت علاوه بر جواب، آن اطلاعات را هم برگرداند (فهرست مرتب، کمینه، مجموع کل). این همان «تقویت فرض استقرا» در طراحی الگوریتم است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>در گام ترکیب مجبوری دوباره مرتب کنی یا دوباره پیمایش کنی.</li><li>تحلیل به \(O(n\log^2 n)\) رسیده و \(O(n\log n)\) خواسته شده.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ببین ترکیب به چه چیزی از هر نیمه نیاز دارد.</li><li>همان را به خروجی بازگشت اضافه کن و نشان بده نگه داشتنش در ترکیب ارزان است.</li><li>اگر لازم است، یک بار در ابتدا پیش‌مرتب کن و ترتیب را در طول بازگشت حفظ کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>نزدیک‌ترین جفت نقاط: مرتب کردن نوار بر حسب \(y\) در هر سطح \(O(n\log n)\) است و کل را \(O(n\log^2 n)\) می‌کند.
+اگر بازگشت نقاط را مرتب بر حسب \(y\) برگرداند (مثل ادغامی)، ترکیب \(O(n)\) و کل \(O(n\log n)\) می‌شود.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-2"><b>جزوه ۲.۲</b>مرتب‌سازی ادغامی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p29"><b>سری ۱، مسئلهٔ ۲۹</b>نزدیک‌ترین نقاط</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p13"><b>سری ۱، مسئلهٔ ۱۳</b>خیلی نابجایی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-10"><b>۲.۱۰</b>فرض استقرا را با کم کردن یک جمله قوی کن</a><a href="#s2-2"><b>۲.۲</b>جواب = چپ + راست + آنچه از مرز می‌گذرد</a><a href="#s2-18"><b>۲.۱۸</b>نوار باریک و استدلال بسته‌بندی</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="fewer-subproblems">
+<h2>تعداد زیرمسئله‌ها را کم کن</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">در \(T(n) = aT(n/b) + f(n)\) اگر برگ‌ها غالب‌اند، کم کردن \(a\) (حتی به قیمت کار ترکیب بیشتر) توانِ \(n\) را پایین می‌آورد. گاهی یک اتحاد جبری یکی از زیرمسئله‌ها را حذف می‌کند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ضرب اعداد بزرگ یا ماتریس‌ها؛ هر جا ۴ زیرمسئلهٔ نصف‌اندازه داری و \(n^2\) به دست می‌آید.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تقسیم ساده را بنویس و ببین کدام ترکیب‌ها واقعاً لازم‌اند (مثلاً فقط \(ac\)، \(bd\) و \(ad + bc\)، نه \(ad\) و \(bc\) جدا).</li><li>دنبال راهی بگرد که با ترکیب‌های قبلی یکی را رایگان بسازد: \(ad + bc = (a+b)(c+d) - ac - bd\).</li><li>رابطهٔ جدید: \(T(n) = 3T(n/2) + O(n) = O(n^{\log_2 3}) \approx O(n^{1.585})\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>کاراتسوبا: سه ضرب نصف‌اندازه به‌جای چهار. همین ایده در ضرب ماتریس (روش استراسن) ۸ ضرب را به ۷ می‌رساند: \(O(n^{\log_2 7}) \approx O(n^{2.81})\).</p></div>
+<div class="box trap"><div class="bh"></div><p>کم کردن کار ترکیب وقتی برگ‌ها غالب‌اند فایده‌ای ندارد؛ اول ببین کدام بخش درخت بازگشت غالب است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-8"><b>جزوه ۲.۸</b>جمع و ضرب اعداد صحیح</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-9"><b>جزوه ۲.۹</b>ضرب کاراتسوبا</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-7"><b>۲.۷</b>قضیهٔ اصلی: \(f\) را با \(n^{\log_b a}\) مقایسه کن</a><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="recursion-tree">
+<h2>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">رابطهٔ بازگشتی را به درختی باز کن که هر گره هزینهٔ کار غیربازگشتی یک فراخوانی است. هزینهٔ هر سطح را حساب کن و سطح‌ها را جمع بزن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هر رابطهٔ بازگشتی؛ به‌خصوص وقتی قضیهٔ اصلی صدق نمی‌کند یا زیرمسئله‌ها نابرابرند.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>سطح \(i\): \(a^i\) گره، هر کدام با اندازهٔ \(n/b^i\) و هزینهٔ \(f(n/b^i)\). هزینهٔ سطح \(= a^i f(n/b^i)\).</li><li>عمق \(\log_b n\) و تعداد برگ‌ها \(a^{\log_b n} = n^{\log_b a}\).</li><li>سری هزینهٔ سطح‌ها را تشخیص بده: نزولی هندسی ⇐ ریشه غالب، \(\Theta(f(n))\)؛ ثابت ⇐ \(\Theta(f(n)\log n)\)؛ صعودی هندسی ⇐ برگ‌ها غالب، \(\Theta(n^{\log_b a})\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(T(n) = 2T(n/2) + n/\lg n\): سطح \(i\) شامل \(2^i\) گره با هزینهٔ \(\frac{n/2^i}{\lg n - i}\) است، پس هزینهٔ سطح \(\frac{n}{\lg n - i}\).
+جمع روی سطح‌ها \(n\sum_{j=1}^{\lg n}\frac1j = \Theta(n\log\log n)\). قضیهٔ اصلی این را پوشش نمی‌دهد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-3"><b>جزوه ۲.۳</b>رابطهٔ بازگشتی و درخت بازگشت</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-4"><b>جزوه ۲.۴</b>درخت بازگشت در حالت کلی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p5"><b>سری ۱، مسئلهٔ ۵</b>بازگشتی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p27"><b>سری ۱، مسئلهٔ ۲۷</b>دنبالهٔ طلایی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-1"><b>اثبات ۲.۱</b>مرتب‌سازی ادغامی با درخت بازگشت</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-7"><b>اثبات ۲.۷</b>رابطه‌های دو شاخه‌ای</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-7"><b>۲.۷</b>قضیهٔ اصلی: \(f\) را با \(n^{\log_b a}\) مقایسه کن</a><a href="#s1-4"><b>۱.۴</b>نوع سری را بشناس</a><a href="#s2-8"><b>۲.۸</b>زیرمسئله‌های نابرابر: مجموع کسرها را ببین</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="master">
+<h2>قضیهٔ اصلی: \(f\) را با \(n^{\log_b a}\) مقایسه کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در \(T(n) = aT(n/b) + f(n)\)، هزینهٔ برگ‌ها \(n^{\log_b a}\) است. هر کدام از \(f(n)\) و \(n^{\log_b a}\) که با یک توانِ \(n\) بزرگ‌تر باشد برنده است و اگر هم‌مرتبه باشند یک ضریب \(\log n\) اضافه می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>رابطه‌ای دقیقاً به شکل \(aT(n/b) + f(n)\) با \(a \ge 1\) و \(b > 1\) ثابت.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(n^{\log_b a}\) را حساب کن.</li><li>حالت ۱: \(f = O(n^{\log_b a - \epsilon})\) ⇐ \(T = \Theta(n^{\log_b a})\).</li><li>حالت ۲: \(f = \Theta(n^{\log_b a})\) ⇐ \(T = \Theta(n^{\log_b a}\log n)\).</li><li>حالت ۳: \(f = \Omega(n^{\log_b a + \epsilon})\) و شرط نظم \(af(n/b) \le cf(n)\) با \(c &lt; 1\) ⇐ \(T = \Theta(f(n))\).</li><li>نسخهٔ ساده: اگر \(f = \Theta(n^d)\)، فقط \(d\) را با \(\log_b a\) مقایسه کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(3T(n/2) + n\): \(\log_2 3 \approx 1.585 > 1\) ⇐ \(\Theta(n^{1.585})\). \(2T(n/2) + n\): برابر ⇐ \(\Theta(n\log n)\). \(2T(n/2) + n^2\): \(2 > 1\) ⇐ \(\Theta(n^2)\).</p></div>
+<div class="box trap"><div class="bh"></div><p>اگر فاصلهٔ \(f\) و \(n^{\log_b a}\) فقط یک ضریب لگاریتمی است (مثل \(n/\lg n\) در برابر \(n\))، هیچ حالتی صدق نمی‌کند؛ برو سراغ درخت بازگشت.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-5"><b>جزوه ۲.۵</b>قضیهٔ اصلی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p5"><b>سری ۱، مسئلهٔ ۵</b>بازگشتی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-2"><b>اثبات ۲.۲</b>قضیهٔ اصلی (حالت \(f(n) = O(n^d)\))</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a><a href="#s2-5"><b>۲.۵</b>تعداد زیرمسئله‌ها را کم کن</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="uneven-split">
+<h2>زیرمسئله‌های نابرابر: مجموع کسرها را ببین</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در \(T(n) = \sum_i T(n/a_i) + \Theta(n)\)، عدد کلیدی \(r = \sum 1/a_i\) است. \(r &lt; 1\) ⇐ هزینهٔ سطح‌ها هندسی کم می‌شود و \(T = \Theta(n)\)؛ \(r = 1\) ⇐ \(\Theta(n\log n)\)؛ \(r > 1\) ⇐ برگ‌ها غالب و فوق‌خطی.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>انتخاب با میانهٔ میانه‌ها: \(T(n/5) + T(7n/10)\).</li><li>هر بازگشت با چند تکهٔ نامساوی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هزینهٔ سطح اول \(n\)، سطح دوم \(rn\)، و سطح \(i\)ام حداکثر \(r^i n\).</li><li>اگر \(r &lt; 1\): جمع \(\le \frac{n}{1 - r}\).</li><li>اثبات دقیق با حدس و استقرا: حدس \(T(n) \le cn\)؛ نشان بده \(crn + n \le cn\) برای \(c \ge \frac{1}{1 - r}\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(T(n) \le T(n/5) + T(7n/10) + n\): \(r = 0.2 + 0.7 = 0.9 &lt; 1\) ⇐ \(T(n) \le 10n\).
+اگر در میانهٔ میانه‌ها گروه‌های ۳تایی می‌گرفتیم، رابطه \(T(n/3) + T(2n/3) + n\) با \(r = 1\) می‌شد، یعنی \(\Theta(n\log n)\)، و زمان خطی از دست می‌رفت.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-6"><b>جزوه ۲.۶</b>اگر آرایه را به بیش از دو بخش تقسیم کنیم؟</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-11"><b>جزوه ۳.۱۱</b>انتخاب قطعی: میانهٔ میانه‌ها</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p27"><b>سری ۱، مسئلهٔ ۲۷</b>دنبالهٔ طلایی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-6"><b>اثبات ۲.۶</b>دو زیرمسئلهٔ نابرابر: \(T(n/5) + T(7n/10) + n\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-7"><b>اثبات ۲.۷</b>رابطه‌های دو شاخه‌ای</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-5"><b>اثبات ۳.۵</b>میانهٔ میانه‌ها: هر طرف حداکثر \(\frac{7n}{10} + 5\) عنصر</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a><a href="#s2-9"><b>۲.۹</b>حدس بزن و با استقرا ثابت کن</a><a href="#s3-10"><b>۳.۱۰</b>میانهٔ میانه‌ها: محوری با تضمین قطعی</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis proof" data-key="guess-induct">
+<h2>حدس بزن و با استقرا ثابت کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">جواب را حدس بزن (با درخت بازگشت یا مثال کوچک)، بعد با استقرا ثابت کن. ثابت‌ها را صریح بنویس و \(c\) لازم را در طول اثبات پیدا کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>رابطه‌ای که ابزار آماده ندارد.</li><li>کرانی دقیق یا با ثابت مشخص خواسته شده.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>حدس را با ثابت نامعلوم بنویس: \(T(n) \le c\,n\lg n\).</li><li>فرض استقرا را برای مقدارهای کوچک‌تر در رابطه جای‌گذاری کن.</li><li>عبارت حاصل را به شکل «حدس منهای یک چیز نامنفی» درآور: \(cn\lg n - (cn - n)\). شرط نامنفی بودن، \(c\) را مشخص می‌کند (این‌جا \(c \ge 1\)).</li><li>پایه را چک کن و اگر لازم شد \(n_0\) را بزرگ‌تر بگیر.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(T(n) = 2T(n/2) + n\): \(T(n) \le 2c\frac n2\lg\frac n2 + n = cn\lg n - cn + n \le cn\lg n\) برای \(c \ge 1\).</p></div>
+<div class="box trap"><div class="bh"></div><p>«\(T(n) \le cn + n = O(n)\)» اثبات نیست! باید دقیقاً همان شکل حدس را با همان \(c\) بگیری، نه «\(O\) از آن».</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-10"><b>جزوه ۲.۱۰</b>روش حدس و استقرا</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p26"><b>سری ۱، مسئلهٔ ۲۶</b>حدس پیچیده</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p27"><b>سری ۱، مسئلهٔ ۲۷</b>دنبالهٔ طلایی</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-4"><b>اثبات ۲.۴</b>حل \(T(n) = 2T(n/2) + n\) با حدس و استقرا</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-5"><b>اثبات ۲.۵</b>استقرا با ثابت نامعلوم: \(T(n) = 2T(n/2) + 32n\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-6"><b>اثبات ۲.۶</b>دو زیرمسئلهٔ نابرابر: \(T(n/5) + T(7n/10) + n\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-10"><b>۲.۱۰</b>فرض استقرا را با کم کردن یک جمله قوی کن</a><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis proof" data-key="strengthen-hyp">
+<h2>فرض استقرا را با کم کردن یک جمله قوی کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">اگر استقرا به اندازهٔ یک جملهٔ مرتبه‌پایین شکست خورد (\(cn + 1 \not\le cn\))، حدس را با کم کردن همان مرتبه قوی‌تر کن (\(cn - d\)). حکم قوی‌تر گاهی آسان‌تر ثابت می‌شود، چون فرض قوی‌تری هم در اختیار داری.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>استقرا «تقریباً» جواب داد ولی یک ثابت یا یک جملهٔ کوچک اضافه آمد.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>ببین دقیقاً چه چیزی اضافه آمده (مثلاً \(+1\)).</li><li>حدس را \(cn - d\) بگیر (یا \(c(n - a\sqrt n)\) و مانند آن) و دوباره جای‌گذاری کن: \(2(c\frac n2 - d) + 1 = cn - 2d + 1 \le cn - d\) اگر \(d \ge 1\).</li><li>پایه را با \(c\) و \(d\) جدید چک کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(T(n) \le 2T(n/2) + 1\) با \(T(1) = 1\): حدس \(T(n) \le 2n - 1\) مستقیم کار می‌کند، در حالی که حدس \(T(n) \le cn\) شکست می‌خورد.</p></div>
+<div class="box trap"><div class="bh"></div><p>آرگومان‌های جابه‌جاشده مثل \(T(n/2 + 17)\) مرتبه را عوض نمی‌کنند؛ جابه‌جایی را با کم کردن یک ثابت در حدس جذب کن (مثلاً \(c(n - 34)\lg(n - 34)\)).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-10"><b>جزوه ۲.۱۰</b>روش حدس و استقرا</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p26"><b>سری ۱، مسئلهٔ ۲۶</b>حدس پیچیده</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-8"><b>اثبات ۲.۸</b>تقویت فرض استقرا: \(T(n) \le 2T(n/2) + 1\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-9"><b>۲.۹</b>حدس بزن و با استقرا ثابت کن</a><a href="#s2-4"><b>۲.۴</b>از بازگشت بیشتر بخواه</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="change-var">
+<h2>تغییر متغیر: \(n = 2^m\)</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">وقتی \(\sqrt n\) یا \(n^{1/k}\) در آرگومان است، با \(n = 2^m\) و \(S(m) = T(2^m)\)، «ریشه گرفتن» به «نصف کردن» تبدیل می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>\(T(n) = aT(\sqrt n) + f(n)\).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>جای‌گذاری \(n = 2^m\): \(\sqrt n = 2^{m/2}\).</li><li>\(S(m) = T(2^m)\) را تعریف کن: \(S(m) = aS(m/2) + f(2^m)\).</li><li>رابطهٔ معمولی را حل کن و با \(m = \lg n\) برگرد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(T(n) = 2T(\sqrt n) + \lg n\) ⇐ \(S(m) = 2S(m/2) + m = \Theta(m\log m)\) ⇐ \(T(n) = \Theta(\lg n \cdot \lg\lg n)\). و \(T(n) = T(\sqrt n) + 1\) ⇐ \(\Theta(\lg\lg n)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-4"><b>جزوه ۲.۴</b>درخت بازگشت در حالت کلی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p5"><b>سری ۱، مسئلهٔ ۵</b>بازگشتی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-11"><b>۰.۱۱</b>مسئله را به شکل آشنا تبدیل کن</a><a href="#s2-7"><b>۲.۷</b>قضیهٔ اصلی: \(f\) را با \(n^{\log_b a}\) مقایسه کن</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="divide-product">
+<h2>رابطهٔ ضرب‌دار: بر حاصل‌ضرب تقسیم کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در \(T(n) = a_n T(n-1) + f(n)\)، تقسیم دو طرف بر \(P_n = a_1 a_2 \cdots a_n\) رابطه را به جمعی تلسکوپی تبدیل می‌کند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>\(T(n) = nT(n-1) + \dots\)، \(T(n) = 2T(n-1) + \dots\).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(U(n) = T(n)/P_n\) تعریف کن.</li><li>\(U(n) = U(n-1) + f(n)/P_n\) ⇐ \(U(n) = U(0) + \sum_{k \le n} f(k)/P_k\).</li><li>اگر سری \(\sum f(k)/P_k\) همگرا باشد، \(T(n) = \Theta(P_n)\): کران پایین از جملهٔ اول، کران بالا از حد سری.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(T(n) = nT(n-1) + 1\): \(U(n) = U(n-1) + \frac{1}{n!}\) و \(\sum \frac{1}{k!} \le e\)، پس \(T(n) = \Theta(n!)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p6"><b>سری ۱، مسئلهٔ ۶</b>بازگشت عجیب</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-4"><b>۱.۴</b>نوع سری را بشناس</a><a href="#s2-11"><b>۲.۱۱</b>تغییر متغیر: \(n = 2^m\)</a></div>
+</article>
+
+<article class="idea" data-kinds="count" data-key="last-step">
+<h2>روی گام آخر حالت‌بندی کن</h2>
+<div class="idea-meta"><span class="ik" data-k="count">شمارش و ساختن</span></div>
+<p class="idea-core">برای شمردن مسیرها، دنباله‌ها یا ساختارها، ببین آخرین گام (یا آخرین قطعه) چه حالت‌هایی دارد. هر حالت یک نمونهٔ کوچک‌تر به جا می‌گذارد و جمع آن‌ها رابطهٔ بازگشتی است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«به چند طریق …؟»</li><li>مسیرهای شبکه‌ای، کاشی‌کاری نوار، دنباله‌های با شرط.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>گام آخر را حالت‌بندی کن (طول آخرین پرش، آخرین قطعه، آخرین عنصر).</li><li>برای هر حالت، تعداد راه‌های رسیدن به «قبل از آن گام» یک نمونهٔ کوچک‌تر است.</li><li>\(a_n = \sum_s w_s\,a_{n-s}\). اگر خلاصهٔ وضعیت یک کمیت ساده است (مثلاً مجموع مختصات)، متغیر رابطه را همان بگیر.</li><li>اگر رابطه کانولوشنی است، تابع مولد \(A(t) = \sum a_n t^n\) معادلهٔ \(A = 1 + W(t)A\) را می‌دهد، پس \(A = \frac{1}{1 - W(t)}\). اگر \(W\) گویا باشد، یک رابطهٔ خطی کوتاه به دست می‌آید.</li></ol>
+<div class="box ex"><div class="bh"></div><p>کاشی‌کاری نوار \(1 \times n\) با قطعه‌های ۱ و ۲: آخرین قطعه یا ۱ است یا ۲، پس \(a_n = a_{n-1} + a_{n-2}\)؛ همان فیبوناچی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-15"><b>جزوه ۱.۱۵</b>مثال اول: اعداد فیبوناچی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p30"><b>سری ۱، مسئلهٔ ۳۰</b>حرکت مگس</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p31"><b>سری ۱، مسئلهٔ ۳۱</b>شمارش مثلث‌ها</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-9"><b>۰.۹</b>به نمونهٔ کوچک‌ترِ همان مسئله برسان</a><a href="#s1-14"><b>۱.۱۴</b>دوباره‌کاری را ذخیره کن (ریشهٔ برنامه‌نویسی پویا)</a></div>
+</article>
+
+<article class="idea" data-kinds="design count" data-key="doubling-construction">
+<h2>ساختن با دو برابر کردن</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="count">شمارش و ساختن</span></div>
+<p class="idea-core">شیءِ اندازهٔ \(2n\) را از دو نسخهٔ (احتمالاً تبدیل‌شدهٔ) شیء اندازهٔ \(n\) بساز و فقط «مرز» بین دو نسخه را بررسی کن. اگر دو زیرمسئله یکسان‌اند، فقط یک بار حلش کن: \(T(n) = T(n/2) + O(n) = O(n)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«برای هر \(n\) (توان ۲) شیئی با فلان ویژگی بسازید».</li><li>کد گری، ماتریس هادامارد، جایگشت با شرط جمعی، خانوادهٔ رشته‌ها با فاصلهٔ ثابت.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>فرض کن جواب اندازهٔ \(n\) را داری (فرض استقرا).</li><li>دو نسخه را با یک تبدیل ساده کنار هم بگذار: \((x, x)\) و \((x, \bar x)\)؛ نسخهٔ معکوس‌شده؛ نگاشت‌های \(x \mapsto 2x - 1\) و \(x \mapsto 2x\).</li><li>ویژگی را برای همهٔ حالت‌های جفت جدا بررسی کن: هر دو از نسخهٔ اول، هر دو از دوم، یکی از هر کدام.</li><li>زمان: اگر فقط یک بازگشت لازم است، \(T(n) = T(n/2) + O(n)\). برای شمارش جواب‌ها، انتخاب‌های مستقل هر سطح را ضرب کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>کد گری بازتابی: فهرست \((n-1)\)بیتی را بنویس و جلوی هر کد ۰ بگذار؛ بعد همان فهرست را وارونه کن و جلویش ۱ بگذار. داخل هر نیمه همسایه‌ها یک بیت فرق دارند و در مرز هم فقط بیت اول.
+جایگشت بدون تصاعد حسابی: فردها را از \(x \mapsto 2x - 1\) و زوج‌ها را از \(x \mapsto 2x\) روی یک جواب کوچک بساز و فردها را جلو بگذار. تصاعدی که دو سرش ناهم‌زوجیت باشد ممکن نیست (\(a + c\) فرد می‌شود)،
+و نگاشت‌های خطی تصاعد را حفظ می‌کنند، پس داخل هر بلوک هم تصاعدی نیست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p17"><b>سری ۱، مسئلهٔ ۱۷</b>جایگشت‌های فاقد تصاعد حسابی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p18"><b>سری ۱، مسئلهٔ ۱۸</b>خانوادهٔ بهینه از رشته‌های دودویی با فاصلهٔ ثابت</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p19"><b>سری ۱، مسئلهٔ ۱۹</b>کدهای گری با ابتدا و انتهای ازپیش‌تعیین‌شده</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-15"><b>۲.۱۵</b>روی یک مختصات ببُر (ابرمکعب)</a><a href="#s0-9"><b>۰.۹</b>به نمونهٔ کوچک‌ترِ همان مسئله برسان</a><a href="#s2-16"><b>۲.۱۶</b>نصف کردن درجه با گشت اویلری</a></div>
+</article>
+
+<article class="idea" data-kinds="design proof" data-key="cut-coordinate">
+<h2>روی یک مختصات ببُر (ابرمکعب)</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">ساختارهای ساخته‌شده از رشته‌های دودویی را روی یک بیت دو نیم کن: هر نیمه همان ساختار با یک بُعد کمتر است و یال‌های بین دو نیمه یک تطابق‌اند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>مسئله روی \(\{0, 1\}^n\)، کد گری، مسیر همیلتونی در ابرمکعب.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>بیتی را ثابت کن: نیمهٔ ۰ و نیمهٔ ۱، هر کدام یک ابرمکعب با یک بُعد کمتر.</li><li>مسئله را در هر نیمه بازگشتی حل کن، با شرط‌های مرزی که خودت انتخاب می‌کنی (مثلاً سر و تهی که بشود با یک یال به نیمهٔ دیگر رفت).</li><li>نیمه‌ها را با یک یال وصل کن (یالی که فقط بیتِ برش‌خورده را عوض می‌کند).</li><li>شرط لازم را با زوجیت چک کن: ابرمکعب دوبخشی است (وزن زوج در برابر وزن فرد).</li></ol>
+<div class="box ex"><div class="bh"></div><p>مسیر همیلتونی از \(u\) به \(v\) فقط وقتی ممکن است که وزن‌های \(u\) و \(v\) ناهم‌زوجیت باشند (\(2^n\) رأس، رنگ‌ها یک‌درمیان).
+ساخت: بیتی را که \(u\) و \(v\) در آن فرق دارند برش بزن؛ در نیمهٔ \(u\) مسیری همیلتونی از \(u\) تا رأسی مناسب بساز، با یک یال به نیمهٔ دیگر برو و آن‌جا تا \(v\) ادامه بده.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p19"><b>سری ۱، مسئلهٔ ۱۹</b>کدهای گری با ابتدا و انتهای ازپیش‌تعیین‌شده</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-14"><b>۲.۱۴</b>ساختن با دو برابر کردن</a><a href="#s0-4"><b>۰.۴</b>ناوردا: چیزی که هرگز عوض نمی‌شود</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="euler-split">
+<h2>نصف کردن درجه با گشت اویلری</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">در گرافی که همهٔ درجه‌ها زوج‌اند، یال‌های یک گشت اویلری را یک‌درمیان دو رنگ کن؛ هر رأس از هر رنگ دقیقاً نصف درجه‌اش را می‌گیرد. با تکرار، گراف دوبخشیِ \(2^k\)-منتظم به تطابق‌های کامل تجزیه می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«یال‌ها را به … افراز کنید» با درجه‌ای که توان ۲ است.</li><li>«نصف کن و بازگشت بزن» روی پارامتری غیر از \(n\) (این‌جا درجه).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>گشت اویلری (هر یال دقیقاً یک بار) را در هر مؤلفه پیدا کن: \(O(m)\).</li><li>یال‌ها را در طول گشت یک‌درمیان قرمز و آبی کن. هر عبور از یک رأس یک یال ورودی و یک یال خروجی مصرف می‌کند که رنگشان فرق دارد.</li><li>در گراف دوبخشی هر دور طول زوج دارد، پس حتی رأس شروع هم متوازن می‌ماند.</li><li>حالا دو گراف \(\frac d2\)-منتظم داری؛ روی هر کدام بازگشت بزن. عمق \(\log d\) و هر سطح \(O(m)\): کل \(O(m\log d)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>گراف دوبخشیِ ۴-منتظم ⇐ دو گراف ۲-منتظم ⇐ چهار تطابق کامل.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p33"><b>سری ۱، مسئلهٔ ۳۳</b>تجزیهٔ گراف دوبخشی منتظم به تطابق‌های کامل</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-14"><b>۲.۱۴</b>ساختن با دو برابر کردن</a><a href="#s2-1"><b>۲.۱</b>تقسیم، حل بازگشتی، ترکیب</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="monge">
+<h2>جای بهترین جواب یکنواست</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">اگر ستونِ کمینهٔ سطر \(i\) با زیاد شدن \(i\) هرگز به چپ نمی‌رود، سطرهای زوج را بازگشتی حل کن و هر سطر فرد را فقط بین ستون‌های جواب دو همسایه‌اش بگرد. این جست‌وجوها روی هم تلسکوپی‌اند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ماتریس مونژ (نامساوی چهارضلعی).</li><li>«کمینهٔ هر سطر» در ماتریسی با ساختار خاص؛ بهینه‌سازی‌های برنامه‌نویسی پویا.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>یکنوایی \(f(i) \le f(i+1)\) را ثابت کن (معمولاً با فرض خلف روی دو سطر مجاور و دو ستون مشکوک).</li><li>بازگشت روی سطرهای زوج (نصف سطرها).</li><li>برای سطر فرد \(i\) فقط ستون‌های \(f(i-1)\) تا \(f(i+1)\) را بگرد. جمع طول این بازه‌ها \(O(m + n)\) است، چون بازه‌ها فقط در دو سرشان هم‌پوشانی دارند.</li><li>\(T(n) = T(n/2) + O(n + m)\) ⇐ \(O(m + n\log n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>اگر کمینه‌های سطرهای ۲ و ۴ در ستون‌های ۱ و ۳ باشند، کمینهٔ سطر ۳ فقط در ستون‌های ۱ تا ۳ است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p12"><b>سری ۱، مسئلهٔ ۱۲</b>شمارهٔ ستون</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-1"><b>۲.۱</b>تقسیم، حل بازگشتی، ترکیب</a><a href="#s2-3"><b>۲.۳</b>دو اشاره‌گر روی دو فهرست مرتب</a></div>
+</article>
+
+<article class="idea" data-kinds="design proof" data-key="packing">
+<h2>نوار باریک و استدلال بسته‌بندی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">در تقسیم و حل هندسی، فاصلهٔ \(\delta\) جواب دو نیمه یک «شعاع» می‌دهد: فقط نقاط داخل نوارِ \(\delta\) اطراف خط تقسیم مهم‌اند، و هر کدام فقط با تعداد ثابتی همسایه مقایسه می‌شود؛ چون نقاطی با فاصلهٔ دوبه‌دو دست‌کم \(\delta\) در ناحیه‌ای کوچک جا نمی‌شوند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>نزدیک‌ترین جفت نقاط؛ هر مسئلهٔ «بهترین جفت» هندسی که ترکیب ساده‌اش \(O(n^2)\) است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>با خط میانه (بر حسب \(x\)) تقسیم کن و دو طرف را بازگشتی حل کن: \(\delta = \min(\delta_L, \delta_R)\).</li><li>فقط نقاطی با فاصلهٔ کمتر از \(\delta\) از خط می‌توانند جفت بهتری بسازند.</li><li>نقاط نوار را بر حسب \(y\) مرتب کن و هر نقطه را فقط با ۷ نقطهٔ بعدی مقایسه کن: مستطیل \(\delta \times 2\delta\) را به ۸ مربع \(\frac\delta2 \times \frac\delta2\) تقسیم کن؛ هر مربع حداکثر یک نقطه دارد.</li><li>با پیش‌مرتب‌سازی (ایدهٔ «از بازگشت بیشتر بخواه») ترکیب \(O(n)\) و کل \(O(n\log n)\) می‌شود.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p29"><b>سری ۱، مسئلهٔ ۲۹</b>نزدیک‌ترین نقاط</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-2"><b>۲.۲</b>جواب = چپ + راست + آنچه از مرز می‌گذرد</a><a href="#s2-4"><b>۲.۴</b>از بازگشت بیشتر بخواه</a></div>
+</article>
+
+<article class="idea" data-kinds="lower" data-key="read-all">
+<h2>کران پایین: باید همهٔ ورودی را دید</h2>
+<div class="idea-meta"><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">اگر هر بخش ورودی می‌تواند جواب را عوض کند، هر الگوریتم درستی باید همهٔ آن را بخواند. این کرانِ پایین سادهٔ \(\Omega(n)\) را می‌دهد و نشان می‌دهد الگوریتم خطی بهینه است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«آیا می‌توان از \(O(n)\) بهتر شد؟»</li><li>جمع اعداد، یافتن بیشینه، بررسی مرتب بودن.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>فرض کن الگوریتمی بخشی از ورودی (مثلاً بیت \(i\)) را نخوانده است.</li><li>دو ورودی بساز که فقط در همان بخش فرق دارند و جواب‌هایشان متفاوت است.</li><li>الگوریتم روی هر دو دقیقاً یکسان رفتار می‌کند، پس روی یکی غلط است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>جمع دو عدد \(n\)بیتی: عوض کردن هر بیت ورودی، خروجی را عوض می‌کند، پس همهٔ \(2n\) بیت باید خوانده شوند ⇐ \(\Omega(n)\)؛ جمع دبستانی بهینه است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-8"><b>جزوه ۲.۸</b>جمع و ضرب اعداد صحیح</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s2-3"><b>اثبات ۲.۳</b>جمع دبستانی بهینه است</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s9-1"><b>۹.۱</b>هر الگوریتم مقایسه‌ای = یک درخت تصمیم</a><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a></div>
+</article>
+</section>

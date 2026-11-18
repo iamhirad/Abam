@@ -3,6 +3,7 @@
 <header class="p-head"><div class="p-no">۱</div><div><h2 class="p-h">انتخاب الگوریتم</h2>
 <div class="p-tags"><span class="diff" data-l="1" title="سختی ۱ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>آسان</span><span>تحلیل مجانبی</span><a href="https://iamhirad.github.io/Abam/#ch1">جزوه: فصل ۱</a></div></div></header>
 <p class="p-why"><b>چرا «آسان»؟</b> فقط تعریف‌ها و یک حساب عددی؛ دام اصلی فرق «رشد کمتر» با «سریع‌تر روی یک بازهٔ محدود» است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s1-5"><b>۱.۵</b> نردبان رشد و جملهٔ غالب</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-6"><b>۱.۶</b> حد نسبت را بگیر</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-11"><b>۱.۱۱</b> روی بازهٔ مشخص، مقدار واقعی را حساب کن</a></p>
 <div class="p-statement">
   <p>
     مدیر یک سایت باید از بین ۴ الگوریتم یکی را انتخاب کند. زمان اجرای آن‌ها
@@ -85,6 +86,7 @@
 <header class="p-head"><div class="p-no">۲</div><div><h2 class="p-h">مردافکن</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>تحلیل مجانبی</span><span>مثال نقض</span><a href="https://iamhirad.github.io/Abam/#ch1">جزوه: فصل ۱</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> باید خودتان دو تابع بسازید؛ شرط «اکیداً صعودی» مثال‌های معروف را از کار می‌اندازد.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-2"><b>۰.۲</b> تعریف را باز کن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s0-3"><b>۰.۳</b> اول دنبال مثال نقض بگرد</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-6"><b>۱.۶</b> حد نسبت را بگیر</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-10"><b>۱.۱۰</b> توابع ناهم‌سنج: پله‌های یک‌درمیان</a></p>
 <div class="p-statement">
   <p>دو تابع \(f, g : \mathbb N \to \mathbb N\) بیابید که <strong>اکیداً صعودی</strong> باشند و \(g(n) \notin O(f(n))\) و \(f(n) \notin O(g(n))\).</p>
 </div>
@@ -137,6 +139,7 @@ g(n) = \begin{cases} n^n & n \text{ odd} \\ (n-1)^{n-1} + 1 & n \text{ even} \en
 <header class="p-head"><div class="p-no">۳</div><div><h2 class="p-h">تحلیل زمان</h2>
 <div class="p-tags"><span class="diff" data-l="2" title="سختی ۲ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>نسبتاً آسان</span><span>تحلیل مجانبی</span><span>حلقه‌های تودرتو</span><a href="https://iamhirad.github.io/Abam/#ch1">جزوه: فصل ۱</a></div></div></header>
 <p class="p-why"><b>چرا «نسبتاً آسان»؟</b> یک سری هندسی است؛ فقط نباید وسوسه شوید تعداد دورهای دو حلقه را ضرب کنید.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-10"><b>۰.۱۰</b> ورودی بد را بساز</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-3"><b>۱.۳</b> حلقه‌ها را جمع بنویس، نه ضرب</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-4"><b>۱.۴</b> نوع سری را بشناس</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-8"><b>۱.۸</b> \(O\) و \(\Omega\) را جدا ثابت کن</a></p>
 <div class="p-statement">
   <p>برای عدد صحیح مثبت \(n\) الگوریتم زیر را در نظر بگیرید (دستور داخلی زمان ثابت دارد):</p>
 <pre class="code">
@@ -202,6 +205,7 @@ for i = 1; i <= n; i = 2 * i:
 <header class="p-head"><div class="p-no">۴</div><div><h2 class="p-h">رشد عجیب</h2>
 <div class="p-tags"><span class="diff" data-l="2" title="سختی ۲ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>نسبتاً آسان</span><span>تحلیل مجانبی</span><span>درست یا نادرست</span><a href="https://iamhirad.github.io/Abam/#ch1">جزوه: فصل ۱</a></div></div></header>
 <p class="p-why"><b>چرا «نسبتاً آسان»؟</b> با تعریف و مثال نقض‌های ساده حل می‌شود؛ قسمت الف یک ظرافت دارد (وقتی \(\log g\) به صفر نزدیک است).</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-2"><b>۰.۲</b> تعریف را باز کن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s0-3"><b>۰.۳</b> اول دنبال مثال نقض بگرد</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s1-9"><b>۱.۹</b> آیا \(O\) از تابع \(h\) عبور می‌کند؟</a></p>
 <div class="p-statement">
   <p>فرض کنید \(f(n) \in O(g(n))\). درستی یا نادرستی هر گزاره را ثابت کنید (برای نادرستی، مثال نقض کافی است):</p>
   <ul class="parts">
@@ -254,6 +258,7 @@ for i = 1; i <= n; i = 2 * i:
 <header class="p-head"><div class="p-no">۵</div><div><h2 class="p-h">بازگشتی</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>رابطهٔ بازگشتی</span><span>قضیهٔ اصلی</span><a href="https://iamhirad.github.io/Abam/#ch2">جزوه: فصل ۲</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> الف، ج و د کاربرد مستقیم قضیهٔ اصلی‌اند؛ ب در شکاف قضیهٔ اصلی است و درخت بازگشت می‌خواهد.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-11"><b>۰.۱۱</b> مسئله را به شکل آشنا تبدیل کن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s2-6"><b>۲.۶</b> درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s2-7"><b>۲.۷</b> قضیهٔ اصلی: \(f\) را با \(n^{\log_b a}\) مقایسه کن</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s2-11"><b>۲.۱۱</b> تغییر متغیر: \(n = 2^m\)</a></p>
 <div class="p-statement">
   <p>روابط بازگشتی زیر را حل کنید.</p>
   <ul class="parts">
@@ -312,6 +317,7 @@ for i = 1; i <= n; i = 2 * i:
 <header class="p-head"><div class="p-no">۶</div><div><h2 class="p-h">بازگشت عجیب</h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>رابطهٔ بازگشتی</span><span>جمع تلسکوپی</span><a href="https://iamhirad.github.io/Abam/#ch2">جزوه: فصل ۲</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> ترفند «تقسیم بر \(n!\)» و شکستن \(k^2/k!\) را باید بلد باشید؛ بقیه حساب است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s2-12"><b>۲.۱۲</b> رابطهٔ ضرب‌دار: بر حاصل‌ضرب تقسیم کن</a></p>
 <div class="p-statement">
   <p>تابع \(T : \mathbb N \to \mathbb R^+\) با \(T(1) = a\) و برای \(n \ge 2\): \(T(n) = bn^2 + nT(n-1)\) تعریف شده است (\(a, b\) حقیقی و مثبت).</p>
   <ul class="parts">

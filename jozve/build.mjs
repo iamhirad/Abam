@@ -51,6 +51,15 @@ const DOCS = {
     desc: 'حل گام‌به‌گام تمرین سری اول درس ساختمان داده‌ها و طراحی الگوریتم‌ها: راهنمایی، راه‌حل با مرور مفاهیم، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها',
     wrap: 'jozve tamrin',
   },
+  ideas: {
+    parts: ['ideas/00-front.html', ...Array.from({ length: 11 }, (_, i) => `ideas/ch${String(i).padStart(2, '0')}.html`), 'ideas/99-glance.html'],
+    out: 'ideas',
+    artifact: 'artifact-ideas.html',
+    title: 'ایده‌نامهٔ ساختمان داده‌ها',
+    desc: 'همهٔ ایده‌های جزوه، دو سری تمرین و اثبات‌های درس ساختمان داده‌ها و الگوریتم‌ها، فصل به فصل: جملهٔ اصلی، نشانه‌ها، سازوکار، نمونه، دام و پیوند به جاهایی که به کار رفته؛ با نقشهٔ «از نشانه به ایده»، جست‌وجو و حالت آزمون',
+    wrap: 'jozve tamrin ideas',
+    figNumbers: false,
+  },
   proofs: {
     parts: ['proofs/00-front.html', ...Array.from({ length: 10 }, (_, i) => `proofs/ch${String(i + 1).padStart(2, '0')}.html`)],
     out: 'proofs',
@@ -276,6 +285,36 @@ const SCRIPT = `<script>
     });
   }
   function setAll(open) { document.querySelectorAll('details.sol').forEach(function (d) { d.open = open; }); }
+  // ایده‌نامه: جست‌وجو، پالایش بر اساس نوع و حالت آزمون
+  var IW = document.querySelector('.ideas'), kind = 'all', cards = [];
+  function faNum(x) { return String(x).replace(/[0-9]/g, function (d) { return '۰۱۲۳۴۵۶۷۸۹'[+d]; }); }
+  function nz(t) {
+    return (t || '').toLowerCase().replace(/[يى]/g, 'ی').replace(/ك/g, 'ک').replace(/[ۀة]/g, 'ه')
+      .replace(/[\\u064B-\\u065F\\u0670\\u0640\\u200c-\\u200f]/g, '').replace(/[\\s\\\\{}^_]+/g, '');
+  }
+  function applyIdeas() {
+    var qi = IW.querySelector('[data-idea-search]');
+    var toks = (qi ? qi.value : '').split(/\\s+/).map(nz).filter(Boolean), n = 0;
+    cards.forEach(function (c) {
+      var ok = (kind === 'all' || (' ' + c.getAttribute('data-kinds') + ' ').indexOf(' ' + kind + ' ') >= 0) &&
+        toks.every(function (t) { return c._t.indexOf(t) >= 0; });
+      c.hidden = !ok;
+      if (ok) n++;
+    });
+    IW.querySelectorAll('section.chapter').forEach(function (s) { s.hidden = !s.querySelector('.idea:not([hidden])'); });
+    var filtering = toks.length > 0 || kind !== 'all';
+    if (filtering) IW.setAttribute('data-filtering', ''); else IW.removeAttribute('data-filtering');
+    var cnt = IW.querySelector('[data-idea-count]');
+    if (cnt) cnt.textContent = (filtering ? faNum(n) + ' از ' + faNum(cards.length) : faNum(cards.length)) + ' ایده';
+    var em = IW.querySelector('[data-idea-empty]');
+    if (em) em.hidden = n > 0;
+  }
+  if (IW) {
+    cards = [].slice.call(IW.querySelectorAll('.idea'));
+    cards.forEach(function (c) { c._t = nz(c.textContent); });
+    var qIn = IW.querySelector('[data-idea-search]');
+    if (qIn) { qIn.addEventListener('input', applyIdeas); if (qIn.value) applyIdeas(); }
+  }
   document.addEventListener('click', function (e) {
     var tb = e.target.closest('.theme-toggle');
     if (tb) {
@@ -293,6 +332,26 @@ const SCRIPT = `<script>
       document.querySelectorAll('[data-diff-filter]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === fb)); });
       return;
     }
+    var kb = e.target.closest('[data-kind]');
+    if (kb && IW) {
+      kind = kb.getAttribute('data-kind');
+      IW.querySelectorAll('[data-kind]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === kb)); });
+      applyIdeas();
+      return;
+    }
+    var qb = e.target.closest('[data-quiz-toggle]');
+    if (qb && IW) {
+      var on = !IW.hasAttribute('data-quiz');
+      if (on) { IW.setAttribute('data-quiz', ''); setAll(false); cards.forEach(function (c) { c.classList.remove('revealed'); }); }
+      else IW.removeAttribute('data-quiz');
+      qb.setAttribute('aria-pressed', String(on));
+      qb.textContent = on ? 'خروج از حالت آزمون' : 'حالت آزمون: نام ایده‌ها را بپوشان';
+      return;
+    }
+    if (IW && IW.hasAttribute('data-quiz')) {
+      var card = e.target.closest('.idea');
+      if (card && !card.classList.contains('revealed') && e.target.closest('h2, .idea-core, .reveal')) { card.classList.add('revealed'); return; }
+    }
     var b = e.target.closest('[data-toggle-all]');
     if (!b) return;
     var open = b.getAttribute('data-toggle-all') === 'open';
@@ -300,7 +359,7 @@ const SCRIPT = `<script>
     document.querySelectorAll('[data-toggle-all]').forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
   });
   if (mq && mq.addEventListener) mq.addEventListener('change', paint);
-  window.addEventListener('beforeprint', function () { setAll(true); });
+  window.addEventListener('beforeprint', function () { setAll(true); if (IW) IW.removeAttribute('data-quiz'); });
   paint();
 })();
 </script>`;

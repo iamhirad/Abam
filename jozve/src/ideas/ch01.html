@@ -1,0 +1,232 @@
+<section class="chapter" data-ch="1" data-color="c1" data-title="طراحی و تحلیل الگوریتم‌ها" id="ch1">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۱ — ۱۵ ایده</div>
+  <h1>طراحی و تحلیل الگوریتم‌ها</h1>
+  <p class="ch-lead">ابزارهای «شمردن» و «مقایسه کردن»: زمان اجرا را چطور به یک تابع تبدیل کنیم، آن تابع را چطور ساده کنیم و چطور با بقیه مقایسه‌اش کنیم.
+دو ایدهٔ طراحی هم از همین فصل شروع شدند: ذخیرهٔ زیرمسئله‌ها و مجموع پیشوندی.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch1">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۱</div>
+</header>
+
+<article class="idea" data-kinds="analysis" data-key="cost-model">
+<h2>عملیات پایه را بشمار، نه ثانیه را</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">زمان اجرا را «تعداد عملیات پایه» (مقایسه، انتساب، جمع) به‌عنوان تابعی از اندازهٔ ورودی بگیر. این عدد مستقل از سخت‌افزار و زبان است و رفتار الگوریتم را برای ورودی‌های بزرگ نشان می‌دهد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«زمان اجرای این قطعه‌کد را تحلیل کنید.»</li><li>«کدام الگوریتم بهتر است؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>اندازهٔ ورودی \(n\) را مشخص کن: تعداد عناصر، تعداد بیت‌ها، طول رشته.</li><li>عمل پایه‌ای را انتخاب کن که بیشترین تکرار را دارد؛ معمولاً بدنهٔ داخلی‌ترین حلقه.</li><li>تعداد اجرای آن را بر حسب \(n\) بشمار، معمولاً در بدترین حالت.</li></ol>
+<div class="box ex"><div class="bh"></div><p>در جمع دو عدد \(n\)بیتی، اندازهٔ ورودی تعداد بیت‌هاست نه مقدار عدد. جمع دبستانی \(O(n)\) جمع تک‌بیتی انجام می‌دهد.</p></div>
+<div class="box trap"><div class="bh"></div><p>«اندازهٔ ورودی» را اشتباه نگیر: عدد \(N\) فقط \(\log N\) بیت جا می‌گیرد. الگوریتمی که برای عدد \(N\) حدود \(N\) گام برمی‌دارد، نسبت به اندازهٔ ورودی نمایی است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-1"><b>جزوه ۱.۱</b>حل مسئله با الگوریتم</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-3"><b>جزوه ۱.۳</b>تحلیل الگوریتم چیست؟</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-4"><b>جزوه ۱.۴</b>چه چیزی زمان اجرا را تعیین می‌کند؟</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-5"><b>جزوه ۱.۵</b>چطور تحلیل کنیم؟ شمارش عملیات پایه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-8"><b>جزوه ۲.۸</b>جمع و ضرب اعداد صحیح</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-2"><b>۱.۲</b>بدترین حالت، تضمین است</a><a href="#s1-3"><b>۱.۳</b>حلقه‌ها را جمع بنویس، نه ضرب</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="worst-case">
+<h2>بدترین حالت، تضمین است</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">بدترین حالت کرانی است که برای هر ورودی صدق می‌کند و به هیچ فرضی دربارهٔ توزیع ورودی نیاز ندارد. میانگین و بهترین حالت فقط وقتی معنی دارند که بدانی ورودی‌ها از کجا می‌آیند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>صورت مسئله «زمان اجرا» را بی‌قید می‌خواهد.</li><li>مقایسهٔ دو الگوریتم.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>پیش‌فرض: بدترین حالت.</li><li>حالت میانگین را فقط با یک توزیع صریح حساب کن (مثلاً «همهٔ جایگشت‌ها هم‌احتمال‌اند»).</li><li>اگر الگوریتم تصادفی است، «امید زمان برای بدترین ورودی» را بگو؛ این با «میانگین روی ورودی‌ها» فرق دارد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>مرتب‌سازی درجی: بهترین حالت (آرایهٔ مرتب) \(\Theta(n)\)، بدترین حالت (نزولی) \(\Theta(n^2)\)، و میانگین روی جایگشت‌های تصادفی هم \(\Theta(n^2)\)،
+چون امید تعداد وارونه‌ها \(\frac{n(n-1)}{4}\) است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-7"><b>جزوه ۱.۷</b>انواع تحلیل: بدترین، میانگین، بهترین</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-8"><b>جزوه ۱.۸</b>تحلیل دقیق مرتب‌سازی درجی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s3-7"><b>جزوه ۳.۷</b>زمان اجرای الگوریتم‌های قطعی و تصادفی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p2"><b>سری ۲، مسئلهٔ ۲</b>امید ریاضی وارونه‌ها</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s3-1"><b>۳.۱</b>تصادف را به الگوریتم ببر، نه به ورودی</a><a href="#s9-8"><b>۹.۸</b>وارونه‌ها: معیار نامرتبی</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="loops-to-sums">
+<h2>حلقه‌ها را جمع بنویس، نه ضرب</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">وقتی حدِ حلقهٔ داخلی به متغیر حلقهٔ بیرونی وابسته است، تعداد اجرای بدنه را با یک \(\sum\) بنویس و دقیق حساب کن. ضرب «تعداد دورها × بیشترین هزینهٔ یک دور» فقط کران بالا می‌دهد.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>حلقه‌های تودرتو با حد وابسته: «for j = i to n»، «while i &lt; n: i = 2i».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>از داخلی‌ترین حلقه شروع کن: برای \(i\) ثابت، بدنه چند بار اجرا می‌شود؟ (مثلاً \(n - i + 1\)).</li><li>روی حلقهٔ بیرونی جمع بزن: \(\sum_{i=1}^{n}(n - i + 1)\).</li><li>نوع سری را تشخیص بده (ایدهٔ بعد) و مرتبه را بنویس.</li><li>برای \(\Theta\): یا جمع را دقیق حساب کن، یا نشان بده بخش ثابتی از دورها (مثلاً نیمی از آن‌ها) واقعاً هزینهٔ بزرگ دارند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>«for (i = 1; i &lt; n; i = 2i) for (j = 0; j &lt; i; j++)»: بدنه \(1 + 2 + 4 + \dots\) بار تا آخرین توان ۲ کوچک‌تر از \(n\) اجرا می‌شود، یعنی کمتر از \(2n\).
+پس \(\Theta(n)\)، در حالی که ضرب ساده (\(\lg n\) دور × حداکثر \(n\)) فقط \(O(n\log n)\) می‌داد.</p></div>
+<div class="box trap"><div class="bh"></div><p>ضرب «\(\lg n\) دور × حداکثر \(n\)» کران \(O(n\log n)\) می‌دهد که درست ولی شل است؛ آن را \(\Theta\) ننویس.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-13"><b>جزوه ۱.۱۳</b>زمان اجرای دستورهای مختلف</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-16"><b>جزوه ۱.۱۶</b>مثال دوم: زیرآرایه با بیشترین مجموع</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p3"><b>سری ۱، مسئلهٔ ۳</b>تحلیل زمان</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-4"><b>۱.۴</b>نوع سری را بشناس</a><a href="#s1-8"><b>۱.۸</b>\(O\) و \(\Omega\) را جدا ثابت کن</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="series">
+<h2>نوع سری را بشناس</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">تقریباً هر تحلیل زمانی در آخر یک سری است. کافی است بدانی کدام نوع است: حسابی، هندسی، همساز یا تلسکوپی.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>بعد از نوشتن جمع برای حلقه‌ها.</li><li>هزینهٔ سطح‌های درخت بازگشت.</li><li>تحلیل سرشکنی و امید ریاضی.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>حسابی: \(\sum_{i \le n} i = \Theta(n^2)\)؛ در حالت کلی \(\sum_{i \le n} i^d = \Theta(n^{d+1})\).</li><li>هندسی \(\sum r^i\): اگر \(r &lt; 1\) جملهٔ اول غالب است؛ اگر \(r > 1\) جملهٔ آخر غالب است؛ اگر \(r = 1\) همهٔ جمله‌ها برابرند (تعداد × جمله).</li><li>همساز: \(\sum_{i \le n} \frac1i = H_n = \ln n + O(1)\).</li><li>دو سری پرکاربرد: \(\sum_{h \ge 1} \frac{h}{2^h} = 2\) و \(\sum_{i \ge 1} i x^{i-1} = \frac{1}{(1-x)^2}\) برای \(|x| &lt; 1\).</li><li>تلسکوپی: \(\sum (a_{i+1} - a_i) = a_{n+1} - a_1\)؛ حاصل‌ضرب \(\prod \frac{j-1}{j}\) هم تلسکوپی است.</li><li>ترفند «نیمهٔ بالا» برای کران پایین: \(\sum_{i=1}^{n}\lg i \ge \frac n2 \lg\frac n2\)، پس \(\lg n! = \Theta(n\log n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>ساخت هرم: حداکثر حدود \(n/2^{h+1}\) گره ارتفاع \(h\) دارند و هر کدام \(O(h)\) هزینه دارد.
+جمع \(\sum_h \frac{n}{2^{h+1}}\,h = \frac n2 \sum_h \frac{h}{2^h} = n\)، پس ساخت هرم خطی است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-13"><b>جزوه ۱.۱۳</b>زمان اجرای دستورهای مختلف</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-3"><b>جزوه ۲.۳</b>رابطهٔ بازگشتی و درخت بازگشت</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s8-8"><b>جزوه ۸.۸</b>ساخت هرم روی ورودی با اندازهٔ \(n\)</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s9-4"><b>جزوه ۹.۴</b>کران پایین \(\Omega(n\log n)\) برای مرتب‌سازی مقایسه‌ای</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p3"><b>سری ۱، مسئلهٔ ۳</b>تحلیل زمان</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p7"><b>سری ۱، مسئلهٔ ۷</b>شمارندهٔ دودویی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p11"><b>سری ۱، مسئلهٔ ۱۱</b>کار و بار</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s8-3"><b>اثبات ۸.۳</b>ساخت هرم خطی است: \(\sum h/2^h = 2\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s3-3"><b>اثبات ۳.۳</b>مسئلهٔ استخدام: امید هزینه \(f\,H_n\)</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-3"><b>۱.۳</b>حلقه‌ها را جمع بنویس، نه ضرب</a><a href="#s2-6"><b>۲.۶</b>درخت بازگشت: هزینهٔ هر سطح را جمع بزن</a><a href="#s4-2"><b>۴.۲</b>انبوهه: هر رویداد گران چند بار رخ می‌دهد؟</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="ladder">
+<h2>نردبان رشد و جملهٔ غالب</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">در مقایسهٔ رشد فقط جملهٔ غالب مهم است. ضریب‌ها، جمله‌های مرتبه‌پایین و پایهٔ لگاریتم را دور بریز و تابع را روی نردبان رشد پیدا کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«توابع را به ترتیب رشد مرتب کنید.»</li><li>ساده کردن یک زمان اجرا.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>نردبان: \(1 \prec \lg\lg n \prec \lg n \prec \lg^k n \prec 2^{\sqrt{\lg n}} \prec n^{\epsilon} \prec n \prec n\lg n \prec n^2 \prec n^{\lg\lg n} \prec 2^n \prec n! \prec 2^{2^n}\).</li><li>چندجمله‌ای ⇐ بالاترین توان؛ لگاریتم ⇐ پایه مهم نیست (\(\log_a n = \log_b n / \log_b a\))؛ هر توان مثبت \(n\) از هر توانِ \(\lg n\) سریع‌تر است؛ هر نمایی با پایهٔ بیشتر از ۱ از هر چندجمله‌ای سریع‌تر است.</li><li>اگر دو تابع روی یک پله‌اند، ضریب‌ها را مقایسه کن یا حد نسبت را بگیر.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(3n^2 + 100n\lg n + 7 = \Theta(n^2)\)؛ \(\log_2 n\) و \(\log_{10} n\) هم‌مرتبه‌اند؛ ولی \(2^n\) و \(3^n\) هم‌مرتبه نیستند، چون \((3/2)^n \to \infty\).</p></div>
+<div class="box trap"><div class="bh"></div><p>پایهٔ لگاریتم بی‌اهمیت است ولی پایهٔ نمایی نه. \(\log(n^2) = 2\log n\) هم‌مرتبهٔ \(\log n\) است، ولی \(\log^2 n\) نیست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-9"><b>جزوه ۱.۹</b>مقایسهٔ توابع با نرخ رشد</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-12"><b>جزوه ۱.۱۲</b>کران‌های مجانبی توابع رایج</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-14"><b>جزوه ۱.۱۴</b>الگوریتم‌های چندجمله‌ای و اهمیت آن‌ها</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-17"><b>جزوه ۱.۱۷</b>مروری بر زمان‌های اجرای رایج</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p1"><b>سری ۱، مسئلهٔ ۱</b>انتخاب الگوریتم</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p20"><b>سری ۱، مسئلهٔ ۲۰</b>رشد توابع</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-3"><b>اثبات ۱.۳</b>چندجمله‌ای‌ها: \(\Theta(n^d)\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-4"><b>اثبات ۱.۴</b>لگاریتم‌ها: پایه مهم نیست و \(\log n = O(n^x)\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s1-5"><b>اثبات ۱.۵</b>نمایی‌ها از هر چندجمله‌ای سریع‌ترند</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-6"><b>۱.۶</b>حد نسبت را بگیر</a><a href="#s1-7"><b>۱.۷</b>از توابع عجیب لگاریتم بگیر</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="limit">
+<h2>حد نسبت را بگیر</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">برای مقایسهٔ دو تابع، \(\lim f/g\) را حساب کن: صفر یعنی \(f\) کندتر رشد می‌کند (\(f = o(g)\))، عدد مثبت یعنی \(f = \Theta(g)\)، بی‌نهایت یعنی \(f\) سریع‌تر است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>دو تابع نزدیک به هم روی نردبان رشد.</li><li>اثبات سریع \(\Theta\) یا \(o\).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>نسبت را ساده کن و عامل‌های مشترک را حذف کن.</li><li>اگر شکل \(\infty/\infty\) ماند، هوپیتال بزن یا لگاریتم بگیر.</li><li>اگر حد وجود ندارد (نوسان)، این روش جواب نمی‌دهد: برو سراغ تعریف و زیردنباله‌ها.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(\lim \frac{\lg n}{\sqrt n}\): با هوپیتال \(\frac{1/(n\ln 2)}{1/(2\sqrt n)} = \frac{2}{\sqrt n\,\ln 2} \to 0\)، پس \(\lg n = o(\sqrt n)\).</p></div>
+<div class="box trap"><div class="bh"></div><p>وجود نداشتن حد به معنای ناهم‌سنج بودن نیست: \(n(2 + \sin n)\) و \(n\) هم‌مرتبه‌اند ولی نسبتشان حد ندارد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-10"><b>جزوه ۱.۱۰</b>نمادهای مجانبی \(O\)، \(\Omega\) و \(\Theta\)</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-12"><b>جزوه ۱.۱۲</b>کران‌های مجانبی توابع رایج</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p1"><b>سری ۱، مسئلهٔ ۱</b>انتخاب الگوریتم</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p2"><b>سری ۱، مسئلهٔ ۲</b>مردافکن</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p20"><b>سری ۱، مسئلهٔ ۲۰</b>رشد توابع</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-5"><b>۱.۵</b>نردبان رشد و جملهٔ غالب</a><a href="#s1-10"><b>۱.۱۰</b>توابع ناهم‌سنج: پله‌های یک‌درمیان</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="take-log">
+<h2>از توابع عجیب لگاریتم بگیر</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">توابعی مثل \(n^{\lg n}\)، \((\lg n)!\) یا \(2^{\sqrt{\lg n}}\) را با لگاریتم گرفتن و نوشتن بر حسب \(m = \lg n\) به مقایسهٔ توابع ساده تبدیل کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>توان‌های متغیر، فاکتوریل، لگاریتم تودرتو در فهرست توابع.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>از هر تابع \(\lg\) بگیر و بر حسب \(m = \lg n\) بنویس: \(\lg(n^3) = 3m\)، \(\lg((\lg n)!) = \Theta(m\lg m)\)، \(\lg(2^{\sqrt{\lg n}}) = \sqrt m\).</li><li>لگاریتم‌ها را مقایسه کن.</li><li>اگر تفاضل لگاریتم‌ها به بی‌نهایت می‌رود، خود توابع مرتبهٔ متفاوت دارند؛ اگر تفاضل کران‌دار است، هم‌مرتبه‌اند.</li><li>ابزارها: \(a^{\lg b} = b^{\lg a}\) و \(\lg(n!) = \Theta(n\lg n)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>\((\lg n)!\) در برابر \(n^3\): لگاریتم‌ها \(\Theta(m\lg m)\) و \(3m\) هستند و \(m\lg m\) سریع‌تر رشد می‌کند. پس \((\lg n)!\) از هر چندجمله‌ای سریع‌تر است.</p></div>
+<div class="box trap"><div class="bh"></div><p>\(\lg f = \Theta(\lg g)\) نتیجه نمی‌دهد \(f = \Theta(g)\): \(\lg n^2 = 2\lg n\) ولی \(n^2 \ne \Theta(n)\). معیار درست تفاضل لگاریتم‌هاست، نه نسبتشان.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-12"><b>جزوه ۱.۱۲</b>کران‌های مجانبی توابع رایج</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p20"><b>سری ۱، مسئلهٔ ۲۰</b>رشد توابع</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-5"><b>۱.۵</b>نردبان رشد و جملهٔ غالب</a><a href="#s0-11"><b>۰.۱۱</b>مسئله را به شکل آشنا تبدیل کن</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis proof" data-key="o-omega">
+<h2>\(O\) و \(\Omega\) را جدا ثابت کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">\(\Theta\) یعنی هم کران بالا و هم کران پایین. این دو را جدا ثابت کن، هر کدام با استدلال خودش.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«زمان اجرا را با \(\Theta\) بیان کنید.»</li><li>«آیا این کران محکم است؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>کران بالا: در هر دور بیشترین هزینهٔ ممکن را بگذار.</li><li>کران پایین: بخش ثابتی از کار را پیدا کن که حتماً پرهزینه است (مثلاً نیمهٔ دوم دورها هر کدام دست‌کم \(n/2\) کار می‌کنند).</li><li>اگر دو کران یکی شدند، \(\Theta\) داری؛ اگر نه، یا تحلیل یکی شل است یا ورودی بدتری وجود دارد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(\sum_{i=1}^{n} i\): کران بالا \(\le n \cdot n\). کران پایین: نیمهٔ دوم جمله‌ها هر کدام دست‌کم \(n/2\) است، پس جمع \(\ge \frac n2 \cdot \frac n2 = \frac{n^2}{4}\). پس \(\Theta(n^2)\) بدون محاسبهٔ دقیق.</p></div>
+<div class="box trap"><div class="bh"></div><p>\(O\) یعنی «حداکثر این مرتبه»، نه «دقیقاً این مرتبه». جملهٔ «زمان دست‌کم \(O(n^2)\) است» بی‌معناست.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-10"><b>جزوه ۱.۱۰</b>نمادهای مجانبی \(O\)، \(\Omega\) و \(\Theta\)</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-11"><b>جزوه ۱.۱۱</b>نکته‌های نمادگذاری و ویژگی‌ها</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-13"><b>جزوه ۱.۱۳</b>زمان اجرای دستورهای مختلف</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p3"><b>سری ۱، مسئلهٔ ۳</b>تحلیل زمان</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p26"><b>سری ۱، مسئلهٔ ۲۶</b>حدس پیچیده</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p27"><b>سری ۱، مسئلهٔ ۲۷</b>دنبالهٔ طلایی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-3"><b>۱.۳</b>حلقه‌ها را جمع بنویس، نه ضرب</a><a href="#s0-10"><b>۰.۱۰</b>ورودی بد را بساز</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis proof" data-key="compose">
+<h2>آیا \(O\) از تابع \(h\) عبور می‌کند؟</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">از \(f = O(g)\) نتیجه می‌شود \(h(f) = O(h(g))\) فقط اگر \(h\) ضریب ثابت را به ضریب ثابت ببرد: توان ثابت بله، لگاریتم تقریباً (ضریب را به جمع تبدیل می‌کند)، نمایی نه.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«اگر \(f = O(g)\)، آیا \(2^f = O(2^g)\)؟ \(\lg f = O(\lg g)\)؟ \(f^2 = O(g^2)\)؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>از \(f \le cg\) شروع کن و \(h\) (صعودی) را روی دو طرف اعمال کن: \(h(f) \le h(cg)\).</li><li>بپرس آیا \(h(cg) \le c_2\,h(g)\). برای \(h(x) = x^k\) بله، با \(c_2 = c^k\). برای \(h = \lg\): \(\lg(cg) = \lg c + \lg g\)، و اگر \(g\) از جایی به بعد دست‌کم ۲ باشد بله. برای \(h(x) = 2^x\): \(2^{cg} = (2^g)^c\)، نه.</li><li>برای «نادرست» ساده‌ترین مثال نقض را بزن: \((2n, n)\) برای نمایی و \((2, 1)\) برای لگاریتم.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(f = 2\) و \(g = 1\): \(f = O(g)\) ولی \(\lg f = 1\) و \(\lg g = 0\)، پس \(\lg f \ne O(\lg g)\). شرط «\(g\) از صفر دور است» دقیقاً همین مثال را حذف می‌کند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-11"><b>جزوه ۱.۱۱</b>نکته‌های نمادگذاری و ویژگی‌ها</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p4"><b>سری ۱، مسئلهٔ ۴</b>رشد عجیب</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s0-2"><b>۰.۲</b>تعریف را باز کن</a><a href="#s0-3"><b>۰.۳</b>اول دنبال مثال نقض بگرد</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis proof" data-key="incomparable">
+<h2>توابع ناهم‌سنج: پله‌های یک‌درمیان</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="proof">اثبات درستی</span></div>
+<p class="idea-core">دو تابع می‌توانند طوری باشند که هیچ‌کدام \(O\) دیگری نباشد. برای ساختنشان، هر تابع را پلکانی بساز که در نوبت خودش با جهشی بزرگ از دیگری جلو بزند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«دو تابع (صعودی) پیدا کنید که نه \(f = O(g)\) و نه \(g = O(f)\).»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>برای اثبات \(f \ne O(g)\) کافی است زیردنباله‌ای نامتناهی از \(n\)ها پیدا کنی که روی آن \(f/g \to \infty\).</li><li>بازه‌ها را یک‌درمیان بین دو تابع تقسیم کن: در بازه‌های زوج \(f\) جهش می‌کند و \(g\) ثابت می‌ماند، و در بازه‌های فرد برعکس.</li><li>اگر صعودی بودن لازم است، «ثابت ماندن» را با «ثابت به‌علاوهٔ یک» یا رشدی بسیار کند جایگزین کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(f(n) = n\) و \(g(n) = n^2\) برای \(n\) زوج، \(g(n) = 1\) برای \(n\) فرد. روی زوج‌ها \(g/f = n \to \infty\) و روی فردها \(f/g = n \to \infty\).
+نسخهٔ صعودی همین ایده را با پله‌های بسیار بلند می‌سازد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-10"><b>جزوه ۱.۱۰</b>نمادهای مجانبی \(O\)، \(\Omega\) و \(\Theta\)</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p2"><b>سری ۱، مسئلهٔ ۲</b>مردافکن</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-6"><b>۱.۶</b>حد نسبت را بگیر</a><a href="#s0-3"><b>۰.۳</b>اول دنبال مثال نقض بگرد</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="real-values">
+<h2>روی بازهٔ مشخص، مقدار واقعی را حساب کن</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">نماد مجانبی فقط می‌گوید «وقتی \(n\) بزرگ شود چه می‌شود». برای انتخاب بین الگوریتم‌ها روی اندازه‌های مشخص، ضریب‌ها را نگه دار و عدد واقعی را مقایسه کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«برای \(n\) بین ۱۰ و ۱۰۰۰ کدام الگوریتم را انتخاب کنیم؟»</li><li>زمان‌ها با ضریب‌های مشخص داده شده‌اند.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تابع هزینهٔ کامل هر الگوریتم را با ضریب‌ها بنویس.</li><li>نقطه‌های برخورد را پیدا کن (\(f(n) = g(n)\)).</li><li>در هر بازه بین نقطه‌های برخورد، تابع کوچک‌تر را انتخاب کن. برای توابع صعودی، چک کردن دو سر بازه کافی است، به شرطی که برخوردی داخل بازه نباشد.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(100n\) در برابر \(n^2\): برای \(n &lt; 100\) الگوریتم درجه دوم سریع‌تر است. به همین دلیل کتابخانه‌ها آرایه‌های کوچک را با مرتب‌سازی درجی مرتب می‌کنند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-3"><b>جزوه ۱.۳</b>تحلیل الگوریتم چیست؟</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-17"><b>جزوه ۱.۱۷</b>مروری بر زمان‌های اجرای رایج</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p1"><b>سری ۱، مسئلهٔ ۱</b>انتخاب الگوریتم</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-5"><b>۱.۵</b>نردبان رشد و جملهٔ غالب</a></div>
+</article>
+
+<article class="idea" data-kinds="design ds" data-key="prefix-sums">
+<h2>مجموع پیشوندی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">با پیش‌محاسبهٔ \(S[i] = A[1] + \dots + A[i]\)، مجموع هر بازه با یک تفریق به دست می‌آید: \(A[i] + \dots + A[j] = S[j] - S[i-1]\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«مجموع زیرآرایه»، «بازه‌ای با جمع …».</li><li>دنبالهٔ دوری با جمع صفر.</li><li>جمع روی بازه‌های هم‌پوشان که بارها تکرار می‌شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(S[0] = 0\) و \(S[i] = S[i-1] + A[i]\): یک پیمایش \(O(n)\).</li><li>هر پرسشِ جمع بازه را با یک تفریق در \(O(1)\) جواب بده.</li><li>ویژگی‌های دنباله را روی \(S\) ببین: «بازه‌ای با جمع صفر» یعنی دو مقدار برابر در \(S\)؛ «همهٔ جمع‌های جزئی از نقطهٔ \(k\) نامنفی‌اند» یعنی \(S[k]\) کمینه است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>زیرآرایهٔ بیشینه از \(O(n^3)\) به \(O(n^2)\): به‌جای جمع زدن دوبارهٔ \(A[i..j]\) از \(S[j] - S[i-1]\) استفاده کن. در مسئلهٔ پمپ بنزین، شروع از بعد از کمینهٔ \(S\) است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-16"><b>جزوه ۱.۱۶</b>مثال دوم: زیرآرایه با بیشترین مجموع</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p15"><b>سری ۱، مسئلهٔ ۱۵</b>باک بنزین</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-13"><b>۱.۱۳</b>جواب را بر حسب نقطهٔ پایان تعریف کن</a><a href="#s0-13"><b>۰.۱۳</b>یک بار پیش‌پردازش، بارها پاسخ</a><a href="#s0-7"><b>۰.۷</b>به حدی‌ترین شیء نگاه کن</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="kadane">
+<h2>جواب را بر حسب نقطهٔ پایان تعریف کن</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">به‌جای «بهترین جواب کل»، «بهترین جوابی که دقیقاً در خانهٔ \(i\) تمام می‌شود» را تعریف کن. این کمیت از مقدارِ خانهٔ قبلی در \(O(1)\) به دست می‌آید و جواب کل، بیشینهٔ همهٔ آن‌هاست.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>زیرآرایه یا زیررشتهٔ پیوستهٔ بهینه.</li><li>یک پیمایش خطی خواسته شده است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>تعریف کن: \(cur_i\) = بیشترین مجموعِ زیرآرایه‌ای که دقیقاً در \(i\) تمام می‌شود.</li><li>یا زیرآرایهٔ قبلی را ادامه می‌دهیم یا از نو شروع می‌کنیم: \(cur_i = \max(cur_{i-1} + A[i],\; A[i])\). با فرض مجاز بودن زیرآرایهٔ تهی: \(cur_i = \max(cur_{i-1} + A[i],\; 0)\).</li><li>جواب \(= \max_i cur_i\). زمان \(O(n)\) و حافظهٔ اضافهٔ \(O(1)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(A = 2, -5, 3, 4, -1\) (با زیرآرایهٔ تهی): \(cur = 2, 0, 3, 7, 6\) و جواب ۷، یعنی \(3 + 4\).</p></div>
+<div class="box trap"><div class="bh"></div><p>همزمان با پیمایش باید بیشینهٔ کلی را هم نگه داری؛ \(cur\) خانهٔ آخر لزوماً جواب نیست (در مثال، ۶ است نه ۷).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-16"><b>جزوه ۱.۱۶</b>مثال دوم: زیرآرایه با بیشترین مجموع</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s2-7"><b>جزوه ۲.۷</b>زیرآرایهٔ بیشینه با تقسیم و حل</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-12"><b>۱.۱۲</b>مجموع پیشوندی</a><a href="#s1-14"><b>۱.۱۴</b>دوباره‌کاری را ذخیره کن (ریشهٔ برنامه‌نویسی پویا)</a><a href="#s2-2"><b>۲.۲</b>جواب = چپ + راست + آنچه از مرز می‌گذرد</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="memo">
+<h2>دوباره‌کاری را ذخیره کن (ریشهٔ برنامه‌نویسی پویا)</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">اگر یک زیرمسئله بارها از نو حل می‌شود، جوابش را یک بار حساب و ذخیره کن. فیبوناچی بازگشتی نمایی است و با حلقه خطی.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>درخت بازگشت با زیرمسئله‌های تکراری (\(F(n-2)\) هم از \(F(n)\) و هم از \(F(n-1)\) صدا زده می‌شود).</li><li>جواب‌های هم‌پوشان: \(B[i, j]\) تقریباً همان \(B[i, j-1]\) است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>زیرمسئله‌ها را با پارامترهایشان نام‌گذاری کن (مثلاً \(F(k)\) یا \(B[i, j]\)).</li><li>رابطهٔ بین آن‌ها را بنویس.</li><li>به ترتیبی حساب کن که هر زیرمسئله بعد از زیرمسئله‌هایی بیاید که به آن‌ها نیاز دارد (از کوچک به بزرگ) و جواب را در جدول نگه دار.</li><li>زمان = تعداد زیرمسئله‌ها × هزینهٔ هر کدام.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(F(n) = F(n-1) + F(n-2)\) به روش بازگشتی \(\Theta(\varphi^n)\) فراخوانی دارد؛ حلقه‌ای که فقط دو مقدار آخر را نگه می‌دارد \(\Theta(n)\) جمع می‌خواهد.
+در مسئلهٔ «تعداد جمع بهینه» هم \(B[i, j]\) از \(B[i, j-1]\) با فقط یک جمع ساخته می‌شود.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-2"><b>جزوه ۱.۲</b>الگوهای طراحی و کاربردها</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-15"><b>جزوه ۱.۱۵</b>مثال اول: اعداد فیبوناچی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p28"><b>سری ۱، مسئلهٔ ۲۸</b>تعداد جمع بهینه</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p30"><b>سری ۱، مسئلهٔ ۳۰</b>حرکت مگس</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s2-13"><b>۲.۱۳</b>روی گام آخر حالت‌بندی کن</a><a href="#s1-15"><b>۱.۱۵</b>توان‌رسانی با مربع کردن پی‌درپی</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="fast-power">
+<h2>توان‌رسانی با مربع کردن پی‌درپی</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">\(x^n\) را با \(O(\log n)\) ضرب حساب کن: برای \(n\) زوج \(x^n = (x^{n/2})^2\) و برای فرد \(x^n = x \cdot x^{n-1}\). اگر رابطهٔ بازگشتی خطی است، آن را توانِ یک ماتریس بنویس.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>فیبوناچی یا هر رابطهٔ خطی برای \(n\) بزرگ.</li><li>«در \(O(\log n)\) حساب کنید».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>رابطهٔ خطی را ماتریسی بنویس: \(\begin{pmatrix}F_{n+1}\\ F_n\end{pmatrix} = \begin{pmatrix}1 & 1\\ 1 & 0\end{pmatrix}\begin{pmatrix}F_n\\ F_{n-1}\end{pmatrix}\).</li><li>پس بردار \(n\)ام = ماتریس به توان \(n - 1\) × بردار اول.</li><li>توان را با مربع کردن پی‌درپی حساب کن: \(O(\log n)\) ضرب ماتریس \(2 \times 2\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(M^{13} = M^8 \cdot M^4 \cdot M\)، چون \(13 = (1101)_2\). فقط سه مربع کردن (\(M^2, M^4, M^8\)) و دو ضرب لازم است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s1-15"><b>جزوه ۱.۱۵</b>مثال اول: اعداد فیبوناچی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-14"><b>۱.۱۴</b>دوباره‌کاری را ذخیره کن (ریشهٔ برنامه‌نویسی پویا)</a></div>
+</article>
+</section>

@@ -1,0 +1,110 @@
+<section class="chapter" data-ch="4" data-color="c4" data-title="تحلیل سرشکنی" id="ch4">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۴ — ۷ ایده</div>
+  <h1>تحلیل سرشکنی</h1>
+  <p class="ch-lead">وقتی بعضی عمل‌ها گران و بیشترشان ارزان‌اند، «بدترین هزینهٔ هر عمل» دروغ می‌گوید. این فصل سه روش برای دیدن کل دنباله دارد،
+و یک درس کلی‌تر: هزینه را به اشیایی نسبت بده که ساخته و نابود می‌شوند، یا به کمیتی (پتانسیل) که نمی‌تواند بی‌نهایت کم شود.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch4">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۴</div>
+</header>
+
+<article class="idea" data-kinds="analysis" data-key="whole-sequence">
+<h2>به‌جای بدترین عمل، کل دنباله را ببین</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">جمعِ «بدترین هزینهٔ هر عمل» اغلب کران شلی می‌دهد، چون عمل‌های گران نمی‌توانند پشت سر هم رخ دهند. هزینهٔ کل بدترین دنبالهٔ n عملی را بشمار و بر n تقسیم کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ساختمان داده‌ای که گاهی یک عمل گران دارد (گسترش آرایه، multipop، نقلی‌های شمارنده).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هزینهٔ بدترین تک‌عمل را ببین (مثلاً \(O(n)\)) و کران سادهٔ \(O(n^2)\) را بنویس.</li><li>بپرس چه چیزی باید قبل از یک عمل گران رخ داده باشد (multipop فقط چیزهایی را برمی‌دارد که قبلاً push شده‌اند).</li><li>با یکی از سه روش (انبوهه، حساب‌داری، پتانسیل) هزینهٔ کل را کران بزن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(n\) عمل روی پشته با multipop: هر عمل حداکثر \(O(n)\)، پس کران ساده \(O(n^2)\). ولی تعداد کل pop‌ها حداکثر تعداد کل push‌هاست ⇐ \(O(n)\)، یعنی \(O(1)\) سرشکن.</p></div>
+<div class="box trap"><div class="bh"></div><p>سرشکن ≠ میانگین روی ورودی‌ها ≠ امید. هزینهٔ سرشکن تضمینی قطعی برای هر دنباله است، بدون هیچ احتمالی.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-1"><b>جزوه ۴.۱</b>سه نگاه به هزینه</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-2"><b>جزوه ۴.۲</b>مثال ۱: پشته با عمل multipop</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-3"><b>جزوه ۴.۳</b>مثال ۲: شمارندهٔ دودویی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-4"><b>جزوه ۴.۴</b>روش‌های تحلیل سرشکنی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-9"><b>جزوه ۴.۹</b>مقایسهٔ سه روش</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-1"><b>اثبات ۴.۱</b>پشتهٔ multipop: روش انبوهه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-2"><b>۴.۲</b>انبوهه: هر رویداد گران چند بار رخ می‌دهد؟</a><a href="#s4-5"><b>۴.۵</b>هر شیء یک بار ساخته و حداکثر یک بار نابود می‌شود</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="aggregate">
+<h2>انبوهه: هر رویداد گران چند بار رخ می‌دهد؟</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">به‌جای عمل‌به‌عمل، برای هر نوع رویداد گران بپرس «در \(n\) عمل چند بار رخ می‌دهد و هر بار چقدر هزینه دارد؟» و جمع بزن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>شمارندهٔ دودویی؛ کارهای دوره‌ای (هر \(2^i\) عمل یک کار بزرگ)؛ آرایهٔ پویا.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هزینه را به سهم‌های قابل شمارش بشکن (مثلاً سهم بیت \(i\)).</li><li>برای هر سهم تعداد رخدادها را بشمار: بیت \(i\) (از صفر) هر \(2^i\) افزایش یک بار عوض می‌شود ⇐ \(\lfloor n/2^i \rfloor\) بار.</li><li>جمع: \(\sum_i n/2^i &lt; 2n\). قاعدهٔ کلی: اگر بسامد نمایی کم و هزینه چندجمله‌ای زیاد شود، سری همگراست ⇐ سرشکن \(O(1)\).</li></ol>
+<div class="box ex"><div class="bh"></div><p>کاری که در عمل‌های شمارهٔ \(2^k\) هزینهٔ \(2^k\) دارد و بقیهٔ عمل‌ها هزینهٔ ۱: کل \(\le n + \sum_{2^k \le n} 2^k &lt; n + 2n = 3n\)، پس سرشکن ۳.
+شمارنده‌ای که تغییر بیت \(i\) هزینهٔ \(i\) دارد: \(\sum_i i \cdot \frac{n}{2^{i-1}} = O(n)\)، باز هم سرشکن \(O(1)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-5"><b>جزوه ۴.۵</b>روش انبوهه</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p7"><b>سری ۱، مسئلهٔ ۷</b>شمارندهٔ دودویی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p11"><b>سری ۱، مسئلهٔ ۱۱</b>کار و بار</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p9"><b>سری ۱، مسئلهٔ ۹</b>آرایهٔ پویا</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-1"><b>اثبات ۴.۱</b>پشتهٔ multipop: روش انبوهه</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-2"><b>اثبات ۴.۲</b>شمارندهٔ دودویی: روش انبوهه</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-7"><b>اثبات ۴.۷</b>آرایهٔ پویا: روش انبوهه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s1-4"><b>۱.۴</b>نوع سری را بشناس</a><a href="#s4-1"><b>۴.۱</b>به‌جای بدترین عمل، کل دنباله را ببین</a><a href="#s4-3"><b>۴.۳</b>حساب‌داری: عمل ارزان پیش‌پرداخت کند</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="accounting">
+<h2>حساب‌داری: عمل ارزان پیش‌پرداخت کند</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">به هر عمل یک هزینهٔ سرشکنِ ثابت بده که از هزینهٔ واقعی‌اش بیشتر است و اضافه را به‌عنوان «اعتبار» روی اشیای ساختمان داده بگذار. عمل گران با همین اعتبارها پرداخت می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هر شیء یک بار ساخته و بعداً یک بار پردازش یا نابود می‌شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>برای هر نوع عمل یک مبلغ حدس بزن (معمولاً همان عددی که روش انبوهه داد).</li><li>مشخص کن اعتبار روی کدام شیء می‌ماند: روی هر عنصر پشته، روی هر بیت ۱، روی هر عنصر نیمهٔ دوم آرایه.</li><li>ثابت کن اعتبار هیچ‌وقت منفی نمی‌شود: هر عمل گران دقیقاً از اعتبار اشیایی پرداخت می‌شود که مصرفشان می‌کند.</li></ol>
+<div class="box ex"><div class="bh"></div><p>شمارنده: برای هر تغییر \(0 \to 1\) دو ریال بپرداز؛ یکی برای خود تغییر و یکی روی همان بیتِ ۱. هر تغییر \(1 \to 0\) با ریالِ روی همان بیت پرداخت می‌شود و هر افزایش فقط یک تغییر \(0 \to 1\) دارد ⇐ سرشکن ۲.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-6"><b>جزوه ۴.۶</b>روش حساب‌داری</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p10"><b>سری ۱، مسئلهٔ ۱۰</b>پوش پاپ</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p11"><b>سری ۱، مسئلهٔ ۱۱</b>کار و بار</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-3"><b>اثبات ۴.۳</b>پشتهٔ multipop: روش حساب‌داری</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-4"><b>اثبات ۴.۴</b>شمارندهٔ دودویی: روش حساب‌داری</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-8"><b>اثبات ۴.۸</b>آرایهٔ پویا: روش حساب‌داری</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-4"><b>۴.۴</b>پتانسیل: موجودی بانک را تابعی از وضعیت بنویس</a><a href="#s4-5"><b>۴.۵</b>هر شیء یک بار ساخته و حداکثر یک بار نابود می‌شود</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="potential">
+<h2>پتانسیل: موجودی بانک را تابعی از وضعیت بنویس</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">تابع \(\Phi\) را روی وضعیت ساختمان داده تعریف کن؛ هزینهٔ سرشکن \(\hat c_i = c_i + \Phi_i - \Phi_{i-1}\). اگر \(\Phi_0 = 0\) و \(\Phi \ge 0\)، جمع هزینه‌های سرشکن کران بالای جمع هزینه‌های واقعی است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>وقتی اعتبارها را نمی‌شود به راحتی به شیء خاصی چسباند.</li><li>ساختمان داده با چند نوع عمل.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>\(\Phi\) را چیزی بگیر که کار گران کمش می‌کند: اندازهٔ پشته، تعداد ۱ها، میزان پر بودن آرایه.</li><li>برای هر نوع عمل \(c + \Delta\Phi\) را حساب کن. در عمل گران، کاهش \(\Phi\) باید هزینهٔ واقعی را خنثی کند.</li><li>\(\Phi_0 = 0\) و \(\Phi \ge 0\) را در همهٔ حالت‌های قابل دسترس چک کن؛ اگر \(\Phi_0 \ne 0\) است، یک ثابت کم کن.</li><li>معمولاً «موجودی بانکِ» روش حساب‌داری، وقتی به‌صورت تابعی از وضعیت نوشته شود، همان \(\Phi\) است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>پشته با multipop و \(\Phi\) = اندازهٔ پشته: push: \(1 + 1 = 2\)؛ pop: \(1 - 1 = 0\)؛ multipop با \(k\) عنصر: \(k - k = 0\). پس هر عمل حداکثر ۲.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-7"><b>جزوه ۴.۷</b>روش تابع پتانسیل</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p8"><b>سری ۱، مسئلهٔ ۸</b>حذف پرهزینه</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p9"><b>سری ۱، مسئلهٔ ۹</b>آرایهٔ پویا</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p10"><b>سری ۱، مسئلهٔ ۱۰</b>پوش پاپ</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p11"><b>سری ۱، مسئلهٔ ۱۱</b>کار و بار</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-5"><b>اثبات ۴.۵</b>پشتهٔ multipop: روش پتانسیل</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-6"><b>اثبات ۴.۶</b>شمارندهٔ دودویی: روش پتانسیل</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-9"><b>اثبات ۴.۹</b>آرایهٔ پویا: روش پتانسیل</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-7"><b>۴.۷</b>پتانسیل‌های آماده</a><a href="#s4-3"><b>۴.۳</b>حساب‌داری: عمل ارزان پیش‌پرداخت کند</a><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis" data-key="charge-objects">
+<h2>هر شیء یک بار ساخته و حداکثر یک بار نابود می‌شود</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span></div>
+<p class="idea-core">وقتی عملی می‌تواند تعداد زیادی شیء را یک‌جا نابود کند، هزینهٔ نابودی را به خود اشیا نسبت بده: هر شیء فقط یک بار نابود می‌شود، پس کل نابودی‌ها حداکثر کل ساخته‌شده‌هاست.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>multipop، پشتهٔ یکنوا، حذف دسته‌ای.</li><li>هر حلقهٔ while داخل یک for که «چیزها را بیرون می‌اندازد».</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>اشیایی را که ساخته و نابود می‌شوند مشخص کن (عناصر پشته، گره‌ها، بازه‌ها).</li><li>نشان بده هر شیء حداکثر یک بار نابود می‌شود (بعد از pop دیگر برنمی‌گردد).</li><li>کل هزینهٔ حلقهٔ داخلی ≤ تعداد اشیای ساخته‌شده ⇐ اغلب \(O(n)\) برای کل الگوریتم.</li></ol>
+<div class="box ex"><div class="bh"></div><p>نزدیک‌ترین بزرگ‌تر بعدی: حلقهٔ while داخلی در یک خانه ممکن است \(n\) بار pop کند، ولی هر اندیس دقیقاً یک بار push و حداکثر یک بار pop می‌شود ⇐ کل \(\Theta(n)\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-2"><b>جزوه ۴.۲</b>مثال ۱: پشته با عمل multipop</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s5-12"><b>جزوه ۵.۱۲</b>کاربرد پشته: نزدیک‌ترین قیمت بزرگ‌تر بعدی</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p10"><b>سری ۱، مسئلهٔ ۱۰</b>پوش پاپ</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s5-2"><b>اثبات ۵.۲</b>نزدیک‌ترین بزرگ‌تر بعدی در \(\Theta(n)\)</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-1"><b>اثبات ۴.۱</b>پشتهٔ multipop: روش انبوهه</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-8"><b>۵.۸</b>پشتهٔ یکنوا</a><a href="#s4-3"><b>۴.۳</b>حساب‌داری: عمل ارزان پیش‌پرداخت کند</a><a href="#s0-6"><b>۰.۶</b>شمارش دوگانه</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis ds" data-key="multiplicative-growth">
+<h2>رشد ضربی، نه جمعی</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">وقتی ظرفیت پر شد، آن را در یک ضریب ثابت (مثلاً ۲) ضرب کن؛ کپی‌ها یک سری هندسی‌اند و سرشکن هر درج \(O(1)\) می‌شود. اضافه کردن مقدار ثابتی به ظرفیت سری حسابی می‌دهد: \(\Theta(n)\) سرشکن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>آرایهٔ پویا، جدول درهم‌سازی که بزرگ می‌شود، هر بافری که گاهی باید از نو ساخته شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>هزینهٔ گسترش‌ها را جمع بزن: با دو برابر کردن \(1 + 2 + 4 + \dots + n &lt; 2n\).</li><li>با افزایش ثابتِ \(k\): \(k + 2k + 3k + \dots \approx \frac{n^2}{2k}\).</li><li>پتانسیل استاندارد: \(\Phi = 2\,\mathrm{num} - \mathrm{size}\). درست بعد از گسترش کوچک است و هر درج ارزان ۲ واحد به آن اضافه می‌کند تا هزینهٔ گسترش بعدی جمع شود.</li></ol>
+<div class="box ex"><div class="bh"></div><p>با دو برابر کردن (از ظرفیت ۱)، \(n\) درج کمتر از \(3n\) هزینه دارد؛ هر درج حداکثر ۳ سرشکن.</p></div>
+<div class="box trap"><div class="bh"></div><p>برای کوچک کردن: اگر در «نصف‌پر» نصف کنی، دنباله‌ای از درج و حذف درست روی مرز هر بار \(\Theta(n)\) هزینه دارد. آستانهٔ کوچک کردن را یک‌چهارم بگیر.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-8"><b>جزوه ۴.۸</b>مثال تکمیلی: آرایهٔ پویا</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p9"><b>سری ۱، مسئلهٔ ۹</b>آرایهٔ پویا</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p25"><b>سری ۱، مسئلهٔ ۲۵</b>آرایهٔ جادار</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-7"><b>اثبات ۴.۷</b>آرایهٔ پویا: روش انبوهه</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-8"><b>اثبات ۴.۸</b>آرایهٔ پویا: روش حساب‌داری</a><a class="ir pf" href="https://iamhirad.github.io/Abam/proofs.html#s4-9"><b>اثبات ۴.۹</b>آرایهٔ پویا: روش پتانسیل</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-4"><b>۴.۴</b>پتانسیل: موجودی بانک را تابعی از وضعیت بنویس</a><a href="#s4-2"><b>۴.۲</b>انبوهه: هر رویداد گران چند بار رخ می‌دهد؟</a></div>
+</article>
+
+<article class="idea" data-kinds="analysis lower" data-key="potential-catalog">
+<h2>پتانسیل‌های آماده</h2>
+<div class="idea-meta"><span class="ik" data-k="analysis">تحلیل زمان</span><span class="ik" data-k="lower">کران پایین</span></div>
+<p class="idea-core">بیشتر تحلیل‌های سرشکنی و کران‌های پایینِ «تعداد عمل» با یکی از چند پتانسیل استاندارد حل می‌شوند. قبل از اختراع پتانسیل تازه، این فهرست را امتحان کن.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>باید \(\Phi\) یا یک معیار پیشرفت پیدا کنی و ایده‌ای نداری.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>اندازهٔ پشته یا تعداد اشیای موجود: برای عمل‌هایی که اشیا را دسته‌ای نابود می‌کنند.</li><li>تعداد بیت‌های ۱ (وزن دودویی): برای شمارنده‌ها و جمع با نقلی؛ \(w(x + y) = w(x) + w(y) - C\) که \(C\) تعداد نقلی‌هاست.</li><li>\(2\,\mathrm{num} - \mathrm{size}\): میزان پر بودن آرایهٔ پویا.</li><li>تعداد وارونه‌ها: هر جابه‌جایی دو عنصر مجاور دقیقاً یکی را عوض می‌کند؛ مرتب کردن یک پنجرهٔ \(k\)تایی حداکثر \(\binom k2\) را.</li><li>نقطه‌های شکست: هر معکوس کردن بازه حداکثر ۲ تا را از بین می‌برد.</li><li>تعداد دورهای جایگشت: هر جابه‌جایی دقیقاً ±۱. تعداد سطرهای «کثیف» در شبکه‌های مرتب‌سازی.</li></ol>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s4-7"><b>جزوه ۴.۷</b>روش تابع پتانسیل</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p8"><b>سری ۱، مسئلهٔ ۸</b>حذف پرهزینه</a><a class="ir t1" href="https://iamhirad.github.io/Abam/tamrin-1.html#p7"><b>سری ۱، مسئلهٔ ۷</b>شمارندهٔ دودویی</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p7"><b>سری ۲، مسئلهٔ ۷</b>مرتب‌سازی با عملیات معکوس</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p15"><b>سری ۲، مسئلهٔ ۱۵</b>مرتب‌سازی با پنجرهٔ ثابت</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p14"><b>سری ۲، مسئلهٔ ۱۴</b>مرتب‌سازی با عملیات تثبیت</a><a class="ir t2" href="https://iamhirad.github.io/Abam/tamrin-2.html#p22"><b>سری ۲، مسئلهٔ ۲۲</b>مرتب‌سازی مارپیچی ماتریس</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s4-4"><b>۴.۴</b>پتانسیل: موجودی بانک را تابعی از وضعیت بنویس</a><a href="#s0-5"><b>۰.۵</b>معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a><a href="#s9-8"><b>۹.۸</b>وارونه‌ها: معیار نامرتبی</a></div>
+</article>
+</section>

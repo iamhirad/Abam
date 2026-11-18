@@ -3,6 +3,7 @@
 <header class="p-head"><div class="p-no">۲۱</div><div><h2 class="p-h">میانه‌های افزایشی<span class="star">*</span></h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>هرم</span><span>دو هرم</span><a href="https://iamhirad.github.io/Abam/#ch8">جزوه: فصل ۸</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> ترفند دو هرم را باید بلد باشید یا کشفش کنید؛ پیاده‌سازی‌اش ساده است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s8-6"><b>۸.۶</b> دو هرم برای میانهٔ جاری</a></p>
 <div class="p-statement">
   <p>آرایهٔ \(A\) شامل \(n\) عدد مختلف است. می‌خواهیم آرایهٔ \(B\) را طوری پر کنیم که برای هر \(i\)، مقدار \(B[i]\) برابر با میانهٔ اعداد \(A[1]\) تا \(A[i]\) باشد. الگوریتمی از مرتبهٔ \(O(n\log n)\) برای این مسئله ارائه دهید.</p>
 </div>
@@ -63,6 +64,7 @@ for i = 1 to n
 <header class="p-head"><div class="p-no">۲۲</div><div><h2 class="p-h">مرتب‌سازی مارپیچی ماتریس</h2>
 <div class="p-tags"><span class="diff" data-l="4" title="سختی ۴ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>سخت</span><span>اصل ۰ و ۱</span><span>نصف شدن</span></div></div></header>
 <p class="p-why"><b>چرا «سخت»؟</b> تحلیل نصف شدن سطرهای کثیف استدلالی ظریف می‌خواهد و باید ببینید یک دور اضافه لازم است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s0-5"><b>۰.۵</b> معیار پیشرفت: چیزی که فقط یک طرف می‌رود</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s4-7"><b>۴.۷</b> پتانسیل‌های آماده</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-7"><b>۹.۷</b> اصل ۰ و ۱</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s9-10"><b>۹.۱۰</b> «\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عنصر \(\le y\)»</a></p>
 <div class="p-statement">
   <p>
     یک ماتریس \(64 \times 64\) داریم که درایه‌های آن همه ۰ یا ۱ هستند. می‌خواهیم آن را به‌صورت مارپیچی مرتب کنیم؛ یعنی اگر سطر اول را از چپ به راست، سطر دوم را از راست به چپ و … پشت هم بچسبانیم،
@@ -127,6 +129,7 @@ for i = 1 to n
 <header class="p-head"><div class="p-no">۲۳</div><div><h2 class="p-h">انتخاب عناصر چندگانه<span class="star">*</span></h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>انتخاب</span><span>تقسیم و حل</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> ایدهٔ «رتبهٔ وسطی و دو بازگشت» و تحلیل سطح‌به‌سطح.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-9"><b>۳.۹</b> افراز کن و فقط یک طرف را ادامه بده</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-18"><b>۳.۱۸</b> چند رتبه با هم: رتبهٔ وسطی را انتخاب کن</a></p>
 <div class="p-statement">
   <p>می‌خواهیم از بین \(n\) عدد، \(k\)امین کوچک‌ترین عنصر، \(2k\)امین کوچک‌ترین عنصر و به همین ترتیب تا \(\floor{\frac nk}\cdot k\)امین کوچک‌ترین عنصر را پیدا کنیم. روشی از مرتبهٔ زمانی \(O(n\log\frac nk)\) برای این کار ارائه دهید.</p>
 </div>
@@ -171,6 +174,7 @@ MULTI-SELECT(R, (ranks larger than q) - q)   // shift ranks into R
 <header class="p-head"><div class="p-no">۲۴</div><div><h2 class="p-h">تقسیم کلاس بر اساس قد<span class="star">*</span></h2>
 <div class="p-tags"><span class="diff" data-l="3" title="سختی ۳ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>متوسط</span><span>انتخاب وزن‌دار</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «متوسط»؟</b> همان الگوی میانهٔ وزن‌دار، فقط باید هدف را در بازگشت به‌روز کنید.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-9"><b>۳.۹</b> افراز کن و فقط یک طرف را ادامه بده</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-16"><b>۳.۱۶</b> میانه، جمع فاصله‌ها را کمینه می‌کند</a></p>
 <div class="p-statement">
   <p>دانش‌آموزان یک کلاس را می‌خواهیم با توجه به قدشان به دو گروه تقسیم کنیم، به‌طوری که اعضای گروه اول از همهٔ اعضای گروه دوم کوتاه‌تر باشند. می‌خواهیم گروه اول تا جای ممکن کوچک باشد، ولی از طرفی مجموع قد افراد گروه اول دست‌کم برابر نصف مجموع قد همهٔ افراد باشد. روشی ارائه دهید که در \(O(n)\) این کار را انجام دهد.</p>
 </div>
@@ -211,6 +215,7 @@ else
 <header class="p-head"><div class="p-no">۲۵</div><div><h2 class="p-h">لوله‌کشی چاه نفت<span class="star">*</span></h2>
 <div class="p-tags"><span class="diff" data-l="2" title="سختی ۲ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>نسبتاً آسان</span><span>میانه</span><span>انتخاب در زمان خطی</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «نسبتاً آسان»؟</b> کاربرد مستقیم «میانه مجموع فاصله‌ها را کمینه می‌کند».</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-9"><b>۳.۹</b> افراز کن و فقط یک طرف را ادامه بده</a>، <a href="https://iamhirad.github.io/Abam/ideas.html#s3-16"><b>۳.۱۶</b> میانه، جمع فاصله‌ها را کمینه می‌کند</a></p>
 <div class="p-statement">
   <p>\(n\) چاه نفت در یک نقشهٔ دوبعدی داریم؛ چاه \(i\)ام در مختصات \((x_i, y_i)\) است. می‌خواهیم یک لولهٔ افقی اصلی با معادلهٔ \(y = c\) از بین این چاه‌ها بگذرانیم و هر چاه را با یک لولهٔ عمودی به این لولهٔ افقی متصل کنیم. در زمان \(O(n)\) مقدار \(c\) را طوری تعیین کنید که مجموع طول لوله‌های عمودی کمینه شود.</p>
 </div>
@@ -244,6 +249,7 @@ else
 <header class="p-head"><div class="p-no">۲۶</div><div><h2 class="p-h">تعداد تقاطع‌های گراف<span class="star">*</span></h2>
 <div class="p-tags"><span class="diff" data-l="4" title="سختی ۴ از ۵"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>سخت</span><span>روش احتمالاتی</span><span>امید ریاضی</span><a href="https://iamhirad.github.io/Abam/#ch3">جزوه: فصل ۳</a></div></div></header>
 <p class="p-why"><b>چرا «سخت»؟</b> روش احتمالاتی: مراحل راهنمایی شده‌اند، ولی امید گرفتن از یک نامساوی و انتخاب \(p\) غیربدیهی است.</p>
+<p class="p-ideas"><b>ایده‌های این مسئله در ایده‌نامه:</b> <a href="https://iamhirad.github.io/Abam/ideas.html#s3-14"><b>۳.۱۴</b> روش احتمالاتی: زیرنمونهٔ تصادفی کران را تقویت می‌کند</a></p>
 <div class="p-statement">
   <p>
     فرض کنید \(G = (V, E)\) یک گراف ساده با \(n\) رأس و \(m\) یال باشد. می‌خواهیم آن را روی صفحه رسم کنیم، به‌طوری که رأس‌ها نقاط متمایز باشند و یال‌ها منحنی‌هایی بین رأس‌ها؛ محل برخورد دو یال در نقطه‌ای غیر از رأس‌های انتهایی را <strong>تقاطع</strong> می‌گوییم.

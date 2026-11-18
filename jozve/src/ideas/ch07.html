@@ -1,0 +1,111 @@
+<section class="chapter" data-ch="7" data-color="c7" data-title="درخت عبارت" id="ch7">
+<header class="ch-head">
+  <div class="ch-kicker">فصل ۷ — ۷ ایده</div>
+  <h1>درخت عبارت</h1>
+  <p class="ch-lead">درخت عبارت کاربرد مستقیم درخت و پشته است. ایدهٔ اصلی: گرامر ساختار درخت را تعیین می‌کند و پیمایش‌ها نگارش‌ها را.
+برای ساختن درخت، یا ریشه را پیدا کن (پرانتزها)، یا در یک گذر بخوان، یا با پشته کارهای نیمه‌تمام را نگه دار.</p>
+  <p class="ch-lead ch-link"><a href="https://iamhirad.github.io/Abam/#ch7">این فصل در جزوه ↗</a></p>
+  <div class="ch-big" aria-hidden="true">۷</div>
+</header>
+
+<article class="idea" data-kinds="ds" data-key="grammar-tree">
+<h2>گرامر ⇐ درخت: هر قاعده یک نوع گره</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">هر قاعدهٔ گرامر (\(E \to \textit{operand}\)، \(E \to (\alpha E)\)، \(E \to (E\beta E)\)) دقیقاً یک نوع گره در درخت است: برگ، گرهٔ یک‌فرزندی، گرهٔ دوفرزندی. ساختن درخت یعنی فهمیدن اینکه کدام قاعده آخر از همه اعمال شده است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>هر مسئلهٔ تجزیهٔ عبارت.</li><li>«آیا این رشته یک عبارت معتبر است؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>قاعده‌ها را بنویس.</li><li>برای رشتهٔ داده‌شده تشخیص بده کدام قاعده آن را تولید کرده (با نگاه به نویسهٔ اول و بعد از آن).</li><li>بخش‌های سمت راست قاعده را در رشته پیدا کن و بازگشتی ادامه بده.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(((A \times (B + C))/D)\) با «(» شروع می‌شود و بعدش عملگر یگانی نیست ⇐ قاعدهٔ \((E\beta E)\) است.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-2"><b>جزوه ۷.۲</b>عبارت، عملگر و عملوند</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-3"><b>جزوه ۷.۳</b>عملیات جبری: یگانی و دودویی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-5"><b>جزوه ۷.۵</b>گرامر مستقل از متن (به زبان ساده)</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-6"><b>جزوه ۷.۶</b>درخت عبارت</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s7-4"><b>۷.۴</b>ریشه = عملگرِ عمق صفرِ پرانتز</a><a href="#s6-2"><b>۶.۲</b>تعریف بازگشتی درخت ⇐ الگوریتم بازگشتی</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="eval-postorder">
+<h2>مقداریابی = پس‌ترتیب</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">مقدار هر گره به مقدار فرزندانش وابسته است، پس عبارت را با پیمایش پس‌ترتیب مقداریابی کن: \(\Theta(n)\). نگارش پسوندی دقیقاً همین ترتیب است و با یک پشته، بدون ساختن درخت هم مقداریابی می‌شود.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>«مقدار این عبارت را حساب کنید».</li><li>هر محاسبه‌ای روی درخت که از برگ‌ها شروع می‌شود.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>برگ: مقدار عملوند.</li><li>گرهٔ عملگر: مقدار فرزندان را (بازگشتی) بگیر و عملگر را اعمال کن.</li><li>روی رشتهٔ پسوندی: عملوند را push کن؛ با عملگر، دو مقدار بالای پشته را pop کن و نتیجه را push کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(2\;3\;4\;\times\;+\) با پشته: ۲، ۳ و ۴ push می‌شوند؛ \(\times\) ⇐ ۱۲؛ \(+\) ⇐ ۱۴.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-7"><b>جزوه ۷.۷</b>مقداریابی بازگشتی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-8"><b>جزوه ۷.۸</b>سه نگارش: میانوندی، پسوندی و پیشوندی</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-10"><b>جزوه ۷.۱۰</b>ساخت درخت از نگارش پیشوندی و پسوندی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a><a href="#s7-6"><b>۷.۶</b>از پسوندی با پشته</a></div>
+</article>
+
+<article class="idea" data-kinds="ds" data-key="notations">
+<h2>سه نگارش = سه پیمایش</h2>
+<div class="idea-meta"><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">میانوندی = inorder (پرانتز لازم دارد)، پیشوندی = preorder و پسوندی = postorder (هر دو بی‌پرانتز و بی‌ابهام‌اند، چون جای هر عملگر نسبت به عملوندهایش ثابت است).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>تبدیل بین نگارش‌ها.</li><li>«چرا نگارش پسوندی پرانتز نمی‌خواهد؟»</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>درخت را بساز (یا تصور کن).</li><li>پیمایش متناظر را بنویس.</li><li>در میانوندی، هر زیردرخت غیربرگ را در پرانتز بگذار (یا فقط جایی که اولویت لازم دارد).</li></ol>
+<div class="box ex"><div class="bh"></div><p>درخت \(A \times (B + C)\): پیشوندی \(\times\,A + B\,C\) و پسوندی \(A\,B\,C + \times\).</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-8"><b>جزوه ۷.۸</b>سه نگارش: میانوندی، پسوندی و پیشوندی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s6-3"><b>۶.۳</b>سه پیمایش؛ فقط زمان دیدن ریشه فرق دارد</a><a href="#s7-6"><b>۷.۶</b>از پسوندی با پشته</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="paren-depth">
+<h2>ریشه = عملگرِ عمق صفرِ پرانتز</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">داخل پرانتز بیرونی، عمق پرانتز را بشمار (هر «(» یکی بیشتر، هر «)» یکی کمتر). عملگری که در عمق صفر است، ریشهٔ درخت است.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ساخت درخت از میانوندی با پرانتزبندی کامل.</li><li>یافتن «نقطهٔ تقسیم» در هر ساختار تودرتو.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>پرانتز بیرونی را کنار بگذار.</li><li>از چپ پیمایش کن و عمق را نگه دار؛ اولین عملگر دودویی در عمق صفر، \(\beta\) است.</li><li>چپ و راست آن را بازگشتی بساز.</li></ol>
+<div class="box ex"><div class="bh"></div><p>در \(((A\times(B+C))/D)\)، داخل پرانتز بیرونی اولین عملگرِ عمق صفر «/» است: ریشه «/»، چپ \((A\times(B+C))\) و راست \(D\).</p></div>
+<div class="box trap"><div class="bh"></div><p>این روش روی عبارت چپ‌سنگین \(\Theta(n^2)\) است، چون هر سطح تقریباً کل رشته را می‌خواند.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-9"><b>جزوه ۷.۹</b>مسئلهٔ ۱: ساخت درخت از نگارش میانوندی با پرانتزبندی کامل</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s7-5"><b>۷.۵</b>تجزیهٔ همزمان: پیدا کردن و ساختن در یک گذر</a><a href="#s7-1"><b>۷.۱</b>گرامر ⇐ درخت: هر قاعده یک نوع گره</a><a href="#s0-10"><b>۰.۱۰</b>ورودی بد را بساز</a></div>
+</article>
+
+<article class="idea" data-kinds="design" data-key="single-pass-parse">
+<h2>تجزیهٔ همزمان: پیدا کردن و ساختن در یک گذر</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span></div>
+<p class="idea-core">به‌جای «اول مرز هر بخش را پیدا کن، بعد بازگشت بزن»، بازگشت را مستقیم روی رشته جلو ببر: تابع یک عبارت را از جایگاه فعلی می‌خواند و جایگاه بعد از آن را برمی‌گرداند. هر نویسه یک بار خوانده می‌شود: \(O(n)\).</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>الگوریتم بازگشتی‌ای که در هر سطح ورودی را از نو پیمایش می‌کند.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه</span></summary><div class="sol-body">
+<ol class="how-steps"><li>یک اشاره‌گر مشترک \(pos\) روی رشته.</li><li>parse(): اگر نویسهٔ فعلی عملوند است، برگ بساز و جلو برو؛ اگر «(» است، آن را مصرف کن، چپ را parse کن، عملگر را بخوان، راست را parse کن و «)» را مصرف کن.</li><li>هر نویسه دقیقاً یک بار مصرف می‌شود.</li></ol>
+<div class="box ex"><div class="bh"></div><p>همان \(((A\times(B+C))/D)\) در یک گذر از چپ به راست، بدون شمردن عمق پرانتزها، ساخته می‌شود.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-9"><b>جزوه ۷.۹</b>مسئلهٔ ۱: ساخت درخت از نگارش میانوندی با پرانتزبندی کامل</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s7-4"><b>۷.۴</b>ریشه = عملگرِ عمق صفرِ پرانتز</a><a href="#s2-4"><b>۲.۴</b>از بازگشت بیشتر بخواه</a></div>
+</article>
+
+<article class="idea" data-kinds="design ds" data-key="postfix-stack">
+<h2>از پسوندی با پشته</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">پسوندی را از چپ بخوان: عملوند ⇐ یک برگ push کن؛ عملگر دودویی ⇐ دو زیردرخت بالای پشته را pop کن (اولی راست، دومی چپ) و گرهٔ جدید را push کن. آخر کار یک درخت می‌ماند.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>ساختن درخت یا مقداریابی از نگارش پسوندی (یا پیشوندی، با خواندن از راست).</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>پشته‌ای از زیردرخت‌ها.</li><li>هر نشانه \(O(1)\) ⇐ کل \(O(n)\).</li><li>اعتبارسنجی: اگر موقع pop پشته کم داشت، یا آخر کار بیش از یک درخت ماند، عبارت نامعتبر است.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(A\,B\,C + \times\): برگ‌های A، B و C؛ با \(+\) ⇐ \((B + C)\)؛ با \(\times\) ⇐ \(A \times (B + C)\).</p></div>
+<div class="box trap"><div class="bh"></div><p>ترتیب pop مهم است: اولین pop فرزند راست است. جابه‌جا کردنشان برای تفریق و تقسیم جواب غلط می‌دهد.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-10"><b>جزوه ۷.۱۰</b>ساخت درخت از نگارش پیشوندی و پسوندی</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-7"><b>۵.۷</b>پشته = کارهای نیمه‌تمام، به ترتیب عکس</a><a href="#s7-2"><b>۷.۲</b>مقداریابی = پس‌ترتیب</a></div>
+</article>
+
+<article class="idea" data-kinds="design ds" data-key="two-stacks">
+<h2>دو پشته و پرسشِ «تکلیف کی معلوم می‌شود؟»</h2>
+<div class="idea-meta"><span class="ik" data-k="design">طراحی الگوریتم</span><span class="ik" data-k="ds">ساختمان داده</span></div>
+<p class="idea-core">در میانوندی بی‌پرانتز، تکلیف یک عملگر (اینکه عملوند راستش کجا تمام می‌شود) وقتی معلوم می‌شود که به عملگری با اولویت کمتر یا مساوی برسیم. تا آن موقع آن را در پشتهٔ عملگرها معلق نگه دار و زیردرخت‌های ساخته‌شده را در پشتهٔ دیگر.</p>
+<button class="reveal" type="button">نام ایده را نشان بده</button>
+<div class="idea-when"><div class="iw-h">کِی سراغش برویم؟</div><ul><li>تجزیهٔ عبارت با قواعد اولویت.</li><li>هر جا تصمیم دربارهٔ یک عنصر به آینده وابسته است.</li></ul></div>
+<details class="sol idea-how" open><summary>چطور کار می‌کند؟ <span class="sub">گام‌به‌گام، نمونه و دام</span></summary><div class="sol-body">
+<ol class="how-steps"><li>عملوند ⇐ یک برگ در پشتهٔ TREES.</li><li>عملگر \(t\) ⇐ تا وقتی اولویتِ بالای OPS دست‌کم اولویت \(t\) است، COMBINE کن (عملگر بالای OPS با دو درخت بالای TREES)؛ بعد \(t\) را push کن.</li><li>پایان ورودی ⇐ همه را COMBINE کن.</li></ol>
+<div class="box ex"><div class="bh"></div><p>\(a + b \times c\): وقتی \(\times\) می‌آید، \(+\) معلق می‌ماند (اولویت کمتر)؛ در پایان اول \(b \times c\) و بعد \(a + (b \times c)\) ساخته می‌شود.</p></div>
+<div class="box trap"><div class="bh"></div><p>در عرف ریاضی توان راست‌شرکت‌پذیر است (\(2^{3^2} = 2^9\)). اگر می‌خواهی این را رعایت کنی، برای توان شرط را اکید بگیر.</p></div>
+</div></details>
+<div class="idea-refs"><span class="ir-h">کجا به کار رفت؟</span><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-11"><b>جزوه ۷.۱۱</b>مسئلهٔ ۲: ساخت درخت از نگارش میانوندی بدون پرانتز</a><a class="ir book" href="https://iamhirad.github.io/Abam/#s7-4"><b>جزوه ۷.۴</b>ترتیب عملیات</a></div>
+<div class="idea-rel"><span class="ir-h">هم‌خانواده‌ها</span><a href="#s5-7"><b>۵.۷</b>پشته = کارهای نیمه‌تمام، به ترتیب عکس</a><a href="#s7-6"><b>۷.۶</b>از پسوندی با پشته</a></div>
+</article>
+</section>

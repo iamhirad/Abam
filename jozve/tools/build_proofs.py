@@ -205,6 +205,7 @@ def main():
     <a class="btn" href="{BOOK}">جزوهٔ درس ↗</a>
     <a class="btn" href="{BOOK}tamrin-1.html">حل تمرین ۱ ↗</a>
     <a class="btn" href="{BOOK}tamrin-2.html">حل تمرین ۲ ↗</a>
+    <a class="btn" href="{BOOK}ideas.html">ایده‌نامه ↗</a>
   </div>
 </header>
 
