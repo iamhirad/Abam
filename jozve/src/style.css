@@ -941,3 +941,5 @@ details.sol[open] > summary { border-bottom: 1px solid var(--line); border-radiu
   .diff-filter { display: none; }
   .dlevel { break-inside: avoid; }
 }
+
+.sv .sv-ring-start { fill: none; stroke: var(--k-intuit); stroke-width: 2.5; stroke-dasharray: 4 3; }

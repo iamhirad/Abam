@@ -7,12 +7,14 @@
 - **https://iamhirad.github.io/Abam/** — نسخهٔ وب روی GitHub Pages
 - **https://iamhirad.github.io/Abam/jozve-dsa.pdf** — دانلود PDF
 - **https://iamhirad.github.io/Abam/tamrin-1.html** — حل تمرین سری اول (راهنمایی، راه‌حل با مرور درس، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها) · [PDF](https://iamhirad.github.io/Abam/tamrin-1.pdf)
+- **https://iamhirad.github.io/Abam/tamrin-2.html** — حل تمرین سری دوم (احتمال، مرتب‌سازی، انتخاب و الگوریتم‌های تصادفی؛ با درجهٔ سختی و برگهٔ تقلب) · [PDF](https://iamhirad.github.io/Abam/tamrin-2.pdf)
 
 ## فایل‌های آماده
 
 - [`jozve/dist/jozve-dsa.pdf`](jozve/dist/jozve-dsa.pdf) — نسخهٔ PDF برای چاپ و مطالعه (A4)
 - [`jozve/dist/jozve-dsa.html`](jozve/dist/jozve-dsa.html) — نسخهٔ وب، یک فایل مستقل که بدون اینترنت هم باز می‌شود (حالت روشن و تیره)
 - [`jozve/dist/tamrin-1.html`](jozve/dist/tamrin-1.html) و [`jozve/dist/tamrin-1.pdf`](jozve/dist/tamrin-1.pdf) — حل تمرین سری اول
+- [`jozve/dist/tamrin-2.html`](jozve/dist/tamrin-2.html) و [`jozve/dist/tamrin-2.pdf`](jozve/dist/tamrin-2.pdf) — حل تمرین سری دوم
 
 ## فصل‌ها
 
@@ -37,5 +39,5 @@ cd jozve
 npm install
 node build.mjs              # همهٔ سندها، فقط HTML
 node build.mjs --pdf        # HTML و PDF (نیازمند Playwright و Chromium)
-node build.mjs --doc=t1     # فقط حل تمرین سری اول (src/t1)
+node build.mjs --doc=t1     # فقط حل تمرین سری اول (src/t1)؛ سری دوم: --doc=t2 (src/t2)
 ```

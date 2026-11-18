@@ -12,7 +12,8 @@ import { FIGS as FIGS1 } from './figures.mjs';
 import { FIGS2 } from './figures2.mjs';
 import { FIGS3 } from './figures3.mjs';
 import { FIGS4 } from './figures4.mjs';
-const FIGS = { ...FIGS1, ...FIGS2, ...FIGS3, ...FIGS4 };
+import { FIGS5 } from './figures5.mjs';
+const FIGS = { ...FIGS1, ...FIGS2, ...FIGS3, ...FIGS4, ...FIGS5 };
 
 const require = createRequire(import.meta.url);
 const ROOT = path.dirname(fileURLToPath(import.meta.url));
@@ -48,6 +49,14 @@ const DOCS = {
     artifact: 'artifact-tamrin-1.html',
     title: 'حل تمرین سری اول ساختمان داده‌ها',
     desc: 'حل گام‌به‌گام تمرین سری اول درس ساختمان داده‌ها و طراحی الگوریتم‌ها: راهنمایی، راه‌حل با مرور مفاهیم، جمع‌بندی هر تیپ سؤال و برگهٔ تقلب ایده‌ها',
+    wrap: 'jozve tamrin',
+  },
+  t2: {
+    parts: ['t2/00-front.html', 't2/01-p01-07.html', 't2/02-p08-14.html', 't2/03-p15-20.html', 't2/04-p21-26.html', 't2/99-cheatsheet.html'],
+    out: 'tamrin-2',
+    artifact: 'artifact-tamrin-2.html',
+    title: 'حل تمرین سری دوم ساختمان داده‌ها',
+    desc: 'حل گام‌به‌گام تمرین سری دوم درس ساختمان داده‌ها و طراحی الگوریتم‌ها: احتمال، مرتب‌سازی، انتخاب و الگوریتم‌های تصادفی؛ با راهنمایی، مرور درس، جمع‌بندی، درجهٔ سختی و برگهٔ تقلب',
     wrap: 'jozve tamrin',
   },
 };

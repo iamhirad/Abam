@@ -1,0 +1,88 @@
+<section class="cheat" id="cheat">
+<div class="cheat-head"><h2 class="cheat-title">برگهٔ تقلب ایده‌های حل</h2><a class="back-top" href="#top">↑ بالای صفحه</a></div>
+<p>هر کارت یک «تیپ سؤال» است: <b>وقتی این را دیدی</b> ⇐ این کار را بکن. شماره‌ها به مسئله‌های همین سری می‌روند. برگهٔ تقلب <a href="https://iamhirad.github.io/Abam/tamrin-1.html#cheat">سری اول</a> هم ابزارهای تحلیل مجانبی، بازگشت و سرشکنی را دارد.</p>
+
+<div class="box note"><div class="bh">قبل از هر سؤال احتمال</div>
+  <ol>
+    <li><strong>فضای نمونه را مشخص کن:</strong> چه چیزی تصادفی است و با چه توزیعی (جایگشت یکنواخت؟ انتخاب با جای‌گذاری یا بدون آن؟).</li>
+    <li><strong>«امید تعداد …»</strong> تقریباً همیشه با نشانگرها و خطی بودن امید حل می‌شود.</li>
+    <li><strong>جواب را برای \(n = 2, 3\) با شمارش دستی چک کن.</strong></li>
+  </ol>
+</div>
+
+<div class="cheat-grid">
+
+<div class="cheat-card" data-color="c3"><h3>امید ریاضی با نشانگرها</h3><ul>
+  <li><span class="when">«امید تعداد چیزهایی که …»</span> ⇐ \(X = \sum X_i\) و \(\E[X] = \sum\Pr[X_i = 1]\)؛ استقلال لازم نیست.</li>
+  <li><span class="when">نقطهٔ ثابت</span> ⇐ \(\frac1n\) برای هر \(i\)، جمع ۱. <span class="when">وارونه</span> ⇐ \(\frac12\) برای هر جفت، جمع \(\frac{n(n-1)}{4}\).</li>
+  <li><span class="when">«\(a_i\) بزرگ‌ترینِ \(i\) عدد اول»</span> (رکورد، استخدام) ⇐ \(\frac1i\)؛ جمع \(H_n \approx \ln n\).</li>
+  <li><span class="when">واریانس</span> ⇐ برای نشانگرهای مستقل \(\mathrm{Var} = \sum p_i(1 - p_i)\).</li>
+</ul><div class="refs">مسئله‌های <a href="#p1">۱</a>، <a href="#p2">۲</a>، <a href="#p3">۳</a>، <a href="#p19">۱۹</a></div></div>
+
+<div class="cheat-card" data-color="c3"><h3>تکرار تا موفقیت</h3><ul>
+  <li><span class="when">آزمایش مستقل با احتمال \(p\)</span> ⇐ هندسی: \(\E = \frac1p\) و \(\Pr(Y \ge t) = (1-p)^{t-1}\).</li>
+  <li><span class="when">بدون جای‌گذاری</span> ⇐ جایگاه عنصر هدف یکنواخت در \(1..n\): \(\E = \frac{n+1}{2}\).</li>
+  <li><span class="when">زمان الگوریتم لاس‌وگاس</span> ⇐ تعداد تکرار × هزینهٔ هر تکرار؛ دم نمایی، خیلی بهتر از مارکوف.</li>
+  <li><span class="when">\(\sum k x^k\)</span> ⇐ «جابه‌جا کن و کم کن»: \(\sum k x^{k-1} = \frac1{(1-x)^2}\).</li>
+  <li><span class="when">«انتخاب شود و عوض نشود»</span> ⇐ حاصل‌ضرب تلسکوپی \(\frac1i\prod\frac{j-1}{j} = \frac1n\).</li>
+</ul><div class="refs">مسئله‌های <a href="#p4">۴</a>، <a href="#p5">۵</a>، <a href="#p18">۱۸</a></div></div>
+
+<div class="cheat-card" data-color="c10"><h3>تولید و اثبات یکنواختی</h3><ul>
+  <li><span class="when">«ثابت کن یکنواخت است»</span> ⇐ احتمال هر خروجی را حساب کن و نشان بده = \(\frac{1}{\text{تعداد}}\).</li>
+  <li><span class="when">قید روی جایگشت</span> ⇐ به انتخاب‌های مستقل یکنواخت بشکن (جای عنصر خاص × ترتیب بقیه)، یا نمونه را رد کن و دوباره بساز.</li>
+  <li><span class="when">پیشوند جایگشت تصادفی</span> ⇐ یکنواخت است، چون هر پیشوند به تعداد برابر ادامه دارد.</li>
+  <li><span class="when">احتمال آمارهٔ ترتیبی در نمونه</span> ⇐ بشمار چند عضو از پایین و چند از بالا انتخاب شوند: \(\frac{(i-1)(n-i)}{\binom n3}\).</li>
+</ul><div class="refs">مسئله‌های <a href="#p9">۹</a>، <a href="#p13">۱۳</a></div></div>
+
+<div class="cheat-card" data-color="c10"><h3>فرایندهای تصادفی و ساختارهای تصادفی</h3><ul>
+  <li><span class="when">«سرانجام تمام می‌شود»</span> ⇐ معیار پیشرفت یکنوا و کران‌دار + احتمال مثبت پیشرفت در هر قدم.</li>
+  <li><span class="when">جایگشت + جابه‌جایی</span> ⇐ دورها؛ هر جابه‌جایی تعداد دورها را ±۱ عوض می‌کند.</li>
+  <li><span class="when">جمع انتظارهای \(\frac nm\)</span> ⇐ اعداد همساز (مثل جمع‌آوری کوپن).</li>
+  <li><span class="when">ارتفاع BST تصادفی</span> ⇐ شرط روی رتبهٔ ریشه، \(Y = 2^X\) و ینسن.</li>
+</ul><div class="refs">مسئله‌های <a href="#p14">۱۴</a>، <a href="#p17">۱۷</a></div></div>
+
+<div class="cheat-card" data-color="c9"><h3>مرتب‌سازی خطی</h3><ul>
+  <li><span class="when">صحیح در بازهٔ \([0, n^c)\)</span> ⇐ مبنایی با مبنای \(n\): \(c\) گذر شمارشی، \(O(cn)\).</li>
+  <li><span class="when">کلید تصادفی با توزیع معلوم</span> ⇐ با تابع توزیع یکنواختش کن و سطلی با \(n\) سطل هم‌احتمال.</li>
+  <li><span class="when">نقطه یکنواخت در دایره</span> ⇐ \(\rho^2\) یکنواخت است؛ مرزهای سطل \(\sqrt{k/n}\).</li>
+</ul><div class="refs">مسئله‌های <a href="#p6">۶</a>، <a href="#p10">۱۰</a></div></div>
+
+<div class="cheat-card" data-color="c9"><h3>مرتب‌سازی با عملیات محدود</h3><ul>
+  <li><span class="when">«بدترین حالت چند عمل؟»</span> ⇐ کران بالا با الگوریتم سازنده (ناوردای «پیشوند درست») + کران پایین با پتانسیل.</li>
+  <li><span class="when">پتانسیل‌های رایج:</span> وارونه‌ها (هر پنجرهٔ \(k\)تایی حداکثر \(\binom k2\))، نقطه‌های شکست (هر معکوس حداکثر ۲)، مسافتی که یک عنصر باید برود.</li>
+  <li><span class="when">مرتب‌سازی سطر و ستون</span> ⇐ «\(i\)امین کوچک‌ترین \(\le y\)» ⟺ «دست‌کم \(i\) عضو \(\le y\)».</li>
+  <li><span class="when">شبکه‌های مرتب‌سازی</span> ⇐ ورودی ۰ و ۱ (اصل ۰ و ۱)؛ «سطرهای کثیف» هر دور نصف می‌شوند ⇐ \(\lg n + 1\) دور.</li>
+</ul><div class="refs">مسئله‌های <a href="#p7">۷</a>، <a href="#p11">۱۱</a>، <a href="#p15">۱۵</a>، <a href="#p22">۲۲</a></div></div>
+
+<div class="cheat-card" data-color="c6"><h3>انتخاب و میانه در زمان خطی</h3><ul>
+  <li><span class="when">کمینهٔ \(\sum|a_i - c|\)</span> ⇐ میانه؛ با وزن ⇐ میانهٔ وزن‌دار (شیب = وزن چپ − وزن راست).</li>
+  <li><span class="when">فاصلهٔ منهتن</span> ⇐ ابعاد را جدا کن.</li>
+  <li><span class="when">«کوچک‌ترین پیشوند با جمع \(\ge\) هدف»</span> ⇐ با میانه افراز کن و فقط روی یک طرف بازگشت بزن: \(T(n) = T(n/2) + O(n) = O(n)\).</li>
+  <li><span class="when">فراوانی بیش از \(n/k\)</span> ⇐ حداکثر \(k-1\) نامزد در رتبه‌های \(\approx n/k, 2n/k, \dots\)؛ بعد بررسی. یا شمارنده‌های میسرا–گریس.</li>
+  <li><span class="when">چند رتبه با هم</span> ⇐ رتبهٔ وسطی را انتخاب کن و افراز کن: \(O(n\log r)\).</li>
+</ul><div class="refs">مسئله‌های <a href="#p12">۱۲</a>، <a href="#p16">۱۶</a>، <a href="#p23">۲۳</a>، <a href="#p24">۲۴</a>، <a href="#p25">۲۵</a></div></div>
+
+<div class="cheat-card" data-color="c8"><h3>ساختمان داده و جست‌وجو</h3><ul>
+  <li><span class="when">جدول با سطر و ستون صعودی</span> ⇐ از گوشهٔ بالا-راست؛ هر مقایسه یک سطر یا ستون را حذف می‌کند، \(O(n)\).</li>
+  <li><span class="when">میانه در جریان داده</span> ⇐ دو هرم (بیشینه برای نیمهٔ پایین، کمینه برای بالا) با اندازه‌های متعادل.</li>
+  <li><span class="when">ابزار «بیشینهٔ \(n\) تا در \(O(1)\)»</span> ⇐ درخت تورنمنت \(n\)تایی؛ هر برداشتن \(O(\log_n N)\).</li>
+  <li><span class="when">کران پایین اطلاعاتی</span> ⇐ \(\lg(\#\text{جواب‌ها}) / \lg(\#\text{نتیجه‌های هر پرس‌وجو})\).</li>
+</ul><div class="refs">مسئله‌های <a href="#p8">۸</a>، <a href="#p20">۲۰</a>، <a href="#p21">۲۱</a></div></div>
+
+<div class="cheat-card" data-color="c3"><h3>روش احتمالاتی</h3><ul>
+  <li><span class="when">کران ضعیف که برای همه درست است</span> ⇐ روی زیرنمونهٔ تصادفی اعمال کن، امید بگیر، \(p\) را بهینه کن.</li>
+  <li><span class="when">احتمال ماندن یک شیء</span> ⇐ \(p^{\#\text{رأس‌هایش}}\): رأس \(p\)، یال \(p^2\)، تقاطع \(p^4\).</li>
+  <li><span class="when">انتخاب \(p\)</span> ⇐ باید در \((0, 1]\) باشد؛ فرض‌های مسئله (مثل \(m \ge 4n\)) همین را تضمین می‌کنند.</li>
+</ul><div class="refs">مسئله‌های <a href="#p19">۱۹</a>، <a href="#p26">۲۶</a></div></div>
+
+</div>
+
+<div class="box sum"><div class="bh">سه جمله برای شب امتحان</div>
+  <ul>
+    <li><strong>احتمال:</strong> نشانگر بساز، تقارن را ببین، و جواب را روی \(n\) کوچک بشمار.</li>
+    <li><strong>انتخاب:</strong> هر جا «میانه»، «رتبه» یا «جمع تا نصف» دیدی، مرتب نکن؛ با انتخاب خطی افراز کن و روی یک طرف ادامه بده.</li>
+    <li><strong>کران‌ها:</strong> «چند عمل؟» یعنی هم الگوریتم (بالا) و هم پتانسیلی که هر عمل کمی تغییرش می‌دهد (پایین).</li>
+  </ul>
+</div>
+<p class="muted">این صفحه همراه <a href="https://iamhirad.github.io/Abam/">جزوهٔ ساختمان داده‌ها و الگوریتم‌ها</a> و <a href="https://iamhirad.github.io/Abam/tamrin-1.html">حل تمرین سری اول</a> ساخته شده است. <a href="#top">↑ بالای صفحه</a></p>
+</section>
